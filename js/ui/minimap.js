@@ -1,0 +1,82 @@
+const MINI_MAP_START_X = 600;
+const MINI_MAP_START_Y = 0;
+//const MINI_MAP_PIXEL_MARGIN = 1;
+
+const MINI_MAP_WIDTH = 200;
+const MINI_MAP_HEIGHT = 200;
+
+
+const miniMapColors = [
+    '#333333',//WORLD_ROAD
+    '#1fff00', //WORLD_WALL
+    '#ffff00', //WORLD_GOAL
+    '#0fffff', //WORLD_FLAG
+    '#006f00', //WORLD_TREE
+
+    '#ff00ff',
+    '#ff00ff',
+    '#ff00ff',
+    '#009923', //BATTLE_GRASS    
+]
+
+
+function drawMiniMap() {
+    //console.log("level_cols", level_cols);
+
+    //var miniMapTileSize = Math.floor( SIDEBAR_WIDTH / level_rows );
+
+    var miniMapXScaleFactor = (level_cols * LEVEL_TILE_W) / MINI_MAP_WIDTH;
+    var miniMapYScaleFactor = (level_rows * LEVEL_TILE_H) / MINI_MAP_HEIGHT;
+
+    var miniMapTileW = LEVEL_TILE_W / miniMapXScaleFactor;
+    var miniMapTileH = LEVEL_TILE_H / miniMapYScaleFactor;
+
+    var miniMapIndex = 0;
+    var miniMapX = MINI_MAP_START_X;
+    var miniMapY = MINI_MAP_START_Y;
+
+    for(var miniMapRow=0;miniMapRow<level_rows;miniMapRow++) {
+	for(var miniMapCol=0;miniMapCol<level_cols;miniMapCol++) {
+	    var miniMapTileKind = levelGrid[miniMapIndex];
+	    var miniMapColor = miniMapColors[miniMapTileKind];
+	    colorRect( miniMapX,miniMapY, miniMapTileW,miniMapTileH, miniMapColor);
+		//miniMapTileSize,miniMapTileSize, miniMapColor);
+		//LEVEL_TILE_W / miniMapXScaleFactor,
+		//LEVEL_TILE_H / miniMapYScaleFactor,
+		//miniMapColor);
+
+	    miniMapX += miniMapTileW; //miniMapTileSize;
+	    miniMapIndex++;
+	}
+	miniMapY += miniMapTileH; //miniMapTileSize;
+	miniMapX = MINI_MAP_START_X;
+    }
+
+    // draw camera box
+    var miniMapCamX = camPanX / miniMapXScaleFactor + MINI_MAP_START_X;
+    var miniMapCamY = camPanY / miniMapYScaleFactor + MINI_MAP_START_Y;
+    var rowsOnScreen = colsOnScreen = 15;
+
+    var miniMapBoxEndX = miniMapCamX + (rowsOnScreen * miniMapTileW);
+    var miniMapBoxEndY = miniMapCamY + (colsOnScreen * miniMapTileH);
+
+    //console.log("miniMap X,Y", miniMapCamX, miniMapCamY);
+//    console.log("mm bottom corner XY",
+//	miniMapCamX + rowsOnScreen * miniMapTileSize, 
+//	miniMapCamY + colsOnScreen * miniMapTileSize, );
+
+    coloredOutlineRectCornerToCorner(
+	miniMapCamX, miniMapCamY, miniMapBoxEndX, miniMapBoxEndY, "white"
+    );
+    
+    colorText(miniMapCamX +","+ miniMapCamY, miniMapCamX, miniMapCamY, "yellow");
+    colorText(miniMapBoxEndX +","+ miniMapBoxEndY, miniMapBoxEndX, miniMapBoxEndY, "yellow");
+    /*
+    colorText(miniMapTileSize, miniMapCamX + 2, miniMapCamY + 50, "red");
+    colorText(miniMapTileSize * 15, miniMapCamX + 50, miniMapCamY + 50, "lightblue");
+
+
+    colorText("cols,rows: "+level_cols+","+level_rows, MINI_MAP_START_X, 
+	MINI_MAP_START_Y + 300, "white");
+	*/
+}

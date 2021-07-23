@@ -5,3 +5,5 @@ ProjectSettings.json
 VSWorkspaceState.json
 slnx.sqlite
 .vscode/launch.json
+*.swp
+*.swo
