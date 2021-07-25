@@ -30,6 +30,7 @@ function imageLoadingDoneSoStartGame() {
   setInterval(updateAll, 1000/framesPerSecond);
 
   setupMouseInput();
+  setupKeyboardInput();
   startNewGame(world1);
   setupWorldMode();
   //setupBoard();

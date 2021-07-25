@@ -5,6 +5,7 @@ var level_cols = 50;
 var level_rows = 50;
 
 var battleMode = false;
+var editorMode = false;
 
 var levelGrid = [];
 
@@ -34,6 +35,7 @@ function startNewGame(whichWorld) {
 
 function setupWorldMode() {
     this.battleMode = false;
+    this.editorMode = false;
 
     levelGrid = gameWorldGrid;
     level_cols = gameWorldCols;
@@ -41,6 +43,7 @@ function setupWorldMode() {
 }
 
 function setupBattleMode() {
+    this.editorMode = false;
     this.battleMode = true;
     
     // using "let" instead of "var" here to limit this variable's scope
@@ -54,6 +57,16 @@ function setupBattleMode() {
     // TODO: determine player/enemy start units
     populateTeam(playerUnits, PLAYER_START_UNITS, true);
     populateTeam(enemyUnits, ENEMY_START_UNITS, false);
+}
+
+function setupEditorMode() {
+    console.log("entering editor mode");
+    this.battleMode = false;
+    this.editorMode = true;
+
+    levelGrid = gameWorldGrid;
+    level_cols = gameWorldCols;
+    level_rows = gameWorldRows;
 }
 
 function getRandomBattlefield() {

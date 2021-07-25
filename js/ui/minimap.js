@@ -80,3 +80,5 @@ function drawMiniMap() {
 	MINI_MAP_START_Y + 300, "white");
 	*/
 }
+
+
