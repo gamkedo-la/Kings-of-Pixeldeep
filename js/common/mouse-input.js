@@ -111,13 +111,13 @@ function clickHandler(evt) {
 
       var tileKindClicked = levelGrid[clickedIdx];
       //console.log("tile clicked", clickedIdx, tileKindClicked);
-      if(clickedIdx < 0 || clickedIdx >= levelGrid.length) { // invalid or out of bounds
-	return;
-      } 
+        if(clickedIdx < 0 || clickedIdx >= levelGrid.length) { // invalid or out of bounds
+            return;
+        } 
 
-      if(tileKindClicked == WORLD_GOAL) {
-        setupBattleMode();
-      }
+        if(tileKindClicked == WORLD_GOAL) {
+            //setupBattleMode();
+        }
 
       /*
       // is click on a board tile?

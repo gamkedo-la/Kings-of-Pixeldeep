@@ -28,6 +28,8 @@ function loadImages() {
 	var imageList = [
 		{varName: cityPic, theFile: "track_flag.png"},
 		{varName: armyPic, theFile: "Person1.png"},
+		{varName: worldTerrain, theFile: "world_terrain.png"},
+		{varName: battleTerrain, theFile: "battle_terrain.png"},
 
 		{worldType: WORLD_ROAD, theFile: "track_road.png"},
 		{worldType: WORLD_WALL, theFile: "track_wall.png"},

@@ -17,8 +17,23 @@ const WORLD_GOAL = 2;
 const WORLD_FLAG = 3;
 const WORLD_TREE = 4;
 
+// new world terrain
+const WORLD_MOUNTAINS = 1;
+const WORLD_FOREST = 2;
+const WORLD_GRASS = 3;
+const WORLD_FARM = 4;
+const WORLD_WATER = 5;
+
+const SEASON_SUMMER = 1;
+const SEASON_WINTER = 2;
+
 // battle terrain values
 const BATTLE_GRASS = 8;
+
+// new battle terrain
+const BATTLE_FIELD = 11;
+const BATTLE_TREES = 12;
+const BATTLE_ROCKS = 13;
 
 // these are set once per game, saved before battles and loaded after battles
 var gameWorldGrid, gameWorldRows, gameWorldCols;
@@ -112,12 +127,15 @@ function drawLevel() {
       for(var eachCol=cameraLeftMostCol;eachCol<cameraRightMostCol;eachCol++) {                
                 if(arrayIndex < levelGrid.length) {
                   var tileKindHere = levelGrid[arrayIndex];
+                  // TODO: rm next 2 lines and make funcs referenced below
                   var useImg = worldPics[tileKindHere];
                   canvasContext.drawImage(useImg, drawTileX,drawTileY);
                   if(!battleMode) {
                     colorText(String(arrayIndex), drawTileX,drawTileY+12, '#00ff00');
+                    // drawWorldTerrain(arrayIndex, drawTileX,drawTileY, tileKindHere);
                   } else {
                     colorText(String(arrayIndex), drawTileX,drawTileY+12, '#00ffff');
+                    // drawBattleTerrain(arrayIndex, drawTileX,drawTileY, tileKindHere);
                   }
                   
                   drawTileX += LEVEL_TILE_W;
