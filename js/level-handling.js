@@ -7,6 +7,8 @@ var level_rows = 50;
 var battleMode = false;
 var editorMode = false;
 
+var gameSeason = "summer";
+
 var levelGrid = [];
 
 // world terrain values
@@ -128,14 +130,16 @@ function drawLevel() {
                 if(arrayIndex < levelGrid.length) {
                   var tileKindHere = levelGrid[arrayIndex];
                   // TODO: rm next 2 lines and make funcs referenced below
-                  var useImg = worldPics[tileKindHere];
-                  canvasContext.drawImage(useImg, drawTileX,drawTileY);
+                  //var useImg = worldPics[tileKindHere];
+                  //canvasContext.drawImage(useImg, drawTileX,drawTileY);
                   if(!battleMode) {
-                    colorText(String(arrayIndex), drawTileX,drawTileY+12, '#00ff00');
-                    // drawWorldTerrain(arrayIndex, drawTileX,drawTileY, tileKindHere);
+                    drawWorldTerrain(tileKindHere, drawTileX,drawTileY);
+                    colorText(String(arrayIndex), 
+                      drawTileX,drawTileY+12, '#ff00ff');
                   } else {
-                    colorText(String(arrayIndex), drawTileX,drawTileY+12, '#00ffff');
-                    // drawBattleTerrain(arrayIndex, drawTileX,drawTileY, tileKindHere);
+                    drawBattleTerrain(tileKindHere, drawTileX,drawTileY);
+                    colorText(String(arrayIndex), 
+                      drawTileX,drawTileY+12, '#00ffff');
                   }
                   
                   drawTileX += LEVEL_TILE_W;
@@ -148,3 +152,37 @@ function drawLevel() {
     var drawTileX = cameraLeftMostCol * LEVEL_TILE_W;
     } // end of for each row
 } // end of draw worlds
+
+function getSeasonMultiplier() {
+  if(gameSeason === "summer") {
+    return 1;
+  } else if(gameSeason === "winter") {
+    return 2;
+  }
+}
+
+function drawWorldTerrain(terrainCode, drawTileX, drawTileY) {
+  let seasonMultiplier = getSeasonMultiplier();
+
+  let worldTerrianXIndex = terrainCode * LEVEL_TILE_H;
+  let worldTerrainYIndex = LEVEL_TILE_W * seasonMultiplier;
+
+  canvasContext.drawImage(worldTerrain, 
+    worldTerrianXIndex,worldTerrainYIndex,
+    LEVEL_TILE_W, LEVEL_TILE_H,
+    drawTileX, drawTileY,
+    LEVEL_TILE_W, LEVEL_TILE_H,
+  );
+}
+
+function drawBattleTerrain(terrainCode, drawTileX, drawTileY) {
+  let battleTerrianXIndex = (terrainCode - 10) * LEVEL_TILE_H;
+  let battleTerrainYIndex = LEVEL_TILE_W;
+
+  canvasContext.drawImage(battleTerrain, 
+    battleTerrianXIndex,battleTerrainYIndex,
+    LEVEL_TILE_W, LEVEL_TILE_H,
+    drawTileX, drawTileY,
+    LEVEL_TILE_W, LEVEL_TILE_H,
+  );
+}

@@ -7,16 +7,22 @@ const MINI_MAP_HEIGHT = 200;
 
 
 const miniMapColors = [
-    '#333333',//WORLD_ROAD
-    '#1fff00', //WORLD_WALL
-    '#ffff00', //WORLD_GOAL
-    '#0fffff', //WORLD_FLAG
-    '#006f00', //WORLD_TREE
+    '#ff00ff',
+    '#939393', // WORLD_MOUNTAINS
+    '#006f00', // WORLD_FOREST
+    '#1fff00', // WORLD_GRASS
+    '#ffff00', // WORLD_FARM
+    '#0fffff', // WORLD_WATER
 
     '#ff00ff',
     '#ff00ff',
     '#ff00ff',
-    '#009923', //BATTLE_GRASS    
+    '#ff00ff',
+
+    '#ff00ff',
+    '#009923', // BATTLE_FIELD
+    '#006f00', // BATTLE_TREES
+    '#a5a5a5', // BATTLE_ROCKS
 ]
 
 

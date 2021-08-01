@@ -1,5 +1,7 @@
 var cityPic = document.createElement("img");
 var armyPic = document.createElement("img");
+var worldTerrain = document.createElement("img");
+var battleTerrain  = document.createElement("img");
 var worldPics = [];
 
 var picsToLoad = 0; //set automatically based on number of imageList in loadImages()
