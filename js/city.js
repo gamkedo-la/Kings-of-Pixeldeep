@@ -32,4 +32,8 @@ function cityClass() {
         drawBitmapCenteredWithRotation(this.picToUse, this.x(),this.y(), 0);
 	// TODO: draw city name under city? Debatable. Lords 2 doesn't, but...:shrug:
     }
+    
+    this.onClick = function() {
+	openCityPanel(this);
+    }
 }
