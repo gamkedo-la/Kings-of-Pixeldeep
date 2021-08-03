@@ -1,6 +1,6 @@
 var canvas, canvasContext;
 
-// TODO: new method for pre-populating maps (racing game?)
+// TODO: new method for pre-populating maps (like racing game?)
 var venice = new cityClass();
   venice.name = "venice";
   venice.setPosition(0,0);
@@ -9,6 +9,16 @@ var paris  = new cityClass();
   paris.setPosition(2,4);
 var army1  = new armyClass();
   army1.setPosition(5,5);
+
+var button1 = new buttonClass();
+  button1.create({
+    x:700,
+    y:300, 
+    label: "Test", 
+    color:"blue", 
+    textColor: "yellow",
+    onClick: testButton,
+  });
 
 // TODO: move to UI file when we make that one
 const SIDEBAR_WIDTH = 200;
@@ -97,6 +107,7 @@ function drawUnits() {
 function drawUI() {
   colorRect(canvas.width-SIDEBAR_WIDTH,0, SIDEBAR_WIDTH,canvas.height, 'grey');
   drawMiniMap();
+  button1.draw();
 }
 
 function drawCitiesAndArmies() {

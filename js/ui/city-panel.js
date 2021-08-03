@@ -1,7 +1,7 @@
 var showCityPanel = false;
 var viewingCity = null;
 
-openCityPanel(city) {
+function openCityPanel(city) {
     viewingCity = city;
     showCityPanel = true;
 }
