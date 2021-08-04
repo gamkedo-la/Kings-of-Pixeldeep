@@ -10,19 +10,6 @@ var paris  = new cityClass();
 var army1  = new armyClass();
   army1.setPosition(5,5);
 
-var button1 = new buttonClass();
-  button1.create({
-    x:700,
-    y:300, 
-    label: "Test", 
-    color:"blue", 
-    textColor: "yellow",
-    onClick: testButton,
-  });
-
-// TODO: move to UI file when we make that one
-const SIDEBAR_WIDTH = 200;
-
 window.onload = function() {
   canvas = document.getElementById('gameCanvas');
   canvasContext = canvas.getContext('2d');
@@ -105,9 +92,8 @@ function drawUnits() {
 }
 
 function drawUI() {
-  colorRect(canvas.width-SIDEBAR_WIDTH,0, SIDEBAR_WIDTH,canvas.height, 'grey');
+  drawSidebar();
   drawMiniMap();
-  button1.draw();
 }
 
 function drawCitiesAndArmies() {

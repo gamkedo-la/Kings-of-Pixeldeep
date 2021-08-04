@@ -7,6 +7,9 @@ function buttonClass() {
     this.textColor = '#00ff00';
     this.onClick = null;
 
+    this.width = 10;
+    this.height = 10;
+
     this.paddingPx = 3;
 
     this.create = function(configObj) {
@@ -20,17 +23,17 @@ function buttonClass() {
 	// also this would be a good place to set up pre-computed values
 	// since it only runs once and not every frame
 	// like `this.x = parentX + relativeX;`
+	this.width = this.label.length*10 + (this.paddingPx * 2);
+	this.height = 12 + (this.paddingPx * 2);
     }
 
     this.draw = function() {
 	// TODO: make button images for prettier buttons
-	let buttonWidth = this.label.length*10 + (this.paddingPx * 2);
-	let buttonHeight = 12 + (this.paddingPx * 2);
 
-	colorRect(this.x,this.y, buttonWidth,buttonHeight, this.color);
+	colorRect(this.x,this.y, this.width, this.height, this.color);
 
 	colorText(this.label, 
-	    this.x+(buttonHeight),
+	    this.x+(this.height),
 	    this.y+this.paddingPx, 'black');
     }
 }

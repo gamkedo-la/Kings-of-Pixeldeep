@@ -90,6 +90,10 @@ function clickHandler(evt) {
         handleMiniMapClick(evt);
         return; // mini map clicks shouldn't select/trigger anything else
     }
+    if(isClickInsideSidebar(evt)) {
+        handleSidebarButtonClick(evt);
+        return;
+    }
 
     if(battleMode) {
       return; // mouse click event is only for world layer
@@ -207,6 +211,26 @@ function isClickInsideMiniMap(evt) {
     return true;
 }
 
+function isClickInsideSidebar(evt) {
+    var mousePos = calculateMousePos(evt);
+
+    if(mousePos.x < canvas.width - SIDEBAR_WIDTH) {
+        return false;
+    }
+    if(mousePos.x > canvas.width) {
+        return false;
+    }
+    if(mousePos.y < MINI_MAP_HEIGHT) {
+        return false;
+    }
+    if(mousePos.y > canvas.height) {
+        return false;
+    }
+
+    return true;
+}
+
+// TODO: move to minimap.js?
 function handleMiniMapClick(evt) {
     var mousePos = calculateMousePos(evt);
 
