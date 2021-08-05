@@ -24,6 +24,7 @@ function drawSidebar() {
 }
 
 function handleSidebarButtonClick(evt) {
+    console.log("in handleSidebarButtonClick");
     var mousePos = calculateMousePos(evt);
 
     if(isClickOnButton(mousePos, button1)) {
@@ -33,16 +34,20 @@ function handleSidebarButtonClick(evt) {
 }
 
 function isClickOnButton(mousePos, button) {
-    if(mousePos.x < button.x + button.width) {
+    if(mousePos.x < button.x) {
+	//console.log("click is left of button");
         return false;
     }
-    if(mousePos.x > button.x) {
+    if(mousePos.x > button.x + button.width) {
+	//console.log("click is right of button");
         return false;
     }
     if(mousePos.y < button.y) {
+	//console.log("click is above button");
         return false;
     }
     if(mousePos.y > button.y + button.height) {
+	//console.log("click is below button");
         return false;
     }
 
