@@ -3,8 +3,8 @@ function buttonClass() {
     this.x = null;
     this.y = null;
     this.label = null;
-    this.color = '#ff00ff';
-    this.textColor = '#00ff00';
+    this.color = '#d3d3d3';
+    this.textColor = 'black';
     this.fontSize = 12;
     this.onClick = null;
 
@@ -52,7 +52,7 @@ function buttonClass() {
 
     this.drawButtonLabel = function() {
 	// TODO: if text-align is center, labelx needs to be in the middle of the button
-	let labelx = this.x + this.paddingPx;
+	let labelx = this.x + this.paddingPx*2; // shouldn't need the x2, but apparently I do
 	let labely = this.y + this.paddingPx;
 
 	canvasContext.save();

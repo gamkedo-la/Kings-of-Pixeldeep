@@ -51,6 +51,7 @@ function startNewGame(whichWorld) {
 }
 
 function setupWorldMode() {
+    console.log("entering world mode");
     this.battleMode = false;
     this.editorMode = false;
 
@@ -60,6 +61,7 @@ function setupWorldMode() {
 }
 
 function setupBattleMode() {
+    console.log("entering battle mode");
     this.editorMode = false;
     this.battleMode = true;
     
