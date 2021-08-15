@@ -63,9 +63,8 @@ function drawSidebar() {
     }
 }
 
-function handleSidebarButtonClick(evt) {
+function handleSidebarButtonClick(mousePos) {
     console.log("in handleSidebarButtonClick");
-    var mousePos = calculateMousePos(evt);
 
     if(isClickOnButton(mousePos, button1)) {
 	console.log("click is on the button");
@@ -95,27 +94,3 @@ function isClickOnButton(mousePos, button) {
 
 }
 
-
-
-
-// sidebar grid experiment
-//var sidebar btn height = 40;
-
-// for 1-5 draw battle/world terrain appropriate to numbers
-const CITY_BUTTON = 6;
-const ARMY_BUTTON = 7;
-const PLAYER_SWITCHER = 8;
-const SEASON_SWITCHER = 9;
-
-var editModeSidebarGrid = [
-    0,0,0,0,0,
-    0,8,0,9,0,
-    0,0,0,0,0,
-    1,2,3,4,5, // if battle edit mode, add 10 to each of these to get battle terrain codes
-    0,0,0,0,0,
-    0,6,7,0,0,
-    0,0,0,0,0,
-    0,0,0,0,0, // TODO: add resource tiles
-    0,0,0,0,0,
-    0,0,0,0,0,
-];

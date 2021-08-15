@@ -85,59 +85,34 @@ function mouseupHandler(evt) {
 
 
 function clickHandler(evt) {
+    // find out where the click was
+    var mousePos = calculateMousePos(evt);
 
-    if(isClickInsideMiniMap(evt)) {
-        handleMiniMapClick(evt);
-        return; // mini map clicks shouldn't select/trigger anything else
-    }
-    if(isClickInsideSidebar(evt)) {
-        handleSidebarButtonClick(evt);
+    // TODO:
+    /*
+    if(showCityPanel && isClickInsideCityPanel) {
+        console.log("click was on city panel");
+        handleCityPanelClick(mousePos);
         return;
     }
+    */
 
-    if(battleMode) {
-      return; // mouse click event is only for world layer
-    } else { 
-      // find out where the click was
-      var mousePos = calculateMousePos(evt);
-      // TODO: going to have to set 3 layers up:
-      //      - game world (ie - terrain tiles)
-      //      - features (ie - cities, units/armies)
-    //            - Ok, this one doesn't really have to be a grid,
-    //                we can just say "entity A is at B world idx (or X,Y),
-    //                and draw it that way. This way each city/unit can still
-    //                be a unique entity and we don't have to dedicate a 
-    //                mostly-empty grid array to unit and city positions 
-      //      - UI (main window bar, popup windows, etc)
-      //      
-      //      mouse click is going to need to check for each one in reverse order, unless moving a unit
-      var clickedIdx = worldIdxFromMousePos(mousePos);
-
-      var tileKindClicked = levelGrid[clickedIdx];
-      //console.log("tile clicked", clickedIdx, tileKindClicked);
-        if(clickedIdx < 0 || clickedIdx >= levelGrid.length) { // invalid or out of bounds
-            return;
-        } 
-
-        if(tileKindClicked == WORLD_GOAL) {
-            //setupBattleMode();
-        }
-
-      /*
-      // is click on a board tile?
-      if(BOARD_TILES.includes(tileKindClicked)) {
-	//console.log("Clicked a board tile");
-	if(turnStage === 'move') {
-	  if(selectedIdx == -1 || currentPlayerPieceList.includes(clickedIdx)) {
-	    tryToSelectPiece(clickedIdx);
-	  } else { 
-	    tryToMoveSelectedPiece(clickedIdx);
-	  }
-	}
-	//resolveBoardClick(selectedIdx);
-      }
-	  */
-    } // end else (ie - if !battleMode)
+    if(isClickInsideMiniMap(mousePos)) {
+        console.log("click was on minimap");
+        handleMiniMapClick(mousePos);
+        return; // mini map clicks shouldn't select/trigger anything else
+    }
+    if(isClickInsideSidebar(mousePos)) {
+        console.log("click was on sidebar");
+        handleSidebarButtonClick(mousePos);
+        return;
+    }
+    if(isClickInsideMainWindow(mousePos)) {
+        console.log("click was on main window");
+        handleMainWindowClick(mousePos);
+        return;
+    }
+    // if click isn't in one of these areas, it must be off-canvas and we don't care about it
 }
 
 function calculateMousePos(evt) {
@@ -192,66 +167,67 @@ function worldIdxFromMousePos(mousePos) {
     return tileCoordToIndex(tileOverCol,tileOverRow);
 }
 
-function isClickInsideMiniMap(evt) {
-    var mousePos = calculateMousePos(evt);
+function isClickInsideMiniMap(mousePos) {
+    return isClickInBox(mousePos,
 
-    if(mousePos.x < MINI_MAP_START_X) {
+        MINI_MAP_START_X, MINI_MAP_START_Y,
+
+        (MINI_MAP_START_X + MINI_MAP_WIDTH), (MINI_MAP_START_Y + MINI_MAP_HEIGHT),
+    );
+}
+
+function isClickInsideSidebar(mousePos) {
+    return isClickInBox(mousePos,
+
+        (canvas.width - SIDEBAR_WIDTH), MINI_MAP_HEIGHT,
+
+        canvas.width, canvas.height,
+    );
+}
+
+function isClickInsideMainWindow(mousePos) {
+    return isClickInBox(mousePos, 
+
+        0,0, 
+
+        (canvas.width - SIDEBAR_WIDTH), canvas.height,
+    );
+}
+
+function isClickInBox(mousePos, x1,y1, x2,y2) {
+    if(mousePos.x < x1) {
         return false;
     }
-    if(mousePos.x > MINI_MAP_START_X + MINI_MAP_WIDTH) {
+    if(mousePos.x > x2) {
         return false;
     }
-    if(mousePos.y < MINI_MAP_START_Y) {
+    if(mousePos.y < y1) {
         return false;
     }
-    if(mousePos.y > MINI_MAP_START_Y + MINI_MAP_HEIGHT) {
+    if(mousePos.y > y2) {
         return false;
     }
 
     return true;
 }
 
-function isClickInsideSidebar(evt) {
-    var mousePos = calculateMousePos(evt);
+function handleMainWindowClick(mousePos) {
+    if(battleMode) {
+        return; 
+        // mouse click in main window is only for world layer
+        // mouseup and mousedown handlers take care of battle layer
+    } else { 
+      var clickedIdx = worldIdxFromMousePos(mousePos);
 
-    if(mousePos.x < canvas.width - SIDEBAR_WIDTH) {
-        return false;
-    }
-    if(mousePos.x > canvas.width) {
-        return false;
-    }
-    if(mousePos.y < MINI_MAP_HEIGHT) {
-        return false;
-    }
-    if(mousePos.y > canvas.height) {
-        return false;
-    }
+      var tileKindClicked = levelGrid[clickedIdx];
+      //console.log("tile clicked", clickedIdx, tileKindClicked);
+        if(clickedIdx < 0 || clickedIdx >= levelGrid.length) { // invalid or out of bounds
+            return;
+        } 
 
-    return true;
-}
+        if(tileKindClicked == WORLD_GOAL) {
+            //setupBattleMode();
+        }
 
-// TODO: move to minimap.js?
-function handleMiniMapClick(evt) {
-    var mousePos = calculateMousePos(evt);
-
-    var miniMapXScaleFactor = (level_cols * LEVEL_TILE_W) / MINI_MAP_WIDTH;
-    var miniMapYScaleFactor = (level_rows * LEVEL_TILE_H) / MINI_MAP_HEIGHT;
-
-    var miniMapTileW = LEVEL_TILE_W / miniMapXScaleFactor;
-    var miniMapTileH = LEVEL_TILE_H / miniMapYScaleFactor;
-
-    var miniMapClickedX = mousePos.x - MINI_MAP_START_X; 
-    var miniMapClickedY = mousePos.y - MINI_MAP_START_Y; 
-
-    var rowsOnScreen = colsOnScreen = 15;
-
-    var miniMapCamBoxW = colsOnScreen * miniMapTileW;
-    var miniMapCamBoxH = rowsOnScreen * miniMapTileH;
-
-    //console.log("miniMapCamBoxW", miniMapCamBoxW / 2, "miniMapCamBoxH", miniMapCamBoxH / 2);
-
-    camPanX = Math.round((miniMapClickedX - (miniMapCamBoxW / 2) ) * miniMapXScaleFactor);
-    camPanY = Math.round((miniMapClickedY - (miniMapCamBoxH / 2) ) * miniMapYScaleFactor);
-    //console.log("set camPan", camPanX, camPanY)
-
+    } // end else (ie - if !battleMode)
 }

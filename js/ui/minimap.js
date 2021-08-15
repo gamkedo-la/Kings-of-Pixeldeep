@@ -87,4 +87,26 @@ function drawMiniMap() {
 	*/
 }
 
+function handleMiniMapClick(mousePos) {
+    var miniMapXScaleFactor = (level_cols * LEVEL_TILE_W) / MINI_MAP_WIDTH;
+    var miniMapYScaleFactor = (level_rows * LEVEL_TILE_H) / MINI_MAP_HEIGHT;
+
+    var miniMapTileW = LEVEL_TILE_W / miniMapXScaleFactor;
+    var miniMapTileH = LEVEL_TILE_H / miniMapYScaleFactor;
+
+    var miniMapClickedX = mousePos.x - MINI_MAP_START_X; 
+    var miniMapClickedY = mousePos.y - MINI_MAP_START_Y; 
+
+    var rowsOnScreen = colsOnScreen = 15;
+
+    var miniMapCamBoxW = colsOnScreen * miniMapTileW;
+    var miniMapCamBoxH = rowsOnScreen * miniMapTileH;
+
+    //console.log("miniMapCamBoxW", miniMapCamBoxW / 2, "miniMapCamBoxH", miniMapCamBoxH / 2);
+
+    camPanX = Math.round((miniMapClickedX - (miniMapCamBoxW / 2) ) * miniMapXScaleFactor);
+    camPanY = Math.round((miniMapClickedY - (miniMapCamBoxH / 2) ) * miniMapYScaleFactor);
+    //console.log("set camPan", camPanX, camPanY)
+
+}
 
