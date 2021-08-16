@@ -11,6 +11,14 @@ var button1 = new buttonClass();
     });
 
 // editor button definitions
+var mtnButton= new buttonClass();
+    mtnButton.create({
+	x:610,
+	y:300, 
+	label: "Mtn", 
+	onClick: testButton,
+    });
+/*
 var terrainPrevButton = new buttonClass();
 terrainPrevButton.create({
     x: 610,
@@ -28,6 +36,7 @@ terrainNextButton.create({
     onClick: testButton,
 
 });
+*/
 
 const WORLD_SIDEBAR_BUTTONS = [
     button1,
@@ -64,15 +73,21 @@ function drawSidebar() {
 }
 
 function handleSidebarButtonClick(mousePos) {
-    console.log("in handleSidebarButtonClick");
+    //console.log("in handleSidebarButtonClick");
 
     if(isClickOnButton(mousePos, button1)) {
-	console.log("click is on the button");
+	//console.log("click is on the button");
 	button1.onClick();
     }
 }
 
 function isClickOnButton(mousePos, button) {
+
+    return isClickInBox(mousePos,
+	button.x, button.y,
+	button.x + button.width, button.y + button.height,
+    );
+    /*
     if(mousePos.x < button.x) {
 	//console.log("click is left of button");
         return false;
@@ -89,6 +104,7 @@ function isClickOnButton(mousePos, button) {
 	//console.log("click is below button");
         return false;
     }
+    */
 
     return true;
 
