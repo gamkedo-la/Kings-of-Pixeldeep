@@ -11,6 +11,7 @@ function unitClass() {
     this.playerControlled = playerTeam;
     this.x = Math.random()*canvas.width/4;
     this.y = Math.random()*canvas.height/4;
+    this.moveDirection = "S";
     this.myTarget = null;
 
     // Flip all non-player units to opposite corner
@@ -18,6 +19,7 @@ function unitClass() {
       this.x = canvas.width - this.x;
       this.y = canvas.height - this.y;
       this.unitColor = 'red';
+      this.moveDirection = "N";
     } else {
       this.unitColor = 'white';
     }
@@ -58,6 +60,7 @@ function unitClass() {
         } // end of else, no target found in attack radius
       } // end of randomized ai resoponse lag check
     } // end of playerControlled == false (i.e. code block for computer control)
+
     this.keepInPlayableArea();
     var deltaX = this.gotoX - this.x;
     var deltaY = this.gotoY - this.y;
@@ -65,6 +68,7 @@ function unitClass() {
     var moveX = UNIT_PIXELS_MOVE_RATE * deltaX/distToGo;
     var moveY = UNIT_PIXELS_MOVE_RATE * deltaY/distToGo;
 
+    this.moveDirection = this.resolveMoveDirection(moveX, moveY);
 
     if(distToGo > UNIT_PIXELS_MOVE_RATE) {
       this.x += moveX;
@@ -76,12 +80,30 @@ function unitClass() {
     }
   } // end of move function
 
+  this.resolveMoveDirection(moveX, moveY) {
+    if(Math.abs(moveX) > Math.abs(moveY)) {
+      if(moveX > 0) {
+        return "E";
+      } else {
+        return "W";
+      }
+    } else { // ie: Math.abs(moveX) < Math.abs(moveY)
+      if(moveY > 0) {
+        return "N";
+      } else {
+        return "S";
+      }
+    }
+  }
+
+  /*
   this.gotoNear = function(aroundX, aroundY, formationPos, formationDim) {
     var colNum = formationPos % formationDim;
     var rowNum = Math.floor(formationPos / formationDim);
     this.gotoX = aroundX + colNum*UNIT_RANKS_SPACING;
     this.gotoY = aroundY + rowNum*UNIT_RANKS_SPACING;
   }
+  */
 
   this.keepInPlayableArea = function() {
     if(this.gotoX < UNIT_PLAYABLE_AREA_MARGIN) {
@@ -149,6 +171,7 @@ function unitClass() {
   }
 
   this.draw = function() {
+    //TODO: draw unit sprite
     if(this.isDead == false) {
       colorCircle(this.x,this.y, UNIT_PLACEHOLDER_RADIUS, this.unitColor);
     } else {
