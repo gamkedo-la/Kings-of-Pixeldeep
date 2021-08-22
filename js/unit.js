@@ -1,4 +1,4 @@
-const UNIT_PLACEHOLDER_RADIUS = 5;
+const UNIT_PLACEHOLDER_RADIUS = 10;
 const UNIT_SELECT_DIM_HALF = UNIT_PLACEHOLDER_RADIUS + 3;
 const UNIT_PIXELS_MOVE_RATE = 2;
 const UNIT_RANKS_SPACING = UNIT_PLACEHOLDER_RADIUS *3;
@@ -80,7 +80,7 @@ function unitClass() {
     }
   } // end of move function
 
-  this.resolveMoveDirection(moveX, moveY) {
+  this.resolveMoveDirection = function(moveX, moveY) {
     if(Math.abs(moveX) > Math.abs(moveY)) {
       if(moveX > 0) {
         return "E";

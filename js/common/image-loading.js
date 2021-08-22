@@ -3,6 +3,7 @@ var armyPic = document.createElement("img");
 var worldTerrain = document.createElement("img");
 var battleTerrain  = document.createElement("img");
 var worldPics = [];
+var unitPics = [];
 
 var picsToLoad = 0; //set automatically based on number of imageList in loadImages()
 
@@ -25,6 +26,11 @@ function loadImageForWorldCode(worldCode, fileName) {
 	beginLoadingImage(worldPics[worldCode], fileName);
 }
 
+function loadImageForUnitCode(unitCode, fileName) {
+	unitPics[unitCode] = document.createElement("img");
+	beginLoadingImage(unitPics[unitCode], fileName);
+}
+
 function loadImages() {
 
 	var imageList = [
@@ -33,6 +39,7 @@ function loadImages() {
 		{varName: worldTerrain, theFile: "world_terrain.png"},
 		{varName: battleTerrain, theFile: "battle_terrain.png"},
 
+		/*
 		{worldType: WORLD_ROAD, theFile: "track_road.png"},
 		{worldType: WORLD_WALL, theFile: "track_wall.png"},
 		{worldType: WORLD_GOAL, theFile: "track_goal.png"},
@@ -40,6 +47,7 @@ function loadImages() {
 		{worldType: WORLD_FLAG, theFile: "track_flag.png"},
 
 		{worldType: BATTLE_GRASS, theFile: "world_grass_2.png"},
+		*/
 		];
 
 	picsToLoad = imageList.length;

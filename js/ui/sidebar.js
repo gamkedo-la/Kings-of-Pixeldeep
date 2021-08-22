@@ -43,8 +43,10 @@ const WORLD_SIDEBAR_BUTTONS = [
 ];
 
 const EDITOR_SIDEBAR_BUTTONS = [
+    /*
     terrainPrevButton,
     terrainNextButton,
+    */
 ];
 
 const BATTLE_SIDEBAR_BUTTONS = [];
@@ -104,9 +106,9 @@ function isClickOnButton(mousePos, button) {
 	//console.log("click is below button");
         return false;
     }
+    return true;
     */
 
-    return true;
 
 }
 
