@@ -2,6 +2,8 @@ var cityPic = document.createElement("img");
 var armyPic = document.createElement("img");
 var worldTerrain = document.createElement("img");
 var battleTerrain  = document.createElement("img");
+var placeholderUnitAtk = document.createElement("img");
+var placeholderUnitWalk = document.createElement("img");
 var worldPics = [];
 var unitPics = [];
 
@@ -38,6 +40,9 @@ function loadImages() {
 		{varName: armyPic, theFile: "Person1.png"},
 		{varName: worldTerrain, theFile: "world_terrain.png"},
 		{varName: battleTerrain, theFile: "battle_terrain.png"},
+
+		{varName: placeholderUnitAtk, theFile: "battle_terrain.png"},
+		{varName: placeholderUnitWalk, theFile: "battle_terrain.png"},
 
 		/*
 		{worldType: WORLD_ROAD, theFile: "track_road.png"},

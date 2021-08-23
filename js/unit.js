@@ -35,9 +35,7 @@ function unitClass() {
         this.myTarget = null;
         this.gotoX = this.x;
         this.gotoY = this.y;
-      } else if(
-        this.distFrom(this.myTarget.x, this.myTarget.y) > UNIT_ATTACK_RANGE
-      ){
+      } else if(this.distFrom(this.myTarget.x, this.myTarget.y) > UNIT_ATTACK_RANGE) {
         this.gotoX = this.myTarget.x;
         this.gotoY = this.myTarget.y;
       } else {
@@ -81,6 +79,7 @@ function unitClass() {
   } // end of move function
 
   this.resolveMoveDirection = function(moveX, moveY) {
+    // TODO: add support for NE, SE, NW, & SW
     if(Math.abs(moveX) > Math.abs(moveY)) {
       if(moveX > 0) {
         return "E";
@@ -171,8 +170,8 @@ function unitClass() {
   }
 
   this.draw = function() {
-    //TODO: draw unit sprite
     if(this.isDead == false) {
+      //TODO: draw unit sprite (var placeholderUnitWalk or placeholderUnitAtk, each as 2 frames)
       colorCircle(this.x,this.y, UNIT_PLACEHOLDER_RADIUS, this.unitColor);
     } else {
       colorCircle(this.x,this.y, UNIT_PLACEHOLDER_RADIUS, "yellow");
