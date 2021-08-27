@@ -4,6 +4,7 @@ var worldTerrain = document.createElement("img");
 var battleTerrain  = document.createElement("img");
 var placeholderUnitAtk = document.createElement("img");
 var placeholderUnitWalk = document.createElement("img");
+var placeholderUnitSingleFrame = document.createElement("img");
 var worldPics = [];
 var unitPics = [];
 
@@ -41,8 +42,9 @@ function loadImages() {
 		{varName: worldTerrain, theFile: "world_terrain.png"},
 		{varName: battleTerrain, theFile: "battle_terrain.png"},
 
-		{varName: placeholderUnitAtk, theFile: "battle_terrain.png"},
-		{varName: placeholderUnitWalk, theFile: "battle_terrain.png"},
+		{varName: placeholderUnitAtk, theFile: "pixeldeep-placeholder-atk.png"},
+		{varName: placeholderUnitWalk, theFile: "pixeldeep-placeholder-walk.png"},
+		{varName: placeholderUnitSingleFrame, theFile: "placeholder-unit-single-frame.png"},
 
 		/*
 		{worldType: WORLD_ROAD, theFile: "track_road.png"},

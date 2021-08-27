@@ -88,21 +88,19 @@ function unitClass() {
       }
     } else { // ie: Math.abs(moveX) < Math.abs(moveY)
       if(moveY > 0) {
-        return "N";
-      } else {
         return "S";
+      } else {
+        return "N";
       }
     }
   }
 
-  /*
   this.gotoNear = function(aroundX, aroundY, formationPos, formationDim) {
     var colNum = formationPos % formationDim;
     var rowNum = Math.floor(formationPos / formationDim);
     this.gotoX = aroundX + colNum*UNIT_RANKS_SPACING;
     this.gotoY = aroundY + rowNum*UNIT_RANKS_SPACING;
   }
-  */
 
   this.keepInPlayableArea = function() {
     if(this.gotoX < UNIT_PLAYABLE_AREA_MARGIN) {
@@ -171,8 +169,29 @@ function unitClass() {
 
   this.draw = function() {
     if(this.isDead == false) {
+      let moveAng = 0;
+      switch(this.moveDirection) {
+        case "N":
+          moveAng = 0;
+          break;
+        case "E":
+          moveAng = 90;
+          break;
+        case "S":
+          moveAng = 180;
+          break;
+        case "W":
+          moveAng = 270;
+          break;
+      }
+
+      // convert to radians
+      moveAng = moveAng * Math.PI / 180;
+
       //TODO: draw unit sprite (var placeholderUnitWalk or placeholderUnitAtk, each as 2 frames)
-      colorCircle(this.x,this.y, UNIT_PLACEHOLDER_RADIUS, this.unitColor);
+
+      //colorCircle(this.x,this.y, UNIT_PLACEHOLDER_RADIUS, this.unitColor);
+      drawBitmapCenteredWithRotation(placeholderUnitSingleFrame, this.x, this.y, moveAng)
     } else {
       colorCircle(this.x,this.y, UNIT_PLACEHOLDER_RADIUS, "yellow");
     }
