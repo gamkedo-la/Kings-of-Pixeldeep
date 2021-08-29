@@ -4,6 +4,9 @@ const LEVEL_TILE_H = 40;
 var level_cols = 50;
 var level_rows = 50;
 
+var level_width = LEVEL_TILE_W * level_cols;
+var level_height = LEVEL_TILE_H * level_rows;
+
 var battleMode = false;
 var editorMode = false;
 
@@ -58,6 +61,8 @@ function setupWorldMode() {
     levelGrid = gameWorldGrid;
     level_cols = gameWorldCols;
     level_rows = gameWorldRows;
+    level_width = LEVEL_TILE_W * level_cols;
+    level_height = LEVEL_TILE_H * level_rows;
 }
 
 function setupBattleMode() {
@@ -71,6 +76,8 @@ function setupBattleMode() {
     levelGrid = pickedBattlefield.grid.slice();
     level_cols = pickedBattlefield.cols;
     level_rows = pickedBattlefield.rows;
+    level_width = LEVEL_TILE_W * level_cols;
+    level_height = LEVEL_TILE_H * level_rows;
 
 
     // TODO: determine player/enemy start units
@@ -86,6 +93,8 @@ function setupEditorMode() {
     levelGrid = gameWorldGrid;
     level_cols = gameWorldCols;
     level_rows = gameWorldRows;
+    level_width = LEVEL_TILE_W * level_cols;
+    level_height = LEVEL_TILE_H * level_rows;
 }
 
 function getRandomBattlefield() {

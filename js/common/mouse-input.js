@@ -121,6 +121,7 @@ function calculateMousePos(evt) {
     // account for the margins, canvas position on page, scroll amount, etc.
     var mouseX = evt.clientX - rect.left - root.scrollLeft;
     var mouseY = evt.clientY - rect.top - root.scrollTop;
+    //console.log( "x: "+ mouseX, "y: " + mouseY);
     return {
       x: mouseX,
       y: mouseY

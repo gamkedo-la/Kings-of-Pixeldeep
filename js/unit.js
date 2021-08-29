@@ -79,18 +79,39 @@ function unitClass() {
   } // end of move function
 
   this.resolveMoveDirection = function(moveX, moveY) {
-    // TODO: add support for NE, SE, NW, & SW
-    if(Math.abs(moveX) > Math.abs(moveY)) {
+    if( (moveX === 0 && moveY === 0) || 
+        (moveX !== moveX && moveY !== moveY) ) {
+        // JS trick to check for NaN, see https://stackoverflow.com/q/30314447
+      return this.moveDirection;
+    }
+
+    if(Math.abs(moveX) / 2 > Math.abs(moveY)) {
+      // then we are moving either E or W
       if(moveX > 0) {
         return "E";
       } else {
         return "W";
       }
-    } else { // ie: Math.abs(moveX) < Math.abs(moveY)
+    } else if(Math.abs(moveX) < Math.abs(moveY) / 2) {
+      // then we are moving either N or S
       if(moveY > 0) {
         return "S";
       } else {
         return "N";
+      }
+    } else { // ie, neither moveX nor moveY is more than twice the other
+      if(moveX > 0) {
+        if(moveY > 0) {
+          return "SE";
+        } else {
+          return "NE";
+        }
+      } else { // moveX < 0
+        if(moveY > 0) {
+          return "SW";
+        } else {
+          return "NW";
+        }
       }
     }
   }
@@ -105,13 +126,13 @@ function unitClass() {
   this.keepInPlayableArea = function() {
     if(this.gotoX < UNIT_PLAYABLE_AREA_MARGIN) {
       this.gotoX = UNIT_PLAYABLE_AREA_MARGIN;
-    } else if(this.gotoX > canvas.width-UNIT_PLAYABLE_AREA_MARGIN) {
-      this.gotoX = canvas.width-UNIT_PLAYABLE_AREA_MARGIN;
+    } else if(this.gotoX > level_width-UNIT_PLAYABLE_AREA_MARGIN) {
+      this.gotoX = level_width-UNIT_PLAYABLE_AREA_MARGIN;
     }
     if(this.gotoY < UNIT_PLAYABLE_AREA_MARGIN) {
       this.gotoY = UNIT_PLAYABLE_AREA_MARGIN;
-    } else if(this.gotoY > canvas.height-UNIT_PLAYABLE_AREA_MARGIN) {
-      this.gotoY = canvas.height-UNIT_PLAYABLE_AREA_MARGIN;
+    } else if(this.gotoY > level_height-UNIT_PLAYABLE_AREA_MARGIN) {
+      this.gotoY = level_height-UNIT_PLAYABLE_AREA_MARGIN;
     }
   }
 
@@ -174,15 +195,29 @@ function unitClass() {
         case "N":
           moveAng = 0;
           break;
+        case "NE":
+          moveAng = 45;
+          break;
         case "E":
           moveAng = 90;
+          break;
+        case "SE":
+          moveAng = 135;
           break;
         case "S":
           moveAng = 180;
           break;
+        case "SW":
+          moveAng = 225;
+          break;
         case "W":
           moveAng = 270;
           break;
+        case "NW":
+          moveAng = 315;
+          break;
+        default:
+          moveAng = 0;
       }
 
       // convert to radians
@@ -192,6 +227,7 @@ function unitClass() {
 
       //colorCircle(this.x,this.y, UNIT_PLACEHOLDER_RADIUS, this.unitColor);
       drawBitmapCenteredWithRotation(placeholderUnitSingleFrame, this.x, this.y, moveAng)
+      colorText(this.moveDirection, this.x,this.y, "blue");
     } else {
       colorCircle(this.x,this.y, UNIT_PLACEHOLDER_RADIUS, "yellow");
     }
