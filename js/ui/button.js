@@ -32,7 +32,7 @@ function buttonClass() {
 	// also this would be a good place to set up pre-computed values
 	// since it only runs once and not every frame
 	// like `this.x = parentX + relativeX;`
-	console.log("paddingPx", this.paddingPx);
+	//console.log("paddingPx", this.paddingPx);
 	this.width = this.label.length*this.fontSize + (this.paddingPx * 2);
 	this.height = this.fontSize + (this.paddingPx * 2);
     }
