@@ -234,9 +234,11 @@ function handleMainWindowClick(mousePos) {
             return;
         } 
 
+        /*
         if(tileKindClicked == WORLD_GOAL) {
             //setupBattleMode();
         }
+        */
 
     } // end else (ie - if !battleMode)
 }

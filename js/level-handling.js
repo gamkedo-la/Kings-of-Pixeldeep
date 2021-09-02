@@ -15,12 +15,14 @@ var gameSeason = "summer";
 var levelGrid = [];
 
 // world terrain values
+/*
 const WORLD_ROAD = 0;
 const WORLD_WALL = 1;
 //const WORLD_PLAYERSTART = 2;
 const WORLD_GOAL = 2;
 const WORLD_FLAG = 3;
 const WORLD_TREE = 4;
+*/
 
 // new world terrain
 const WORLD_MOUNTAINS = 1;
@@ -33,7 +35,7 @@ const SEASON_SUMMER = 1;
 const SEASON_WINTER = 2;
 
 // battle terrain values
-const BATTLE_GRASS = 8;
+//const BATTLE_GRASS = 8;
 
 // new battle terrain
 const BATTLE_FIELD = 11;

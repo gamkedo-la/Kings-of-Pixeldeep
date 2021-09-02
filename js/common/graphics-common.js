@@ -3,6 +3,13 @@ function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {
   canvasContext.fillRect(topLeftX, topLeftY, boxWidth, boxHeight);
 }
 
+function outlineRect(topLeftX, topLeftY, boxWidth, boxHeight, lineColor) {
+  canvasContext.strokeStyle = lineColor;
+  canvasContext.beginPath();
+  canvasContext.rect(topLeftX, topLeftY, boxWidth, boxHeight);
+  canvasContext.stroke();
+}
+
 function coloredOutlineRectCornerToCorner(corner1X, corner1Y, corner2X, corner2Y, lineColor) {
   canvasContext.strokeStyle = lineColor;
   canvasContext.beginPath();

@@ -2,59 +2,18 @@ const SIDEBAR_WIDTH = 200;
 //const SIDEBAR_START_X = canvas.width - SIDEBAR_WIDTH;
 //const SIDEBAR_START_Y = MINI_MAP_HEIGHT;
 
-var button1 = new buttonClass();
-    button1.create({
-	x:700,
-	y:300, 
-	label: "Test", 
-	onClick: testButton,
-    });
 
-// editor button definitions
-var mtnButton= new buttonClass();
-    mtnButton.create({
-	x:610,
-	y:300, 
-	label: "Mtn", 
-	onClick: testButton,
-    });
-/*
-var terrainPrevButton = new buttonClass();
-terrainPrevButton.create({
-    x: 610,
-    y: 220,
-    label: "Prev",
-    onClick: testButton,
 
-});
-
-var terrainNextButton = new buttonClass();
-terrainNextButton.create({
-    x: 720,
-    y: 220,
-    label: "Next",
-    onClick: testButton,
-
-});
-*/
-
-const WORLD_SIDEBAR_BUTTONS = [
-    button1,
-];
-
-const EDITOR_SIDEBAR_BUTTONS = [
-    /*
-    terrainPrevButton,
-    terrainNextButton,
-    */
-];
-
-const BATTLE_SIDEBAR_BUTTONS = [];
+var currentSidebarButtons = [];
 
 function drawSidebar() {
     colorRect(canvas.width-SIDEBAR_WIDTH,MINI_MAP_HEIGHT, 
 	SIDEBAR_WIDTH,canvas.height, 'grey');
 
+    for(const button of currentSidebarButtons) {
+	button.draw();
+    }
+    /*
     if(battleMode == false && editorMode == false) {
 	for(const button of WORLD_SIDEBAR_BUTTONS) {
 	    button.draw();
@@ -72,6 +31,7 @@ function drawSidebar() {
 	    button.draw();
 	}
     }
+    */
 }
 
 function handleSidebarButtonClick(mousePos) {
