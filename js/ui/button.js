@@ -11,7 +11,7 @@ function buttonClass() {
     this.width = 10;
     this.height = 10;
 
-    this.paddingPx = 3;
+    this.paddingPx = 10;
 
     this.create = function(configObj) {
 	// TODO: give these default values when not specified
@@ -52,14 +52,14 @@ function buttonClass() {
 
     this.drawButtonLabel = function() {
 	// TODO: if text-align is center, labelx needs to be in the middle of the button
-	let labelx = this.x + this.paddingPx*2; // shouldn't need the x2, but apparently I do
+	let labelx = this.x + (this.width / 2); // shouldn't need the x2, but apparently I do
 	let labely = this.y + this.paddingPx;
 
 	canvasContext.save();
 	canvasContext.textBaseline = "top";
 	canvasContext.font = this.fontSize+"pt Serif";
 	canvasContext.fillStyle = this.textColor;
-	canvasContext.textAlign = "left";
+	canvasContext.textAlign = "center";
 	canvasContext.fillText(this.label, labelx, labely);
 	canvasContext.restore();
     }

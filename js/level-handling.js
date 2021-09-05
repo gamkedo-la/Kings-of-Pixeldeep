@@ -65,6 +65,8 @@ function setupWorldMode() {
     level_rows = gameWorldRows;
     level_width = LEVEL_TILE_W * level_cols;
     level_height = LEVEL_TILE_H * level_rows;
+
+    currentSidebarButtons = WORLD_SIDEBAR_BUTTONS;
 }
 
 function setupBattleMode() {
@@ -81,6 +83,8 @@ function setupBattleMode() {
     level_width = LEVEL_TILE_W * level_cols;
     level_height = LEVEL_TILE_H * level_rows;
 
+    currentSidebarButtons = BATTLE_SIDEBAR_BUTTONS;
+
 
     // TODO: determine player/enemy start units
     populateTeam(playerUnits, PLAYER_START_UNITS, true);
@@ -88,6 +92,7 @@ function setupBattleMode() {
 }
 
 function setupEditorMode() {
+    // TODO: account for battle & edit modes
     console.log("entering editor mode");
     this.battleMode = false;
     this.editorMode = true;
@@ -97,6 +102,9 @@ function setupEditorMode() {
     level_rows = gameWorldRows;
     level_width = LEVEL_TILE_W * level_cols;
     level_height = LEVEL_TILE_H * level_rows;
+
+    currentSidebarButtons = WORLD_EDITOR_SIDEBAR_BUTTONS;
+    
 }
 
 function getRandomBattlefield() {

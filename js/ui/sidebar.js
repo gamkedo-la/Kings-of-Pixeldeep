@@ -37,9 +37,11 @@ function drawSidebar() {
 function handleSidebarButtonClick(mousePos) {
     //console.log("in handleSidebarButtonClick");
 
-    if(isClickOnButton(mousePos, button1)) {
-	//console.log("click is on the button");
-	button1.onClick();
+    for(let i=0;i<currentSidebarButtons.length; i++) {
+	let currentButton = currentSidebarButtons[i];
+	if(isClickOnButton(mousePos, currentButton)) {
+	    currentButton.onClick();
+	}
     }
 }
 
