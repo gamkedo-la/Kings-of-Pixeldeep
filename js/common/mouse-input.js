@@ -227,10 +227,10 @@ function handleMainWindowClick(mousePos) {
         // mouse click in main window is only for world layer
         // mouseup and mousedown handlers take care of battle layer
     } else { 
-      var clickedIdx = worldIdxFromMousePos(mousePos);
+        var clickedIdx = worldIdxFromMousePos(mousePos);
 
-      var tileKindClicked = levelGrid[clickedIdx];
-      //console.log("tile clicked", clickedIdx, tileKindClicked);
+        //var tileKindClicked = levelGrid[clickedIdx];
+        //console.log("tile clicked", clickedIdx, tileKindClicked);
         if(clickedIdx < 0 || clickedIdx >= levelGrid.length) { // invalid or out of bounds
             return;
         } 

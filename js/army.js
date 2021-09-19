@@ -46,7 +46,6 @@ function armyClass() {
     }
 
     this.onClick = function() {
-	startBattle();
 	// select and move
     }
 

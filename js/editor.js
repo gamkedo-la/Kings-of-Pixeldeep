@@ -1,4 +1,6 @@
 var terrainBrushCode = 1;
+var terrainBrushSize = 1;
+
 var levelFile = null;
 
 function replaceTerrain(terrainIndex, terrainCode) {

@@ -1,4 +1,4 @@
-function buttonClass() {
+function buttonClass(configObj) {
 
     this.x = null;
     this.y = null;
@@ -13,34 +13,42 @@ function buttonClass() {
 
     this.paddingPx = 10;
 
-    this.create = function(configObj) {
-	// TODO: give these default values when not specified
-	for(const [key, val] of Object.entries(configObj)) {
-	    if(val) {
-		this[key] = val;
-	    }
-	}
-	    /*
-	this.x = configObj.x;
-	this.y = configObj.y;
-	this.label = configObj.label;
-	this.color = configObj.color;
-	this.textColor = configObj.textColor;
-	this.onClick = configObj.onClick;
-	this.fontSize = configObj.fontSize;
-	*/
-	// also this would be a good place to set up pre-computed values
-	// since it only runs once and not every frame
-	// like `this.x = parentX + relativeX;`
-	//console.log("paddingPx", this.paddingPx);
-	this.width = this.label.length*this.fontSize + (this.paddingPx * 2);
-	this.height = this.fontSize + (this.paddingPx * 2);
+    // set buttons to never highlight by default since
+    // most buttons won't use this functionality
+    this.highlightIf = function() {
+	return false;
     }
+
+    // TODO: give these default values when not specified
+    for(const [key, val] of Object.entries(configObj)) {
+	if(val) {
+	    this[key] = val;
+	}
+    }
+	/*
+    this.x = configObj.x;
+    this.y = configObj.y;
+    this.label = configObj.label;
+    this.color = configObj.color;
+    this.textColor = configObj.textColor;
+    this.onClick = configObj.onClick;
+    this.fontSize = configObj.fontSize;
+    */
+    // also this would be a good place to set up pre-computed values
+    // since it only runs once and not every frame
+    // like `this.x = parentX + relativeX;`
+    //console.log("paddingPx", this.paddingPx);
+    this.width = this.label.length*this.fontSize + (this.paddingPx * 2);
+    this.height = this.fontSize + (this.paddingPx * 2);
 
     this.draw = function() {
 	// TODO: make button images for prettier buttons
 
 	colorRect(this.x,this.y, this.width, this.height, this.color);
+
+	if(this.highlightIf()) {
+	    colorRect(this.x+3,this.y+3, this.width-6,this.height-6, "cyan");
+	}
 
 	this.drawButtonLabel();
 	/*
