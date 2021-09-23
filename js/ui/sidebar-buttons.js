@@ -42,21 +42,36 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
 
     new buttonClass({
 	label: "Grass", 
-	onClick: testButton,
+	onClick: function() {
+	    terrainBrushCode = 3;
+	},
+	highlightIf: function() {
+	    return terrainBrushCode === 3;
+	},
 	x:605,
 	y:290, 
     }),
 
     new buttonClass({
 	label: "Farm", 
-	onClick: testButton,
+	onClick: function() {
+	    terrainBrushCode = 4;
+	},
+	highlightIf: function() {
+	    return terrainBrushCode === 4;
+	},
 	x:605,
 	y:330, 
     }),
 
     new buttonClass({
 	label: "Water", 
-	onClick: testButton,
+	onClick: function() {
+	    terrainBrushCode = 5;
+	},
+	highlightIf: function() {
+	    return terrainBrushCode === 5;
+	},
 	x:605,
 	y:370, 
     }),
@@ -64,21 +79,36 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
 // Brush Size Buttons
     new buttonClass({
 	label: "1x1", 
-	onClick: testButton,
+	onClick: function() {
+	    terrainBrushSize = 1;
+	},
+	highlightIf: function() {
+	    return terrainBrushSize === 1;
+	},
 	x:740,
 	y:210, 
     }),
 
     new buttonClass({
 	label: "3x3", 
-	onClick: testButton,
+	onClick: function() {
+	    terrainBrushSize = 3;
+	},
+	highlightIf: function() {
+	    return terrainBrushSize === 3;
+	},
 	x:740,
 	y:250, 
     }),
 
     new buttonClass({
 	label: "5x5", 
-	onClick: testButton,
+	onClick: function() {
+	    terrainBrushSize = 5;
+	},
+	highlightIf: function() {
+	    return terrainBrushSize === 5;
+	},
 	x:740,
 	y:290, 
     }),

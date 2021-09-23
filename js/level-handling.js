@@ -147,25 +147,30 @@ function drawLevel() {
     var drawTileY = cameraTopMostRow * LEVEL_TILE_H;
 
     for(var eachRow=cameraTopMostRow;eachRow<cameraBottomMostRow;eachRow++) {
-      for(var eachCol=cameraLeftMostCol;eachCol<cameraRightMostCol;eachCol++) {                
-                if(arrayIndex < levelGrid.length) {
-                  var tileKindHere = levelGrid[arrayIndex];
-                  // TODO: rm next 2 lines and make funcs referenced below
-                  //var useImg = worldPics[tileKindHere];
-                  //canvasContext.drawImage(useImg, drawTileX,drawTileY);
-                  if(!battleMode) {
+        for(var eachCol=cameraLeftMostCol;eachCol<cameraRightMostCol;eachCol++) {                
+            if(arrayIndex < levelGrid.length) {
+                var tileKindHere = levelGrid[arrayIndex];
+                // TODO: rm next 2 lines and make funcs referenced below
+                //var useImg = worldPics[tileKindHere];
+                //canvasContext.drawImage(useImg, drawTileX,drawTileY);
+                if(!battleMode) {
                     drawWorldTerrain(tileKindHere, drawTileX,drawTileY);
                     colorText(String(arrayIndex), 
-                      drawTileX,drawTileY+12, '#ff00ff');
-                  } else {
+                    drawTileX,drawTileY+12, '#ff00ff');
+                } else {
                     drawBattleTerrain(tileKindHere, drawTileX,drawTileY);
                     colorText(String(arrayIndex), 
-                      drawTileX,drawTileY+12, '#00ffff');
-                  }
-                  
-                  drawTileX += LEVEL_TILE_W;
-                  arrayIndex++;
+                    drawTileX,drawTileY+12, '#00ffff');
                 }
+              /*
+                if(editorMode && hoverIdx === arrayIndex) {
+                    drawHoverBox(drawTileX,drawTileY);
+                }
+                */
+
+                drawTileX += LEVEL_TILE_W;
+                arrayIndex++;
+            }
 
         } // end of for each col
     drawTileY += LEVEL_TILE_H;
@@ -207,3 +212,4 @@ function drawBattleTerrain(terrainCode, drawTileX, drawTileY) {
     LEVEL_TILE_W, LEVEL_TILE_H,
   );
 }
+
