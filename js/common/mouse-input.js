@@ -32,13 +32,10 @@ function mousemoveHandler(evt) {
         lassoY2 = mousePos.levelY;
     }
     if(editorMode && mouseInMainWindow(mousePos)) {
-        drawHoverBox(mousePos);
-        //hoverIdx = worldIdxFromMousePos(mousePos);
-
-        /*
-    } else if(hoverIdx !== null) {
-        hoverIdx = null;
-        */
+        //drawHoverBox(mousePos);
+        hoverPos = mousePos;//worldIdxFromMousePos(mousePos);
+    } else if(hoverPos !== null) {
+        hoverPos = null;
     }
 }
 
@@ -274,26 +271,3 @@ function highlightSquare(mousePos) {
 }
 */
 
-function drawHoverBox(mousePos) {
-
-    var hoverTileOverCol = Math.floor( (mousePos.x) / LEVEL_TILE_W);
-    var hoverTileOverRow = Math.floor( (mousePos.y) / LEVEL_TILE_H);    
-
-    var hoverTileX = hoverTileOverCol * LEVEL_TILE_W;
-    var hoverTileY = hoverTileOverRow * LEVEL_TILE_H;
-
-    var hoverBoxStartOffset = 0;
-    if(terrainBrushSize === 3) {
-        hoverBoxStartOffset = 1 * LEVEL_TILE_W;
-    }
-    if(terrainBrushSize === 5) {
-        hoverBoxStartOffset = 2 * LEVEL_TILE_W;
-    }
-
-    var hoverBoxTopX = hoverTileX - hoverBoxStartOffset;
-    var hoverBoxTopY = hoverTileY - hoverBoxStartOffset;    
-    var hoverBoxW = LEVEL_TILE_W * terrainBrushSize;
-    var hoverBoxH = LEVEL_TILE_H * terrainBrushSize;
-
-    outlineRect(hoverBoxTopX,hoverBoxTopY, hoverBoxW,hoverBoxH, "purple");
-}

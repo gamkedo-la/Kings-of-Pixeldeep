@@ -94,6 +94,9 @@ function drawUnits() {
 function drawUI() {
   drawSidebar();
   drawMiniMap();
+  if(editorMode) {
+    drawHoverBox();
+  }
 }
 
 function drawCitiesAndArmies() {
