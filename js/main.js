@@ -10,6 +10,10 @@ var paris  = new cityClass();
 var army1  = new armyClass();
   army1.setPosition(5,5);
 
+// TODO: put in a game preferences object
+var showGrid = false;
+// TODO: add "showDebug" config var as well
+
 window.onload = function() {
   canvas = document.getElementById('gameCanvas');
   canvasContext = canvas.getContext('2d');

@@ -175,8 +175,8 @@ function getUnitUnderMouse(currentMousePos) {
 }
 
 function worldIdxFromMousePos(mousePos) {
-    var tileOverCol = Math.floor( (mousePos.x) / LEVEL_TILE_W);
-    var tileOverRow = Math.floor( (mousePos.y) / LEVEL_TILE_H);    
+    var tileOverCol = Math.floor( (mousePos.levelX) / LEVEL_TILE_W);
+    var tileOverRow = Math.floor( (mousePos.levelY) / LEVEL_TILE_H);    
 
     return tileCoordToIndex(tileOverCol,tileOverRow);
 }
@@ -227,26 +227,31 @@ function isClickInBox(mousePos, x1,y1, x2,y2) {
 }
 
 function handleMainWindowClick(mousePos) {
+    console.log(mousePos);
     if(battleMode) {
         return; 
         // mouse click in main window is only for world layer
         // mouseup and mousedown handlers take care of battle layer
-    } else { 
-        var clickedIdx = worldIdxFromMousePos(mousePos);
+    } 
 
-        //var tileKindClicked = levelGrid[clickedIdx];
-        //console.log("tile clicked", clickedIdx, tileKindClicked);
-        if(clickedIdx < 0 || clickedIdx >= levelGrid.length) { // invalid or out of bounds
-            return;
-        } 
+    var clickedIdx = worldIdxFromMousePos(mousePos);
+    //var tileKindClicked = levelGrid[clickedIdx];
+    //console.log("tile clicked", clickedIdx, tileKindClicked);
+    if(clickedIdx < 0 || clickedIdx >= levelGrid.length) { // invalid or out of bounds
+        return;
+    } 
 
-        /*
-        if(tileKindClicked == WORLD_GOAL) {
-            //setupBattleMode();
-        }
-        */
+    if(editorMode) {
+        replaceTerrain(clickedIdx);
+    }
 
-    } // end else (ie - if !battleMode)
+    /*
+    if(tileKindClicked == WORLD_GOAL) {
+        //setupBattleMode();
+    }
+    */
+
+
 }
 
 function mouseInMainWindow(mousePos) {

@@ -150,23 +150,21 @@ function drawLevel() {
         for(var eachCol=cameraLeftMostCol;eachCol<cameraRightMostCol;eachCol++) {                
             if(arrayIndex < levelGrid.length) {
                 var tileKindHere = levelGrid[arrayIndex];
-                // TODO: rm next 2 lines and make funcs referenced below
-                //var useImg = worldPics[tileKindHere];
-                //canvasContext.drawImage(useImg, drawTileX,drawTileY);
                 if(!battleMode) {
                     drawWorldTerrain(tileKindHere, drawTileX,drawTileY);
                     colorText(String(arrayIndex), 
                     drawTileX,drawTileY+12, '#ff00ff');
-                } else {
+                } else { // if battleMode
                     drawBattleTerrain(tileKindHere, drawTileX,drawTileY);
                     colorText(String(arrayIndex), 
                     drawTileX,drawTileY+12, '#00ffff');
                 }
-              /*
-                if(editorMode && hoverIdx === arrayIndex) {
-                    drawHoverBox(drawTileX,drawTileY);
+
+                if(showGrid) {
+                    outlineRect(drawTileX,drawTileY, 
+                        LEVEL_TILE_W,LEVEL_TILE_H,
+                        "black");
                 }
-                */
 
                 drawTileX += LEVEL_TILE_W;
                 arrayIndex++;
