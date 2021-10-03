@@ -1,15 +1,5 @@
 var canvas, canvasContext;
 
-// TODO: new method for pre-populating maps (like racing game?)
-var venice = new cityClass();
-  venice.name = "venice";
-  venice.setPosition(0,0);
-var paris  = new cityClass();
-  paris.name = "venice";
-  paris.setPosition(2,4);
-var army1  = new armyClass();
-  army1.setPosition(5,5);
-
 // TODO: put in a game preferences object
 var showGrid = false;
 // TODO: add "showDebug" config var as well
@@ -101,9 +91,13 @@ function drawUI() {
   if(editorMode) {
     drawHoverBox();
   }
+  if(!battleMode && showCityPanel) {
+    drawCityPanel();
+  }
 }
 
 function drawCitiesAndArmies() {
+  // TODO: call on arrays in world-team.js
   venice.draw();
   paris.draw();
   army1.draw();

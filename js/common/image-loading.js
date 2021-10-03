@@ -5,6 +5,7 @@ var battleTerrain  = document.createElement("img");
 var placeholderUnitAtk = document.createElement("img");
 var placeholderUnitWalk = document.createElement("img");
 var placeholderUnitSingleFrame = document.createElement("img");
+var cityPanelBackdrop = document.createElement("img");
 var worldPics = [];
 var unitPics = [];
 
@@ -45,6 +46,7 @@ function loadImages() {
 		{varName: placeholderUnitAtk, theFile: "pixeldeep-placeholder-atk.png"},
 		{varName: placeholderUnitWalk, theFile: "pixeldeep-placeholder-walk.png"},
 		{varName: placeholderUnitSingleFrame, theFile: "placeholder-unit-single-frame.png"},
+		{varName: cityPanelBackdrop, theFile: "city_screen_backdrop.png"},
 
 		/*
 		{worldType: WORLD_ROAD, theFile: "track_road.png"},

@@ -7,6 +7,12 @@ function cityClass() {
     this.picToUse = cityPic;
     this.name = "Untitled City";
 
+    this.worldIdx = function() {
+	let idx = this.worldRow * level_cols + this.worldCol;
+	console.log(this.name, idx);
+	return idx;
+    }
+
     this.x = function() {
 	//console.log("calling this.x");
 	return (this.worldCol * LEVEL_TILE_W) + (LEVEL_TILE_W / 2);

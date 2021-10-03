@@ -97,14 +97,11 @@ function clickHandler(evt) {
     // find out where the click was
     var mousePos = calculateMousePos(evt);
 
-    // TODO:
-    /*
-    if(showCityPanel && isClickInsideCityPanel) {
+    if(showCityPanel && isClickInsideCityPanel(mousePos)) {
         console.log("click was on city panel");
         handleCityPanelClick(mousePos);
         return;
-    }
-    */
+    } // TODO: if showCityPanel && !isClickInsideCityPanel, then close city panel
 
     if(isClickInsideMiniMap(mousePos)) {
         console.log("click was on minimap");
@@ -236,13 +233,22 @@ function handleMainWindowClick(mousePos) {
 
     var clickedIdx = worldIdxFromMousePos(mousePos);
     //var tileKindClicked = levelGrid[clickedIdx];
-    //console.log("tile clicked", clickedIdx, tileKindClicked);
+    //console.log("tile clicked", clickedIdx);
     if(clickedIdx < 0 || clickedIdx >= levelGrid.length) { // invalid or out of bounds
         return;
     } 
 
     if(editorMode) {
         replaceTerrain(clickedIdx);
+    }
+
+    if(!battleMode && !editorMode) { // ie - if worldMode
+        for(var i=0;i<playerCities.length;i++) {
+            if(playerCities[i].worldIdx() == clickedIdx) {
+                //console.log("clicked on ", playerCities[i].name);
+                openCityPanel(playerCities[i]);
+            }
+        }
     }
 
     /*
@@ -275,4 +281,13 @@ function highlightSquare(mousePos) {
     outlineRect(hoverBoxTopX,hoverBoxTopY, LEVEL_TILE_W,LEVEL_TILE_H, "purple");
 }
 */
+
+function isClickInsideCityPanel(mousePos) {
+    return isClickInBox(mousePos, 
+
+	CITY_PANEL_X, CITY_PANEL_Y,
+
+	CITY_PANEL_X + cityPanelBackdrop.width, CITY_PANEL_Y + cityPanelBackdrop.height
+    );
+}
 
