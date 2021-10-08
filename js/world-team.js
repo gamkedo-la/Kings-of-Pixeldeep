@@ -1,8 +1,10 @@
 var playerArmies = [ ];
 var enemyArmies = [];
 var allArmies = [];
+var selectedArmy = null;
 
 var playerCities = [];
+
 
 // TODO: new method for pre-populating maps (like racing game?)
 // TODO: also, city class create code like button code for one-line creation

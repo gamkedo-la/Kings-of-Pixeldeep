@@ -249,6 +249,15 @@ function handleMainWindowClick(mousePos) {
                 openCityPanel(playerCities[i]);
             }
         }
+        if(selectedArmy === null) {
+            for(var i=0;i<playerArmies.length;i++) {
+                if(playerArmies[i].worldIdx() == clickedIdx) {
+                    selectedArmy = playerArmies[i];
+                }
+            }
+        } else {
+            // move army
+        }
     }
 
     /*

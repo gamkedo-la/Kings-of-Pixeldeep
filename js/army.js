@@ -19,6 +19,12 @@ function armyClass() {
       horsemen: 0,
     }
     */
+
+    this.worldIdx = function() {
+	let idx = this.worldRow * level_cols + this.worldCol;
+	console.log(this.name, idx);
+	return idx;
+    }
   
     this.x = function() {
 	//console.log("calling this.x");
@@ -51,6 +57,15 @@ function armyClass() {
 
     this.draw = function() {
 	// TODO: fix
+	if(selectedArmy && (selectedArmy.name == this.name)) {
+	    colorRect(
+		this.x() - LEVEL_TILE_W/2,
+		this.y() - LEVEL_TILE_H/2,
+		LEVEL_TILE_W,
+		LEVEL_TILE_H,
+		'aqua', 
+	    );
+	}
         drawBitmapCenteredWithRotation(this.picToUse, this.x(),this.y(), 0);
     }
 }
