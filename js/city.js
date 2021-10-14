@@ -6,6 +6,7 @@ function cityClass() {
     this.worldCol = 3;
     this.picToUse = cityPic;
     this.name = "Untitled City";
+    this.population = 10;
 
     this.worldIdx = function() {
 	let idx = this.worldRow * level_cols + this.worldCol;

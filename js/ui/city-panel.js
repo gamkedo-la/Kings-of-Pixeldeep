@@ -32,6 +32,11 @@ function drawCityPanel() {
 	cityPanelButtons[i].draw();
     }
     // TODO: also draw city panel workers
+    // TODO: make array of arrays of workers with an index array for keeping track of 
+    // which grp is which
+    //for(var i=0;i<viewingCity.forestersArray.length;i++) {
+	//
+    //}
 }
 
 function handleCityPanelClick(mousePos) {

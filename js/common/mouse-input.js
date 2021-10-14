@@ -98,7 +98,7 @@ function clickHandler(evt) {
     var mousePos = calculateMousePos(evt);
 
     if(showCityPanel && isClickInsideCityPanel(mousePos)) {
-        console.log("click was on city panel");
+        console.log("click was on city panel", mousePos.x, mousePos.y);
         handleCityPanelClick(mousePos);
         return;
     } // TODO: if showCityPanel && !isClickInsideCityPanel, then close city panel
