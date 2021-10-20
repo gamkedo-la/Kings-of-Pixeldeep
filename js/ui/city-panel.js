@@ -1,9 +1,61 @@
 const CITY_PANEL_X = 100;
 const CITY_PANEL_Y = 100;
 
+const CITY_SECTIONS = [
+    {
+	name: 'forestry',
+	color: 'red',
+	minX: 115,
+	maxX: 290,
+	minY: 115,
+	maxY: 300,
+    },
+    {
+	name: 'wheat-fields',
+	color: 'yellow',
+	minX: 300,
+	maxX: 485,
+	minY: 115,
+	maxY: 300,
+    },
+    {
+	name: 'stables',
+	color: 'tan',
+	minX: 490,
+	maxX: 675,
+	minY: 115,
+	maxY: 300,
+    },
+    {
+	name: 'mines',
+	color: 'grey',
+	minX: 105,
+	maxX: 290,
+	minY: 315,
+	maxY: 505,
+    },
+    {
+	name: 'idle',
+	color: 'lightblue',
+	minX: 300,
+	maxX: 485,
+	minY: 315,
+	maxY: 505,
+    },
+    {
+	name: 'blacksmith',
+	color: 'black',
+	minX: 490,
+	maxX: 675,
+	minY: 315,
+	maxY: 505,
+    },
+]
+
 var showCityPanel = false;
 var viewingCity = null;
 var cityWorkers = [];
+var selectedCityWorkers = [];
 
 var cityPanelButtons = [
     new buttonClass({
@@ -25,11 +77,8 @@ function openCityPanel(city) {
     cityWorkers = [];
     for(var i=0;i<10;i++) {
 	let newWorker = new workerClass({
-	    workerPlace: "mines",
+	    workerPlace: 3,
 	});
-	newWorker.generateWorker();
-	//newWorker.wor
-	//newWorker.goToRandomSpotInCityPanelSection();
 	cityWorkers.push(newWorker);
     }
 }

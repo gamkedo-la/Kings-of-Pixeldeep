@@ -40,7 +40,7 @@ function mousemoveHandler(evt) {
 }
 
 function mousedownHandler(evt) {
-    if(battleMode) {
+    if(battleMode || showCityPanel) {
         var mousePos = calculateMousePos(evt);
         if(isClickInsideMainWindow(mousePos)) {
             lassoX1 = mousePos.levelX;
@@ -53,44 +53,85 @@ function mousedownHandler(evt) {
 }
 
 function mouseupHandler(evt) {
-    if(battleMode) {
+    if(battleMode || showCityPanel) {
         isMouseDragging = false;
 
         if(mouseMovedEnoughToTreatAsDragging()) {
 
-            selectedUnits = []; // clear the selection array
+            if(battleMode) {
+                // maybe move this to a "handle box selection" function 
+                // with units & selected arrays???
+                selectedUnits = []; // clear the selection array
 
-            for(var i=0;i<playerUnits.length;i++) {
-                if( playerUnits[i].isInBox(lassoX1,lassoY1,lassoX2,lassoY2) ) {
-                    selectedUnits.push(playerUnits[i]);
+                for(var i=0;i<playerUnits.length;i++) {
+                    if( playerUnits[i].isInBox(lassoX1,lassoY1,lassoX2,lassoY2) ) {
+                        selectedUnits.push(playerUnits[i]);
+                    }
                 }
+                document.getElementById("debugText2").innerHTML = "Selected " +
+                                  selectedUnits.length + " units";
+            } else if(showCityPanel) {
+                selectedCityWorkers = [];
+                
+                for(var i=0;i<cityWorkers.length;i++) {
+                    if( cityWorkers[i].isInBox(lassoX1,lassoY1,lassoX2,lassoY2) ) {
+                        selectedCityWorkers.push(cityWorkers[i]);
+                    }
+                }
+
             }
-            document.getElementById("debugText2").innerHTML = "Selected " +
-                              selectedUnits.length + " units";
         } else { // mouse didn't move far, treat as click for move command
             var mousePos = calculateMousePos(evt);
-            var clickedUnit = getUnitUnderMouse(mousePos);
+            var clickedUnit = null;
 
-        if(clickedUnit != null && clickedUnit.playerControlled == false) { //enemy?
-            // then command units to attack it
-            document.getElementById("debugText2").innerHTML = 
-              "Player commands "+selectedUnits.length+" units to attack!";
-            for(var i=0;i<selectedUnits.length;i++){
-                selectedUnits[i].setTarget(clickedUnit);
+            if(battleMode) {
+                clickedUnit = getUnitUnderMouse(mousePos);
             }
-        } else {
-            // didn't click enemy unit, direct any currently selected units to move
-            var unitsAlongside = Math.floor(Math.sqrt(selectedUnits.length+3));
-            for(var i=0;i<selectedUnits.length;i++) {
-                selectedUnits[i].gotoNear(mousePos.levelX, mousePos.levelY, i, unitsAlongside);
-            }
-            document.getElementById("debugText2").innerHTML = 
-                "Moving to ("+mousePos.levelX+","+mousePos.levelY+")";
-            }
-        } // end else
+
+            if(clickedUnit != null && clickedUnit.playerControlled == false) { //enemy?
+                // then command units to attack it
+                document.getElementById("debugText2").innerHTML = 
+                  "Player commands "+selectedUnits.length+" units to attack!";
+                for(var i=0;i<selectedUnits.length;i++){
+                    selectedUnits[i].setTarget(clickedUnit);
+                }
+            } else {
+                // didn't click enemy unit, direct any currently selected units to move
+                if(battleMode) {
+                    var unitsAlongside = Math.floor(Math.sqrt(selectedUnits.length+3));
+                    for(var i=0;i<selectedUnits.length;i++) {
+                        selectedUnits[i].gotoNear(mousePos.levelX, mousePos.levelY, i, unitsAlongside);
+                    }
+                    document.getElementById("debugText2").innerHTML = 
+                        "Moving to ("+mousePos.levelX+","+mousePos.levelY+")";
+                } else { // if showCityPanel
+                    if(isClickInsideCityPanel(mousePos)) {
+                        //find out which section click is in.
+                        var clickedCitySection = findClickedCitySectionIdx(mousePos);
+                        for(var i=0;i<selectedCityWorkers.length;i++) {
+                            selectedCityWorkers[i].moveTo(clickedCitySection);
+                        }
+                    }
+                    
+                } // end else (if showCityPanel)
+
+            } // end else (clickedUnit == null && !clickedUnit.playerControlled == false)
+
+        } // end else (!mouseMovedEnoughToTreatAsDragging)
+
     } // end if(battleMode)
+
 }
 
+function findClickedCitySectionIdx(mousePos) {
+    for(var i=0;i<CITY_SECTIONS.length;i++) {
+        if( isClickInBox(CITY_SECTIONS[i].minX, CITY_SECTIONS[i].minY,
+            CITY_SECTIONS[i].maxX, CITY_SECTIONS[i].maxY) ) {
+            return i;
+            break;
+        }
+    }
+}
 
 
 function clickHandler(evt) {
