@@ -63,10 +63,10 @@ function drawEverything() {
     drawCitiesAndArmies();
   } else {
     drawUnits();
+  }
 
-    if(isMouseDragging) {
-      coloredOutlineRectCornerToCorner(lassoX1,lassoY1, lassoX2,lassoY2, 'yellow');
-    }
+  if(isMouseDragging) {
+    coloredOutlineRectCornerToCorner(lassoX1,lassoY1, lassoX2,lassoY2, 'yellow');
   }
 
   canvasContext.restore(); // undoes the .translate() used for cam scroll
