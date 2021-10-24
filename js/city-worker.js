@@ -33,4 +33,38 @@ function workerClass(configObj) {
     this.draw = function() {
       colorCircle(this.x,this.y, WORKER_PLACEHOLDER_RADIUS, this.color);
     }
+
+    this.isInBox = function(x1, y1, x2, y2) {
+        var leftX, rightX;
+        if(x1 < x2) {
+            leftX = x1;
+            rightX = x2;
+        } else {
+            leftX = x2;
+            rightX = x1;
+        }
+
+        var topY, bottomY;
+        if(y1 < y2) {
+            topY = y1;
+            bottomY = y2;
+        } else {
+            topY = y2;
+            bottomY = y1;
+        }
+
+        if(this.x < leftX) {
+            return false;
+        }
+        if(this.y < topY) {
+            return false;
+        }
+        if(this.x > rightX) {
+            return false;
+        }
+        if(this.y > bottomY) {
+            return false;
+        }
+        return true;
+    }
 }

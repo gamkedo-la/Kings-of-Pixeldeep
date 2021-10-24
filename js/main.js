@@ -65,6 +65,7 @@ function drawEverything() {
     drawUnits();
   }
 
+    // TODO: somehow make this draw properly on top of the UI while still drawing in the correct spot on screen
   if(isMouseDragging) {
     coloredOutlineRectCornerToCorner(lassoX1,lassoY1, lassoX2,lassoY2, 'yellow');
   }
@@ -72,6 +73,7 @@ function drawEverything() {
   canvasContext.restore(); // undoes the .translate() used for cam scroll
 
   drawUI();
+
 }
 
 function drawUnits() {

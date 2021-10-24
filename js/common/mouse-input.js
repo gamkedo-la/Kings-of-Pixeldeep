@@ -27,7 +27,7 @@ function mousemoveHandler(evt) {
     var mousePos = calculateMousePos(evt);
     setCamPanDeltas(mousePos);
     //document.getElementById("debugText2").innerHTML = "("+mousePos.x+","+mousePos.y+")";
-    if(battleMode && isMouseDragging) {
+    if((battleMode || showCityPanel) && isMouseDragging) {
         lassoX2 = mousePos.levelX;
         lassoY2 = mousePos.levelY;
     }
