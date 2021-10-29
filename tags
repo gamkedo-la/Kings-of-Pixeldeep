@@ -4,10 +4,10 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-addNewUnitToTeam	js/unit-team.js	/^function addNewUnitToTeam(spawnedUnit, fightsForTeam) {$/;"	f
-allArmies	js/army-team.js	/^var allArmies = [];$/;"	v
-allUnits	js/unit-team.js	/^var allUnits = [];$/;"	v
-anyNewUnitsToClear	js/unit-team.js	/^var anyNewUnitsToClear = false;$/;"	v
+addNewUnitToTeam	js/battle-team.js	/^function addNewUnitToTeam(spawnedUnit, fightsForTeam) {$/;"	f
+allArmies	js/world-team.js	/^var allArmies = [];$/;"	v
+allUnits	js/battle-team.js	/^var allUnits = [];$/;"	v
+anyNewUnitsToClear	js/battle-team.js	/^var anyNewUnitsToClear = false;$/;"	v
 armyClass	js/army.js	/^function armyClass() {$/;"	c
 armyPic	js/common/image-loading.js	/^var armyPic = document.createElement("img");$/;"	v
 battleMode	js/level-handling.js	/^var battleMode = false;$/;"	v
@@ -22,10 +22,14 @@ camPanX	js/common/cam-pan.js	/^var camPanX = 0.0;$/;"	v
 camPanY	js/common/cam-pan.js	/^var camPanY = 0.0;$/;"	v
 cameraFollow	js/common/cam-pan.js	/^function cameraFollow() {$/;"	f
 canvas	js/main.js	/^var canvas, canvasContext;$/;"	v
-checkAndHandleVictory	js/unit-team.js	/^function checkAndHandleVictory() {$/;"	f
+checkAndHandleVictory	js/battle-team.js	/^function checkAndHandleVictory() {$/;"	f
 cityClass	js/city.js	/^function cityClass() {$/;"	c
+cityPanelBackdrop	js/common/image-loading.js	/^var cityPanelBackdrop = document.createElement("img");$/;"	v
+cityPanelButtons	js/ui/city-panel.js	/^var cityPanelButtons = [$/;"	v
 cityPic	js/common/image-loading.js	/^var cityPic = document.createElement("img");$/;"	v
+cityWorkers	js/ui/city-panel.js	/^var cityWorkers = [];$/;"	v
 clickHandler	js/common/mouse-input.js	/^function clickHandler(evt) {$/;"	f
+closeCityPanel	js/ui/city-panel.js	/^function closeCityPanel() {$/;"	f
 colorCircle	js/common/graphics-common.js	/^function colorCircle(centerX, centerY, radius, fillColor) {$/;"	f
 colorRect	js/common/graphics-common.js	/^function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {$/;"	f
 colorText	js/common/graphics-common.js	/^function colorText(showWords, textX,textY, fillColor) {$/;"	f
@@ -37,35 +41,48 @@ countLoadedImagesAndLaunchIfReady	js/common/image-loading.js	/^function countLoa
 create	js/army.js	/^    this.create = function(troopCount, armyPos) {$/;"	m	class:armyClass
 currentSidebarButtons	js/ui/sidebar.js	/^var currentSidebarButtons = [];$/;"	v
 debug	js/main.js	/^function debug(text) {$/;"	f
+dialogBoxClass	js/ui/dialog-box.js	/^function dialogBoxClass(configObj) {$/;"	c
 distFrom	js/unit.js	/^  this.distFrom = function(otherX, otherY) {$/;"	m	class:unitClass
 draw	js/army.js	/^    this.draw = function() {$/;"	m	class:armyClass
+draw	js/city-worker.js	/^    this.draw = function() {$/;"	m	class:workerClass
 draw	js/city.js	/^    this.draw = function() {$/;"	m	class:cityClass
 draw	js/ui/button.js	/^    this.draw = function() {$/;"	m	class:buttonClass
+draw	js/ui/dialog-box.js	/^    this.draw = function() {$/;"	m	class:dialogBoxClass
 draw	js/unit.js	/^  this.draw = function() {$/;"	m	class:unitClass
 drawBattleTerrain	js/level-handling.js	/^function drawBattleTerrain(terrainCode, drawTileX, drawTileY) {$/;"	f
 drawBitmapCenteredWithRotation	js/common/graphics-common.js	/^function drawBitmapCenteredWithRotation(graphic, atX, atY,withAngle) {$/;"	f
 drawButtonLabel	js/ui/button.js	/^    this.drawButtonLabel = function() {$/;"	m	class:buttonClass
 drawCitiesAndArmies	js/main.js	/^function drawCitiesAndArmies() {$/;"	f
+drawCityPanel	js/ui/city-panel.js	/^function drawCityPanel() {$/;"	f
+drawDialogBodyText	js/ui/dialog-box.js	/^    this.drawDialogBodyText = function() {$/;"	m	class:dialogBoxClass
+drawDialogButtons	js/ui/dialog-box.js	/^    this.drawDialogButtons = function() {$/;"	m	class:dialogBoxClass
+drawDialogTitle	js/ui/dialog-box.js	/^    this.drawDialogTitle = function() {$/;"	m	class:dialogBoxClass
 drawEverything	js/main.js	/^function drawEverything() {$/;"	f
+drawHoverBox	js/editor.js	/^function drawHoverBox() {$/;"	f
 drawLevel	js/level-handling.js	/^function drawLevel() {$/;"	f
+drawSelectionBox	js/city-worker.js	/^  this.drawSelectionBox = function() {$/;"	m	class:workerClass
 drawSelectionBox	js/unit.js	/^  this.drawSelectionBox = function() {$/;"	m	class:unitClass
 drawSidebar	js/ui/sidebar.js	/^function drawSidebar() {$/;"	f
 drawUI	js/main.js	/^function drawUI() {$/;"	f
 drawUnits	js/main.js	/^function drawUnits() {$/;"	f
 drawWorldTerrain	js/level-handling.js	/^function drawWorldTerrain(terrainCode, drawTileX, drawTileY) {$/;"	f
 editorMode	js/level-handling.js	/^var editorMode = false;$/;"	v
-enemyArmies	js/army-team.js	/^var enemyArmies = [];$/;"	v
-enemyUnits	js/unit-team.js	/^var enemyUnits = [];$/;"	v
-findClosestUnitInRange	js/unit-team.js	/^function findClosestUnitInRange(fromX, fromY, maxRange, inUnitList) {$/;"	f
+enemyArmies	js/world-team.js	/^var enemyArmies = [];$/;"	v
+enemyUnits	js/battle-team.js	/^var enemyUnits = [];$/;"	v
+exportLevel	js/editor.js	/^function exportLevel() {$/;"	f
+findClickedCitySectionIdx	js/common/mouse-input.js	/^function findClickedCitySectionIdx(mousePos) {$/;"	f
+findClosestUnitInRange	js/battle-team.js	/^function findClosestUnitInRange(fromX, fromY, maxRange, inUnitList) {$/;"	f
 gameBattleGrid	js/level-handling.js	/^var gameBattleGrid, gameBattleRows, gameBattleCols;$/;"	v
 gameSeason	js/level-handling.js	/^var gameSeason = "summer";$/;"	v
 gameWorldGrid	js/level-handling.js	/^var gameWorldGrid, gameWorldRows, gameWorldCols;$/;"	v
 getRandomBattlefield	js/level-handling.js	/^function getRandomBattlefield() {$/;"	f
 getSeasonMultiplier	js/level-handling.js	/^function getSeasonMultiplier() {$/;"	f
 getUnitUnderMouse	js/common/mouse-input.js	/^function getUnitUnderMouse(currentMousePos) {$/;"	f
+goToRandomSpotInCityPanelSection	js/city-worker.js	/^    this.goToRandomSpotInCityPanelSection = function() {$/;"	m	class:workerClass
 gotoNear	js/unit.js	/^  this.gotoNear = function(aroundX, aroundY, formationPos, formationDim) {$/;"	m	class:unitClass
 grid	js/battle_maps/battlefield1.js	/^    grid: [$/;"	p	class:let
 grid	js/world_maps/world1.js	/^    grid: [$/;"	p	class:let
+handleCityPanelClick	js/ui/city-panel.js	/^function handleCityPanelClick(mousePos) {$/;"	f
 handleMainWindowClick	js/common/mouse-input.js	/^function handleMainWindowClick(mousePos) {$/;"	f
 handleMiniMapClick	js/ui/minimap.js	/^function handleMiniMapClick(mousePos) {$/;"	f
 handleSidebarButtonClick	js/ui/sidebar.js	/^function handleSidebarButtonClick(mousePos) {$/;"	f
@@ -73,10 +90,12 @@ highlightIf	js/ui/button.js	/^    this.highlightIf = function() {$/;"	m	class:bu
 hoverPos	js/editor.js	/^var hoverPos = null;$/;"	v
 imageLoadingDoneSoStartGame	js/main.js	/^function imageLoadingDoneSoStartGame() {$/;"	f
 isClickInBox	js/common/mouse-input.js	/^function isClickInBox(mousePos, x1,y1, x2,y2) {$/;"	f
+isClickInsideCityPanel	js/common/mouse-input.js	/^function isClickInsideCityPanel(mousePos) {$/;"	f
 isClickInsideMainWindow	js/common/mouse-input.js	/^function isClickInsideMainWindow(mousePos) {$/;"	f
 isClickInsideMiniMap	js/common/mouse-input.js	/^function isClickInsideMiniMap(mousePos) {$/;"	f
 isClickInsideSidebar	js/common/mouse-input.js	/^function isClickInsideSidebar(mousePos) {$/;"	f
 isClickOnButton	js/ui/sidebar.js	/^function isClickOnButton(mousePos, button) {$/;"	f
+isInBox	js/city-worker.js	/^    this.isInBox = function(x1, y1, x2, y2) {$/;"	m	class:workerClass
 isInBox	js/unit.js	/^  this.isInBox = function(x1, y1, x2, y2) {$/;"	m	class:unitClass
 isMouseDragging	js/common/mouse-input.js	/^var isMouseDragging = false;$/;"	v
 keepInPlayableArea	js/unit.js	/^  this.keepInPlayableArea = function() {$/;"	m	class:unitClass
@@ -103,6 +122,7 @@ mouseupHandler	js/common/mouse-input.js	/^function mouseupHandler(evt) {$/;"	f
 move	js/army.js	/^    this.move = function() {$/;"	m	class:armyClass
 move	js/unit.js	/^  this.move = function() {$/;"	m	class:unitClass
 moveEverything	js/main.js	/^function moveEverything() {$/;"	f
+moveTo	js/city-worker.js	/^    this.moveTo = function(newWorkerPlaceIdx) {$/;"	m	class:workerClass
 onClick	js/army.js	/^    this.onClick = function() {$/;"	m	class:armyClass
 onClick	js/city.js	/^    this.onClick = function() {$/;"	m	class:cityClass
 openCityPanel	js/ui/city-panel.js	/^function openCityPanel(city) {$/;"	f
@@ -111,29 +131,34 @@ picsToLoad	js/common/image-loading.js	/^var picsToLoad = 0; \/\/set automaticall
 placeholderUnitAtk	js/common/image-loading.js	/^var placeholderUnitAtk = document.createElement("img");$/;"	v
 placeholderUnitSingleFrame	js/common/image-loading.js	/^var placeholderUnitSingleFrame = document.createElement("img");$/;"	v
 placeholderUnitWalk	js/common/image-loading.js	/^var placeholderUnitWalk = document.createElement("img");$/;"	v
-playerArmies	js/army-team.js	/^var playerArmies = [];$/;"	v
-playerUnits	js/unit-team.js	/^var playerUnits = [];$/;"	v
-populateTeam	js/unit-team.js	/^function populateTeam(whichTeam, howMany, isPlayerControlled) {$/;"	f
-removeDeadUnits	js/unit-team.js	/^function removeDeadUnits() {$/;"	f
-removeDeadUnitsFromList	js/unit-team.js	/^function removeDeadUnitsFromList(fromArray) {$/;"	f
+playerArmies	js/world-team.js	/^var playerArmies = [ ];$/;"	v
+playerCities	js/world-team.js	/^var playerCities = [];$/;"	v
+playerUnits	js/battle-team.js	/^var playerUnits = [];$/;"	v
+populateTeam	js/battle-team.js	/^function populateTeam(whichTeam, howMany, isPlayerControlled) {$/;"	f
+removeDeadUnits	js/battle-team.js	/^function removeDeadUnits() {$/;"	f
+removeDeadUnitsFromList	js/battle-team.js	/^function removeDeadUnitsFromList(fromArray) {$/;"	f
+replaceTerrain	js/editor.js	/^function replaceTerrain(terrainIndex) {$/;"	f
 resetAndSetPlayerTeam	js/unit.js	/^  this.resetAndSetPlayerTeam = function(playerTeam) {$/;"	m	class:unitClass
 resolveMoveDirection	js/unit.js	/^  this.resolveMoveDirection = function(moveX, moveY) {$/;"	m	class:unitClass
 returnTileTypeAtColRow	js/level-handling.js	/^function returnTileTypeAtColRow(col,row) {$/;"	f
 rowColToArrayIndex	js/level-handling.js	/^function rowColToArrayIndex(col, row) {$/;"	f
 rows	js/battle_maps/battlefield1.js	/^    rows: 50,$/;"	p	class:let
 rows	js/world_maps/world1.js	/^    rows: 40,$/;"	p	class:let
+selectedArmy	js/world-team.js	/^var selectedArmy = null;$/;"	v
+selectedCityWorkers	js/ui/city-panel.js	/^var selectedCityWorkers = [];$/;"	v
 selectedUnits	js/common/mouse-input.js	/^var selectedUnits = [];$/;"	v
 setCamPanDeltas	js/common/cam-pan.js	/^function setCamPanDeltas(mousePos) {$/;"	f
 setPosition	js/army.js	/^    this.setPosition = function(col,row) {$/;"	m	class:armyClass
 setPosition	js/city.js	/^    this.setPosition = function(col,row) {$/;"	m	class:cityClass
 setTarget	js/unit.js	/^  this.setTarget = function(newTarget) {$/;"	m	class:unitClass
+setTerrainBrushCode	js/editor.js	/^function setTerrainBrushCode(newVal) {$/;"	f
 setupBattleMode	js/level-handling.js	/^function setupBattleMode() {$/;"	c
 setupEditorMode	js/level-handling.js	/^function setupEditorMode() {$/;"	c
 setupKeyboardInput	js/common/keyboard-input.js	/^function setupKeyboardInput() {$/;"	f
 setupMouseInput	js/common/mouse-input.js	/^function setupMouseInput() {$/;"	f
 setupWorldMode	js/level-handling.js	/^function setupWorldMode() {$/;"	c
-showCityPanel	js/ui/city-panel.js	/^var showCityPanel = false;$/;"	v
-soonCheckUnitsToClear	js/unit-team.js	/^function soonCheckUnitsToClear() {$/;"	f
+showGrid	js/main.js	/^var showGrid = false;$/;"	v
+soonCheckUnitsToClear	js/battle-team.js	/^function soonCheckUnitsToClear() {$/;"	f
 startNewGame	js/level-handling.js	/^function startNewGame(whichWorld) {$/;"	f
 terrainBrushCode	js/editor.js	/^var terrainBrushCode = 1;$/;"	v
 terrainBrushSize	js/editor.js	/^var terrainBrushSize = 1;$/;"	v
@@ -144,6 +169,9 @@ unitPics	js/common/image-loading.js	/^var unitPics = [];$/;"	v
 updateAll	js/main.js	/^function updateAll() {$/;"	f
 viewingCity	js/ui/city-panel.js	/^var viewingCity = null;$/;"	v
 window.onload	js/main.js	/^window.onload = function() {$/;"	f
+workerClass	js/city-worker.js	/^function workerClass(configObj) {$/;"	c
+worldIdx	js/army.js	/^    this.worldIdx = function() {$/;"	m	class:armyClass
+worldIdx	js/city.js	/^    this.worldIdx = function() {$/;"	m	class:cityClass
 worldIdxFromMousePos	js/common/mouse-input.js	/^function worldIdxFromMousePos(mousePos) {$/;"	f
 worldPics	js/common/image-loading.js	/^var worldPics = [];$/;"	v
 worldTerrain	js/common/image-loading.js	/^var worldTerrain = document.createElement("img");$/;"	v

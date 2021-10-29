@@ -26,12 +26,13 @@ function workerClass(configObj) {
 
 
     this.moveTo = function(newWorkerPlaceIdx) {
-	this.workerPlace = CITY_SECTIONS[newWorkerPlaceIdx];
-	this.goToRandomSpotInCityPanelSection();
+        this.workerPlace = CITY_SECTIONS[newWorkerPlaceIdx];
+        this.color = CITY_SECTIONS[newWorkerPlaceIdx].color;
+        this.goToRandomSpotInCityPanelSection();
     }
 
     this.draw = function() {
-      colorCircle(this.x,this.y, WORKER_PLACEHOLDER_RADIUS, this.color);
+        colorCircle(this.x,this.y, WORKER_PLACEHOLDER_RADIUS, this.color);
     }
 
     this.isInBox = function(x1, y1, x2, y2) {
@@ -67,4 +68,11 @@ function workerClass(configObj) {
         }
         return true;
     }
+
+  this.drawSelectionBox = function() {
+    coloredOutlineRectCornerToCorner( this.x-WORKER_SELECT_DIM_HALF,
+                                      this.y-WORKER_SELECT_DIM_HALF,
+                                      this.x+WORKER_SELECT_DIM_HALF,
+                                      this.y+WORKER_SELECT_DIM_HALF, '#00ff00' );
+  }
 }

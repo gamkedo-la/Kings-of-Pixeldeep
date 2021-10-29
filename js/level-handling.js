@@ -175,7 +175,7 @@ function drawLevel() {
     arrayIndex = rowColToArrayIndex(cameraLeftMostCol, drawTileY / LEVEL_TILE_H );
     var drawTileX = cameraLeftMostCol * LEVEL_TILE_W;
     } // end of for each row
-} // end of draw worlds
+} // end of draw level
 
 function getSeasonMultiplier() {
   if(gameSeason === "summer") {

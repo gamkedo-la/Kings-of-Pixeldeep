@@ -27,9 +27,14 @@ function mousemoveHandler(evt) {
     var mousePos = calculateMousePos(evt);
     setCamPanDeltas(mousePos);
     //document.getElementById("debugText2").innerHTML = "("+mousePos.x+","+mousePos.y+")";
-    if((battleMode || showCityPanel) && isMouseDragging) {
-        lassoX2 = mousePos.levelX;
-        lassoY2 = mousePos.levelY;
+    if(isMouseDragging) {
+        if(battleMode) {
+            lassoX2 = mousePos.levelX;
+            lassoY2 = mousePos.levelY;
+        } else if(showCityPanel) {
+            lassoX2 = mousePos.x;
+            lassoY2 = mousePos.y;
+        }
     }
     if(editorMode && mouseInMainWindow(mousePos)) {
         //drawHoverBox(mousePos);
@@ -43,8 +48,14 @@ function mousedownHandler(evt) {
     if(battleMode || showCityPanel) {
         var mousePos = calculateMousePos(evt);
         if(isClickInsideMainWindow(mousePos)) {
-            lassoX1 = mousePos.levelX;
-            lassoY1 = mousePos.levelY;
+            if(battleMode) {
+                lassoX1 = mousePos.levelX;
+                lassoY1 = mousePos.levelY;
+            } else if(showCityPanel) {
+                lassoX1 = mousePos.x;
+                lassoY1 = mousePos.y;
+            }
+
             lassoX2 = lassoX1;
             lassoY2 = lassoY1;
             isMouseDragging = true;
@@ -104,13 +115,15 @@ function mouseupHandler(evt) {
                     }
                     document.getElementById("debugText2").innerHTML = 
                         "Moving to ("+mousePos.levelX+","+mousePos.levelY+")";
-                } else { // if showCityPanel
+                } else if(showCityPanel) { 
                     if(isClickInsideCityPanel(mousePos)) {
                         //find out which section click is in.
                         var clickedCitySection = findClickedCitySectionIdx(mousePos);
                         for(var i=0;i<selectedCityWorkers.length;i++) {
                             selectedCityWorkers[i].moveTo(clickedCitySection);
                         }
+                        // city workers are de-selected once moved
+                        selectedCityWorkers = [];
                     }
                     
                 } // end else (if showCityPanel)
@@ -125,8 +138,9 @@ function mouseupHandler(evt) {
 
 function findClickedCitySectionIdx(mousePos) {
     for(var i=0;i<CITY_SECTIONS.length;i++) {
-        if( isClickInBox(CITY_SECTIONS[i].minX, CITY_SECTIONS[i].minY,
+        if( isClickInBox(mousePos, CITY_SECTIONS[i].minX, CITY_SECTIONS[i].minY,
             CITY_SECTIONS[i].maxX, CITY_SECTIONS[i].maxY) ) {
+            //console.log("click was in " + CITY_SECTIONS[i].name);
             return i;
             break;
         }
@@ -139,23 +153,23 @@ function clickHandler(evt) {
     var mousePos = calculateMousePos(evt);
 
     if(showCityPanel && isClickInsideCityPanel(mousePos)) {
-        console.log("click was on city panel", mousePos.x, mousePos.y);
+        //console.log("click was on city panel", mousePos.x, mousePos.y);
         handleCityPanelClick(mousePos);
         return;
     } // TODO: if showCityPanel && !isClickInsideCityPanel, then close city panel
 
     if(isClickInsideMiniMap(mousePos)) {
-        console.log("click was on minimap");
+        //console.log("click was on minimap");
         handleMiniMapClick(mousePos);
         return; // mini map clicks shouldn't select/trigger anything else
     }
     if(isClickInsideSidebar(mousePos)) {
-        console.log("click was on sidebar");
+        //console.log("click was on sidebar");
         handleSidebarButtonClick(mousePos);
         return;
     }
     if(isClickInsideMainWindow(mousePos)) {
-        console.log("click was on main window");
+        //console.log("click was on main window");
         handleMainWindowClick(mousePos);
         return;
     }
@@ -247,6 +261,11 @@ function isClickInsideMainWindow(mousePos) {
 }
 
 function isClickInBox(mousePos, x1,y1, x2,y2) {
+    if(!mousePos.x || !mousePos.y) {
+        console.log("error: invalid mousePos given for isClickInBox");
+        return false;
+    }
+
     if(mousePos.x < x1) {
         return false;
     }
@@ -260,7 +279,7 @@ function isClickInBox(mousePos, x1,y1, x2,y2) {
         return false;
     }
 
-    //console.log("click is in box", x1, y1, x2, y2);
+    console.log("click is in box", x1, y1, x2, y2);
     return true;
 }
 
@@ -337,7 +356,7 @@ function isClickInsideCityPanel(mousePos) {
 
 	CITY_PANEL_X, CITY_PANEL_Y,
 
-	CITY_PANEL_X + cityPanelBackdrop.width, CITY_PANEL_Y + cityPanelBackdrop.height
+	CITY_PANEL_X + cityPanelBackdrop.width, CITY_PANEL_Y + cityPanelBackdrop.height + 150 // room for button at bottom
     );
 }
 
