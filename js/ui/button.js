@@ -38,7 +38,9 @@ function buttonClass(configObj) {
     // since it only runs once and not every frame
     // like `this.x = parentX + relativeX;`
     //console.log("paddingPx", this.paddingPx);
-    this.width = this.label.length*this.fontSize + (this.paddingPx * 2);
+    if(typeof(this.label) !== "function") {
+        this.width = this.label.length*this.fontSize + (this.paddingPx * 2);
+    }
     this.height = this.fontSize + (this.paddingPx * 2);
 
     this.draw = function() {
@@ -59,16 +61,25 @@ function buttonClass(configObj) {
     }
 
     this.drawButtonLabel = function() {
+
+    let labelText = "";
+    if(typeof(this.label) === "function") {
+        labelText = this.label();
+    } else {
+        labelText = this.label;
+    }
+
 	// TODO: if text-align is center, labelx needs to be in the middle of the button
 	let labelx = this.x + (this.width / 2); // shouldn't need the x2, but apparently I do
 	let labely = this.y + this.paddingPx;
+
 
 	canvasContext.save();
 	canvasContext.textBaseline = "top";
 	canvasContext.font = this.fontSize+"pt Serif";
 	canvasContext.fillStyle = this.textColor;
 	canvasContext.textAlign = "center";
-	canvasContext.fillText(this.label, labelx, labely);
+	canvasContext.fillText(labelText, labelx, labely);
 	canvasContext.restore();
     }
 }

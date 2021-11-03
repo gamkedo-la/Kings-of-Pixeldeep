@@ -9,23 +9,23 @@ function cityClass() {
     this.population = 10;
 
     this.worldIdx = function() {
-	let idx = this.worldRow * level_cols + this.worldCol;
-	console.log(this.name, idx);
-	return idx;
+        let idx = this.worldRow * level_cols + this.worldCol;
+        console.log(this.name, idx);
+        return idx;
     }
 
     this.x = function() {
-	//console.log("calling this.x");
-	return (this.worldCol * LEVEL_TILE_W) + (LEVEL_TILE_W / 2);
+        //console.log("calling this.x");
+        return (this.worldCol * LEVEL_TILE_W) + (LEVEL_TILE_W / 2);
     }
     this.y = function() {
-	//console.log("calling this.y");
-	return (this.worldRow * LEVEL_TILE_H) + (LEVEL_TILE_H / 2);
+        //console.log("calling this.y");
+        return (this.worldRow * LEVEL_TILE_H) + (LEVEL_TILE_H / 2);
     }
 
     this.setPosition = function(col,row) {
-	this.worldCol = col;
-	this.worldRow = row;
+        this.worldCol = col;
+        this.worldRow = row;
     }
 
     this.population = 1;
@@ -37,10 +37,10 @@ function cityClass() {
 	
     this.draw = function() {
         drawBitmapCenteredWithRotation(this.picToUse, this.x(),this.y(), 0);
-	// TODO: draw city name under city? Debatable. Lords 2 doesn't, but...:shrug:
+        // TODO: draw city name under city? Debatable. Lords 2 doesn't, but...:shrug:
     }
     
     this.onClick = function() {
-	openCityPanel(this);
+        openCityPanel(this);
     }
 }

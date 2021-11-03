@@ -1,17 +1,35 @@
 const WORLD_SIDEBAR_BUTTONS = [
     new buttonClass({
-	x:700,
-	y:300, 
-	label: "Test", 
+	x:600,
+	y:200, 
+	label: function () {
+        var nearestCity = { name: "paris" };
+        return nearestCity.name.toUpperCase();
+    }, 
+    width: 200,
 	onClick: testButton,
+    color: 'darkgray',
+    textColor: 'white',
     }),
     new buttonClass({
-	label: "Test Button 2", 
+	x:605,
+	y:310, 
+	label: function () {
+        var foodChange = 3;
+        return "Food " + printWithSign(foodChange);
+    }, 
+    width: 60,
+	onClick: testButton,
+    color: 'gray',
+    textColor: 'yellow',
+    }),
+    new buttonClass({
+	label: "End Turn", 
 	onClick: function() { 
-	    console.log("clicked test button 2");
+	    console.log("clicked end turn");
 	},
-	x:612,
-	y:500, 
+	x:642,
+	y:550, 
     }),
 ];
 
@@ -159,3 +177,13 @@ const BATTLE_SIDEBAR_BUTTONS = [
 const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
     //
 ];
+
+function printWithSign(number) {
+    if(number > 0) {
+        return "+"+ number;
+    } else {
+        return number;
+        //return "-"+ Math.abs(number); 
+    }
+}
+
