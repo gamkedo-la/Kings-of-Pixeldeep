@@ -11,7 +11,7 @@ const CITY_SECTIONS = [
         maxY: 300,
     },
     {
-        name: 'wheat-fields',
+        name: 'wheatFields',
         color: 'green',
         minX: 210,
         maxX: 395,

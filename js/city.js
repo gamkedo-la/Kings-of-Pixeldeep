@@ -1,12 +1,40 @@
 const POPULATION_GROWTH_RATE = 0.1;
 
-function cityClass() {
+function cityClass(configObj) {
 
+    // set default values
     this.worldRow = 3;
     this.worldCol = 3;
     this.picToUse = cityPic;
     this.name = "Untitled City";
-    this.population = 10;
+    this.population = {
+        total: 10,
+        forestry: 0,
+        wheatFields: 0,
+        stables: 0,
+        mines: 0,
+        blacksmiths: 0,
+        idle: function() {
+            return this.population.total - ( 
+                this.population.forestry +
+                this.population.wheatFields +
+                this.population.stables +
+                this.population.mines +
+                this.population.blacksmiths +
+            );
+        },
+
+    };
+
+    this.playerControlled = true;
+
+    if(this.configObj) {
+        for( const [key, val] of Object.entries(configObj) ) {
+            if(val) {
+                this[key] = val;
+            }
+        }
+    }
 
     this.worldIdx = function() {
         let idx = this.worldRow * level_cols + this.worldCol;
@@ -22,6 +50,7 @@ function cityClass() {
         //console.log("calling this.y");
         return (this.worldRow * LEVEL_TILE_H) + (LEVEL_TILE_H / 2);
     }
+
 
     this.setPosition = function(col,row) {
         this.worldCol = col;
