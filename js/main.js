@@ -102,10 +102,17 @@ function drawUI() {
 }
 
 function drawCitiesAndArmies() {
+for(var i=0;i<playerCities.length;i++) {
+    playerCities[i].draw();
+}
+for(var i=0;i<playerArmies.length;i++) {
+    playerArmies[i].draw();
+}
+    
     // TODO: call on arrays in world-team.js
-    venice.draw();
-    paris.draw();
-    army1.draw();
+    //venice.draw();
+    //paris.draw();
+    //army1.draw();
 }
 
 function debug(text) {

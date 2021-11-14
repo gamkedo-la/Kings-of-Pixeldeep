@@ -22,7 +22,7 @@ function armyClass() {
 
     this.worldIdx = function() {
 	let idx = this.worldRow * level_cols + this.worldCol;
-	console.log(this.name, idx);
+	//console.log(this.name, idx);
 	return idx;
     }
   

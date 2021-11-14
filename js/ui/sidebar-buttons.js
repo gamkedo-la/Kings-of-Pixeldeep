@@ -7,7 +7,7 @@ const WORLD_SIDEBAR_BUTTONS = [
         return nearestCity.name.toUpperCase();
     }, 
     width: 200,
-	onClick: testButton,
+	onClick: function () { },
     color: 'darkgray',
     textColor: 'white',
     }),

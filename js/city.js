@@ -20,7 +20,7 @@ function cityClass(configObj) {
                 this.population.wheatFields +
                 this.population.stables +
                 this.population.mines +
-                this.population.blacksmiths +
+                this.population.blacksmiths
             );
         },
 
@@ -38,7 +38,7 @@ function cityClass(configObj) {
 
     this.worldIdx = function() {
         let idx = this.worldRow * level_cols + this.worldCol;
-        console.log(this.name, idx);
+        //console.log(this.name, idx);
         return idx;
     }
 

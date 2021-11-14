@@ -26,6 +26,7 @@ function setupMouseInput() {
 function mousemoveHandler(evt) {
     var mousePos = calculateMousePos(evt);
     setCamPanDeltas(mousePos);
+    debug("mousePos: (" + mousePos.x +","+ mousePos.y +")");
     //document.getElementById("debugText2").innerHTML = "("+mousePos.x+","+mousePos.y+")";
     if(isMouseDragging) {
         if(battleMode) {
@@ -38,7 +39,9 @@ function mousemoveHandler(evt) {
     }
     if(editorMode && mouseInMainWindow(mousePos)) {
         //drawHoverBox(mousePos);
-        hoverPos = mousePos;//worldIdxFromMousePos(mousePos);
+        hoverPos = mousePos;// see editor.js for hoverPos usage
+    } else if(selectedArmy) {
+        hoverPos = mousePos;
     } else if(hoverPos !== null) {
         hoverPos = null;
     }
@@ -279,12 +282,12 @@ function isClickInBox(mousePos, x1,y1, x2,y2) {
         return false;
     }
 
-    console.log("click is in box", x1, y1, x2, y2);
+    //console.log("click is in box", x1, y1, x2, y2);
     return true;
 }
 
 function handleMainWindowClick(mousePos) {
-    console.log(mousePos);
+    //console.log(mousePos);
     if(battleMode) {
         return; 
         // mouse click in main window is only for world layer
