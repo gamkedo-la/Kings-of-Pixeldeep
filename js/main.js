@@ -4,6 +4,11 @@ var canvas, canvasContext;
 var showGrid = false;
 // TODO: add "showDebug" config var as well
 
+var sliderTest = new sliderClass({
+    x: 300,
+    y: 300,
+});
+
 window.onload = function() {
     canvas = document.getElementById('gameCanvas');
     canvasContext = canvas.getContext('2d');
@@ -98,6 +103,9 @@ function drawUI() {
     }
     if(!battleMode && showCityPanel) {
         drawCityPanel();
+    }
+    if(showSliderTest) {
+        sliderTest.draw();
     }
 }
 

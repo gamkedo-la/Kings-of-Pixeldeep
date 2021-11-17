@@ -45,11 +45,16 @@ function mousemoveHandler(evt) {
     } else if(hoverPos !== null) {
         hoverPos = null;
     }
+    if(showSliderTest && sliderTest.isDragging) {
+
+        sliderTest.mousemoveHandler(evt);
+    }
 }
 
 function mousedownHandler(evt) {
+    var mousePos = calculateMousePos(evt);
+
     if(battleMode || showCityPanel) {
-        var mousePos = calculateMousePos(evt);
         if(isClickInsideMainWindow(mousePos)) {
             if(battleMode) {
                 lassoX1 = mousePos.levelX;
@@ -64,6 +69,14 @@ function mousedownHandler(evt) {
             isMouseDragging = true;
         }
     } 
+
+    if(showSliderTest && isClickInBox(mousePos,
+        sliderTest.x,sliderTest.y, 
+        sliderTest.x + sliderTest.width,
+        sliderTest.y + sliderTest.height)) {
+
+        sliderTest.mousedownHandler(evt);
+    }
 }
 
 function mouseupHandler(evt) {
@@ -136,6 +149,17 @@ function mouseupHandler(evt) {
         } // end else (!mouseMovedEnoughToTreatAsDragging)
 
     } // end if(battleMode)
+
+    if(showSliderTest) { 
+        var mousePos = calculateMousePos(evt);
+        if(isClickInBox(mousePos,
+            sliderTest.x, sliderTest.y, 
+            sliderTest.x + sliderTest.width,
+            sliderTest.y + sliderTest.height)) {
+
+            sliderTest.mouseupHandler(evt);
+        }
+    }
 
 }
 

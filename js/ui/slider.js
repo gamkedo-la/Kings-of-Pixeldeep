@@ -21,46 +21,61 @@ function sliderClass(configObj) {
 
 
     for(const [key, val] of Object.entries(configObj)) {
-	if(val) {
-	    this[key] = val;
-	}
+        if(val) {
+            this[key] = val;
+        }
     }
 
     this.scaleFactor = function() {
-	return this.barWidth / (this.maxValue - this.minValue);
+        return this.barWidth / (this.maxValue - this.minValue);
     }
 
     this.draw = function() {
-	// backdrop to hint clickable area
-	colorRect(this.x,this.y, this.width,this.height, 'wheat');
-	// bar
-	colorRect(this.x + 10,
-	    this.y + this.height / 2 - this.barHeight / 2,
-	    this.barWidth, this.barHeight, 
-	    this.barColor);
-	// handle
-	colorRect(this.x + this.currentValue * this.scaleFactor(),
-	    this.y,
-	    this.handleWidth, this.handleHeight, 
-	    this.handleColor);
+        // backdrop to hint clickable area
+        colorRect(this.x,this.y, this.width,this.height, 'wheat');
+        // bar
+        colorRect(this.x,
+            this.y + this.height / 2 - this.barHeight / 2,
+            this.barWidth, this.barHeight, 
+            this.barColor);
+        // handle
+        colorRect(this.x + this.currentValue * this.scaleFactor(),
+            this.y,
+            this.handleWidth, this.handleHeight, 
+            this.handleColor);
     }
 
-    this.setup = function() {
-	// TODO: add event listeners somehow
+    this.mousedownHandler = function(evt) {
+        console.log("slider mousedown");
+        this.isDragging = true;
     }
 
-    this.mousedownHandler() {
-	this.isDragging = true;
+    this.mousemoveHandler = function(evt) {
+        console.log("slider mousemove");
+        if(this.isDragging) {
+            let mousePos = calculateMousePos(evt);
+            this.calculateValueFromMousePos(mousePos);
+        }
     }
 
-    this.mousemoveHandler() {
-	if(this.isDragging) {
-	    // TODO: calculatemousePos && use mousePos.x to calculate current value
-	}
+    this.mouseupHandler = function(evt) {
+        console.log("slider mouseup");
+        let mousePos = calculateMousePos(evt);
+        this.isDragging = false;
+        this.calculateValueFromMousePos(mousePos);
     }
 
-    this.mouseupHandler() {
-	this.isDragging = false;
-	// TODO: calculate this.currentValue from mousePos.x
+    this.calculateValueFromMousePos = function(mousePos) {
+        if(mousePos.x < this.x) {
+            this.currentValue = this.minValue;
+        } else if (mousePos.x > this.x + this.width) {
+            this.currentValue = this.maxValue;
+        } else { // mousePos.x between min and max positions
+            this.currentValue = (mousePos.x - this.x) / this.scaleFactor();
+        }
+        console.log("slider value", this.currentValue);
     }
 }
+
+var showSliderTest = false;
+

@@ -16,14 +16,14 @@ function buttonClass(configObj) {
     // set buttons to never highlight by default since
     // most buttons won't use this functionality
     this.highlightIf = function() {
-	return false;
+        return false;
     }
 
     // TODO: give these default values when not specified
     for(const [key, val] of Object.entries(configObj)) {
-	if(val) {
-	    this[key] = val;
-	}
+        if(val) {
+            this[key] = val;
+        }
     }
 	/*
     this.x = configObj.x;
@@ -44,43 +44,43 @@ function buttonClass(configObj) {
     this.height = this.fontSize + (this.paddingPx * 2);
 
     this.draw = function() {
-	// TODO: make button images for prettier buttons
+        // TODO: make button images for prettier buttons
 
-	colorRect(this.x,this.y, this.width, this.height, this.color);
+        colorRect(this.x,this.y, this.width, this.height, this.color);
 
-	if(this.highlightIf()) {
-	    colorRect(this.x+3,this.y+3, this.width-6,this.height-6, "cyan");
-	}
+        if(this.highlightIf()) {
+            colorRect(this.x+3,this.y+3, this.width-6,this.height-6, "cyan");
+        }
 
-	this.drawButtonLabel();
-	/*
-	colorText(this.label, 
-	    this.x+this.paddingPx,
-	    this.y+this.fontSize+this.paddingPx, this.textColor);
-	*/
+        this.drawButtonLabel();
+        /*
+        colorText(this.label, 
+            this.x+this.paddingPx,
+            this.y+this.fontSize+this.paddingPx, this.textColor);
+        */
     }
 
     this.drawButtonLabel = function() {
 
-    let labelText = "";
-    if(typeof(this.label) === "function") {
-        labelText = this.label();
-    } else {
-        labelText = this.label;
-    }
+        let labelText = "";
+        if(typeof(this.label) === "function") {
+            labelText = this.label();
+        } else {
+            labelText = this.label;
+        }
 
-	// TODO: if text-align is center, labelx needs to be in the middle of the button
-	let labelx = this.x + (this.width / 2); // shouldn't need the x2, but apparently I do
-	let labely = this.y + this.paddingPx;
+        // TODO: if text-align is center, labelx needs to be in the middle of the button
+        let labelx = this.x + (this.width / 2); // shouldn't need the x2, but apparently I do
+        let labely = this.y + this.paddingPx;
 
 
-	canvasContext.save();
-	canvasContext.textBaseline = "top";
-	canvasContext.font = this.fontSize+"pt Serif";
-	canvasContext.fillStyle = this.textColor;
-	canvasContext.textAlign = "center";
-	canvasContext.fillText(labelText, labelx, labely);
-	canvasContext.restore();
+        canvasContext.save();
+        canvasContext.textBaseline = "top";
+        canvasContext.font = this.fontSize+"pt Serif";
+        canvasContext.fillStyle = this.textColor;
+        canvasContext.textAlign = "center";
+        canvasContext.fillText(labelText, labelx, labely);
+        canvasContext.restore();
     }
 }
 
