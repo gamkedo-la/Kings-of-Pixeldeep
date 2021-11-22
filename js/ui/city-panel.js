@@ -1,6 +1,7 @@
 const CITY_PANEL_X = 10;
 const CITY_PANEL_Y = 100;
 
+/*
 const CITY_SECTIONS = [
     {
         name: 'forestry',
@@ -51,13 +52,18 @@ const CITY_SECTIONS = [
         maxY: 505,
     },
 ]
+*/
 
 var showCityPanel = false;
 var viewingCity = null;
-var cityWorkers = [];
-var selectedCityWorkers = [];
+//var cityWorkers = [];
+//var selectedCityWorkers = [];
 
 var cityPanelButtons = [
+    new sliderClass({
+        x: CITY_PANEL_X + 25,
+        y: CITY_PANEL_Y + 25,
+    }),
     new buttonClass({
 	label: "Close",
 	onClick: function() {
@@ -74,6 +80,7 @@ function openCityPanel(city) {
     viewingCity = city;
     showCityPanel = true;
 
+    /*
     // tmp workers for testing
     cityWorkers = [];
     for(var i=0;i<10;i++) {
@@ -82,6 +89,7 @@ function openCityPanel(city) {
         });
         cityWorkers.push(newWorker);
     }
+    */
 }
 
 function closeCityPanel() {
@@ -91,14 +99,13 @@ function closeCityPanel() {
 }
 
 function drawCityPanel() {
-    canvasContext.drawImage(cityPanelBackdrop, CITY_PANEL_X,CITY_PANEL_Y);
+    //canvasContext.drawImage(cityPanelBackdrop, CITY_PANEL_X,CITY_PANEL_Y);
+    colorRect(CITY_PANEL_X, CITY_PANEL_Y, 300, 300); 
+    // TODO: City panel w & h vars
     for(var i=0;i<cityPanelButtons.length;i++) {
         cityPanelButtons[i].draw();
     }
-    // TODO: also draw city panel workers
-    // TODO: make array of arrays of workers with an index array for keeping track of 
-    // which grp is which? EDIT: not sure separate arrays are necessary if we keep track
-    // of worker type on the worker object itself
+    /*
     for(var i=0;i<cityWorkers.length;i++) {
         cityWorkers[i].draw();
     }
@@ -106,6 +113,7 @@ function drawCityPanel() {
     for(var i=0;i<selectedCityWorkers.length;i++) {
         selectedCityWorkers[i].drawSelectionBox();
     }
+    */
 }
 
 function handleCityPanelClick(mousePos) {
