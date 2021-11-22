@@ -1,5 +1,7 @@
 const CITY_PANEL_X = 10;
 const CITY_PANEL_Y = 100;
+const CITY_PANEL_W = 300;
+const CITY_PANEL_H = 300;
 
 /*
 const CITY_SECTIONS = [
@@ -59,7 +61,7 @@ var viewingCity = null;
 //var cityWorkers = [];
 //var selectedCityWorkers = [];
 
-var cityPanelButtons = [
+var cityPanelControls = [
     new sliderClass({
         x: CITY_PANEL_X + 25,
         y: CITY_PANEL_Y + 25,
@@ -70,8 +72,8 @@ var cityPanelButtons = [
         console.log("clicked city close button");
 	    closeCityPanel();
 	},
-        x: 505,
-        y: 520,
+        x: CITY_PANEL_X + CITY_PANEL_W - 100,
+        y: CITY_PANEL_Y + CITY_PANEL_H - 50,
     }),
 ];
 
@@ -100,10 +102,10 @@ function closeCityPanel() {
 
 function drawCityPanel() {
     //canvasContext.drawImage(cityPanelBackdrop, CITY_PANEL_X,CITY_PANEL_Y);
-    colorRect(CITY_PANEL_X, CITY_PANEL_Y, 300, 300); 
+    colorRect(CITY_PANEL_X,CITY_PANEL_Y, CITY_PANEL_W,CITY_PANEL_H, 'tan'); 
     // TODO: City panel w & h vars
-    for(var i=0;i<cityPanelButtons.length;i++) {
-        cityPanelButtons[i].draw();
+    for(var i=0;i<cityPanelControls.length;i++) {
+        cityPanelControls[i].draw();
     }
     /*
     for(var i=0;i<cityWorkers.length;i++) {
@@ -117,8 +119,8 @@ function drawCityPanel() {
 }
 
 function handleCityPanelClick(mousePos) {
-    for(let i=0;i<cityPanelButtons.length;i++) {
-        let currentButton = cityPanelButtons[i];
+    for(let i=0;i<cityPanelControls.length;i++) {
+        let currentButton = cityPanelControls[i];
         if(isClickOnButton(mousePos, currentButton)) {
             currentButton.onClick();
         }
