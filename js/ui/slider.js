@@ -16,6 +16,7 @@ function sliderClass(configObj) {
     this.minValue = 0;
     this.maxValue = 100;
     this.currentValue = 25;
+    this.modelValue = null;
 
     this.isDragging = false;
 
@@ -72,6 +73,10 @@ function sliderClass(configObj) {
             this.currentValue = this.maxValue;
         } else { // mousePos.x between min and max positions
             this.currentValue = (mousePos.x - this.x) / this.scaleFactor();
+        }
+
+        if(this.modelValue) {
+            this.modelValue.value = this.currentValue;
         }
         console.log("slider value", this.currentValue);
     }

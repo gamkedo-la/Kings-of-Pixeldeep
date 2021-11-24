@@ -32,10 +32,11 @@ function mousemoveHandler(evt) {
         if(battleMode) {
             lassoX2 = mousePos.levelX;
             lassoY2 = mousePos.levelY;
-        } else if(showCityPanel) {
+        } /*else if(showCityPanel) {
             lassoX2 = mousePos.x;
             lassoY2 = mousePos.y;
         }
+        */
     }
     if(editorMode && mouseInMainWindow(mousePos)) {
         //drawHoverBox(mousePos);
@@ -45,24 +46,27 @@ function mousemoveHandler(evt) {
     } else if(hoverPos !== null) {
         hoverPos = null;
     }
+    /*
     if(showSliderTest && sliderTest.isDragging) {
 
         sliderTest.mousemoveHandler(evt);
     }
+    */
 }
 
 function mousedownHandler(evt) {
     var mousePos = calculateMousePos(evt);
 
-    if(battleMode || showCityPanel) {
+    if(battleMode /*|| showCityPanel*/) {
         if(isClickInsideMainWindow(mousePos)) {
             if(battleMode) {
                 lassoX1 = mousePos.levelX;
                 lassoY1 = mousePos.levelY;
-            } else if(showCityPanel) {
+            } /*else if(showCityPanel) {
                 lassoX1 = mousePos.x;
                 lassoY1 = mousePos.y;
             }
+            */
 
             lassoX2 = lassoX1;
             lassoY2 = lassoY1;
@@ -80,7 +84,7 @@ function mousedownHandler(evt) {
 }
 
 function mouseupHandler(evt) {
-    if(battleMode || showCityPanel) {
+    if(battleMode /*|| showCityPanel*/) {
         isMouseDragging = false;
 
         if(mouseMovedEnoughToTreatAsDragging()) {
@@ -97,7 +101,7 @@ function mouseupHandler(evt) {
                 }
                 document.getElementById("debugText2").innerHTML = "Selected " +
                                   selectedUnits.length + " units";
-            } else if(showCityPanel) {
+            } /*else if(showCityPanel) {
                 selectedCityWorkers = [];
                 
                 for(var i=0;i<cityWorkers.length;i++) {
@@ -107,6 +111,7 @@ function mouseupHandler(evt) {
                 }
 
             }
+            */
         } else { // mouse didn't move far, treat as click for move command
             var mousePos = calculateMousePos(evt);
             var clickedUnit = null;
@@ -131,7 +136,7 @@ function mouseupHandler(evt) {
                     }
                     document.getElementById("debugText2").innerHTML = 
                         "Moving to ("+mousePos.levelX+","+mousePos.levelY+")";
-                } else if(showCityPanel) { 
+                } /*else if(showCityPanel) { 
                     if(isClickInsideCityPanel(mousePos)) {
                         //find out which section click is in.
                         var clickedCitySection = findClickedCitySectionIdx(mousePos);
@@ -143,6 +148,7 @@ function mouseupHandler(evt) {
                     }
                     
                 } // end else (if showCityPanel)
+                */
 
             } // end else (clickedUnit == null && !clickedUnit.playerControlled == false)
 
@@ -183,7 +189,10 @@ function clickHandler(evt) {
         //console.log("click was on city panel", mousePos.x, mousePos.y);
         handleCityPanelClick(mousePos);
         return;
-    } // TODO: if showCityPanel && !isClickInsideCityPanel, then close city panel
+    } 
+    if(showCityPanel && !isClickInsideCityPanel(mousePos)) {
+        this.showCityPanel = false;
+    }
 
     if(isClickInsideMiniMap(mousePos)) {
         //console.log("click was on minimap");
@@ -380,10 +389,8 @@ function highlightSquare(mousePos) {
 
 function isClickInsideCityPanel(mousePos) {
     return isClickInBox(mousePos, 
-
-	CITY_PANEL_X, CITY_PANEL_Y,
-
-	CITY_PANEL_X + cityPanelBackdrop.width, CITY_PANEL_Y + cityPanelBackdrop.height + 150 // room for button at bottom
+        CITY_PANEL_X, CITY_PANEL_Y,
+        CITY_PANEL_X + CITY_PANEL_W, CITY_PANEL_Y + CITY_PANEL_H
     );
 }
 

@@ -77,10 +77,13 @@ function drawEverything() {
     canvasContext.restore(); // undoes the .translate() used for cam scroll
 
     drawUI();
+    /*
     if(showCityPanel && isMouseDragging) {
         // city panel drag box, uses screen coords
         coloredOutlineRectCornerToCorner(lassoX1,lassoY1, lassoX2,lassoY2, 'blue');
     }
+    */
+
 
 }
 

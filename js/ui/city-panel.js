@@ -1,5 +1,5 @@
-const CITY_PANEL_X = 10;
-const CITY_PANEL_Y = 100;
+const CITY_PANEL_X = 100;
+const CITY_PANEL_Y = 150;
 const CITY_PANEL_W = 300;
 const CITY_PANEL_H = 300;
 
@@ -67,6 +67,13 @@ var cityPanelControls = [
         y: CITY_PANEL_Y + 25,
     }),
     new buttonClass({
+        label: 'value', //cityPanelControls[0].currentValue,
+        x: CITY_PANEL_X + 200 + 15,
+        y: CITY_PANEL_Y + 25,
+        color: 'tan',
+        textColor: 'grey',
+    }),
+    new buttonClass({
 	label: "Close",
 	onClick: function() {
         console.log("clicked city close button");
@@ -97,7 +104,7 @@ function openCityPanel(city) {
 function closeCityPanel() {
     showCityPanel = false;
     viewingCity = null;
-    cityWorkers = [];
+    //cityWorkers = [];
 }
 
 function drawCityPanel() {
