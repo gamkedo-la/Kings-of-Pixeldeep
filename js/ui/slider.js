@@ -17,6 +17,7 @@ function sliderClass(configObj) {
     this.maxValue = 100;
     this.currentValue = 25;
     this.modelValue = null;
+    this.showValue = true;
 
     this.isDragging = false;
 
@@ -44,24 +45,31 @@ function sliderClass(configObj) {
             this.y,
             this.handleWidth, this.handleHeight, 
             this.handleColor);
+        // optional value label
+        if(this.showValue) {
+            colorText(this.currentValue, 
+                this.x + this.barWidth + 20,
+                this.y + (this.height / 2),
+                "lightblue")
+        }
     }
 
-    this.mousedownHandler = function(evt) {
-        console.log("slider mousedown");
+    this.mousedownHandler = function() {
+        //console.log("slider mousedown");
         this.isDragging = true;
     }
 
-    this.mousemoveHandler = function(evt) {
-        console.log("slider mousemove");
+    this.mousemoveHandler = function(mousePos) {
+        //console.log("slider mousemove");
         if(this.isDragging) {
-            let mousePos = calculateMousePos(evt);
+            //let mousePos = calculateMousePos(evt);
             this.calculateValueFromMousePos(mousePos);
         }
     }
 
-    this.mouseupHandler = function(evt) {
-        console.log("slider mouseup");
-        let mousePos = calculateMousePos(evt);
+    this.mouseupHandler = function(mousePos) {
+        //console.log("slider mouseup");
+        //let mousePos = calculateMousePos(evt);
         this.isDragging = false;
         this.calculateValueFromMousePos(mousePos);
     }

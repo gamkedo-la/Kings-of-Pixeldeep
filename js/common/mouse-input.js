@@ -46,12 +46,14 @@ function mousemoveHandler(evt) {
     } else if(hoverPos !== null) {
         hoverPos = null;
     }
-    /*
     if(showSliderTest && sliderTest.isDragging) {
 
-        sliderTest.mousemoveHandler(evt);
+        sliderTest.mousemoveHandler(mousePos);
     }
-    */
+
+    if(showCityPanel) {
+        handleCityPanelMousemove(mousePos);
+    }
 }
 
 function mousedownHandler(evt) {
@@ -79,7 +81,17 @@ function mousedownHandler(evt) {
         sliderTest.x + sliderTest.width,
         sliderTest.y + sliderTest.height)) {
 
-        sliderTest.mousedownHandler(evt);
+        sliderTest.mousedownHandler();
+    }
+    if(showCityPanel) { 
+        var mousePos = calculateMousePos(evt);
+        if(isClickInBox(mousePos,
+            CITY_PANEL_X, CITY_PANEL_Y, 
+            CITY_PANEL_X + CITY_PANEL_W,
+            CITY_PANEL_Y + CITY_PANEL_H)) {
+
+            handleCityPanelMousedown(mousePos);
+        }
     }
 }
 
@@ -163,10 +175,20 @@ function mouseupHandler(evt) {
             sliderTest.x + sliderTest.width,
             sliderTest.y + sliderTest.height)) {
 
-            sliderTest.mouseupHandler(evt);
+            sliderTest.mouseupHandler(mousePos);
         }
     }
 
+    if(showCityPanel) { 
+        var mousePos = calculateMousePos(evt);
+        if(isClickInBox(mousePos,
+            CITY_PANEL_X, CITY_PANEL_Y, 
+            CITY_PANEL_X + CITY_PANEL_W,
+            CITY_PANEL_Y + CITY_PANEL_H)) {
+
+            handleCityPanelMouseup(mousePos);
+        }
+    }
 }
 
 function findClickedCitySectionIdx(mousePos) {

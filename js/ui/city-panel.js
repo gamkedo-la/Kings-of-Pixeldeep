@@ -3,59 +3,6 @@ const CITY_PANEL_Y = 150;
 const CITY_PANEL_W = 300;
 const CITY_PANEL_H = 300;
 
-/*
-const CITY_SECTIONS = [
-    {
-        name: 'forestry',
-        color: 'red',
-        minX: 25,
-        maxX: 200,
-        minY: 115,
-        maxY: 300,
-    },
-    {
-        name: 'wheatFields',
-        color: 'green',
-        minX: 210,
-        maxX: 395,
-        minY: 115,
-        maxY: 300,
-    },
-    {
-        name: 'stables',
-        color: 'sienna',
-        minX: 400,
-        maxX: 585,
-        minY: 115,
-        maxY: 300,
-    },
-    {
-        name: 'mines',
-        color: 'grey',
-        minX: 15,
-        maxX: 200,
-        minY: 315,
-        maxY: 505,
-    },
-    {
-        name: 'idle',
-        color: 'cyan',
-        minX: 210,
-        maxX: 395,
-        minY: 315,
-        maxY: 505,
-    },
-    {
-        name: 'blacksmith',
-        color: 'black',
-        minX: 400,
-        maxX: 585,
-        minY: 315,
-        maxY: 505,
-    },
-]
-*/
-
 var showCityPanel = false;
 var viewingCity = null;
 //var cityWorkers = [];
@@ -65,7 +12,9 @@ var cityPanelControls = [
     new sliderClass({
         x: CITY_PANEL_X + 25,
         y: CITY_PANEL_Y + 25,
+        showValue: true,
     }),
+    /*
     new buttonClass({
         label: 'value', //cityPanelControls[0].currentValue,
         x: CITY_PANEL_X + 200 + 15,
@@ -73,6 +22,7 @@ var cityPanelControls = [
         color: 'tan',
         textColor: 'grey',
     }),
+    */
     new buttonClass({
 	label: "Close",
 	onClick: function() {
@@ -87,6 +37,8 @@ var cityPanelControls = [
 function openCityPanel(city) {
     console.log("opening city panel for", city.name);
     viewingCity = city;
+    cityPanelControls[0].modelValue = city.population.forestry;
+    //cityPanelControls[1].label = cityPanelControls[0].modelValue;
     showCityPanel = true;
 
     /*
@@ -104,6 +56,7 @@ function openCityPanel(city) {
 function closeCityPanel() {
     showCityPanel = false;
     viewingCity = null;
+    cityPanelControls[0].modelValue = null;
     //cityWorkers = [];
 }
 
@@ -129,7 +82,25 @@ function handleCityPanelClick(mousePos) {
     for(let i=0;i<cityPanelControls.length;i++) {
         let currentButton = cityPanelControls[i];
         if(isClickOnButton(mousePos, currentButton)) {
-            currentButton.onClick();
+            if(currentButton instanceof sliderClass) {
+                currentButton.calculateValueFromMousePos(mousePos);
+            } else {
+                currentButton.onClick();
+            }
         }
     }
 }
+
+function handleCityPanelMousemove(mousePos) {
+    // TODO: be sure to check for slider.isDragging
+    //
+}
+
+function handleCityPanelMouseup(mousePos) {
+    //
+}
+
+function handleCityPanelMousedown(mousePos) {
+    //
+}
+
