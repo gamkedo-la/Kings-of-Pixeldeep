@@ -109,8 +109,8 @@ function setTerrainBrushCode(newVal) {
 // should this be moved to a UI file?
 function drawHoverBox() {
     if(hoverPos) {
-	var hoverTileOverCol = Math.floor( (hoverPos.x) / LEVEL_TILE_W);
-	var hoverTileOverRow = Math.floor( (hoverPos.y) / LEVEL_TILE_H);    
+	var hoverTileOverCol = Math.floor( (hoverPos.levelX) / LEVEL_TILE_W);
+	var hoverTileOverRow = Math.floor( (hoverPos.levelY) / LEVEL_TILE_H);    
 
 	var hoverTileX = hoverTileOverCol * LEVEL_TILE_W;
 	var hoverTileY = hoverTileOverRow * LEVEL_TILE_H;
@@ -123,8 +123,8 @@ function drawHoverBox() {
 	    hoverBoxStartOffset = 2 * LEVEL_TILE_W;
 	}
 
-	var hoverBoxTopX = hoverTileX - hoverBoxStartOffset;
-	var hoverBoxTopY = hoverTileY - hoverBoxStartOffset;    
+	var hoverBoxTopX = (hoverTileX - hoverBoxStartOffset) - camPanX;
+	var hoverBoxTopY = (hoverTileY - hoverBoxStartOffset) - camPanY;    
 	var hoverBoxW = LEVEL_TILE_W * terrainBrushSize;
 	var hoverBoxH = LEVEL_TILE_H * terrainBrushSize;
 
