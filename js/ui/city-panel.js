@@ -14,6 +14,16 @@ var cityPanelControls = [
         y: CITY_PANEL_Y + 25,
         showValue: true,
     }),
+    new sliderClass({
+        x: CITY_PANEL_X + 25,
+        y: CITY_PANEL_Y + 75,
+        showValue: true,
+    }),
+    new sliderClass({
+        x: CITY_PANEL_X + 25,
+        y: CITY_PANEL_Y + 125,
+        showValue: true,
+    }),
     /*
     new buttonClass({
         label: 'value', //cityPanelControls[0].currentValue,
@@ -79,6 +89,7 @@ function drawCityPanel() {
 }
 
 function handleCityPanelClick(mousePos) {
+    /*
     for(let i=0;i<cityPanelControls.length;i++) {
         let currentButton = cityPanelControls[i];
         if(isClickOnButton(mousePos, currentButton)) {
@@ -89,18 +100,46 @@ function handleCityPanelClick(mousePos) {
             }
         }
     }
+    */
 }
 
 function handleCityPanelMousemove(mousePos) {
-    // TODO: be sure to check for slider.isDragging
-    //
+    for(let i=0;i<cityPanelControls.length;i++) {
+        let currentButton = cityPanelControls[i];
+        if(isClickOnButton(mousePos, currentButton)) {
+            if(currentButton instanceof sliderClass) {
+                // slider mousemoveHandler does the isDragging check
+                currentButton.mousemoveHandler(mousePos);
+            }  
+        }
+    }
 }
 
 function handleCityPanelMouseup(mousePos) {
-    //
+    for(let i=0;i<cityPanelControls.length;i++) {
+        let currentButton = cityPanelControls[i];
+        if(isClickOnButton(mousePos, currentButton)) {
+            if(currentButton instanceof sliderClass) {
+                //currentButton.calculateValueFromMousePos(mousePos);
+                currentButton.mouseupHandler(mousePos);
+            } else {
+                currentButton.onClick();
+            }
+        }
+    }
 }
 
 function handleCityPanelMousedown(mousePos) {
-    //
+    for(let i=0;i<cityPanelControls.length;i++) {
+        let currentButton = cityPanelControls[i];
+        if(isClickOnButton(mousePos, currentButton)) {
+            if(currentButton instanceof sliderClass) {
+                //currentButton.calculateValueFromMousePos(mousePos);
+                currentButton.mousedownHandler(mousePos);
+            } else {
+                //currentButton.onClick();
+            }
+        }
+    }
 }
 
