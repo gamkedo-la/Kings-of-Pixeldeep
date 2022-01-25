@@ -1,8 +1,10 @@
 var canvas, canvasContext;
 
 // TODO: put in a game preferences object
-var showGrid = false;
-// TODO: add "showDebug" config var as well
+var gameOptions = {
+    showGrid: false,
+    showDebug: true,
+}
 
 var sliderTest = new sliderClass({
     x: 300,
@@ -127,14 +129,18 @@ for(var i=0;i<playerArmies.length;i++) {
 }
 
 function debug(text) {
-    document.getElementById('debugText').innerHTML = text;
+    if(gameOptions.showDebug) {
+        document.getElementById('debugText').innerHTML = text;
+    }
 }
 
 function camDebug() {
-    document.getElementById('debugText2').innerHTML = 
-        `CamPan: (${camPanX},${camPanY}) <br>
-        CamPanDelta: (${camPanDeltaX},${camPanDeltaY}) <br>`;
-        //"CamPan: ("+ camPanX + "," + camPanY ") <br>" +
-        //"CamPanDelta: ("+ camPanDeltaX +","+ camPanDeltaY + ") <br>";
+    if(gameOptions.showDebug) {
+        document.getElementById('debugText2').innerHTML = 
+            `CamPan: (${camPanX},${camPanY}) <br>
+            CamPanDelta: (${camPanDeltaX},${camPanDeltaY}) <br>`;
+            //"CamPan: ("+ camPanX + "," + camPanY ") <br>" +
+            //"CamPanDelta: ("+ camPanDeltaX +","+ camPanDeltaY + ") <br>";
+    }
 }
 

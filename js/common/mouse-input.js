@@ -26,8 +26,10 @@ function setupMouseInput() {
 function mousemoveHandler(evt) {
     var mousePos = calculateMousePos(evt);
     setCamPanDeltas(mousePos);
-    debug("mousePos: (" + mousePos.x +","+ mousePos.y +")");
-    //document.getElementById("debugText2").innerHTML = "("+mousePos.x+","+mousePos.y+")";
+    if(gameOptions.showDebug) {
+        debug("mousePos: (" + mousePos.x +","+ mousePos.y +")");
+        //document.getElementById("debugText2").innerHTML = "("+mousePos.x+","+mousePos.y+")";
+    }
     if(isMouseDragging) {
         if(battleMode) {
             lassoX2 = mousePos.levelX;
@@ -111,8 +113,10 @@ function mouseupHandler(evt) {
                         selectedUnits.push(playerUnits[i]);
                     }
                 }
-                document.getElementById("debugText2").innerHTML = "Selected " +
-                                  selectedUnits.length + " units";
+                if(gameOptions.showDebug) {
+                    document.getElementById("debugText2").innerHTML = "Selected " +
+                                      selectedUnits.length + " units";
+                }
             } /*else if(showCityPanel) {
                 selectedCityWorkers = [];
                 
@@ -134,8 +138,10 @@ function mouseupHandler(evt) {
 
             if(clickedUnit != null && clickedUnit.playerControlled == false) { //enemy?
                 // then command units to attack it
-                document.getElementById("debugText2").innerHTML = 
-                  "Player commands "+selectedUnits.length+" units to attack!";
+                if(gameOptions.showDebug) {
+                    document.getElementById("debugText2").innerHTML = 
+                      "Player commands "+selectedUnits.length+" units to attack!";
+                }
                 for(var i=0;i<selectedUnits.length;i++){
                     selectedUnits[i].setTarget(clickedUnit);
                 }
@@ -146,8 +152,10 @@ function mouseupHandler(evt) {
                     for(var i=0;i<selectedUnits.length;i++) {
                         selectedUnits[i].gotoNear(mousePos.levelX, mousePos.levelY, i, unitsAlongside);
                     }
-                    document.getElementById("debugText2").innerHTML = 
-                        "Moving to ("+mousePos.levelX+","+mousePos.levelY+")";
+                    if(gameOptions.showDebug) {
+                        document.getElementById("debugText2").innerHTML = 
+                            "Moving to ("+mousePos.levelX+","+mousePos.levelY+")";
+                    }
                 } /*else if(showCityPanel) { 
                     if(isClickInsideCityPanel(mousePos)) {
                         //find out which section click is in.

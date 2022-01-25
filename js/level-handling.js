@@ -152,15 +152,19 @@ function drawLevel() {
                 var tileKindHere = levelGrid[arrayIndex];
                 if(!battleMode) {
                     drawWorldTerrain(tileKindHere, drawTileX,drawTileY);
-                    colorText(String(arrayIndex), 
-                    drawTileX,drawTileY+12, '#ff00ff');
+                    if(gameOptions.showDebug) {
+                        colorText(String(arrayIndex), 
+                        drawTileX,drawTileY+12, '#ff00ff');
+                    }
                 } else { // if battleMode
                     drawBattleTerrain(tileKindHere, drawTileX,drawTileY);
-                    colorText(String(arrayIndex), 
-                    drawTileX,drawTileY+12, '#00ffff');
+                    if(gameOptions.showDebug) {
+                        colorText(String(arrayIndex), 
+                        drawTileX,drawTileY+12, '#00ffff');
+                    }
                 }
 
-                if(showGrid) {
+                if(gameOptions.showGrid) {
                     outlineRect(drawTileX,drawTileY, 
                         LEVEL_TILE_W,LEVEL_TILE_H,
                         "black");

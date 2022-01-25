@@ -8,46 +8,52 @@ var allUnits = [];
 var anyNewUnitsToClear = false;
 
 function soonCheckUnitsToClear() {
-  anyNewUnitsToClear = true;
+    anyNewUnitsToClear = true;
 }
 
 function checkAndHandleVictory() {
-  if(playerUnits.length == 0 && enemyUnits.length == 0) {
-    document.getElementById("debugText").innerHTML = "IT'S... A... DRAW?";
-    setupWorldMode();
-  } else if(playerUnits.length == 0) {
-    document.getElementById("debugText").innerHTML = "ENEMY TEAM WON";
-    setupWorldMode();
-  } else if(enemyUnits.length == 0) {
-    document.getElementById("debugText").innerHTML = "PLAYER TEAM WON";
-    setupWorldMode();
+    if(playerUnits.length == 0 && enemyUnits.length == 0) {
+        if(gameOptions.showDebug) {
+            document.getElementById("debugText").innerHTML = "IT'S... A... DRAW?";
+        }
+        setupWorldMode();
+    } else if(playerUnits.length == 0) {
+        if(gameOptions.showDebug) {
+            document.getElementById("debugText").innerHTML = "ENEMY TEAM WON";
+        }
+        setupWorldMode();
+    } else if(enemyUnits.length == 0) {
+        if(gameOptions.showDebug) {
+            document.getElementById("debugText").innerHTML = "PLAYER TEAM WON";
+        }
+        setupWorldMode();
   }
 }
 
 function addNewUnitToTeam(spawnedUnit, fightsForTeam) {
-  fightsForTeam.push(spawnedUnit);
-  allUnits.push(spawnedUnit);
+    fightsForTeam.push(spawnedUnit);
+    allUnits.push(spawnedUnit);
 }
 
 function populateTeam(whichTeam, howMany, isPlayerControlled) {
-  for(var i=0;i<howMany;i++) {
-    var spawnUnit = new unitClass();
-    spawnUnit.resetAndSetPlayerTeam(isPlayerControlled);
-    addNewUnitToTeam(spawnUnit, whichTeam);
-  }
+    for(var i=0;i<howMany;i++) {
+        var spawnUnit = new unitClass();
+        spawnUnit.resetAndSetPlayerTeam(isPlayerControlled);
+        addNewUnitToTeam(spawnUnit, whichTeam);
+    }
 }
 
 function findClosestUnitInRange(fromX, fromY, maxRange, inUnitList) {
-  var nearestUnitDist = maxRange;
-  var nearestUnitFound = null;
-  for(var i=0;i<inUnitList.length;i++) {
-    var distTo = inUnitList[i].distFrom(fromX, fromY);
-    if(distTo < nearestUnitDist) {
-      nearestUnitDist = distTo;
-      nearestUnitFound = inUnitList[i];
+    var nearestUnitDist = maxRange;
+    var nearestUnitFound = null;
+    for(var i=0;i<inUnitList.length;i++) {
+        var distTo = inUnitList[i].distFrom(fromX, fromY);
+        if(distTo < nearestUnitDist) {
+            nearestUnitDist = distTo;
+            nearestUnitFound = inUnitList[i];
+        }
     }
-  }
-  return nearestUnitFound;
+    return nearestUnitFound;
 }
 
 function removeDeadUnitsFromList(fromArray) {
