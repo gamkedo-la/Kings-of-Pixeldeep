@@ -21,18 +21,18 @@ function armyClass() {
     */
 
     this.worldIdx = function() {
-	let idx = this.worldRow * level_cols + this.worldCol;
-	//console.log(this.name, idx);
-	return idx;
+        let idx = this.worldRow * level_cols + this.worldCol;
+        //console.log(this.name, idx);
+        return idx;
     }
   
     this.x = function() {
-	//console.log("calling this.x");
-	return (this.worldCol * LEVEL_TILE_W) + (LEVEL_TILE_W / 2);
+        //console.log("calling this.x");
+        return (this.worldCol * LEVEL_TILE_W) + (LEVEL_TILE_W / 2);
     }
     this.y = function() {
-	//console.log("calling this.y");
-	return (this.worldRow * LEVEL_TILE_H) + (LEVEL_TILE_H / 2);
+        //console.log("calling this.y");
+        return (this.worldRow * LEVEL_TILE_H) + (LEVEL_TILE_H / 2);
     }
 
 
@@ -42,17 +42,23 @@ function armyClass() {
     }
 
     this.setPosition = function(col,row) {
-	this.worldCol = col;
-	this.worldRow = row;
+        this.worldCol = col;
+        this.worldRow = row;
     }
 
 
-    this.move = function() {
-	//
+    this.move = function(clickedIdx) {
+        // TODO: animations would be nice, even just programatic ones
+
+        // TODO: diagnose this 
+        let newRow = Math.floor(level_cols / clickedIdx);
+        let newCol = level_cols % clickedIdx;
+
+        console.log(level_cols, clickedIdx, "moving to tile (" + newRow + "," + newCol +")");
     }
 
     this.onClick = function() {
-	// select and move
+        // select and move
     }
 
     this.draw = function() {

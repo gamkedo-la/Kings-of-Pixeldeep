@@ -382,7 +382,7 @@ function handleMainWindowClick(mousePos) {
                 }
             }
         } else {
-            // move army
+            selectedArmy.move(clickedIdx);
         }
     }
 
