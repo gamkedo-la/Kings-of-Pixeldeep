@@ -51,14 +51,20 @@ function armyClass() {
         // TODO: animations would be nice, even just programatic ones
 
         // TODO: diagnose this 
-        let newRow = Math.floor(level_cols / clickedIdx);
-        let newCol = level_cols % clickedIdx;
+        let newRow = Math.floor(clickedIdx  / level_cols);
+        let newCol = clickedIdx % level_cols;
 
-        console.log(level_cols, clickedIdx, "moving to tile (" + newRow + "," + newCol +")");
+        console.log(level_cols, clickedIdx, "moving "+ this.name + " to tile (" + newRow + "," + newCol +")");
+        
+        this.setPosition(newCol, newRow);
+
+        // deselect army
+        selectedArmy = null;
     }
 
     this.onClick = function() {
         // select and move
+        // EDIT: now handled in handleMainWindowClick()
     }
 
     this.draw = function() {
