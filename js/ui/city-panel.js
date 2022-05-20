@@ -9,10 +9,12 @@ var viewingCity = null;
 //var selectedCityWorkers = [];
 
 var cityPanelControls = [
-    new sliderClass({
+    new buttonClass({
         x: CITY_PANEL_X + 25,
         y: CITY_PANEL_Y + 25,
-        showValue: true,
+        label: 'Population: ??',//+ ( viewingCity.population ? viewingCity.population.total : ""),
+        color: 'tan',
+        textColor: 'blue',
     }),
     new sliderClass({
         x: CITY_PANEL_X + 25,
@@ -22,6 +24,11 @@ var cityPanelControls = [
     new sliderClass({
         x: CITY_PANEL_X + 25,
         y: CITY_PANEL_Y + 125,
+        showValue: true,
+    }),
+    new sliderClass({
+        x: CITY_PANEL_X + 25,
+        y: CITY_PANEL_Y + 175,
         showValue: true,
     }),
     /*
@@ -45,9 +52,9 @@ var cityPanelControls = [
 ];
 
 function openCityPanel(city) {
-    console.log("opening city panel for", city.name);
+    console.log("opening city panel for", city.name, city);
     viewingCity = city;
-    cityPanelControls[0].modelValue = city.population.forestry;
+    cityPanelControls[1].currentValue = city.population.forestry;
     //cityPanelControls[1].label = cityPanelControls[0].modelValue;
     showCityPanel = true;
 
@@ -66,7 +73,7 @@ function openCityPanel(city) {
 function closeCityPanel() {
     showCityPanel = false;
     viewingCity = null;
-    cityPanelControls[0].modelValue = null;
+    //cityPanelControls[0].modelValue = null;
     //cityWorkers = [];
 }
 

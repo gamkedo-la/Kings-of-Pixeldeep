@@ -9,9 +9,9 @@ function cityClass(configObj) {
     this.name = "Untitled City";
     this.population = {
         total: 10,
-        forestry: 0,
-        wheatFields: 0,
-        stables: 0,
+        forestry: 3,
+        wheatFields: 3,
+        stables: 3,
         mines: 0,
         blacksmiths: 0,
         idle: function() {
@@ -56,8 +56,6 @@ function cityClass(configObj) {
         this.worldCol = col;
         this.worldRow = row;
     }
-
-    this.population = 1;
 
     this.construct = function(cityName/*, imageToUse*/) {
 	    this.name = cityName;

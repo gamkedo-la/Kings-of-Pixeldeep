@@ -10,6 +10,7 @@ function armyClass() {
     this.worldCol = 3;
     this.picToUse = armyPic;
     this.name = "Army 1"; //?
+    this.movementRange = 5;
 
     this.troops = 10;
     /*
@@ -48,6 +49,7 @@ function armyClass() {
 
 
     this.move = function(clickedIdx) {
+        // TODO: check if location to move is within movement range
         // TODO: animations would be nice, even just programatic ones
 
         // TODO: diagnose this 

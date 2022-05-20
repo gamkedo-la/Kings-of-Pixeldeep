@@ -16,7 +16,7 @@ function sliderClass(configObj) {
     this.minValue = 0;
     this.maxValue = 100;
     this.currentValue = 25;
-    this.modelValue = null;
+    //this.modelValue = null;
     this.showValue = true;
 
     this.isDragging = false;
@@ -50,7 +50,7 @@ function sliderClass(configObj) {
             colorText(this.currentValue, 
                 this.x + this.barWidth + 20,
                 this.y + (this.height / 2),
-                "lightblue")
+                "blue")
         }
     }
 
@@ -83,9 +83,11 @@ function sliderClass(configObj) {
             this.currentValue = (mousePos.x - this.x) / this.scaleFactor();
         }
 
+        /*
         if(this.modelValue) {
             this.modelValue.value = this.currentValue;
         }
+        */
         console.log("slider value", this.currentValue);
     }
 }
