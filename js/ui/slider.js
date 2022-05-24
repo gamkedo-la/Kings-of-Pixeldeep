@@ -18,8 +18,10 @@ function sliderClass(configObj) {
     this.currentValue = 25;
     //this.modelValue = null;
     this.showValue = true;
+    this.label = ""; // currently using mainly emoji, 
 
     this.isDragging = false;
+
 
 
     for(const [key, val] of Object.entries(configObj)) {
@@ -47,7 +49,7 @@ function sliderClass(configObj) {
             this.handleColor);
         // optional value label
         if(this.showValue) {
-            colorText(this.currentValue, 
+            colorText(this.label +": "+ this.currentValue, 
                 this.x + this.barWidth + 20,
                 this.y + (this.height / 2),
                 "blue")

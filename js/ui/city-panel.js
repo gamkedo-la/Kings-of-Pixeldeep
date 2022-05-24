@@ -1,7 +1,7 @@
 const CITY_PANEL_X = 100;
 const CITY_PANEL_Y = 150;
 const CITY_PANEL_W = 300;
-const CITY_PANEL_H = 300;
+const CITY_PANEL_H = 400;
 
 var showCityPanel = false;
 var viewingCity = null;
@@ -12,24 +12,39 @@ var cityPanelControls = [
     new buttonClass({
         x: CITY_PANEL_X + 25,
         y: CITY_PANEL_Y + 25,
-        label: 'Population: ??',//+ ( viewingCity.population ? viewingCity.population.total : ""),
-        color: 'tan',
+        label: 'Population: ??', // filled in openCityPanel()
+        color: 'lightgrey',
         textColor: 'blue',
     }),
     new sliderClass({
         x: CITY_PANEL_X + 25,
         y: CITY_PANEL_Y + 75,
         showValue: true,
+        label: "🌲",
     }),
     new sliderClass({
         x: CITY_PANEL_X + 25,
         y: CITY_PANEL_Y + 125,
         showValue: true,
+        label: "🌾"
     }),
     new sliderClass({
         x: CITY_PANEL_X + 25,
         y: CITY_PANEL_Y + 175,
         showValue: true,
+        label: "🐴",
+    }),
+    new sliderClass({
+        x: CITY_PANEL_X + 25,
+        y: CITY_PANEL_Y + 225,
+        showValue: true,
+        label: "⛏️",
+    }),
+    new sliderClass({
+        x: CITY_PANEL_X + 25,
+        y: CITY_PANEL_Y + 275,
+        showValue: true,
+        label: "⚒️",
     }),
     /*
     new buttonClass({
@@ -42,6 +57,7 @@ var cityPanelControls = [
     */
     new buttonClass({
 	label: "Close",
+    color: 'wheat',
 	onClick: function() {
         console.log("clicked city close button");
 	    closeCityPanel();
@@ -51,10 +67,27 @@ var cityPanelControls = [
     }),
 ];
 
+
 function openCityPanel(city) {
     console.log("opening city panel for", city.name, city);
+
+    let populationFields = [
+        "forestry",
+        "wheatFields",
+        "stables",
+        "mines",
+        "blacksmiths",
+    ];
+
     viewingCity = city;
-    cityPanelControls[1].currentValue = city.population.forestry;
+    cityPanelControls[0].label = "Population: "+ city.population.total;
+
+    let cityControlIdx = 1;
+    for(var i=0;i<populationFields.length;i++) {
+        cityPanelControls[cityControlIdx].currentValue = 
+            city.population[populationFields[i]];
+        cityControlIdx++;
+    }
     //cityPanelControls[1].label = cityPanelControls[0].modelValue;
     showCityPanel = true;
 
@@ -79,7 +112,7 @@ function closeCityPanel() {
 
 function drawCityPanel() {
     //canvasContext.drawImage(cityPanelBackdrop, CITY_PANEL_X,CITY_PANEL_Y);
-    colorRect(CITY_PANEL_X,CITY_PANEL_Y, CITY_PANEL_W,CITY_PANEL_H, 'tan'); 
+    colorRect(CITY_PANEL_X,CITY_PANEL_Y, CITY_PANEL_W,CITY_PANEL_H, 'lightgrey'); 
     // TODO: City panel w & h vars
     for(var i=0;i<cityPanelControls.length;i++) {
         cityPanelControls[i].draw();
