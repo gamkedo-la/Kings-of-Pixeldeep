@@ -16,6 +16,7 @@ function sliderClass(configObj) {
     this.minValue = 0;
     this.maxValue = 100;
     this.currentValue = 25;
+    this.oldValue = null;
     //this.modelValue = null;
     this.showValue = true;
     this.label = ""; // currently using mainly emoji, 
@@ -77,6 +78,7 @@ function sliderClass(configObj) {
     }
 
     this.calculateValueFromMousePos = function(mousePos) {
+        this.oldValue = this.currentValue;
         if(mousePos.x < this.x) {
             this.currentValue = this.minValue;
         } else if (mousePos.x > this.x + this.width) {

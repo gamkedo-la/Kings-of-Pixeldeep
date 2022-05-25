@@ -7,6 +7,7 @@ var showCityPanel = false;
 var viewingCity = null;
 //var cityWorkers = [];
 //var selectedCityWorkers = [];
+var linkedSliders = [];
 
 var cityPanelControls = [
     new buttonClass({
@@ -91,6 +92,13 @@ function openCityPanel(city) {
     //cityPanelControls[1].label = cityPanelControls[0].modelValue;
     showCityPanel = true;
 
+    // push all sliders to the linkedSliders array
+    for(var i=0;i<cityPanelControls.length;i++) {
+        if(cityPanelControls[i] instanceof sliderClass) {
+            linkedSliders.push(cityPanelControls[i]);
+        }
+    }
+
     /*
     // tmp workers for testing
     cityWorkers = [];
@@ -106,6 +114,7 @@ function openCityPanel(city) {
 function closeCityPanel() {
     showCityPanel = false;
     viewingCity = null;
+    linkedSliders = [];
     //cityPanelControls[0].modelValue = null;
     //cityWorkers = [];
 }
@@ -126,6 +135,16 @@ function drawCityPanel() {
         selectedCityWorkers[i].drawSelectionBox();
     }
     */
+}
+
+function equalizeSliders() {
+    for(var i=0;i<linkedSliders;i++) {
+        // see [linked sliders article](https://www.bennadel.com/blog/3739-creating-linked-slider-inputs-constrained-to-a-given-total-in-angular-9-0-0-rc-5.htm)
+        // well, I may need to make this a separate object after all
+        // I'm not sure how to get the value delta, or even which one was 
+        // changed into this function
+    }
+    
 }
 
 function handleCityPanelClick(mousePos) {
@@ -150,6 +169,7 @@ function handleCityPanelMousemove(mousePos) {
             if(currentButton instanceof sliderClass) {
                 // slider mousemoveHandler does the isDragging check
                 currentButton.mousemoveHandler(mousePos);
+                equalizeSliders();
             }  
         }
     }
@@ -164,6 +184,7 @@ function handleCityPanelMouseup(mousePos) {
                 currentButton.mouseupHandler(mousePos);
             } else {
                 currentButton.onClick();
+                equalizeSliders();
             }
         }
     }
@@ -176,6 +197,7 @@ function handleCityPanelMousedown(mousePos) {
             if(currentButton instanceof sliderClass) {
                 //currentButton.calculateValueFromMousePos(mousePos);
                 currentButton.mousedownHandler(mousePos);
+                equalizeSliders();
             } else {
                 //currentButton.onClick();
             }
