@@ -14,6 +14,7 @@ function cityClass(configObj) {
         stables: 3,
         mines: 0,
         blacksmiths: 0,
+        /*
         idle: function() {
             return this.population.total - ( 
                 this.population.forestry +
@@ -23,6 +24,7 @@ function cityClass(configObj) {
                 this.population.blacksmiths
             );
         },
+        */
 
     };
 

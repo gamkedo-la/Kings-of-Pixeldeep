@@ -17,6 +17,12 @@ var cityPanelControls = [
         color: 'lightgrey',
         textColor: 'blue',
     }),
+    new sliderGroupClass({
+        x: CITY_PANEL_X + 25,
+        y: CITY_PANEL_Y + 75,
+        //values: viewingCity.population,
+    }),
+    /*
     new sliderClass({
         x: CITY_PANEL_X + 25,
         y: CITY_PANEL_Y + 75,
@@ -47,6 +53,7 @@ var cityPanelControls = [
         showValue: true,
         label: "⚒️",
     }),
+    */
     /*
     new buttonClass({
         label: 'value', //cityPanelControls[0].currentValue,
@@ -82,13 +89,17 @@ function openCityPanel(city) {
 
     viewingCity = city;
     cityPanelControls[0].label = "Population: "+ city.population.total;
+    cityPanelControls[1].values = city.population;
+    cityPanelControls[1].updateSliders();
 
+    /*
     let cityControlIdx = 1;
     for(var i=0;i<populationFields.length;i++) {
         cityPanelControls[cityControlIdx].currentValue = 
             city.population[populationFields[i]];
         cityControlIdx++;
     }
+    */
     //cityPanelControls[1].label = cityPanelControls[0].modelValue;
     showCityPanel = true;
 
@@ -137,6 +148,7 @@ function drawCityPanel() {
     */
 }
 
+/*
 function equalizeSliders() {
     for(var i=0;i<linkedSliders;i++) {
         // see [linked sliders article](https://www.bennadel.com/blog/3739-creating-linked-slider-inputs-constrained-to-a-given-total-in-angular-9-0-0-rc-5.htm)
@@ -146,6 +158,7 @@ function equalizeSliders() {
     }
     
 }
+*/
 
 function handleCityPanelClick(mousePos) {
     /*
@@ -166,10 +179,10 @@ function handleCityPanelMousemove(mousePos) {
     for(let i=0;i<cityPanelControls.length;i++) {
         let currentButton = cityPanelControls[i];
         if(isClickOnButton(mousePos, currentButton)) {
-            if(currentButton instanceof sliderClass) {
+            if(currentButton instanceof sliderGroupClass) {
                 // slider mousemoveHandler does the isDragging check
                 currentButton.mousemoveHandler(mousePos);
-                equalizeSliders();
+                //equalizeSliders();
             }  
         }
     }
@@ -179,12 +192,12 @@ function handleCityPanelMouseup(mousePos) {
     for(let i=0;i<cityPanelControls.length;i++) {
         let currentButton = cityPanelControls[i];
         if(isClickOnButton(mousePos, currentButton)) {
-            if(currentButton instanceof sliderClass) {
+            if(currentButton instanceof sliderGroupClass) {
                 //currentButton.calculateValueFromMousePos(mousePos);
                 currentButton.mouseupHandler(mousePos);
             } else {
                 currentButton.onClick();
-                equalizeSliders();
+                //equalizeSliders();
             }
         }
     }
@@ -194,10 +207,10 @@ function handleCityPanelMousedown(mousePos) {
     for(let i=0;i<cityPanelControls.length;i++) {
         let currentButton = cityPanelControls[i];
         if(isClickOnButton(mousePos, currentButton)) {
-            if(currentButton instanceof sliderClass) {
+            if(currentButton instanceof sliderGroupClass) {
                 //currentButton.calculateValueFromMousePos(mousePos);
                 currentButton.mousedownHandler(mousePos);
-                equalizeSliders();
+                //equalizeSliders();
             } else {
                 //currentButton.onClick();
             }
