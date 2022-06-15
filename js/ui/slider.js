@@ -63,9 +63,9 @@ function sliderClass(configObj) {
     }
 
     this.mousemoveHandler = function(mousePos) {
-        //console.log("slider mousemove");
         if(this.isDragging) {
             //let mousePos = calculateMousePos(evt);
+            console.log("calculating value", this.label, this.isDragging);
             this.calculateValueFromMousePos(mousePos);
         }
     }

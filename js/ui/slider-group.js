@@ -85,18 +85,26 @@ function sliderGroupClass(configObj) {
     };
 
     this.equalizeSliders = function(changedSlider, changedIndex) {
+        // TODO: find out how to only trigger this function if dragging a slider
+        console.log("equalizing sliders", changedSlider, changedIndex);
         let currentSliderIndex = changedIndex;
         let valueDelta = changedSlider.currentValue - changedSlider.oldValue;
         
-        // TODO: make a (while Math.abs(valueDelta) > 0 ?) loop of this
-        currentSliderIndex++;
-        if(currentSliderIndex >= this.sliders.length) {
-            currentSliderIndex = 0;
+        while(Math.abs(valueDelta) > 0) {
+            currentSliderIndex++;
+            if(currentSliderIndex >= this.sliders.length) {
+                currentSliderIndex = 0;
+            }
+            let sliderToChange = this.sliders[currentSliderIndex];
+
+            if(valueDelta > 0) { // if valueDelta is positive
+                sliderToChange.currentValue++; 
+                valueDelta--; 
+            } else if(valueDelta < 0) {
+                sliderToChange.currentValue--; 
+                valueDelta++; 
+            }
         }
-        let sliderToChange = this.sliders[currentSliderIndex];
-        sliderToChange.currentValue++; // -- if valueDelta is negative
-        valueDelta--; // or ++ if negative
-        // end loop
     };
 
 }
