@@ -58,7 +58,7 @@ function sliderClass(configObj) {
     }
 
     this.mousedownHandler = function() {
-        //console.log("slider mousedown");
+        console.log("slider mousedown");
         this.isDragging = true;
     }
 
@@ -71,7 +71,17 @@ function sliderClass(configObj) {
     }
 
     this.mouseupHandler = function(mousePos) {
-        //console.log("slider mouseup");
+        // TODO: move this up a few levels so 
+        // letting go of the mouse anywhere on the screen
+        // sets "isDragging" to false
+        // Actually, I wonder if we should just revert to using
+        // the global "isDragging" var. Would that be so bad?
+        // Like, what would we have to do to make that happen? 
+        // Would we have to store a "draggingSlider" global var
+        // to keep track of which slider we're dragging?
+        // IDK, needs some more thought
+
+        console.log("slider mouseup");
         //let mousePos = calculateMousePos(evt);
         this.isDragging = false;
         this.calculateValueFromMousePos(mousePos);

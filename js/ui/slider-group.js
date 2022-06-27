@@ -54,9 +54,11 @@ function sliderGroupClass(configObj) {
     };
 
     this.mousemoveHandler = function(mousePos) {
+        console.log("slider group mousemove");
         for(let i=0;i<this.sliders.length;i++) {
             let currentSlider = this.sliders[i];
-            if(isClickOnButton(mousePos, currentSlider)) {
+            if(/*isClickOnButton(mousePos, currentSlider) &&*/ currentSlider.isDragging) {
+                console.log("current slider is dragging");
                 currentSlider.mousemoveHandler(mousePos);
                 this.equalizeSliders(currentSlider, i);
             } 
@@ -89,8 +91,16 @@ function sliderGroupClass(configObj) {
         console.log("equalizing sliders", changedSlider, changedIndex);
         let currentSliderIndex = changedIndex;
         let valueDelta = changedSlider.currentValue - changedSlider.oldValue;
+        console.log("value delta", valueDelta);
         
         while(Math.abs(valueDelta) > 0) {
+            console.log("running equalizer; value delta:", valueDelta);
+
+            if(Math.abs(valueDelta < 1)) {
+                console.log("value delta is less than 1, aborting");
+                break;
+            }
+
             currentSliderIndex++;
             if(currentSliderIndex >= this.sliders.length) {
                 currentSliderIndex = 0;
@@ -104,6 +114,18 @@ function sliderGroupClass(configObj) {
                 sliderToChange.currentValue--; 
                 valueDelta++; 
             }
+
+            // Ok, current problems:
+            // 1) equalizer math is not moving the other sliders correctly at all
+            // 2) equalizer is often firing with values of 0.5 (which right now does nothing)
+            //      and 1 (which doesn't sub-divide very well, obviously)
+            // 3) these sliders need to work on any # of workers, but also ONLY hold integer
+            //      values (having 0.25 workers on a task makes no sense)
+            //      - Idea: enforce integer values in slider.calculateValueFromMousePos(),
+            //          possibly adjusting the slider pos if necessary. This might have the
+            //          effect of snapping the sliders into valid value positions (within a 
+            //          reasonable tolerance, of course; no need to re-move the cursor every
+            //          frame when the movement would be less than a pixel)
         }
     };
 
