@@ -14,6 +14,8 @@ function sliderGroupClass(configObj) {
         total: 30,
     };
 
+    this.lastEqualizedIdx = 0;
+
     this.sliderGapInPixels = 10;
 
     for(const [key, val] of Object.entries(configObj)) {
@@ -28,10 +30,12 @@ function sliderGroupClass(configObj) {
 
     this.updateSliders = function() {
         this.sliders = [];
+        let sliderMax = this.values.total;
         let currentSliderY = 0;
 
         for(const [key, val] of Object.entries(this.values)) {
             if(key != "total") {
+                console.log("pushing slider", key, val);
                 this.sliders.push(
                     new sliderClass({
                         x: this.x,
@@ -39,6 +43,7 @@ function sliderGroupClass(configObj) {
                         showValue: true,
                         label: key,
                         currentValue: val,
+                        maxValue: sliderMax,
                     })
                 );
 
@@ -68,6 +73,7 @@ function sliderGroupClass(configObj) {
     this.mouseupHandler = function(mousePos) {
         for(let i=0;i<this.sliders.length;i++) {
             let currentSlider = this.sliders[i];
+            currentSlider.isDragging = false;
             if(isClickOnButton(mousePos, currentSlider)) {
                 currentSlider.mouseupHandler(mousePos);
                 this.equalizeSliders(currentSlider, i);
@@ -89,43 +95,51 @@ function sliderGroupClass(configObj) {
     this.equalizeSliders = function(changedSlider, changedIndex) {
         // TODO: find out how to only trigger this function if dragging a slider
         console.log("equalizing sliders", changedSlider, changedIndex);
-        let currentSliderIndex = changedIndex;
+        //let currentSliderIndex = changedIndex;
         let valueDelta = changedSlider.currentValue - changedSlider.oldValue;
-        console.log("value delta", valueDelta);
+        console.log("value delta", valueDelta, "slider values", 
+            this.sliders.map(slider => slider.currentValue));
         
-        while(Math.abs(valueDelta) > 0) {
+        // temp limit for testing
+        let currentTry = 0;
+        let tryLimit = 10;
+
+        while(Math.abs(valueDelta) > 0 && currentTry < tryLimit) {
             console.log("running equalizer; value delta:", valueDelta);
 
-            if(Math.abs(valueDelta < 1)) {
+            if(Math.abs(valueDelta) < 1) {
                 console.log("value delta is less than 1, aborting");
                 break;
             }
-
-            currentSliderIndex++;
-            if(currentSliderIndex >= this.sliders.length) {
-                currentSliderIndex = 0;
-            }
-            let sliderToChange = this.sliders[currentSliderIndex];
-
-            if(valueDelta > 0) { // if valueDelta is positive
-                sliderToChange.currentValue++; 
-                valueDelta--; 
-            } else if(valueDelta < 0) {
-                sliderToChange.currentValue--; 
-                valueDelta++; 
+            if(currentTry === tryLimit) {
+                console.log("hit tryLimit, aborting");
+                break;
             }
 
-            // Ok, current problems:
-            // 1) equalizer math is not moving the other sliders correctly at all
-            // 2) equalizer is often firing with values of 0.5 (which right now does nothing)
-            //      and 1 (which doesn't sub-divide very well, obviously)
-            // 3) these sliders need to work on any # of workers, but also ONLY hold integer
-            //      values (having 0.25 workers on a task makes no sense)
-            //      - Idea: enforce integer values in slider.calculateValueFromMousePos(),
-            //          possibly adjusting the slider pos if necessary. This might have the
-            //          effect of snapping the sliders into valid value positions (within a 
-            //          reasonable tolerance, of course; no need to re-move the cursor every
-            //          frame when the movement would be less than a pixel)
+            this.lastEqualizedIdx++;
+            if(this.lastEqualizedIdx >= this.sliders.length) {
+                this.lastEqualizedIdx = 0;
+            }
+            if(this.lastEqualizedIdx === this.sliders.indexOf(changedSlider)) {
+                this.lastEqualizedIdx++
+            }
+            let sliderToChange = this.sliders[this.lastEqualizedIdx];
+            console.log("changingSlider", sliderToChange.label, "valueDelta", valueDelta);
+
+            if(valueDelta > 0 && sliderToChange.currentValue > 0) { 
+                // if valueDelta is positive and slider above 0
+                sliderToChange.currentValue--; // subtract from the slider
+                valueDelta--; // subtract from valueDelta
+                
+            } else if(valueDelta < 0 && sliderToChange.currentValue < sliderToChange.maxValue) { 
+                // if valueDelta is negative and slider is below max
+                sliderToChange.currentValue++;  // add to the slider
+                valueDelta++; // add to valueDelta
+            }
+
+            // NOTE: if this doesn't work out, let's just do unlinked sliders with a
+            // number of idle villagers and no slider/counter can go up if idle villagers is 0
+            // also, some +/- buttons for fine-tuning might be a good idea in that scenario
         }
     };
 

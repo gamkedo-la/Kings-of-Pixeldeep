@@ -178,27 +178,23 @@ function handleCityPanelClick(mousePos) {
 function handleCityPanelMousemove(mousePos) {
     for(let i=0;i<cityPanelControls.length;i++) {
         let currentButton = cityPanelControls[i];
-        if(isClickOnButton(mousePos, currentButton)) {
-            if(currentButton instanceof sliderGroupClass) {
-                // slider mousemoveHandler does the isDragging check
-                currentButton.mousemoveHandler(mousePos);
-                //equalizeSliders();
-            }  
-        }
+        if(currentButton instanceof sliderGroupClass) {
+            // slider mousemoveHandler does the isDragging check,
+            // so is safe to call whenever mouse is moving in city panel
+            currentButton.mousemoveHandler(mousePos);
+        }  
     }
 }
 
 function handleCityPanelMouseup(mousePos) {
     for(let i=0;i<cityPanelControls.length;i++) {
         let currentButton = cityPanelControls[i];
-        if(isClickOnButton(mousePos, currentButton)) {
-            if(currentButton instanceof sliderGroupClass) {
-                //currentButton.calculateValueFromMousePos(mousePos);
-                currentButton.mouseupHandler(mousePos);
-            } else {
-                currentButton.onClick();
-                //equalizeSliders();
-            }
+        if(currentButton instanceof sliderGroupClass) {
+            //currentButton.calculateValueFromMousePos(mousePos);
+            currentButton.mouseupHandler(mousePos);
+        } else if(isClickOnButton(mousePos, currentButton)) {
+            currentButton.onClick();
+            //equalizeSliders();
         }
     }
 }

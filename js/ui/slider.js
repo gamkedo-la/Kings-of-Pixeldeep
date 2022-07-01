@@ -26,7 +26,7 @@ function sliderClass(configObj) {
 
 
     for(const [key, val] of Object.entries(configObj)) {
-        if(val) {
+        if(val || val === 0) {
             this[key] = val;
         }
     }
@@ -94,7 +94,7 @@ function sliderClass(configObj) {
         } else if (mousePos.x > this.x + this.width) {
             this.currentValue = this.maxValue;
         } else { // mousePos.x between min and max positions
-            this.currentValue = (mousePos.x - this.x) / this.scaleFactor();
+            this.currentValue = ((mousePos.x - this.x) / this.scaleFactor()).toFixed(0);
         }
 
         /*
