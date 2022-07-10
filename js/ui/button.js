@@ -21,19 +21,10 @@ function buttonClass(configObj) {
 
     // TODO: give these default values when not specified
     for(const [key, val] of Object.entries(configObj)) {
-        if(val) {
+        if(val || val === 0) {
             this[key] = val;
         }
     }
-	/*
-    this.x = configObj.x;
-    this.y = configObj.y;
-    this.label = configObj.label;
-    this.color = configObj.color;
-    this.textColor = configObj.textColor;
-    this.onClick = configObj.onClick;
-    this.fontSize = configObj.fontSize;
-    */
     // also this would be a good place to set up pre-computed values
     // since it only runs once and not every frame
     // like `this.x = parentX + relativeX;`

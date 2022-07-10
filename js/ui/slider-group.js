@@ -76,6 +76,7 @@ function sliderGroupClass(configObj) {
             currentSlider.isDragging = false;
             if(isClickOnButton(mousePos, currentSlider)) {
                 currentSlider.mouseupHandler(mousePos);
+                console.log("slider group mouseup handler calling eq sliders")
                 this.equalizeSliders(currentSlider, i);
             } 
         }
@@ -107,6 +108,7 @@ function sliderGroupClass(configObj) {
         while(Math.abs(valueDelta) > 0 && currentTry < tryLimit) {
             console.log("running equalizer; value delta:", valueDelta);
 
+            // checks to make sure we don't need to stop changing sliders
             if(Math.abs(valueDelta) < 1) {
                 console.log("value delta is less than 1, aborting");
                 break;
@@ -116,30 +118,44 @@ function sliderGroupClass(configObj) {
                 break;
             }
 
+            // go to next slider
             this.lastEqualizedIdx++;
-            if(this.lastEqualizedIdx >= this.sliders.length) {
-                this.lastEqualizedIdx = 0;
-            }
+            // if it's the slider the player changed, skip it
             if(this.lastEqualizedIdx === this.sliders.indexOf(changedSlider)) {
                 this.lastEqualizedIdx++
             }
+            // if we hit the bottom of the slider list, go back to the top
+            if(this.lastEqualizedIdx >= this.sliders.length) {
+                this.lastEqualizedIdx = 0;
+            }
+
+            // now we know what slider to update, so let's update it
             let sliderToChange = this.sliders[this.lastEqualizedIdx];
             console.log("changingSlider", sliderToChange.label, "valueDelta", valueDelta);
 
+            // if valueDelta is positive and slider above 0
             if(valueDelta > 0 && sliderToChange.currentValue > 0) { 
-                // if valueDelta is positive and slider above 0
-                sliderToChange.currentValue--; // subtract from the slider
-                valueDelta--; // subtract from valueDelta
+                // subtract from the slider
+                sliderToChange.currentValue--; 
+                // subtract from valueDelta
+                valueDelta--; 
                 
-            } else if(valueDelta < 0 && sliderToChange.currentValue < sliderToChange.maxValue) { 
-                // if valueDelta is negative and slider is below max
-                sliderToChange.currentValue++;  // add to the slider
-                valueDelta++; // add to valueDelta
+            // else if valueDelta is negative and slider is below max
+            } else if(valueDelta < 0 && sliderToChange.currentValue <
+                sliderToChange.maxValue) { 
+
+                // add to the slider
+                sliderToChange.currentValue++;  
+                // add to valueDelta
+                valueDelta++; 
             }
 
-            // NOTE: if this doesn't work out, let's just do unlinked sliders with a
-            // number of idle villagers and no slider/counter can go up if idle villagers is 0
-            // also, some +/- buttons for fine-tuning might be a good idea in that scenario
+            // keep count of our tries to avoid infinite looping
+            currentTry++;
+            if(currentTry >= tryLimit) {
+                console.error("Error equalizing sliders: Max number of tries reached");
+            }
+
         }
     };
 

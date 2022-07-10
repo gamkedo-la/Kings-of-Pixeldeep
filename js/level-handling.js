@@ -24,7 +24,7 @@ const WORLD_FLAG = 3;
 const WORLD_TREE = 4;
 */
 
-// new world terrain
+// world terrain
 const WORLD_MOUNTAINS = 1;
 const WORLD_FOREST = 2;
 const WORLD_GRASS = 3;
@@ -37,7 +37,7 @@ const SEASON_WINTER = 2;
 // battle terrain values
 //const BATTLE_GRASS = 8;
 
-// new battle terrain
+// battle terrain
 const BATTLE_FIELD = 11;
 const BATTLE_TREES = 12;
 const BATTLE_ROCKS = 13;

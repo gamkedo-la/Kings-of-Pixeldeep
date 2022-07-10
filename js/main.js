@@ -121,11 +121,8 @@ for(var i=0;i<playerCities.length;i++) {
 for(var i=0;i<playerArmies.length;i++) {
     playerArmies[i].draw();
 }
+// TODO: draw enemy cities and armies
     
-    // TODO: call on arrays in world-team.js
-    //venice.draw();
-    //paris.draw();
-    //army1.draw();
 }
 
 function debug(text) {

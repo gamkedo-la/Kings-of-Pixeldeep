@@ -88,7 +88,7 @@ function openCityPanel(city) {
     ];
 
     viewingCity = city;
-    cityPanelControls[0].label = "Population: "+ city.population.total;
+    cityPanelControls[0].label = city.name + " | Population: "+ city.population.total;
     cityPanelControls[1].values = city.population;
     cityPanelControls[1].updateSliders();
 

@@ -32,7 +32,7 @@ function sliderClass(configObj) {
     }
 
     this.scaleFactor = function() {
-        return this.barWidth / (this.maxValue - this.minValue);
+        return (this.barWidth - this.handleWidth) / (this.maxValue - this.minValue);
     }
 
     this.draw = function() {
@@ -44,7 +44,7 @@ function sliderClass(configObj) {
             this.barWidth, this.barHeight, 
             this.barColor);
         // handle
-        colorRect(this.x + this.currentValue * this.scaleFactor(),
+        colorRect(this.x + this.currentValue * this.scaleFactor(), 
             this.y,
             this.handleWidth, this.handleHeight, 
             this.handleColor);
@@ -91,7 +91,7 @@ function sliderClass(configObj) {
         this.oldValue = this.currentValue;
         if(mousePos.x < this.x) {
             this.currentValue = this.minValue;
-        } else if (mousePos.x > this.x + this.width) {
+        } else if (mousePos.x > this.x + (this.width - this.handleWidth)) {
             this.currentValue = this.maxValue;
         } else { // mousePos.x between min and max positions
             this.currentValue = ((mousePos.x - this.x) / this.scaleFactor()).toFixed(0);

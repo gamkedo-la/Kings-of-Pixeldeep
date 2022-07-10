@@ -14,16 +14,27 @@ var playerResources = {
 
 
 // TODO: new method for pre-populating maps (like racing game?)
-// TODO: also, city class create code like button code for one-line creation
-var venice = new cityClass();
-    venice.name = "venice";
-    venice.setPosition(0,0);
-    playerCities.push(venice);
+var venice = new cityClass({
+    worldCol: 0,
+    worldRow: 0,
+    name: "Venice",
+    population: {
+        total: 120,
+        forestry: 10,
+        wheatFields: 60,
+        stables: 15,
+        mines: 5,
+        blacksmiths: 30,
+    },
+});
+playerCities.push(venice);
 
-var paris  = new cityClass();
-    paris.name = "paris";
-    paris.setPosition(2,4);
-    playerCities.push(paris);
+var paris  = new cityClass({
+    worldCol: 2,
+    worldRow: 4,
+    name: "Paris",
+});
+playerCities.push(paris);
 
 var army1  = new armyClass();
     army1.setPosition(5,5);

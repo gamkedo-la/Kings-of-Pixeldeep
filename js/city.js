@@ -8,11 +8,11 @@ function cityClass(configObj) {
     this.picToUse = cityPic;
     this.name = "Untitled City";
     this.population = {
-        total: 10,
-        forestry: 3,
-        wheatFields: 3,
-        stables: 3,
-        mines: 0,
+        total: 100,
+        forestry: 30,
+        wheatFields: 30,
+        stables: 30,
+        mines: 10,
         blacksmiths: 0,
         /*
         idle: function() {
@@ -30,9 +30,9 @@ function cityClass(configObj) {
 
     this.playerControlled = true;
 
-    if(this.configObj) {
+    if(configObj) {
         for( const [key, val] of Object.entries(configObj) ) {
-            if(val) {
+            if(val || val === 0) {
                 this[key] = val;
             }
         }
