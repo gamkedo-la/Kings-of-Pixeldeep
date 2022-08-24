@@ -71,10 +71,7 @@ function sliderClass(configObj) {
     }
 
     this.mouseupHandler = function(mousePos) {
-        // TODO: move this up a few levels so 
-        // letting go of the mouse anywhere on the screen
-        // sets "isDragging" to false
-        // Actually, I wonder if we should just revert to using
+        // I wonder if we should just revert to using
         // the global "isDragging" var. Would that be so bad?
         // Like, what would we have to do to make that happen? 
         // Would we have to store a "draggingSlider" global var
@@ -94,7 +91,9 @@ function sliderClass(configObj) {
         } else if (mousePos.x > this.x + (this.width - this.handleWidth)) {
             this.currentValue = this.maxValue;
         } else { // mousePos.x between min and max positions
-            this.currentValue = ((mousePos.x - this.x) / this.scaleFactor()).toFixed(0);
+            this.currentValue = Number(
+                ((mousePos.x - this.x) / this.scaleFactor()).toFixed(0)
+            );
         }
 
         /*

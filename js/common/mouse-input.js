@@ -196,6 +196,8 @@ function mouseupHandler(evt) {
 
             handleCityPanelMouseup(mousePos);
         }
+        // always let go of all sliders on mouseup
+        cityPanelControls[1].mouseupHandler(evt);
     }
 }
 

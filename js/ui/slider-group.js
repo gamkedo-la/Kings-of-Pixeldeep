@@ -94,19 +94,28 @@ function sliderGroupClass(configObj) {
     };
 
     this.equalizeSliders = function(changedSlider, changedIndex) {
-        // TODO: find out how to only trigger this function if dragging a slider
         console.log("equalizing sliders", changedSlider, changedIndex);
         //let currentSliderIndex = changedIndex;
         let valueDelta = changedSlider.currentValue - changedSlider.oldValue;
+
+        // these two vars are just for console logging and debugging
+        let sliderValues = this.sliders.map(slider => slider.currentValue);
+        let sliderTotal = 0;
+        for(const val of sliderValues) {
+            sliderTotal += val;
+        }
         console.log("value delta", valueDelta, "slider values", 
-            this.sliders.map(slider => slider.currentValue));
+            sliderValues, "total", sliderTotal);
         
         // temp limit for testing
         let currentTry = 0;
-        let tryLimit = 10;
+        let tryLimit = 100;
 
         while(Math.abs(valueDelta) > 0 && currentTry < tryLimit) {
-            console.log("running equalizer; value delta:", valueDelta);
+            console.log("running equalizer; try:", currentTry,"value delta:", valueDelta);
+            if(currentTry >= tryLimit) {
+                console.error("Error equalizing sliders: Max number of tries reached");
+            }
 
             // checks to make sure we don't need to stop changing sliders
             if(Math.abs(valueDelta) < 1) {
@@ -152,9 +161,6 @@ function sliderGroupClass(configObj) {
 
             // keep count of our tries to avoid infinite looping
             currentTry++;
-            if(currentTry >= tryLimit) {
-                console.error("Error equalizing sliders: Max number of tries reached");
-            }
 
         }
     };
