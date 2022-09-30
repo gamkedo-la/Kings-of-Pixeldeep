@@ -1,5 +1,6 @@
 var cityPic = document.createElement("img");
-var armyPic = document.createElement("img");
+var playerArmyPic = document.createElement("img");
+var enemyArmyPic = document.createElement("img");
 var worldTerrain = document.createElement("img");
 var battleTerrain  = document.createElement("img");
 var placeholderUnitAtk = document.createElement("img");
@@ -39,7 +40,8 @@ function loadImages() {
 
 	var imageList = [
 		{varName: cityPic, theFile: "track_flag.png"},
-		{varName: armyPic, theFile: "Person1.png"},
+		{varName: playerArmyPic, theFile: "Person1.png"},
+		{varName: enemyArmyPic, theFile: "Person1-alt-color.png"},
 		{varName: worldTerrain, theFile: "world_terrain.png"},
 		{varName: battleTerrain, theFile: "battle_terrain.png"},
 

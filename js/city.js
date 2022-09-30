@@ -54,10 +54,12 @@ function cityClass(configObj) {
     }
 
 
+    /*
     this.setPosition = function(col,row) {
         this.worldCol = col;
         this.worldRow = row;
     }
+    */
 
     this.construct = function(cityName/*, imageToUse*/) {
 	    this.name = cityName;

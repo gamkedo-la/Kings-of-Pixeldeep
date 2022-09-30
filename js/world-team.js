@@ -13,6 +13,8 @@ var playerResources = {
 }
 
 
+// DEMO MAP SETUP
+
 // TODO: new method for pre-populating maps (like racing game?)
 var venice = new cityClass({
     worldCol: 0,
@@ -36,7 +38,10 @@ var paris  = new cityClass({
 });
 playerCities.push(paris);
 
-var army1  = new armyClass();
-    army1.setPosition(5,5);
-    playerArmies.push(army1);
+var army1  = new armyClass({
+    worldCol: 5,
+    worldRow: 5,
+    name: "My First Army",
+});
+playerArmies.push(army1);
 

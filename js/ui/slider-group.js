@@ -93,12 +93,30 @@ function sliderGroupClass(configObj) {
         }
     };
 
+    this.getModifiableSliders = function(changedIndex) {
+
+        return this.sliders.filter( 
+            (slider) => slider.currentValue > slider.minValue &&
+                slider.currentValue < slider.maxValue &&
+                slider.label != this.sliders[changedIndex].label 
+        );
+    };
+
     this.equalizeSliders = function(changedSlider, changedIndex) {
         console.log("equalizing sliders", changedSlider, changedIndex);
         //let currentSliderIndex = changedIndex;
         let valueDelta = changedSlider.currentValue - changedSlider.oldValue;
 
-        // these two vars are just for console logging and debugging
+        let valueDeltaRemaining = valueDelta;
+        /*
+        let changePerSlider = Math.floor(valueDelta / (this.sliders.length - 1));
+            // subtracting 1 here because we don't need to apply any change to the
+            // slider that was just changed, making 1 less slider to change
+        let valueDeltaRemaining = valueDelta % (this.sliders.length - 1);
+        */
+        
+        
+        // debug vars
         let sliderValues = this.sliders.map(slider => slider.currentValue);
         let sliderTotal = 0;
         for(const val of sliderValues) {
@@ -106,7 +124,83 @@ function sliderGroupClass(configObj) {
         }
         console.log("value delta", valueDelta, "slider values", 
             sliderValues, "total", sliderTotal);
+
+
+        // limiting # of tries to avoid infinite looping
+        let triesLeft = 100;
+
+        while(Math.abs(valueDeltaRemaining > 0) && triesLeft > 0) {
+            //get remaining modifiable sliders
+            let modifiableSliders = this.getModifiableSliders(changedIndex);
+
+            // see how much we can change the sliders this round
+            let changePerSlider = 1; 
+            if(valueDeltaRemaining > modifiableSliders.length) {
+                // if we can jump sliders by more than 1, do it;
+                changePerSlider = Math.floor(valueDeltaRemaining / modifiableSliders.length);
+            } 
+
+            // change the sliders
+            // NOTE: this does not yet work on sliders where minValue > 0
+            for(let i=0;i<modifiableSliders.length;i++) {
+                if(Math.abs(valueDeltaRemaining > 0)) { // (in case we ran out last loop)
+                    let slider = modifiableSliders[i];
+
+                    slider.oldValue = slider.currentValue;
+
+                    // TODO: figure out why this part doesn't apply changes when valueDeltaRemaining
+                    // is negative
+                    if( ( changePerSlider > 0 && slider.currentValue > changePerSlider ) ||
+                        ( changePerSlider < 0 && slider.currentValue < changePerSlider ) ) {
+
+                        slider.currentValue = slider.currentValue - changePerSlider;
+                        valueDeltaRemaining = valueDeltaRemaining - changePerSlider;
+                    } else {
+                        slider.currentValue = 0;
+                        valueDeltaRemaining = valueDeltaRemaining - slider.oldValue;
+                    } // end else
+                } // end if Math.abs(valueDeltaRemaining) > 0
+            } // end for loop
+            
+            triesLeft--;
+
+        } // end while loop
         
+        // TODO: 
+        // - fix infinite loop condition when valueDeltaRemaining doesn't divide evenly
+        // between modifiableSliders
+        // - clean this up into a single while loop
+        // - max tries safety valve again?
+        // - ugh...
+
+        
+        /*
+        for(let i=0;i<this.sliders.length;i++) {
+            if(i != changedIndex) {
+                let slider = this.sliders[i];
+                console.log("applying change", slider.label, changePerSlider);
+                slider.oldValue = slider.currentValue;
+                if(slider.currentValue > changePerSlider) {
+                    slider.currentValue = slider.currentValue - changePerSlider;
+                } else {
+                    valueDeltaRemaining += changePerSlider - slider.currentValue;
+                    slider.currentValue = 0;
+                }
+            }
+        }
+        */
+
+
+        // these two vars are just for console logging and debugging
+        //let sliderValues = this.sliders.map(slider => slider.currentValue);
+        //let sliderTotal = 0;
+        //for(const val of sliderValues) {
+        //    sliderTotal += val;
+        //}
+        //console.log("value delta", valueDelta, "slider values", 
+        //    sliderValues, "total", sliderTotal);
+        
+        /*
         // temp limit for testing
         let currentTry = 0;
         let tryLimit = 100;
@@ -163,6 +257,7 @@ function sliderGroupClass(configObj) {
             currentTry++;
 
         }
+        */
     };
 
 }

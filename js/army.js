@@ -1,6 +1,6 @@
 const MOVES_PER_TURN = 3;
 
-function armyClass() {
+function armyClass(configObj) {
 
     /*
     this.x = 75;
@@ -8,7 +8,7 @@ function armyClass() {
     */
     this.worldRow = 3;
     this.worldCol = 3;
-    this.picToUse = armyPic;
+    this.playerControlled = true;
     this.name = "Army 1"; //?
     this.movementRange = 5;
 
@@ -20,6 +20,22 @@ function armyClass() {
       horsemen: 0,
     }
     */
+
+    if(configObj) {
+        for( const [key, val] of Object.entries(configObj) ) {
+            if(val || val === 0) {
+                this[key] = val;
+            }
+        }
+    }
+
+    this.picToUse = function() {
+        if(this.playerControlled) {
+            return playerArmyPic;
+        } else {
+            return enemyArmyPic;
+        }
+    }
 
     this.worldIdx = function() {
         let idx = this.worldRow * level_cols + this.worldCol;
@@ -37,10 +53,13 @@ function armyClass() {
     }
 
 
-    this.create = function(troopCount, armyPos) {
+    /*
+    this.create = function(troopCount, armyPos, isPlayerOwned = true) {
        this.troops = troopCount;
        this.worldIdx = armyPos;
+       this.playerControlled = isPlayerOwned;
     }
+    */
 
     this.setPosition = function(col,row) {
         this.worldCol = col;
@@ -80,6 +99,6 @@ function armyClass() {
 		'aqua', 
 	    );
 	}
-        drawBitmapCenteredWithRotation(this.picToUse, this.x(),this.y(), 0);
+        drawBitmapCenteredWithRotation(this.picToUse(), this.x(),this.y(), 0);
     }
 }
