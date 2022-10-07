@@ -12,6 +12,7 @@ var playerResources = {
     // do we want any kind of "gold/crowns/money" resource?
 }
 
+var enemyCities = [];
 
 // DEMO MAP SETUP
 
@@ -45,3 +46,23 @@ var army1  = new armyClass({
 });
 playerArmies.push(army1);
 
+var army2 = new armyClass({
+    worldCol: 7,
+    worldRow: 7,
+    name: "Enemy Army",
+    playerControlled: false,
+});
+enemyArmies.push(army2);
+
+// BATTLE CHECK FUNCTIONS
+// these should definately go someplace else, but it's where I can think to put them for now
+function isEnemyArmyAtPosition(col, row) {
+    for(var i=0;i<enemyArmies.length;i++) {
+        let checkArmy = enemyArmies[i];
+        if(checkArmy.worldRow == row && checkArmy.worldCol == col) {
+            return true;
+        }
+    }
+    
+    return false;
+}

@@ -23,7 +23,8 @@ function armyClass(configObj) {
 
     if(configObj) {
         for( const [key, val] of Object.entries(configObj) ) {
-            if(val || val === 0) {
+            // 0 and `false` are allowed, `null` and `undefined` shouldn't be allowed
+            if(val || val === 0 || val === false) { 
                 this[key] = val;
             }
         }
@@ -78,6 +79,10 @@ function armyClass(configObj) {
         console.log(level_cols, clickedIdx, "moving "+ this.name + " to tile (" + newRow + "," + newCol +")");
         
         this.setPosition(newCol, newRow);
+
+        if(isEnemyArmyAtPosition(newCol, newRow)) {
+            setupBattleMode();
+        }
 
         // deselect army
         selectedArmy = null;

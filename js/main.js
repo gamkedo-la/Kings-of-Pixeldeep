@@ -115,13 +115,22 @@ function drawUI() {
 }
 
 function drawCitiesAndArmies() {
+// cities
+for(var i=0;i<enemyCities.length;i++) {
+    enemyCities[i].draw();
+}
 for(var i=0;i<playerCities.length;i++) {
     playerCities[i].draw();
+}
+
+// armies
+for(var i=0;i<enemyArmies.length;i++) {
+    enemyArmies[i].draw();
 }
 for(var i=0;i<playerArmies.length;i++) {
     playerArmies[i].draw();
 }
-// TODO: draw enemy cities and armies
+
     
 }
 
