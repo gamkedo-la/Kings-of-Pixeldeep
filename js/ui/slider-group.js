@@ -59,11 +59,11 @@ function sliderGroupClass(configObj) {
     };
 
     this.mousemoveHandler = function(mousePos) {
-        console.log("slider group mousemove");
+        //console.log("slider group mousemove");
         for(let i=0;i<this.sliders.length;i++) {
             let currentSlider = this.sliders[i];
             if(/*isClickOnButton(mousePos, currentSlider) &&*/ currentSlider.isDragging) {
-                console.log("current slider is dragging");
+                //console.log("current slider is dragging");
                 currentSlider.mousemoveHandler(mousePos);
                 this.equalizeSliders(currentSlider, i);
             } 
@@ -103,7 +103,7 @@ function sliderGroupClass(configObj) {
     };
 
     this.equalizeSliders = function(changedSlider, changedIndex) {
-        console.log("equalizing sliders", changedSlider, changedIndex);
+        console.log("equalizing sliders:", changedSlider.label, '('+changedIndex+')');
         //let currentSliderIndex = changedIndex;
         let valueDelta = changedSlider.currentValue - changedSlider.oldValue;
 
@@ -129,35 +129,53 @@ function sliderGroupClass(configObj) {
         // limiting # of tries to avoid infinite looping
         let triesLeft = 100;
 
-        while(Math.abs(valueDeltaRemaining > 0) && triesLeft > 0) {
+        while(Math.abs(valueDeltaRemaining) > 0 && triesLeft > 0) {
+            console.log("valueDeltaRemaining", valueDeltaRemaining);
+            console.log("triesLeft", triesLeft);
+
             //get remaining modifiable sliders
             let modifiableSliders = this.getModifiableSliders(changedIndex);
+            console.log('modifiableSliders', modifiableSliders.map(slider => slider.label));
 
             // see how much we can change the sliders this round
             let changePerSlider = 1; 
-            if(valueDeltaRemaining > modifiableSliders.length) {
+            if(Math.abs(valueDeltaRemaining) > modifiableSliders.length) {
                 // if we can jump sliders by more than 1, do it;
                 changePerSlider = Math.floor(valueDeltaRemaining / modifiableSliders.length);
             } 
+            console.log("changePerSlider", changePerSlider);
 
             // change the sliders
             // NOTE: this does not yet work on sliders where minValue > 0
             for(let i=0;i<modifiableSliders.length;i++) {
-                if(Math.abs(valueDeltaRemaining > 0)) { // (in case we ran out last loop)
+                console.log('checking slider: '+modifiableSliders[i].label);
+                if(Math.abs(valueDeltaRemaining) > 0) { // (in case we ran out last loop)
+                    // TODO: problem: if Math.abs(valueDeltaRemaining) > 0 but less than
+                    // changePerSlider, it will still try and update the slider by the full
+                    // changePerSlider. Need to fix this somehow
                     let slider = modifiableSliders[i];
 
                     slider.oldValue = slider.currentValue;
 
-                    // TODO: figure out why this part doesn't apply changes when valueDeltaRemaining
-                    // is negative
-                    if( ( changePerSlider > 0 && slider.currentValue > changePerSlider ) ||
-                        ( changePerSlider < 0 && slider.currentValue < changePerSlider ) ) {
+                    console.log('updating slider: ', slider.label, '; change of: ', changePerSlider);
 
-                        slider.currentValue = slider.currentValue - changePerSlider;
+                    if( ( changePerSlider > 0 && slider.currentValue > changePerSlider ) ||
+                        ( changePerSlider < 0 && slider.currentValue > Math.abs(changePerSlider) ) ) {
+                        console.log('changing full value');
+
+                        slider.currentValue = slider.currentValue + changePerSlider;
                         valueDeltaRemaining = valueDeltaRemaining - changePerSlider;
+                        
+                        console.log('new slider value:', slider.currentValue);
+                        console.log('new valueDeltaRemaining:', valueDeltaRemaining);
                     } else {
+                        console.log('setting slider to 0');
+
                         slider.currentValue = 0;
                         valueDeltaRemaining = valueDeltaRemaining - slider.oldValue;
+
+                        console.log('new slider value:', slider.currentValue);
+                        console.log('new valueDeltaRemaining:', valueDeltaRemaining);
                     } // end else
                 } // end if Math.abs(valueDeltaRemaining) > 0
             } // end for loop
