@@ -21,6 +21,8 @@ function setupMouseInput() {
     canvas.addEventListener('mouseup', mouseupHandler);
 
     canvas.addEventListener('click', clickHandler);
+
+    canvas.addEventListener('contextmenu', rightClickHandler);
 }
 
 function mousemoveHandler(evt) {
@@ -129,49 +131,7 @@ function mouseupHandler(evt) {
             }
             */
         } else { // mouse didn't move far, treat as click for move command
-            var mousePos = calculateMousePos(evt);
-            var clickedUnit = null;
-
-            if(battleMode) {
-                clickedUnit = getUnitUnderMouse(mousePos);
-            }
-
-            if(clickedUnit != null && clickedUnit.playerControlled == false) { //enemy?
-                // then command units to attack it
-                if(gameOptions.showDebug) {
-                    document.getElementById("debugText2").innerHTML = 
-                      "Player commands "+selectedUnits.length+" units to attack!";
-                }
-                for(var i=0;i<selectedUnits.length;i++){
-                    selectedUnits[i].setTarget(clickedUnit);
-                }
-            } else {
-                // didn't click enemy unit, direct any currently selected units to move
-                if(battleMode) {
-                    var unitsAlongside = Math.floor(Math.sqrt(selectedUnits.length+3));
-                    for(var i=0;i<selectedUnits.length;i++) {
-                        selectedUnits[i].gotoNear(mousePos.levelX, mousePos.levelY, i, unitsAlongside);
-                    }
-                    if(gameOptions.showDebug) {
-                        document.getElementById("debugText2").innerHTML = 
-                            "Moving to ("+mousePos.levelX+","+mousePos.levelY+")";
-                    }
-                } /*else if(showCityPanel) { 
-                    if(isClickInsideCityPanel(mousePos)) {
-                        //find out which section click is in.
-                        var clickedCitySection = findClickedCitySectionIdx(mousePos);
-                        for(var i=0;i<selectedCityWorkers.length;i++) {
-                            selectedCityWorkers[i].moveTo(clickedCitySection);
-                        }
-                        // city workers are de-selected once moved
-                        selectedCityWorkers = [];
-                    }
-                    
-                } // end else (if showCityPanel)
-                */
-
-            } // end else (clickedUnit == null && !clickedUnit.playerControlled == false)
-
+            attackOrMoveToMousePos(evt);
         } // end else (!mouseMovedEnoughToTreatAsDragging)
 
     } // end if(battleMode)
@@ -238,7 +198,7 @@ function clickHandler(evt) {
     }
     if(isClickInsideMainWindow(mousePos)) {
         //console.log("click was on main window");
-        handleMainWindowClick(mousePos);
+        handleMainWindowClick(mousePos, evt);
         return;
     }
     // if click isn't in one of these areas, it must be off-canvas and we don't care about it
@@ -351,12 +311,11 @@ function isClickInBox(mousePos, x1,y1, x2,y2) {
     return true;
 }
 
-function handleMainWindowClick(mousePos) {
+function handleMainWindowClick(mousePos, evt) {
     //console.log(mousePos);
     if(battleMode) {
         return; 
-        // mouse click in main window is only for world layer
-        // mouseup and mousedown handlers take care of battle layer
+        // mouseup, mousedown, & rightClick handlers take care of most battle layer stuff
     } 
 
     var clickedIdx = worldIdxFromMousePos(mousePos);
@@ -426,3 +385,55 @@ function isClickInsideCityPanel(mousePos) {
     );
 }
 
+function attackOrMoveToMousePos(evt) {
+    var mousePos = calculateMousePos(evt);
+    var clickedUnit = null;
+
+    if(battleMode) {
+        clickedUnit = getUnitUnderMouse(mousePos);
+    }
+
+    if(clickedUnit != null && clickedUnit.playerControlled == false) { //enemy?
+        // then command units to attack it
+        if(gameOptions.showDebug) {
+            document.getElementById("debugText2").innerHTML = 
+              "Player commands "+selectedUnits.length+" units to attack!";
+        }
+        for(var i=0;i<selectedUnits.length;i++){
+            selectedUnits[i].setTarget(clickedUnit);
+        }
+    } else {
+        // didn't click enemy unit, direct any currently selected units to move
+        if(battleMode) {
+            var unitsAlongside = Math.floor(Math.sqrt(selectedUnits.length+3));
+            for(var i=0;i<selectedUnits.length;i++) {
+                selectedUnits[i].gotoNear(mousePos.levelX, mousePos.levelY, i, unitsAlongside);
+            }
+            if(gameOptions.showDebug) {
+                document.getElementById("debugText2").innerHTML = 
+                    "Moving to ("+mousePos.levelX+","+mousePos.levelY+")";
+            }
+        } /*else if(showCityPanel) { 
+            if(isClickInsideCityPanel(mousePos)) {
+                //find out which section click is in.
+                var clickedCitySection = findClickedCitySectionIdx(mousePos);
+                for(var i=0;i<selectedCityWorkers.length;i++) {
+                    selectedCityWorkers[i].moveTo(clickedCitySection);
+                }
+                // city workers are de-selected once moved
+                selectedCityWorkers = [];
+            }
+            
+        } // end else (if showCityPanel)
+        */
+
+    } // end else (clickedUnit == null && !clickedUnit.playerControlled == false)
+
+} // end function attackOrMoveToMousePos()
+
+function rightClickHandler(evt) {
+    evt.preventDefault();
+    if(battleMode) {
+        attackOrMoveToMousePos(evt);
+    }
+}

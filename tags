@@ -8,8 +8,8 @@ addNewUnitToTeam	js/battle-team.js	/^function addNewUnitToTeam(spawnedUnit, figh
 allArmies	js/world-team.js	/^var allArmies = [];$/;"	v
 allUnits	js/battle-team.js	/^var allUnits = [];$/;"	v
 anyNewUnitsToClear	js/battle-team.js	/^var anyNewUnitsToClear = false;$/;"	v
-armyClass	js/army.js	/^function armyClass() {$/;"	c
-armyPic	js/common/image-loading.js	/^var armyPic = document.createElement("img");$/;"	v
+armyClass	js/army.js	/^function armyClass(configObj) {$/;"	c
+attackOrMoveToMousePos	js/common/mouse-input.js	/^function attackOrMoveToMousePos(evt) {$/;"	f
 battleMode	js/level-handling.js	/^var battleMode = false;$/;"	v
 battleTerrain	js/common/image-loading.js	/^var battleTerrain  = document.createElement("img");$/;"	v
 beginLoadingImage	js/common/image-loading.js	/^function beginLoadingImage(imgVar, fileName) {$/;"	f
@@ -39,7 +39,6 @@ cols	js/battle_maps/battlefield1.js	/^    cols: 30,$/;"	p	class:let
 cols	js/world_maps/world1.js	/^    cols: 40,$/;"	p	class:let
 construct	js/city.js	/^    this.construct = function(cityName\/*, imageToUse*\/) {$/;"	m	class:cityClass
 countLoadedImagesAndLaunchIfReady	js/common/image-loading.js	/^function countLoadedImagesAndLaunchIfReady() {$/;"	f
-create	js/army.js	/^    this.create = function(troopCount, armyPos) {$/;"	m	class:armyClass
 currentSidebarButtons	js/ui/sidebar.js	/^var currentSidebarButtons = [];$/;"	v
 debug	js/main.js	/^function debug(text) {$/;"	f
 dialogBoxClass	js/ui/dialog-box.js	/^function dialogBoxClass(configObj) {$/;"	c
@@ -50,6 +49,7 @@ draw	js/city.js	/^    this.draw = function() {$/;"	m	class:cityClass
 draw	js/ui/button.js	/^    this.draw = function() {$/;"	m	class:buttonClass
 draw	js/ui/dialog-box.js	/^    this.draw = function() {$/;"	m	class:dialogBoxClass
 draw	js/ui/label.js	/^    this.draw = function() {$/;"	m	class:labelClass
+draw	js/ui/slider-group.js	/^    this.draw = function() {$/;"	m	class:sliderGroupClass
 draw	js/ui/slider.js	/^    this.draw = function() {$/;"	m	class:sliderClass
 draw	js/unit.js	/^  this.draw = function() {$/;"	m	class:unitClass
 drawBattleTerrain	js/level-handling.js	/^function drawBattleTerrain(terrainCode, drawTileX, drawTileY) {$/;"	f
@@ -72,15 +72,18 @@ drawUnits	js/main.js	/^function drawUnits() {$/;"	f
 drawWorldTerrain	js/level-handling.js	/^function drawWorldTerrain(terrainCode, drawTileX, drawTileY) {$/;"	f
 editorMode	js/level-handling.js	/^var editorMode = false;$/;"	v
 enemyArmies	js/world-team.js	/^var enemyArmies = [];$/;"	v
+enemyArmyPic	js/common/image-loading.js	/^var enemyArmyPic = document.createElement("img");$/;"	v
 enemyUnits	js/battle-team.js	/^var enemyUnits = [];$/;"	v
+equalizeSliders	js/ui/slider-group.js	/^    this.equalizeSliders = function(changedSlider, changedIndex) {$/;"	m	class:sliderGroupClass
 exportLevel	js/editor.js	/^function exportLevel() {$/;"	f
 findClickedCitySectionIdx	js/common/mouse-input.js	/^function findClickedCitySectionIdx(mousePos) {$/;"	f
 findClosestUnitInRange	js/battle-team.js	/^function findClosestUnitInRange(fromX, fromY, maxRange, inUnitList) {$/;"	f
-forestry	js/city.js	/^        forestry: 0,$/;"	p	class:cityClass.population
+forestry	js/city.js	/^        forestry: 30,$/;"	p	class:cityClass.population
 gameBattleGrid	js/level-handling.js	/^var gameBattleGrid, gameBattleRows, gameBattleCols;$/;"	v
 gameOptions	js/main.js	/^var gameOptions = {$/;"	v
 gameSeason	js/level-handling.js	/^var gameSeason = "summer";$/;"	v
 gameWorldGrid	js/level-handling.js	/^var gameWorldGrid, gameWorldRows, gameWorldCols;$/;"	v
+getModifiableSliders	js/ui/slider-group.js	/^    this.getModifiableSliders = function(changedIndex) {$/;"	m	class:sliderGroupClass
 getRandomBattlefield	js/level-handling.js	/^function getRandomBattlefield() {$/;"	f
 getSeasonMultiplier	js/level-handling.js	/^function getSeasonMultiplier() {$/;"	f
 getUnitUnderMouse	js/common/mouse-input.js	/^function getUnitUnderMouse(currentMousePos) {$/;"	f
@@ -92,13 +95,12 @@ handleCityPanelClick	js/ui/city-panel.js	/^function handleCityPanelClick(mousePo
 handleCityPanelMousedown	js/ui/city-panel.js	/^function handleCityPanelMousedown(mousePos) {$/;"	f
 handleCityPanelMousemove	js/ui/city-panel.js	/^function handleCityPanelMousemove(mousePos) {$/;"	f
 handleCityPanelMouseup	js/ui/city-panel.js	/^function handleCityPanelMouseup(mousePos) {$/;"	f
-handleMainWindowClick	js/common/mouse-input.js	/^function handleMainWindowClick(mousePos) {$/;"	f
+handleMainWindowClick	js/common/mouse-input.js	/^function handleMainWindowClick(mousePos, evt) {$/;"	f
 handleMiniMapClick	js/ui/minimap.js	/^function handleMiniMapClick(mousePos) {$/;"	f
 handleSidebarButtonClick	js/ui/sidebar.js	/^function handleSidebarButtonClick(mousePos) {$/;"	f
 highlightIf	js/ui/button.js	/^    this.highlightIf = function() {$/;"	m	class:buttonClass
 horses	js/world-team.js	/^    horses: 0, \/\/ possible scope cut: remove horse units?$/;"	p	class:playerResources
 hoverPos	js/editor.js	/^var hoverPos = null;$/;"	v
-idle	js/city.js	/^        idle: function() {$/;"	m	class:cityClass.population
 imageLoadingDoneSoStartGame	js/main.js	/^function imageLoadingDoneSoStartGame() {$/;"	f
 iron	js/world-team.js	/^    iron: 0,$/;"	p	class:playerResources
 isClickInBox	js/common/mouse-input.js	/^function isClickInBox(mousePos, x1,y1, x2,y2) {$/;"	f
@@ -107,6 +109,7 @@ isClickInsideMainWindow	js/common/mouse-input.js	/^function isClickInsideMainWin
 isClickInsideMiniMap	js/common/mouse-input.js	/^function isClickInsideMiniMap(mousePos) {$/;"	f
 isClickInsideSidebar	js/common/mouse-input.js	/^function isClickInsideSidebar(mousePos) {$/;"	f
 isClickOnButton	js/ui/sidebar.js	/^function isClickOnButton(mousePos, button) {$/;"	f
+isEnemyArmyAtPosition	js/world-team.js	/^function isEnemyArmyAtPosition(col, row) {$/;"	f
 isInBox	js/city-worker.js	/^    this.isInBox = function(x1, y1, x2, y2) {$/;"	m	class:workerClass
 isInBox	js/unit.js	/^  this.isInBox = function(x1, y1, x2, y2) {$/;"	m	class:unitClass
 isMouseDragging	js/common/mouse-input.js	/^var isMouseDragging = false;$/;"	v
@@ -124,17 +127,21 @@ level_cols	js/level-handling.js	/^var level_cols = 50;$/;"	v
 level_height	js/level-handling.js	/^var level_height = LEVEL_TILE_H * level_rows;$/;"	v
 level_rows	js/level-handling.js	/^var level_rows = 50;$/;"	v
 level_width	js/level-handling.js	/^var level_width = LEVEL_TILE_W * level_cols;$/;"	v
+linkedSliders	js/ui/city-panel.js	/^var linkedSliders = [];$/;"	v
 loadImageForUnitCode	js/common/image-loading.js	/^function loadImageForUnitCode(unitCode, fileName) {$/;"	f
 loadImageForWorldCode	js/common/image-loading.js	/^function loadImageForWorldCode(worldCode, fileName) {$/;"	f
 loadImages	js/common/image-loading.js	/^function loadImages() {$/;"	f
-mines	js/city.js	/^        mines: 0,$/;"	p	class:cityClass.population
+mines	js/city.js	/^        mines: 10,$/;"	p	class:cityClass.population
 mouseInMainWindow	js/common/mouse-input.js	/^function mouseInMainWindow(mousePos) {$/;"	f
 mouseMovedEnoughToTreatAsDragging	js/common/mouse-input.js	/^function mouseMovedEnoughToTreatAsDragging() {$/;"	f
 mousedownHandler	js/common/mouse-input.js	/^function mousedownHandler(evt) {$/;"	f
+mousedownHandler	js/ui/slider-group.js	/^    this.mousedownHandler = function(mousePos) {$/;"	m	class:sliderGroupClass
 mousedownHandler	js/ui/slider.js	/^    this.mousedownHandler = function() {$/;"	m	class:sliderClass
 mousemoveHandler	js/common/mouse-input.js	/^function mousemoveHandler(evt) {$/;"	f
+mousemoveHandler	js/ui/slider-group.js	/^    this.mousemoveHandler = function(mousePos) {$/;"	m	class:sliderGroupClass
 mousemoveHandler	js/ui/slider.js	/^    this.mousemoveHandler = function(mousePos) {$/;"	m	class:sliderClass
 mouseupHandler	js/common/mouse-input.js	/^function mouseupHandler(evt) {$/;"	f
+mouseupHandler	js/ui/slider-group.js	/^    this.mouseupHandler = function(mousePos) {$/;"	m	class:sliderGroupClass
 mouseupHandler	js/ui/slider.js	/^    this.mouseupHandler = function(mousePos) {$/;"	m	class:sliderClass
 move	js/army.js	/^    this.move = function(clickedIdx) {$/;"	m	class:armyClass
 move	js/unit.js	/^  this.move = function() {$/;"	m	class:unitClass
@@ -144,11 +151,13 @@ onClick	js/army.js	/^    this.onClick = function() {$/;"	m	class:armyClass
 onClick	js/city.js	/^    this.onClick = function() {$/;"	m	class:cityClass
 openCityPanel	js/ui/city-panel.js	/^function openCityPanel(city) {$/;"	f
 outlineRect	js/common/graphics-common.js	/^function outlineRect(topLeftX, topLeftY, boxWidth, boxHeight, lineColor) {$/;"	f
+picToUse	js/army.js	/^    this.picToUse = function() {$/;"	m	class:armyClass
 picsToLoad	js/common/image-loading.js	/^var picsToLoad = 0; \/\/set automatically based on number of imageList in loadImages()$/;"	v
 placeholderUnitAtk	js/common/image-loading.js	/^var placeholderUnitAtk = document.createElement("img");$/;"	v
 placeholderUnitSingleFrame	js/common/image-loading.js	/^var placeholderUnitSingleFrame = document.createElement("img");$/;"	v
 placeholderUnitWalk	js/common/image-loading.js	/^var placeholderUnitWalk = document.createElement("img");$/;"	v
 playerArmies	js/world-team.js	/^var playerArmies = [];$/;"	v
+playerArmyPic	js/common/image-loading.js	/^var playerArmyPic = document.createElement("img");$/;"	v
 playerCities	js/world-team.js	/^var playerCities = [];$/;"	v
 playerResources	js/world-team.js	/^var playerResources = {$/;"	v
 playerUnits	js/battle-team.js	/^var playerUnits = [];$/;"	v
@@ -168,7 +177,6 @@ selectedArmy	js/world-team.js	/^var selectedArmy = null;$/;"	v
 selectedUnits	js/common/mouse-input.js	/^var selectedUnits = [];$/;"	v
 setCamPanDeltas	js/common/cam-pan.js	/^function setCamPanDeltas(mousePos) {$/;"	f
 setPosition	js/army.js	/^    this.setPosition = function(col,row) {$/;"	m	class:armyClass
-setPosition	js/city.js	/^    this.setPosition = function(col,row) {$/;"	m	class:cityClass
 setTarget	js/unit.js	/^  this.setTarget = function(newTarget) {$/;"	m	class:unitClass
 setTerrainBrushCode	js/editor.js	/^function setTerrainBrushCode(newVal) {$/;"	f
 setupBattleMode	js/level-handling.js	/^function setupBattleMode() {$/;"	c
@@ -181,19 +189,25 @@ showDebug	js/main.js	/^    showDebug: true,$/;"	p	class:gameOptions
 showGrid	js/main.js	/^    showGrid: false,$/;"	p	class:gameOptions
 showSliderTest	js/ui/slider.js	/^var showSliderTest = false;$/;"	v
 sliderClass	js/ui/slider.js	/^function sliderClass(configObj) {$/;"	c
+sliderGroupClass	js/ui/slider-group.js	/^function sliderGroupClass(configObj) {$/;"	c
 soonCheckUnitsToClear	js/battle-team.js	/^function soonCheckUnitsToClear() {$/;"	f
-stables	js/city.js	/^        stables: 0,$/;"	p	class:cityClass.population
+stables	js/city.js	/^        stables: 30,$/;"	p	class:cityClass.population
 startNewGame	js/level-handling.js	/^function startNewGame(whichWorld) {$/;"	f
 terrainBrushCode	js/editor.js	/^var terrainBrushCode = 1;$/;"	v
 terrainBrushSize	js/editor.js	/^var terrainBrushSize = 1;$/;"	v
+test1	js/ui/slider-group.js	/^        test1: 10,$/;"	p	class:sliderGroupClass.values
+test2	js/ui/slider-group.js	/^        test2: 10,$/;"	p	class:sliderGroupClass.values
+test3	js/ui/slider-group.js	/^        test3: 10,$/;"	p	class:sliderGroupClass.values
 testButton	js/ui/button.js	/^function testButton() {$/;"	f
 tileCoordToIndex	js/common/mouse-input.js	/^function tileCoordToIndex(tileCol, tileRow) {$/;"	f
-total	js/city.js	/^        total: 10,$/;"	p	class:cityClass.population
+total	js/city.js	/^        total: 100,$/;"	p	class:cityClass.population
+total	js/ui/slider-group.js	/^        total: 30,$/;"	p	class:sliderGroupClass.values
 unitClass	js/unit.js	/^function unitClass() {$/;"	c
 unitPics	js/common/image-loading.js	/^var unitPics = [];$/;"	v
 updateAll	js/main.js	/^function updateAll() {$/;"	f
+updateSliders	js/ui/slider-group.js	/^    this.updateSliders = function() {$/;"	m	class:sliderGroupClass
 viewingCity	js/ui/city-panel.js	/^var viewingCity = null;$/;"	v
-wheatFields	js/city.js	/^        wheatFields: 0,$/;"	p	class:cityClass.population
+wheatFields	js/city.js	/^        wheatFields: 30,$/;"	p	class:cityClass.population
 window.onload	js/main.js	/^window.onload = function() {$/;"	f
 wood	js/world-team.js	/^    wood: 0,$/;"	p	class:playerResources
 workerClass	js/city-worker.js	/^function workerClass(configObj) {$/;"	c
