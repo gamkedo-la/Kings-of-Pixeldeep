@@ -130,8 +130,13 @@ function mouseupHandler(evt) {
 
             }
             */
-        } else { // mouse didn't move far, treat as click for move command
-            attackOrMoveToMousePos(evt);
+        } else { // mouse didn't move far, treat as click
+            // if left click, deselect units
+            if(evt.button == 0) {
+                selectedUnits = [];
+            }
+            // ( right click is handled in rightClickHandler() )
+            
         } // end else (!mouseMovedEnoughToTreatAsDragging)
 
     } // end if(battleMode)
