@@ -23,6 +23,8 @@ function setupMouseInput() {
     canvas.addEventListener('click', clickHandler);
 
     canvas.addEventListener('contextmenu', rightClickHandler);
+
+    canvas.addEventListener('mouseleave', mouseleaveHandler);
 }
 
 function mousemoveHandler(evt) {
@@ -440,5 +442,14 @@ function rightClickHandler(evt) {
     evt.preventDefault();
     if(battleMode) {
         attackOrMoveToMousePos(evt);
+    }
+}
+
+function mouseleaveHandler(evt) {
+    camPanDeltaX = 0;
+    camPanDeltaY = 0;
+
+    if(isMouseDragging) {
+        mouseupHandler(evt);
     }
 }

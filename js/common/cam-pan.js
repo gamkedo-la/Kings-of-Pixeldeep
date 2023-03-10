@@ -1,9 +1,8 @@
-// TODO: import this file in index2.html
 
 const DIST_FROM_CENTER_BEFORE_PAN_X = 200;
 const DIST_FROM_CENTER_BEFORE_PAN_Y = 200;
 
-const DIST_FROM_EDGE_OF_SCREEN_BEFORE_PAN = 20;
+const DIST_FROM_EDGE_OF_SCREEN_BEFORE_PAN = 30;
 const CAM_PAN_SPEED = 10; // TODO: add to game options
 
 var camPanX = 0.0;
