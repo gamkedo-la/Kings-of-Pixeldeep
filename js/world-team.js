@@ -17,27 +17,33 @@ var enemyCities = [];
 // DEMO MAP SETUP
 
 // TODO: new method for pre-populating maps (like racing game?)
-var venice = new cityClass({
-    worldCol: 0,
-    worldRow: 0,
-    name: "Venice",
-    population: {
-        total: 120,
-        forestry: 10,
-        wheatFields: 60,
-        stables: 15,
-        mines: 5,
-        blacksmiths: 30,
-    },
-});
-playerCities.push(venice);
+//var venice = new cityClass({
+//    worldCol: 32,
+//    worldRow: 0,
+//    name: "Venice",
+//    population: {
+//        total: 120,
+//        forestry: 10,
+//        wheatFields: 60,
+//        stables: 15,
+//        mines: 5,
+//        blacksmiths: 30,
+//    },
+//});
+//playerCities.push(venice);
 
-var paris  = new cityClass({
-    worldCol: 2,
-    worldRow: 4,
-    name: "Paris",
+var city1  = new cityClass({
+    worldCol: 8,
+    worldRow: 8,
+    name: "Atlanta",
 });
-playerCities.push(paris);
+playerCities.push(city1);
+
+var city2  = new cityClass({
+    worldCol: 32,
+    worldRow: 7,
+    name: "Boston",
+});
 
 var army1  = new armyClass({
     worldCol: 5,
