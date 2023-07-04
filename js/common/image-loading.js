@@ -2,6 +2,8 @@ var cityPic = document.createElement("img");
 var playerArmyPic = document.createElement("img");
 var enemyArmyPic = document.createElement("img");
 var worldTerrain = document.createElement("img");
+var forestTerrain = document.createElement("img");
+var rowsThatFitOnScreen = document.createElement("img");
 var battleTerrain  = document.createElement("img");
 var placeholderUnitAtk = document.createElement("img");
 var placeholderUnitWalk = document.createElement("img");
@@ -43,6 +45,7 @@ function loadImages() {
 		{varName: playerArmyPic, theFile: "Person1.png"},
 		{varName: enemyArmyPic, theFile: "Person1-alt-color.png"},
 		{varName: worldTerrain, theFile: "world_terrain.png"},
+		{varName: forestTerrain, theFile: "forestSprite.png"},
 		{varName: battleTerrain, theFile: "battle_terrain.png"},
 
 		{varName: placeholderUnitAtk, theFile: "pixeldeep-placeholder-atk.png"},
