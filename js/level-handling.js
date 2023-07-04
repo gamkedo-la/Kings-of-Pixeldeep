@@ -213,24 +213,32 @@ function drawWorldTerrain(terrainCode, drawTileX, drawTileY, arrayIndex) {
     // 7, 8, 9
     var sX = 0;
     var sY = 0;
+    var terrainPic;
+    if(terrainCode == WORLD_FARM){
+        terrainPic = farmTerrain;
+    }
     if (terrainCode == WORLD_FOREST){
+        terrainPic = forestTerrain;
+    }
+    if (terrainCode == WORLD_FOREST ||
+        terrainCode == WORLD_FARM){
         //check if same tile type is above
         var TILE_W = 40;
         var TILE_H = 40;
         var tileKindAbove = identifyTileAbove(arrayIndex);
         var tileKindHere = levelGrid[tileKindAbove];
-        if (tileKindHere == WORLD_FOREST){
+        if (tileKindHere == terrainCode){
             //can now be tiles 4 through 9
             var tileKindBelow = identifyTileBelow(arrayIndex);
             tileKindHere = levelGrid[tileKindBelow];
-            if(tileKindHere == WORLD_FOREST){ // must be between 4 through 6
+            if(tileKindHere == terrainCode){ // must be between 4 through 6
                 var tileKindToLeft = identifyTileToLeft(arrayIndex);
                 tileKindHere = levelGrid[tileKindToLeft];
-                if(tileKindHere == WORLD_FOREST){
+                if(tileKindHere == terrainCode){
                         //can be either tiles 5 or 6 
                     var tileKindToRight = identifyTileToRight(arrayIndex);
                     tileKindHere = levelGrid[tileKindToRight];
-                    if(tileKindHere == WORLD_FOREST){
+                    if(tileKindHere == terrainCode){
                         // ***** draw Tile 5 *****
                         sX = TILE_W * 1;
                         sY = TILE_H * 1;
@@ -248,11 +256,11 @@ function drawWorldTerrain(terrainCode, drawTileX, drawTileY, arrayIndex) {
             } else { //Must be tiles 7 through 9
                 var tileKindToLeft = identifyTileToLeft(arrayIndex);
                 tileKindHere = levelGrid[tileKindToLeft];
-                if(tileKindHere == WORLD_FOREST){
+                if(tileKindHere == terrainCode){
                     //can be either tiles 8 or 9 
                     var tileKindToRight = identifyTileToRight(arrayIndex);
                     tileKindHere = levelGrid[tileKindToRight];
-                    if(tileKindHere == WORLD_FOREST){
+                    if(tileKindHere == terrainCode){
                         //console.log("Index: " + arrayIndex + " Tile Position 8");
                         // ***** draw Tile 8 *****
                         sX = TILE_W * 1;
@@ -271,11 +279,11 @@ function drawWorldTerrain(terrainCode, drawTileX, drawTileY, arrayIndex) {
         } else { //Must be tiles 1 though 3
             var tileKindToLeft = identifyTileToLeft(arrayIndex);
             tileKindHere = levelGrid[tileKindToLeft];
-            if(tileKindHere == WORLD_FOREST){
+            if(tileKindHere == terrainCode){
                 //can be either tiles 1 or 2 
                 var tileKindToRight = identifyTileToRight(arrayIndex);
                 tileKindHere = levelGrid[tileKindToRight];
-                if(tileKindHere == WORLD_FOREST){
+                if(tileKindHere == terrainCode){
                     //console.log("Index: " + arrayIndex + " Tile Position 2");
                     // ***** draw Tile 2 *****
                     sX = TILE_W * 1;
@@ -291,7 +299,7 @@ function drawWorldTerrain(terrainCode, drawTileX, drawTileY, arrayIndex) {
                sY = TILE_H * 0;
             } // All Tiles Identified
         }
-        canvasContext.drawImage(forestTerrain, 
+        canvasContext.drawImage(terrainPic, 
             sX, sY,
             LEVEL_TILE_W, LEVEL_TILE_H,
             drawTileX, drawTileY,
