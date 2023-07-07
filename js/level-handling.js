@@ -30,6 +30,7 @@ const WORLD_FOREST = 2;
 const WORLD_GRASS = 3;
 const WORLD_FARM = 4;
 const WORLD_WATER = 5;
+const WORLD_SHALLOWS = 6;
 
 const SEASON_SUMMER = 1;
 const SEASON_WINTER = 2;

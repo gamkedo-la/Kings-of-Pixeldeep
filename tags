@@ -36,6 +36,7 @@ colorRect	js/common/graphics-common.js	/^function colorRect(topLeftX, topLeftY, 
 colorText	js/common/graphics-common.js	/^function colorText(showWords, textX,textY, fillColor) {$/;"	f
 coloredOutlineRectCornerToCorner	js/common/graphics-common.js	/^function coloredOutlineRectCornerToCorner(corner1X, corner1Y, corner2X, corner2Y, lineColor) {$/;"	f
 cols	js/battle_maps/battlefield1.js	/^    cols: 30,$/;"	p	class:let
+cols	js/world_maps/world1-v2.js	/^    "cols": 40,$/;"	p	class:let
 cols	js/world_maps/world1.js	/^    cols: 40,$/;"	p	class:let
 construct	js/city.js	/^    this.construct = function(cityName\/*, imageToUse*\/) {$/;"	m	class:cityClass
 countLoadedImagesAndLaunchIfReady	js/common/image-loading.js	/^function countLoadedImagesAndLaunchIfReady() {$/;"	f
@@ -52,7 +53,7 @@ draw	js/ui/label.js	/^    this.draw = function() {$/;"	m	class:labelClass
 draw	js/ui/slider-group.js	/^    this.draw = function() {$/;"	m	class:sliderGroupClass
 draw	js/ui/slider.js	/^    this.draw = function() {$/;"	m	class:sliderClass
 draw	js/unit.js	/^  this.draw = function() {$/;"	m	class:unitClass
-drawBattleTerrain	js/level-handling.js	/^function drawBattleTerrain(terrainCode, drawTileX, drawTileY) {$/;"	f
+drawBattleTerrain	js/level-handling.js	/^function drawBattleTerrain(terrainCode, drawTileX, drawTileY, arrayIndex) {$/;"	f
 drawBitmapCenteredWithRotation	js/common/graphics-common.js	/^function drawBitmapCenteredWithRotation(graphic, atX, atY,withAngle) {$/;"	f
 drawButtonLabel	js/ui/button.js	/^    this.drawButtonLabel = function() {$/;"	m	class:buttonClass
 drawCitiesAndArmies	js/main.js	/^function drawCitiesAndArmies() {$/;"	f
@@ -69,15 +70,17 @@ drawSelectionBox	js/unit.js	/^  this.drawSelectionBox = function() {$/;"	m	class
 drawSidebar	js/ui/sidebar.js	/^function drawSidebar() {$/;"	f
 drawUI	js/main.js	/^function drawUI() {$/;"	f
 drawUnits	js/main.js	/^function drawUnits() {$/;"	f
-drawWorldTerrain	js/level-handling.js	/^function drawWorldTerrain(terrainCode, drawTileX, drawTileY) {$/;"	f
+drawWorldTerrain	js/level-handling.js	/^function drawWorldTerrain(terrainCode, drawTileX, drawTileY, arrayIndex) {$/;"	f
 editorMode	js/level-handling.js	/^var editorMode = false;$/;"	v
 enemyArmies	js/world-team.js	/^var enemyArmies = [];$/;"	v
 enemyArmyPic	js/common/image-loading.js	/^var enemyArmyPic = document.createElement("img");$/;"	v
 enemyUnits	js/battle-team.js	/^var enemyUnits = [];$/;"	v
 equalizeSliders	js/ui/slider-group.js	/^    this.equalizeSliders = function(changedSlider, changedIndex) {$/;"	m	class:sliderGroupClass
 exportLevel	js/editor.js	/^function exportLevel() {$/;"	f
+farmTerrain	js/common/image-loading.js	/^var farmTerrain = document.createElement("img");$/;"	v
 findClickedCitySectionIdx	js/common/mouse-input.js	/^function findClickedCitySectionIdx(mousePos) {$/;"	f
 findClosestUnitInRange	js/battle-team.js	/^function findClosestUnitInRange(fromX, fromY, maxRange, inUnitList) {$/;"	f
+forestTerrain	js/common/image-loading.js	/^var forestTerrain = document.createElement("img");$/;"	v
 forestry	js/city.js	/^        forestry: 30,$/;"	p	class:cityClass.population
 gameBattleGrid	js/level-handling.js	/^var gameBattleGrid, gameBattleRows, gameBattleCols;$/;"	v
 gameOptions	js/main.js	/^var gameOptions = {$/;"	v
@@ -90,6 +93,7 @@ getUnitUnderMouse	js/common/mouse-input.js	/^function getUnitUnderMouse(currentM
 goToRandomSpotInCityPanelSection	js/city-worker.js	/^    this.goToRandomSpotInCityPanelSection = function() {$/;"	m	class:workerClass
 gotoNear	js/unit.js	/^  this.gotoNear = function(aroundX, aroundY, formationPos, formationDim) {$/;"	m	class:unitClass
 grid	js/battle_maps/battlefield1.js	/^    grid: [$/;"	p	class:let
+grid	js/world_maps/world1-v2.js	/^    "grid": [$/;"	p	class:let
 grid	js/world_maps/world1.js	/^    grid: [$/;"	p	class:let
 handleCityPanelClick	js/ui/city-panel.js	/^function handleCityPanelClick(mousePos) {$/;"	f
 handleCityPanelMousedown	js/ui/city-panel.js	/^function handleCityPanelMousedown(mousePos) {$/;"	f
@@ -101,6 +105,10 @@ handleSidebarButtonClick	js/ui/sidebar.js	/^function handleSidebarButtonClick(mo
 highlightIf	js/ui/button.js	/^    this.highlightIf = function() {$/;"	m	class:buttonClass
 horses	js/world-team.js	/^    horses: 0, \/\/ possible scope cut: remove horse units?$/;"	p	class:playerResources
 hoverPos	js/editor.js	/^var hoverPos = null;$/;"	v
+identifyTileAbove	js/level-handling.js	/^function identifyTileAbove(arrayIndex){$/;"	f
+identifyTileBelow	js/level-handling.js	/^function identifyTileBelow(arrayIndex){$/;"	f
+identifyTileToLeft	js/level-handling.js	/^function identifyTileToLeft(arrayIndex){$/;"	f
+identifyTileToRight	js/level-handling.js	/^function identifyTileToRight(arrayIndex){$/;"	f
 imageLoadingDoneSoStartGame	js/main.js	/^function imageLoadingDoneSoStartGame() {$/;"	f
 iron	js/world-team.js	/^    iron: 0,$/;"	p	class:playerResources
 isClickInBox	js/common/mouse-input.js	/^function isClickInBox(mousePos, x1,y1, x2,y2) {$/;"	f
@@ -137,6 +145,7 @@ mouseMovedEnoughToTreatAsDragging	js/common/mouse-input.js	/^function mouseMoved
 mousedownHandler	js/common/mouse-input.js	/^function mousedownHandler(evt) {$/;"	f
 mousedownHandler	js/ui/slider-group.js	/^    this.mousedownHandler = function(mousePos) {$/;"	m	class:sliderGroupClass
 mousedownHandler	js/ui/slider.js	/^    this.mousedownHandler = function() {$/;"	m	class:sliderClass
+mouseleaveHandler	js/common/mouse-input.js	/^function mouseleaveHandler(evt) {$/;"	f
 mousemoveHandler	js/common/mouse-input.js	/^function mousemoveHandler(evt) {$/;"	f
 mousemoveHandler	js/ui/slider-group.js	/^    this.mousemoveHandler = function(mousePos) {$/;"	m	class:sliderGroupClass
 mousemoveHandler	js/ui/slider.js	/^    this.mousemoveHandler = function(mousePos) {$/;"	m	class:sliderClass
@@ -169,9 +178,12 @@ replaceTerrain	js/editor.js	/^function replaceTerrain(terrainIndex) {$/;"	f
 resetAndSetPlayerTeam	js/unit.js	/^  this.resetAndSetPlayerTeam = function(playerTeam) {$/;"	m	class:unitClass
 resolveMoveDirection	js/unit.js	/^  this.resolveMoveDirection = function(moveX, moveY) {$/;"	m	class:unitClass
 returnTileTypeAtColRow	js/level-handling.js	/^function returnTileTypeAtColRow(col,row) {$/;"	f
+rightClickHandler	js/common/mouse-input.js	/^function rightClickHandler(evt) {$/;"	f
 rowColToArrayIndex	js/level-handling.js	/^function rowColToArrayIndex(col, row) {$/;"	f
 rows	js/battle_maps/battlefield1.js	/^    rows: 50,$/;"	p	class:let
+rows	js/world_maps/world1-v2.js	/^    "rows": 40,$/;"	p	class:let
 rows	js/world_maps/world1.js	/^    rows: 40,$/;"	p	class:let
+rowsThatFitOnScreen	js/common/image-loading.js	/^var rowsThatFitOnScreen = document.createElement("img");$/;"	v
 scaleFactor	js/ui/slider.js	/^    this.scaleFactor = function() {$/;"	m	class:sliderClass
 selectedArmy	js/world-team.js	/^var selectedArmy = null;$/;"	v
 selectedUnits	js/common/mouse-input.js	/^var selectedUnits = [];$/;"	v
@@ -185,7 +197,7 @@ setupKeyboardInput	js/common/keyboard-input.js	/^function setupKeyboardInput() {
 setupMouseInput	js/common/mouse-input.js	/^function setupMouseInput() {$/;"	f
 setupWorldMode	js/level-handling.js	/^function setupWorldMode() {$/;"	c
 showCityPanel	js/ui/city-panel.js	/^var showCityPanel = false;$/;"	v
-showDebug	js/main.js	/^    showDebug: true,$/;"	p	class:gameOptions
+showDebug	js/main.js	/^    showDebug: false,$/;"	p	class:gameOptions
 showGrid	js/main.js	/^    showGrid: false,$/;"	p	class:gameOptions
 showSliderTest	js/ui/slider.js	/^var showSliderTest = false;$/;"	v
 sliderClass	js/ui/slider.js	/^function sliderClass(configObj) {$/;"	c

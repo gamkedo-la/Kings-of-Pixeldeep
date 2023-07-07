@@ -14,7 +14,7 @@ const miniMapColors = [
     '#ffff00', // WORLD_FARM
     '#0fffff', // WORLD_WATER
 
-    '#ff00ff',
+    '#c3c3c3', // WORLD_SHALLOWS
     '#ff00ff',
     '#ff00ff',
     '#ff00ff',

@@ -3,7 +3,7 @@ var canvas, canvasContext;
 // TODO: put in a game preferences object
 var gameOptions = {
     showGrid: false,
-    showDebug: true,
+    showDebug: false,
 }
 
 var sliderTest = new sliderClass({
