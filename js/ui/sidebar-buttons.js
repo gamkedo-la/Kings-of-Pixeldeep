@@ -35,6 +35,8 @@ const WORLD_SIDEBAR_BUTTONS = [
         label: "End Turn", 
         onClick: function() { 
             console.log("clicked end turn");
+            playerTurn = !playerTurn;
+            enemyTurn = !enemyTurn;
         },
         x:642,
         y:550, 
@@ -180,6 +182,16 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
 
 const BATTLE_SIDEBAR_BUTTONS = [
     //
+    new buttonClass({
+        label: "End Turn", 
+        onClick: function() { 
+            console.log("clicked end turn");
+            playerTurn = !playerTurn;
+            enemyTurn = !enemyTurn;
+        },
+        x:642,
+        y:550, 
+    }),
 ];
 
 const BATTLE_EDITOR_SIDEBAR_BUTTONS = [

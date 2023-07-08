@@ -25,13 +25,12 @@ function drawSidebar() {
 	    button.draw();
 	}
     }
-
-    if(battleMode) {
-	for(const button of BATTLE_SIDEBAR_BUTTONS) {
-	    button.draw();
-	}
-    }
     */
+    if(battleMode) {
+        for(const button of BATTLE_SIDEBAR_BUTTONS) {
+            button.draw();
+        }
+    }
 }
 
 function handleSidebarButtonClick(mousePos) {
