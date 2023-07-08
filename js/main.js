@@ -1,4 +1,6 @@
 var canvas, canvasContext;
+var playerTurn = true;
+var enemyTurn = false;
 
 // TODO: put in a game preferences object
 var gameOptions = {
@@ -44,8 +46,19 @@ function moveEverything() {
     camDebug();
 
     if(battleMode) {
-        for(var i=0;i<allUnits.length;i++) {
+      /*  for(var i=0;i<allUnits.length;i++) {
             allUnits[i].move();
+        } */
+        if(playerTurn){
+            for(var i=0;i<playerUnits.length;i++) {
+                playerUnits[i].move();
+            }
+        }
+       ;
+        if(enemyTurn){
+            for(var i=0;i<enemyUnits.length;i++) {
+                enemyUnits[i].move();
+            }
         }
         removeDeadUnits();
         checkAndHandleVictory();

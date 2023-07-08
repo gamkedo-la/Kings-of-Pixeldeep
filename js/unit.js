@@ -13,6 +13,7 @@ function unitClass() {
     this.y = Math.random()*canvas.height/4;
     this.moveDirection = "S";
     this.myTarget = null;
+    this.maxDistancePerTurn = 100;
 
     // Flip all non-player units to opposite corner
     if(this.playerControlled == false) {
