@@ -42,7 +42,7 @@ function loadImageForUnitCode(unitCode, fileName) {
 function loadImages() {
 
 	var imageList = [
-		{varName: cityPic, theFile: "track_flag.png"},
+		{varName: cityPic, theFile: "townSprite.png"},
 		{varName: playerArmyPic, theFile: "Person1.png"},
 		{varName: enemyArmyPic, theFile: "Person1-alt-color.png"},
 		{varName: worldTerrain, theFile: "world_terrain.png"},
