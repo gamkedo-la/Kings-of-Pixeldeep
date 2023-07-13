@@ -1,4 +1,5 @@
 const WORLD_SIDEBAR_BUTTONS = [
+    /*
     new buttonClass({
         x:600,
         y:200, 
@@ -31,6 +32,7 @@ const WORLD_SIDEBAR_BUTTONS = [
         x:622,
         y:400, 
     }),
+    */
     new buttonClass({
         label: "End Turn", 
         onClick: function() { 
@@ -104,6 +106,18 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         y:370, 
     }),
 
+    new buttonClass({
+        label: "Shallows", 
+        onClick: function() {
+            terrainBrushCode = 6;
+        },
+        highlightIf: function() {
+            return terrainBrushCode === 6;
+        },
+        x:605,
+        y:410, 
+    }),
+
 // Brush Size Buttons
     new buttonClass({
         label: "1x1", 
@@ -147,7 +161,7 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         label: "New", 
         onClick: testButton,
         x:602,
-        y:450, 
+        y:470, 
     }),
 
     new buttonClass({
@@ -160,14 +174,14 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
             });
         },
         x:660,
-        y:450, 
+        y:470, 
     }),
 
     new buttonClass({
         label: "Load", 
         onClick: testButton,
         x:730,
-        y:450, 
+        y:470, 
     }),
 
     new buttonClass({
@@ -176,7 +190,7 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
             setupWorldMode();
         },
         x:620,
-        y:500, 
+        y:520, 
     }),
 ];
 

@@ -31,6 +31,7 @@ cityPanelControls	js/ui/city-panel.js	/^var cityPanelControls = [$/;"	v
 cityPic	js/common/image-loading.js	/^var cityPic = document.createElement("img");$/;"	v
 clickHandler	js/common/mouse-input.js	/^function clickHandler(evt) {$/;"	f
 closeCityPanel	js/ui/city-panel.js	/^function closeCityPanel() {$/;"	f
+coastalWaterTerrain	js/common/image-loading.js	/^var coastalWaterTerrain = document.createElement("img");$/;"	v
 colorCircle	js/common/graphics-common.js	/^function colorCircle(centerX, centerY, radius, fillColor) {$/;"	f
 colorRect	js/common/graphics-common.js	/^function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {$/;"	f
 colorText	js/common/graphics-common.js	/^function colorText(showWords, textX,textY, fillColor) {$/;"	f
@@ -74,6 +75,7 @@ drawWorldTerrain	js/level-handling.js	/^function drawWorldTerrain(terrainCode, d
 editorMode	js/level-handling.js	/^var editorMode = false;$/;"	v
 enemyArmies	js/world-team.js	/^var enemyArmies = [];$/;"	v
 enemyArmyPic	js/common/image-loading.js	/^var enemyArmyPic = document.createElement("img");$/;"	v
+enemyTurn	js/main.js	/^var enemyTurn = false;$/;"	v
 enemyUnits	js/battle-team.js	/^var enemyUnits = [];$/;"	v
 equalizeSliders	js/ui/slider-group.js	/^    this.equalizeSliders = function(changedSlider, changedIndex) {$/;"	m	class:sliderGroupClass
 exportLevel	js/editor.js	/^function exportLevel() {$/;"	f
@@ -169,6 +171,7 @@ playerArmies	js/world-team.js	/^var playerArmies = [];$/;"	v
 playerArmyPic	js/common/image-loading.js	/^var playerArmyPic = document.createElement("img");$/;"	v
 playerCities	js/world-team.js	/^var playerCities = [];$/;"	v
 playerResources	js/world-team.js	/^var playerResources = {$/;"	v
+playerTurn	js/main.js	/^var playerTurn = true;$/;"	v
 playerUnits	js/battle-team.js	/^var playerUnits = [];$/;"	v
 populateTeam	js/battle-team.js	/^function populateTeam(whichTeam, howMany, isPlayerControlled) {$/;"	f
 printWithSign	js/ui/sidebar-buttons.js	/^function printWithSign(number) {$/;"	f
