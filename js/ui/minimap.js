@@ -31,6 +31,11 @@ function drawMiniMap() {
 
     //var miniMapTileSize = Math.floor( SIDEBAR_WIDTH / level_rows );
 
+    // clear minimap backdrop
+    colorRect(MINI_MAP_START_X,MINI_MAP_START_Y, 
+        MINI_MAP_WIDTH,MINI_MAP_HEIGHT,
+        'black');
+
     var miniMapXScaleFactor = (level_cols * LEVEL_TILE_W) / MINI_MAP_WIDTH;
     var miniMapYScaleFactor = (level_rows * LEVEL_TILE_H) / MINI_MAP_HEIGHT;
 
@@ -75,8 +80,10 @@ function drawMiniMap() {
 	miniMapCamX, miniMapCamY, miniMapBoxEndX, miniMapBoxEndY, "white"
     );
     
-    colorText(miniMapCamX +","+ miniMapCamY, miniMapCamX, miniMapCamY, "yellow");
-    colorText(miniMapBoxEndX +","+ miniMapBoxEndY, miniMapBoxEndX, miniMapBoxEndY, "yellow");
+    if(gameOptions.showDebug) {
+        colorText(miniMapCamX +","+ miniMapCamY, miniMapCamX, miniMapCamY, "yellow");
+        colorText(miniMapBoxEndX +","+ miniMapBoxEndY, miniMapBoxEndX, miniMapBoxEndY, "yellow");
+    }
     /*
     colorText(miniMapTileSize, miniMapCamX + 2, miniMapCamY + 50, "red");
     colorText(miniMapTileSize * 15, miniMapCamX + 50, miniMapCamY + 50, "lightblue");
