@@ -224,7 +224,7 @@ function drawWorldTerrain(terrainCode, drawTileX, drawTileY, arrayIndex) {
 
     if (terrainCode == WORLD_WATER){
         terrainPic = coastalWaterTerrain;
-        terrainCode = WORLD_FOREST;
+        terrainCode = WORLD_WATER;
     }
     if (terrainCode == WORLD_FOREST ||
         terrainCode == WORLD_WATER ||
