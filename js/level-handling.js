@@ -221,7 +221,13 @@ function drawWorldTerrain(terrainCode, drawTileX, drawTileY, arrayIndex) {
     if (terrainCode == WORLD_FOREST){
         terrainPic = forestTerrain;
     }
+
+    if (terrainCode == WORLD_WATER){
+        terrainPic = coastalWaterTerrain;
+        terrainCode = WORLD_FOREST;
+    }
     if (terrainCode == WORLD_FOREST ||
+        terrainCode == WORLD_WATER ||
         terrainCode == WORLD_FARM){
         //check if same tile type is above
         var TILE_W = 40;
