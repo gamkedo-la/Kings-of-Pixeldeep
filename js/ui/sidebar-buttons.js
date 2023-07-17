@@ -40,6 +40,9 @@ const WORLD_SIDEBAR_BUTTONS = [
             playerTurn = !playerTurn;
             enemyTurn = !enemyTurn;
         },
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
         x:642,
         y:550, 
     }),

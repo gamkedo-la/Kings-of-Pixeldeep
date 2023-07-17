@@ -9,10 +9,8 @@ var lassoY1 = 0;
 var lassoX2 = 0;
 var lassoY2 = 0;
 var isMouseDragging = false; // left drag to region select
-
 var isMouseMapPanning = false; // right drag to pan map
-var mouseMapPanPivotX = 0;
-var mouseMapPanPivotY = 0;
+var currentMousePos = { x:0,y:0 }; // stored for use in code outside the mouse event such as the GUI
 
 // end battle-mouse vars
 
@@ -39,6 +37,11 @@ function mousemoveHandler(evt) {
     }
 
     var mousePos = calculateMousePos(evt);
+    
+    // so the GUI knows where the mouse is
+    currentMousePos.x = mousePos.x;
+    currentMousePos.y = mousePos.y;
+
     setCamPanDeltas(mousePos);
     if(gameOptions.showDebug) {
         debug("mousePos: (" + mousePos.x +","+ mousePos.y +")");
@@ -320,7 +323,7 @@ function isClickInsideMainWindow(mousePos) {
 }
 
 function isClickInBox(mousePos, x1,y1, x2,y2) {
-    if(!mousePos.x || !mousePos.y) {
+    if(mousePos.x==undefined || mousePos.y==undefined) {
         console.log("error: invalid mousePos given for isClickInBox");
         return false;
     }
