@@ -8,7 +8,11 @@ var lassoX1 = 0;
 var lassoY1 = 0;
 var lassoX2 = 0;
 var lassoY2 = 0;
-var isMouseDragging = false;
+var isMouseDragging = false; // left drag to region select
+
+var isMouseMapPanning = false; // right drag to pan map
+var mouseMapPanPivotX = 0;
+var mouseMapPanPivotY = 0;
 
 // end battle-mouse vars
 
@@ -28,6 +32,12 @@ function setupMouseInput() {
 }
 
 function mousemoveHandler(evt) {
+
+    if (isMouseMapPanning) {
+        camPanX -= evt.movementX;
+        camPanY -= evt.movementY;
+    }
+
     var mousePos = calculateMousePos(evt);
     setCamPanDeltas(mousePos);
     if(gameOptions.showDebug) {
@@ -63,6 +73,13 @@ function mousemoveHandler(evt) {
 }
 
 function mousedownHandler(evt) {
+    
+    if (evt.button==2) { // right mouse button
+        console.log("starting a right-drag mouse map pan");
+        isMouseMapPanning = true;
+        return; // don't run any code below
+    }
+    
     var mousePos = calculateMousePos(evt);
 
     if(battleMode /*|| showCityPanel*/) {
@@ -102,6 +119,13 @@ function mousedownHandler(evt) {
 }
 
 function mouseupHandler(evt) {
+
+    if (evt.button==2) { // right mouse button
+        console.log("ending a right-drag mouse map pan");
+        isMouseMapPanning = false;
+        return; // don't run any code below
+    }
+    
     if(battleMode /*|| showCityPanel*/) {
         isMouseDragging = false;
 
