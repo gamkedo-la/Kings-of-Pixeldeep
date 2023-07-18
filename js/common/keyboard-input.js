@@ -27,6 +27,10 @@ function keyReleased(evt) {
 	}
 
 	if(evt.keyCode === 69 ) { // key: e
-		setupEditorMode();
+        if(battleMode) {
+            setupEditorMode('battle');
+        } else {
+            setupEditorMode('world');
+        }
 	}
 }

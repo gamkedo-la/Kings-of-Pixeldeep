@@ -92,19 +92,33 @@ function setupBattleMode() {
     populateTeam(enemyUnits, ENEMY_START_UNITS, false);
 }
 
-function setupEditorMode() {
-    // TODO: account for battle & edit modes
-    console.log("entering editor mode");
-    this.battleMode = false;
+function setupEditorMode(battleOrWorld="world") {
+    console.log("entering editor mode for:", battleOrWorld);
     this.editorMode = true;
 
-    levelGrid = gameWorldGrid;
-    level_cols = gameWorldCols;
-    level_rows = gameWorldRows;
-    level_width = LEVEL_TILE_W * level_cols;
-    level_height = LEVEL_TILE_H * level_rows;
+    if(battleOrWorld === "battle") {
+        // setup editor for battle maps
+        battleMode = true;
 
-    currentSidebarButtons = WORLD_EDITOR_SIDEBAR_BUTTONS;
+        levelGrid = battlefield1.grid;
+        level_cols = battlefield1.cols;
+        level_rows = battlefield1.rows;
+        level_width = LEVEL_TILE_W * level_cols;
+        level_height = LEVEL_TILE_H * level_rows;
+
+        currentSidebarButtons = BATTLE_EDITOR_SIDEBAR_BUTTONS;
+    } else { 
+        // setup editor for world map
+        battleMode = false;
+
+        levelGrid = gameWorldGrid;
+        level_cols = gameWorldCols;
+        level_rows = gameWorldRows;
+        level_width = LEVEL_TILE_W * level_cols;
+        level_height = LEVEL_TILE_H * level_rows;
+
+        currentSidebarButtons = WORLD_EDITOR_SIDEBAR_BUTTONS;
+    }
     
 }
 

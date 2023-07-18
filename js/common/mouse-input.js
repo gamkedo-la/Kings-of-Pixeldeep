@@ -92,7 +92,7 @@ function mousedownHandler(evt) {
     
     var mousePos = calculateMousePos(evt);
 
-    if(battleMode /*|| showCityPanel*/) {
+    if(battleMode && !editorMode) {
         if(isClickInsideMainWindow(mousePos)) {
             if(battleMode) {
                 lassoX1 = mousePos.levelX;
@@ -137,7 +137,7 @@ function mouseupHandler(evt) {
         return; // don't run any code below
     }
     
-    if(battleMode /*|| showCityPanel*/) {
+    if(battleMode && !editorMode) {
         isMouseDragging = false;
 
         if(mouseMovedEnoughToTreatAsDragging()) {
@@ -355,7 +355,7 @@ function isClickInBox(mousePos, x1,y1, x2,y2) {
 
 function handleMainWindowClick(mousePos, evt) {
     //console.log(mousePos);
-    if(battleMode) {
+    if(battleMode && !editorMode) {
         return; 
         // mouseup, mousedown, & rightClick handlers take care of most battle layer stuff
     } 

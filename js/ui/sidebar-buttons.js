@@ -199,20 +199,177 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
 
 const BATTLE_SIDEBAR_BUTTONS = [
     //
-    new buttonClass({
-        label: "End Turn", 
-        onClick: function() { 
-            console.log("clicked end turn");
-            playerTurn = !playerTurn;
-            enemyTurn = !enemyTurn;
-        },
-        x:642,
-        y:550, 
-    }),
+    //new buttonClass({
+    //    label: "End Turn", 
+    //    onClick: function() { 
+    //        console.log("clicked end turn");
+    //        playerTurn = !playerTurn;
+    //        enemyTurn = !enemyTurn;
+    //    },
+    //    x:642,
+    //    y:550, 
+    //}),
 ];
 
 const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
-    //
+// Terrain Type Buttons
+    new buttonClass({
+        label: "Grass", 
+        onClick: function() {
+            terrainBrushCode = 11;
+        },
+        highlightIf: function() {
+            return terrainBrushCode === 11;
+        },
+        x:605,
+        y:210, 
+    }),
+    new buttonClass({
+        label: "Tree", 
+        onClick: function() {
+            terrainBrushCode = 12;
+        },
+        highlightIf: function() {
+            return terrainBrushCode === 12;
+        },
+        x:605,
+        y:250, 
+    }),
+
+    new buttonClass({
+        label: "Rock", 
+        onClick: function() {
+            terrainBrushCode = 13;
+        },
+        highlightIf: function() {
+            return terrainBrushCode === 13;
+        },
+        x:605,
+        y:290, 
+    }),
+
+    new buttonClass({
+        label: "Bush", 
+        onClick: function() {
+            terrainBrushCode = 14;
+        },
+        highlightIf: function() {
+            return terrainBrushCode === 14;
+        },
+        x:605,
+        y:330, 
+    }),
+
+    new buttonClass({
+        label: "Mud", 
+        onClick: function() {
+            terrainBrushCode = 15;
+        },
+        highlightIf: function() {
+            return terrainBrushCode === 15;
+        },
+        x:605,
+        y:370, 
+    }),
+
+    new buttonClass({
+        label: "Water", 
+        onClick: function() {
+            terrainBrushCode = 16;
+        },
+        highlightIf: function() {
+            return terrainBrushCode === 16;
+        },
+        x:605,
+        y:410, 
+    }),
+
+    new buttonClass({
+        label: "Shallows", 
+        onClick: function() {
+            terrainBrushCode = 17;
+        },
+        highlightIf: function() {
+            return terrainBrushCode === 17;
+        },
+        x:605,
+        y:410, 
+    }),
+
+// Brush Size Buttons
+    new buttonClass({
+        label: "1x1", 
+        onClick: function() {
+            terrainBrushSize = 1;
+        },
+        highlightIf: function() {
+            return terrainBrushSize === 1;
+        },
+        x:740,
+        y:210, 
+    }),
+
+    new buttonClass({
+        label: "3x3", 
+        onClick: function() {
+            terrainBrushSize = 3;
+        },
+        highlightIf: function() {
+            return terrainBrushSize === 3;
+        },
+        x:740,
+        y:250, 
+    }),
+
+    new buttonClass({
+        label: "5x5", 
+        onClick: function() {
+            terrainBrushSize = 5;
+        },
+        highlightIf: function() {
+            return terrainBrushSize === 5;
+        },
+        x:740,
+        y:290, 
+    }),
+
+// Utility Buttons
+
+    new buttonClass({
+        label: "New", 
+        onClick: testButton,
+        x:602,
+        y:470, 
+    }),
+
+    new buttonClass({
+        label: "Save", 
+        onClick: function() {
+            console.log({
+            cols: level_cols,
+            rows: level_rows,
+            grid: levelGrid
+            });
+        },
+        x:660,
+        y:470, 
+    }),
+
+    new buttonClass({
+        label: "Load", 
+        onClick: testButton,
+        x:730,
+        y:470, 
+    }),
+
+    new buttonClass({
+        label: "Leave Editor", 
+        onClick: function() {
+            setupWorldMode();
+        },
+        x:620,
+        y:520, 
+    }),
 ];
 
 function printWithSign(number) {
