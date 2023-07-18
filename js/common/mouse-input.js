@@ -9,8 +9,13 @@ var lassoY1 = 0;
 var lassoX2 = 0;
 var lassoY2 = 0;
 var isMouseDragging = false; // left drag to region select
-var isMouseMapPanning = false; // right drag to pan map
 var currentMousePos = { x:0,y:0 }; // stored for use in code outside the mouse event such as the GUI
+
+const MOUSE_MAP_PAN_ENABLED = true; // TODO; put in options
+const maxMouseMapPanDistToBeAClick = 20; // don't confuse a right-drag with a right-click
+var isMouseMapPanning = false; // right drag to pan map
+var currentMouseMapPanDist = 0;
+
 
 // end battle-mouse vars
 
@@ -31,9 +36,10 @@ function setupMouseInput() {
 
 function mousemoveHandler(evt) {
 
-    if (isMouseMapPanning) {
+    if (MOUSE_MAP_PAN_ENABLED && isMouseMapPanning) {
         camPanX -= evt.movementX;
         camPanY -= evt.movementY;
+        currentMouseMapPanDist += Math.sqrt(evt.movementX*evt.movementX+evt.movementY*evt.movementY);
     }
 
     var mousePos = calculateMousePos(evt);
@@ -77,9 +83,10 @@ function mousemoveHandler(evt) {
 
 function mousedownHandler(evt) {
     
-    if (evt.button==2) { // right mouse button
-        console.log("starting a right-drag mouse map pan");
+    if (MOUSE_MAP_PAN_ENABLED && evt.button==2) { // right mouse button
+        //console.log("starting a right-drag mouse map pan");
         isMouseMapPanning = true;
+        currentMouseMapPanDist = 0; // reset
         return; // don't run any code below
     }
     
@@ -123,9 +130,10 @@ function mousedownHandler(evt) {
 
 function mouseupHandler(evt) {
 
-    if (evt.button==2) { // right mouse button
-        console.log("ending a right-drag mouse map pan");
+    if (MOUSE_MAP_PAN_ENABLED && evt.button==2) { // right mouse button
+        //console.log("ending a right-drag mouse map pan");
         isMouseMapPanning = false;
+        //currentMouseMapPanDist = 0; // gets reset when we start the next one
         return; // don't run any code below
     }
     
@@ -468,7 +476,13 @@ function attackOrMoveToMousePos(evt) {
 function rightClickHandler(evt) {
     evt.preventDefault();
     if(battleMode) {
-        attackOrMoveToMousePos(evt);
+        // if right mouse is released after a right-drap map pan, we don't also want to move there,
+        // so ignore if we dragged more than a tiny amount to account for mouse wobbles during a click
+        if (MOUSE_MAP_PAN_ENABLED&&(currentMouseMapPanDist>maxMouseMapPanDistToBeAClick)) {
+            console.log("right click ignored because it was the end of a map pan drag. currentMouseMapPanDist="+currentMouseMapPanDist);
+        } else {
+            attackOrMoveToMousePos(evt);
+        }
     }
 }
 
