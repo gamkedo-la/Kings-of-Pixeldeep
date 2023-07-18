@@ -17,6 +17,12 @@ var camPanDeltaY = 0.0;
 
 function setCamPanDeltas(mousePos) {
   
+  if (!EDGE_PAN_ENABLED) {
+    camPanDeltaX = 0.0;
+    camPanDeltaY = 0.0;
+    return;
+  }
+  
   if(mousePos.x < DIST_FROM_EDGE_OF_SCREEN_BEFORE_PAN_LEFT) {
     camPanDeltaX = -CAM_PAN_SPEED;
   } else if(mousePos.x > canvas.width-DIST_FROM_EDGE_OF_SCREEN_BEFORE_PAN_RIGHT && mousePos.x < canvas.width-SIDEBAR_WIDTH) { 
