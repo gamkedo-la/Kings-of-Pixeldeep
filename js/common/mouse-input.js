@@ -1,3 +1,5 @@
+const TEST_PATHFINDING = true; // work in progress for unity and army obstacle avoidance
+
 // battle-mouse vars
 const MIN_DIST_TO_COUNT_DRAG = 10;
 const MIN_DIST_FOR_MOUSE_CLICK_SELECTABLE = 12;
@@ -15,7 +17,6 @@ const MOUSE_MAP_PAN_ENABLED = true; // TODO; put in options
 const maxMouseMapPanDistToBeAClick = 20; // don't confuse a right-drag with a right-click
 var isMouseMapPanning = false; // right drag to pan map
 var currentMouseMapPanDist = 0;
-
 
 // end battle-mouse vars
 
@@ -360,8 +361,25 @@ function handleMainWindowClick(mousePos, evt) {
         // mouseup, mousedown, & rightClick handlers take care of most battle layer stuff
     } 
 
+    // test pathfinding code - TODO add to army class and change move to use path array to tween the path
+    if (TEST_PATHFINDING) {
+        if (selectedArmy) {
+            // map tile coordinates
+            let ax = selectedArmy.worldCol;
+            let ay = selectedArmy.worldRow;
+            let bx = Math.floor( (mousePos.levelX) / LEVEL_TILE_W);
+            let by = Math.floor( (mousePos.levelY) / LEVEL_TILE_H);    
+            let path = levelGridPathfind(ax,ay,bx,by);
+            if (path && path[0]) {
+                console.log("levelGridPathfind result: "+JSON.stringify(path));
+            } else {
+                console.log("levelGridPathfind found NO path possible.");
+            }
+        }
+    }
+
     var clickedIdx = worldIdxFromMousePos(mousePos);
-    //var tileKindClicked = levelGrid[clickedIdx];
+    //var tileKindClicked = [clickedIdx];
     //console.log("tile clicked", clickedIdx);
     if(clickedIdx < 0 || clickedIdx >= levelGrid.length) { // invalid or out of bounds
         return;
@@ -479,7 +497,7 @@ function rightClickHandler(evt) {
         // if right mouse is released after a right-drap map pan, we don't also want to move there,
         // so ignore if we dragged more than a tiny amount to account for mouse wobbles during a click
         if (MOUSE_MAP_PAN_ENABLED&&(currentMouseMapPanDist>maxMouseMapPanDistToBeAClick)) {
-            console.log("right click ignored because it was the end of a map pan drag. currentMouseMapPanDist="+currentMouseMapPanDist);
+            //console.log("right click ignored because it was the end of a map pan drag. currentMouseMapPanDist="+currentMouseMapPanDist);
         } else {
             attackOrMoveToMousePos(evt);
         }
