@@ -5,8 +5,8 @@
 // Andrea Giammarchi, Alessandro Crugnola, Jeroen Beckers,
 // Peter Hart, Nils Nilsson, and Bertram Raphael.
 
-// add all traverseable map tile indeces to this array
-var walkableTiles = [2,3]; // any other tile index is considered a wall
+// add all traverseable map tile indeces to this array, a list of levelGrid sprite numbers
+var walkableTiles = [3]; // any other tile index is considered a wall
 
 // customized for use in kings of pixeldeep: uses levelGrid[]
 // the result is in the form [[x,y],[x,y],etc];
