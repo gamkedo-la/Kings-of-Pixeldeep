@@ -6,7 +6,13 @@
 // Peter Hart, Nils Nilsson, and Bertram Raphael.
 
 // add all traverseable map tile indeces to this array, a list of levelGrid sprite numbers
-var walkableTiles = [3]; // any other tile index is considered a wall
+var walkableTiles = [
+    // see level-handling.js for these numeric const definitions
+    WORLD_FOREST, 
+    WORLD_GRASS,
+    WORLD_FARM,
+    WORLD_SHALLOWS,
+]; // any other tile index is considered a wall
 
 // customized for use in kings of pixeldeep: uses levelGrid[]
 // the result is in the form [[x,y],[x,y],etc];

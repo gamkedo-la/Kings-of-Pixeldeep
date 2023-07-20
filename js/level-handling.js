@@ -35,13 +35,14 @@ const WORLD_SHALLOWS = 6;
 const SEASON_SUMMER = 1;
 const SEASON_WINTER = 2;
 
-// battle terrain values
-//const BATTLE_GRASS = 8;
-
 // battle terrain
 const BATTLE_FIELD = 11;
 const BATTLE_TREES = 12;
 const BATTLE_ROCKS = 13;
+const BATTLE_BUSHES = 14;
+const BATTLE_MUD = 15;
+const BATTLE_WATER = 16;
+const BATTLE_SHALLOWS = 17;
 
 // these are set once per game, saved before battles and loaded after battles
 var gameWorldGrid, gameWorldRows, gameWorldCols;
@@ -58,8 +59,8 @@ function startNewGame(whichWorld) {
 
 function setupWorldMode() {
     console.log("entering world mode");
-    this.battleMode = false;
-    this.editorMode = false;
+    battleMode = false;
+    editorMode = false;
 
     levelGrid = gameWorldGrid;
     level_cols = gameWorldCols;
@@ -72,8 +73,8 @@ function setupWorldMode() {
 
 function setupBattleMode() {
     console.log("entering battle mode");
-    this.editorMode = false;
-    this.battleMode = true;
+    editorMode = false;
+    battleMode = true;
     
     // using "let" instead of "var" here to limit this variable's scope
     let pickedBattlefield = getRandomBattlefield();
@@ -94,7 +95,7 @@ function setupBattleMode() {
 
 function setupEditorMode(battleOrWorld="world") {
     console.log("entering editor mode for:", battleOrWorld);
-    this.editorMode = true;
+    editorMode = true;
 
     if(battleOrWorld === "battle") {
         // setup editor for battle maps

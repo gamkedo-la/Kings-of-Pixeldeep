@@ -53,10 +53,10 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
     new buttonClass({
         label: "Mtn", 
         onClick: function() {
-            terrainBrushCode = 1;
+            terrainBrushCode = WORLD_MOUNTAINS;
         },
         highlightIf: function() {
-            return terrainBrushCode === 1;
+            return terrainBrushCode === WORLD_MOUNTAINS;
         },
         x:605,
         y:210, 
@@ -64,10 +64,10 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
     new buttonClass({
         label: "Forest", 
         onClick: function() {
-            terrainBrushCode = 2;
+            terrainBrushCode = WORLD_FOREST;
         },
         highlightIf: function() {
-            return terrainBrushCode === 2;
+            return terrainBrushCode === WORLD_FOREST;
         },
         x:605,
         y:250, 
@@ -76,10 +76,10 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
     new buttonClass({
         label: "Grass", 
         onClick: function() {
-            terrainBrushCode = 3;
+            terrainBrushCode = WORLD_GRASS;
         },
         highlightIf: function() {
-            return terrainBrushCode === 3;
+            return terrainBrushCode === WORLD_GRASS;
         },
         x:605,
         y:290, 
@@ -88,10 +88,10 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
     new buttonClass({
         label: "Farm", 
         onClick: function() {
-            terrainBrushCode = 4;
+            terrainBrushCode = WORLD_FARM;
         },
         highlightIf: function() {
-            return terrainBrushCode === 4;
+            return terrainBrushCode === WORLD_FARM;
         },
         x:605,
         y:330, 
@@ -100,10 +100,10 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
     new buttonClass({
         label: "Water", 
         onClick: function() {
-            terrainBrushCode = 5;
+            terrainBrushCode = WORLD_WATER;
         },
         highlightIf: function() {
-            return terrainBrushCode === 5;
+            return terrainBrushCode === WORLD_WATER;
         },
         x:605,
         y:370, 
@@ -112,10 +112,10 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
     new buttonClass({
         label: "Shallows", 
         onClick: function() {
-            terrainBrushCode = 6;
+            terrainBrushCode = WORLD_SHALLOWS;
         },
         highlightIf: function() {
-            return terrainBrushCode === 6;
+            return terrainBrushCode === WORLD_SHALLOWS;
         },
         x:605,
         y:410, 
@@ -216,10 +216,10 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
     new buttonClass({
         label: "Grass", 
         onClick: function() {
-            terrainBrushCode = 11;
+            terrainBrushCode = BATTLE_FIELD;
         },
         highlightIf: function() {
-            return terrainBrushCode === 11;
+            return terrainBrushCode === BATTLE_FIELD;
         },
         x:605,
         y:210, 
@@ -227,73 +227,73 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
     new buttonClass({
         label: "Tree", 
         onClick: function() {
-            terrainBrushCode = 12;
+            terrainBrushCode = BATTLE_TREES;
         },
         highlightIf: function() {
-            return terrainBrushCode === 12;
+            return terrainBrushCode === BATTLE_TREES;
         },
         x:605,
-        y:250, 
+        y:245, 
     }),
 
     new buttonClass({
         label: "Rock", 
         onClick: function() {
-            terrainBrushCode = 13;
+            terrainBrushCode = BATTLE_ROCKS;
         },
         highlightIf: function() {
-            return terrainBrushCode === 13;
+            return terrainBrushCode === BATTLE_ROCKS;
         },
         x:605,
-        y:290, 
+        y:280, 
     }),
 
     new buttonClass({
         label: "Bush", 
         onClick: function() {
-            terrainBrushCode = 14;
+            terrainBrushCode = BATTLE_BUSHES;
         },
         highlightIf: function() {
-            return terrainBrushCode === 14;
+            return terrainBrushCode === BATTLE_BUSHES;
         },
         x:605,
-        y:330, 
+        y:315, 
     }),
 
     new buttonClass({
         label: "Mud", 
         onClick: function() {
-            terrainBrushCode = 15;
+            terrainBrushCode = BATTLE_MUD;
         },
         highlightIf: function() {
-            return terrainBrushCode === 15;
+            return terrainBrushCode === BATTLE_MUD;
         },
         x:605,
-        y:370, 
+        y:350, 
     }),
 
     new buttonClass({
         label: "Water", 
         onClick: function() {
-            terrainBrushCode = 16;
+            terrainBrushCode = BATTLE_WATER;
         },
         highlightIf: function() {
-            return terrainBrushCode === 16;
+            return terrainBrushCode === BATTLE_WATER;
         },
         x:605,
-        y:410, 
+        y:385, 
     }),
 
     new buttonClass({
         label: "Shallows", 
         onClick: function() {
-            terrainBrushCode = 17;
+            terrainBrushCode = BATTLE_SHALLOWS;
         },
         highlightIf: function() {
-            return terrainBrushCode === 17;
+            return terrainBrushCode === BATTLE_SHALLOWS;
         },
         x:605,
-        y:410, 
+        y:420, 
     }),
 
 // Brush Size Buttons
