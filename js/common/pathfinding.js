@@ -5,11 +5,14 @@
 // Andrea Giammarchi, Alessandro Crugnola, Jeroen Beckers,
 // Peter Hart, Nils Nilsson, and Bertram Raphael.
 
-// customized for use in kings of pixeldeep: uses levelgrid
+// add all traverseable map tile indeces to this array
+var walkableTiles = [2,3]; // any other tile index is considered a wall
+
+// customized for use in kings of pixeldeep: uses levelGrid[]
+// the result is in the form [[x,y],[x,y],etc];
+// or it returns null if no path possible
 function levelGridPathfind(ax,ay,bx,by)
 {
-    var walkableTiles = [2,3,4]; // any other tile index is considered a wall
-
     console.log("pathfinding from "+ax+","+ay+" to "+bx+","+by);
     var pathStart = [ax,ay];
     var pathEnd = [bx,by];
@@ -298,6 +301,6 @@ function levelGridPathfind(ax,ay,bx,by)
 	// actually calculate the a-star path!
 	// this returns an array of coordinates
 	// that is empty if no path is possible
-	return calculatePath();
+    return calculatePath();
 
 } // end of findPath() function

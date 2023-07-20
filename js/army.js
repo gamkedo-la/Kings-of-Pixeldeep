@@ -11,6 +11,7 @@ function armyClass(configObj) {
     this.playerControlled = true;
     this.name = "Army 1"; //?
     this.movementRange = 5;
+    this.currentPath = null; // pathfinding data in the form [[x,y],[x,y],etc]
 
     this.troops = 10;
     /*
@@ -67,6 +68,15 @@ function armyClass(configObj) {
         this.worldRow = row;
     }
 
+    // the results of pathfinding are sent here after the player clicks a destination
+    this.setMovementPath = function(pathData) {
+        if (!pathData || !pathData.length) {
+            console.log(this.name+" movement path reset. staying put.");
+        } else {
+            console.log(this.name+" starting a movement path with "+pathData.length+" steps!");
+        }
+        this.currentPath = pathData;
+    }
 
     this.move = function(clickedIdx) {
         // TODO: check if location to move is within movement range
@@ -94,16 +104,30 @@ function armyClass(configObj) {
     }
 
     this.draw = function() {
-	// TODO: fix
-	if(selectedArmy && (selectedArmy.name == this.name)) {
-	    colorRect(
-		this.x() - LEVEL_TILE_W/2,
-		this.y() - LEVEL_TILE_H/2,
-		LEVEL_TILE_W,
-		LEVEL_TILE_H,
-		'aqua', 
-	    );
-	}
+        // TODO: fix
+        if(selectedArmy && (selectedArmy.name == this.name)) {
+            colorRect(
+            this.x() - LEVEL_TILE_W/2,
+            this.y() - LEVEL_TILE_H/2,
+            LEVEL_TILE_W,
+            LEVEL_TILE_H,
+            'aqua', 
+            );
+        }
+
         drawBitmapCenteredWithRotation(this.picToUse(), this.x(),this.y(), 0);
+
+        if (TEST_PATHFINDING) {
+            if (this.currentPath && this.currentPath.length) {
+                for (let n=0; n<this.currentPath.length; n++) {
+                    let x = this.currentPath[n][0]*LEVEL_TILE_W;
+                    let y = this.currentPath[n][1]*LEVEL_TILE_H;
+                    //console.log("drawing a pathfinding tile at "+x+","+y);
+                    outlineRect(x,y,LEVEL_TILE_W,LEVEL_TILE_H,"rgba(20,255,20,0.2)");
+                }
+            }
+        }
+
     }
+
 }

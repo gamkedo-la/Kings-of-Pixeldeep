@@ -375,6 +375,7 @@ function handleMainWindowClick(mousePos, evt) {
             } else {
                 console.log("levelGridPathfind found NO path possible.");
             }
+            selectedArmy.setMovementPath(path);
         }
     }
 
