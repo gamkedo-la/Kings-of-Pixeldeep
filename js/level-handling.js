@@ -14,35 +14,7 @@ var gameSeason = "summer";
 
 var levelGrid = [];
 
-// world terrain values
-/*
-const WORLD_ROAD = 0;
-const WORLD_WALL = 1;
-//const WORLD_PLAYERSTART = 2;
-const WORLD_GOAL = 2;
-const WORLD_FLAG = 3;
-const WORLD_TREE = 4;
-*/
-
-// world terrain
-const WORLD_MOUNTAINS = 1;
-const WORLD_FOREST = 2;
-const WORLD_GRASS = 3;
-const WORLD_FARM = 4;
-const WORLD_WATER = 5;
-const WORLD_SHALLOWS = 6;
-
-const SEASON_SUMMER = 1;
-const SEASON_WINTER = 2;
-
-// battle terrain
-const BATTLE_FIELD = 11;
-const BATTLE_TREES = 12;
-const BATTLE_ROCKS = 13;
-const BATTLE_BUSHES = 14;
-const BATTLE_MUD = 15;
-const BATTLE_WATER = 16;
-const BATTLE_SHALLOWS = 17;
+// for terrain const definitions, see js/common/global-vars.js
 
 // these are set once per game, saved before battles and loaded after battles
 var gameWorldGrid, gameWorldRows, gameWorldCols;

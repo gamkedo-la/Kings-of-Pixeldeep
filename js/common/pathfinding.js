@@ -7,8 +7,8 @@
 
 // add all traverseable map tile indeces to this array, a list of levelGrid sprite numbers
 var walkableTiles = [
-    // see level-handling.js for these numeric const definitions
-    WORLD_FOREST, 
+    // see js/common/global-vars.js for these numeric const definitions
+    //WORLD_FOREST, 
     WORLD_GRASS,
     WORLD_FARM,
     WORLD_SHALLOWS,
