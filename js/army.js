@@ -1,5 +1,3 @@
-const MOVES_PER_TURN = 3;
-
 function armyClass(configObj) {
 
     /*
@@ -9,18 +7,16 @@ function armyClass(configObj) {
     this.worldRow = 3;
     this.worldCol = 3;
     this.playerControlled = true;
-    this.name = "Army 1"; //?
-    this.movementRange = 5;
+    this.name = "Army 1"; // may pick randomly from a list or not end up getting used, we'll see
+    this.maxMovementPoints = 10;
+    this.currentMovementPoints = 10;
     this.currentPath = null; // pathfinding data in the form [[x,y],[x,y],etc]
 
-    this.troops = 10;
-    /*
     this.troops = {
       archers: 0,
       spearmen: 0,
       horsemen: 0,
     }
-    */
 
     if(configObj) {
         for( const [key, val] of Object.entries(configObj) ) {
