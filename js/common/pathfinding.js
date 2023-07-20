@@ -57,11 +57,6 @@ function levelGridPathfind(ax,ay,bx,by)
 	var worldHeight = world[0].length;
 	var worldSize =	worldWidth * worldHeight;
 
-	// which heuristic should we use?
-	// diagonals allowed but no sqeezing through cracks:
-	var distanceFunction = DiagonalDistance;
-	var findNeighbours = DiagonalNeighbours;
-
 	// returns boolean value (world cell is available and open)
 	function canWalkHere(x,y)
 	{
@@ -72,13 +67,18 @@ function levelGridPathfind(ax,ay,bx,by)
         return allowed;
 	};
 
-	/*
+	// which heuristic should we use?
 
+    // default: no diagonals (Manhattan)
+	var distanceFunction = ManhattanDistance;
+	var findNeighbours = function(){}; // empty
+
+	/*
 	// alternate heuristics, depending on your game:
 
-	// default: no diagonals (Manhattan)
-	// var distanceFunction = ManhattanDistance;
-	// var findNeighbours = function(){}; // empty
+    // diagonals allowed but no sqeezing through cracks:
+	var distanceFunction = DiagonalDistance;
+	var findNeighbours = DiagonalNeighbours;
 
 	// diagonals and squeezing through cracks allowed:
 	var distanceFunction = DiagonalDistance;

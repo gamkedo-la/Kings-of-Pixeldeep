@@ -120,10 +120,10 @@ function armyClass(configObj) {
         if (TEST_PATHFINDING) {
             if (this.currentPath && this.currentPath.length) {
                 for (let n=0; n<this.currentPath.length; n++) {
-                    let x = this.currentPath[n][0]*LEVEL_TILE_W;
-                    let y = this.currentPath[n][1]*LEVEL_TILE_H;
+                    let x = this.currentPath[n][0]*LEVEL_TILE_W+2;
+                    let y = this.currentPath[n][1]*LEVEL_TILE_H+2;
                     //console.log("drawing a pathfinding tile at "+x+","+y);
-                    outlineRect(x,y,LEVEL_TILE_W,LEVEL_TILE_H,"rgba(20,255,20,0.2)");
+                    outlineRect(x,y,LEVEL_TILE_W-4,LEVEL_TILE_H-4,"rgba(20,255,20,0.2)");
                 }
             }
         }
