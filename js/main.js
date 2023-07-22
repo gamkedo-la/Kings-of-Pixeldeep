@@ -156,5 +156,3 @@ function camDebug() {
             //"CamPanDelta: ("+ camPanDeltaX +","+ camPanDeltaY + ") <br>";
     }
 }
-
-// Practice commit -- will remove
