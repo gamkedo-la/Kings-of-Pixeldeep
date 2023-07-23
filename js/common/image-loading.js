@@ -50,7 +50,7 @@ function loadImages() {
 		{varName: forestTerrain, theFile: "forestSprite.png"},
 		{varName: coastalWaterTerrain, theFile: "coastalWaters.png"},
 		{varName: farmTerrain, theFile: "farmSprite.png"},
-		{varName: battleTerrain, theFile: "battle_terrain.png"},
+		{varName: battleTerrain, theFile: "battle_terrain_v2.png"},
 
 		{varName: placeholderUnitAtk, theFile: "pixeldeep-placeholder-atk.png"},
 		{varName: placeholderUnitWalk, theFile: "pixeldeep-placeholder-walk.png"},

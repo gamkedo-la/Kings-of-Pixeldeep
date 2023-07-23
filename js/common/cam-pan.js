@@ -1,43 +1,43 @@
+//const CAM_PAN_SPEED = 10; // TODO: add to game options
+//const DIST_FROM_CENTER_BEFORE_PAN_X = 200;
+//const DIST_FROM_CENTER_BEFORE_PAN_Y = 200;
 
-const DIST_FROM_CENTER_BEFORE_PAN_X = 200;
-const DIST_FROM_CENTER_BEFORE_PAN_Y = 200;
-
-const DIST_FROM_EDGE_OF_SCREEN_BEFORE_PAN = 30;
-const CAM_PAN_SPEED = 10; // TODO: add to game options
+//TODO: add to game options:
+//const EDGE_PAN_ENABLED = true; // some people may prefer it off entirely
+//const EDGE_PAN_SIZE = 60; // used to be 30 
+const DIST_FROM_EDGE_OF_SCREEN_BEFORE_PAN_TOP = gameOptions.cameraEdgePanSize;
+const DIST_FROM_EDGE_OF_SCREEN_BEFORE_PAN_BOTTOM = gameOptions.cameraEdgePanSize;
+const DIST_FROM_EDGE_OF_SCREEN_BEFORE_PAN_LEFT = gameOptions.cameraEdgePanSize;
+const DIST_FROM_EDGE_OF_SCREEN_BEFORE_PAN_RIGHT = gameOptions.cameraEdgePanSize + SIDEBAR_WIDTH ;
 
 var camPanX = 0.0;
 var camPanY = 0.0;
-
 var camPanDeltaX = 0.0;
 var camPanDeltaY = 0.0;
 
-
-
 function setCamPanDeltas(mousePos) {
-  if(mousePos.x < DIST_FROM_EDGE_OF_SCREEN_BEFORE_PAN) {
-
-    camPanDeltaX = -10;
-
-  } else if(mousePos.x > 
-      canvas.width - DIST_FROM_EDGE_OF_SCREEN_BEFORE_PAN && 
-      mousePos.x < canvas.width) {
-
-    camPanDeltaX = CAM_PAN_SPEED;
-    
+  
+  if (!gameOptions.cameraEdgePanEnabled) {
+    camPanDeltaX = 0.0;
+    camPanDeltaY = 0.0;
+    return;
+  }
+  
+  if(mousePos.x < DIST_FROM_EDGE_OF_SCREEN_BEFORE_PAN_LEFT) {
+    camPanDeltaX = -gameOptions.cameraPanSpeed;
+  } else if(mousePos.x > canvas.width-DIST_FROM_EDGE_OF_SCREEN_BEFORE_PAN_RIGHT && mousePos.x < canvas.width-SIDEBAR_WIDTH) { 
+        camPanDeltaX = gameOptions.cameraPanSpeed;
   } else {
     camPanDeltaX = 0;
   }
 
-  if(mousePos.y < DIST_FROM_EDGE_OF_SCREEN_BEFORE_PAN) {
-
-    camPanDeltaY = -CAM_PAN_SPEED;
-
-  } else if(mousePos.y > 
-      canvas.height - DIST_FROM_EDGE_OF_SCREEN_BEFORE_PAN &&
-      mousePos.y < canvas.height) {
-
-    camPanDeltaY = CAM_PAN_SPEED;
-
+  if(mousePos.y < DIST_FROM_EDGE_OF_SCREEN_BEFORE_PAN_TOP &&
+    mousePos.x < canvas.width-SIDEBAR_WIDTH) {
+    camPanDeltaY = -gameOptions.cameraPanSpeed;
+  } else if(mousePos.y > canvas.height-DIST_FROM_EDGE_OF_SCREEN_BEFORE_PAN_BOTTOM && 
+      mousePos.y < canvas.height &&
+      mousePos.x < canvas.width-SIDEBAR_WIDTH) {
+    camPanDeltaY = gameOptions.cameraPanSpeed;
   } else {
     camPanDeltaY = 0;
   }

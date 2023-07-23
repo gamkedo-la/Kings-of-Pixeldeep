@@ -1,3 +1,5 @@
+const TEST_PATHFINDING = true; // work in progress for unity and army obstacle avoidance
+
 // battle-mouse vars
 const MIN_DIST_TO_COUNT_DRAG = 10;
 const MIN_DIST_FOR_MOUSE_CLICK_SELECTABLE = 12;
@@ -8,7 +10,13 @@ var lassoX1 = 0;
 var lassoY1 = 0;
 var lassoX2 = 0;
 var lassoY2 = 0;
-var isMouseDragging = false;
+var isMouseDragging = false; // left drag to region select
+var currentMousePos = { x:0,y:0 }; // stored for use in code outside the mouse event such as the GUI
+
+const MOUSE_MAP_PAN_ENABLED = true; // TODO; put in options
+const maxMouseMapPanDistToBeAClick = 20; // don't confuse a right-drag with a right-click
+var isMouseMapPanning = false; // right drag to pan map
+var currentMouseMapPanDist = 0;
 
 // end battle-mouse vars
 
@@ -28,7 +36,19 @@ function setupMouseInput() {
 }
 
 function mousemoveHandler(evt) {
+
+    if (MOUSE_MAP_PAN_ENABLED && isMouseMapPanning) {
+        camPanX -= evt.movementX;
+        camPanY -= evt.movementY;
+        currentMouseMapPanDist += Math.sqrt(evt.movementX*evt.movementX+evt.movementY*evt.movementY);
+    }
+
     var mousePos = calculateMousePos(evt);
+    
+    // so the GUI knows where the mouse is
+    currentMousePos.x = mousePos.x;
+    currentMousePos.y = mousePos.y;
+
     setCamPanDeltas(mousePos);
     if(gameOptions.showDebug) {
         debug("mousePos: (" + mousePos.x +","+ mousePos.y +")");
@@ -63,9 +83,17 @@ function mousemoveHandler(evt) {
 }
 
 function mousedownHandler(evt) {
+    
+    if (MOUSE_MAP_PAN_ENABLED && evt.button==2) { // right mouse button
+        //console.log("starting a right-drag mouse map pan");
+        isMouseMapPanning = true;
+        currentMouseMapPanDist = 0; // reset
+        return; // don't run any code below
+    }
+    
     var mousePos = calculateMousePos(evt);
 
-    if(battleMode /*|| showCityPanel*/) {
+    if(battleMode && !editorMode) {
         if(isClickInsideMainWindow(mousePos)) {
             if(battleMode) {
                 lassoX1 = mousePos.levelX;
@@ -102,7 +130,15 @@ function mousedownHandler(evt) {
 }
 
 function mouseupHandler(evt) {
-    if(battleMode /*|| showCityPanel*/) {
+
+    if (MOUSE_MAP_PAN_ENABLED && evt.button==2) { // right mouse button
+        //console.log("ending a right-drag mouse map pan");
+        isMouseMapPanning = false;
+        //currentMouseMapPanDist = 0; // gets reset when we start the next one
+        return; // don't run any code below
+    }
+    
+    if(battleMode && !editorMode) {
         isMouseDragging = false;
 
         if(mouseMovedEnoughToTreatAsDragging()) {
@@ -296,7 +332,7 @@ function isClickInsideMainWindow(mousePos) {
 }
 
 function isClickInBox(mousePos, x1,y1, x2,y2) {
-    if(!mousePos.x || !mousePos.y) {
+    if(mousePos.x==undefined || mousePos.y==undefined) {
         console.log("error: invalid mousePos given for isClickInBox");
         return false;
     }
@@ -320,13 +356,31 @@ function isClickInBox(mousePos, x1,y1, x2,y2) {
 
 function handleMainWindowClick(mousePos, evt) {
     //console.log(mousePos);
-    if(battleMode) {
+    if(battleMode && !editorMode) {
         return; 
         // mouseup, mousedown, & rightClick handlers take care of most battle layer stuff
     } 
 
+    // test pathfinding code - TODO add to army class and change move to use path array to tween the path
+    if (TEST_PATHFINDING) {
+        if (selectedArmy) {
+            // map tile coordinates
+            let ax = selectedArmy.worldCol;
+            let ay = selectedArmy.worldRow;
+            let bx = Math.floor( (mousePos.levelX) / LEVEL_TILE_W);
+            let by = Math.floor( (mousePos.levelY) / LEVEL_TILE_H);    
+            let path = levelGridPathfind(ax,ay,bx,by);
+            if (path && path[0]) {
+                console.log("levelGridPathfind result: "+JSON.stringify(path));
+            } else {
+                console.log("levelGridPathfind found NO path possible.");
+            }
+            selectedArmy.setMovementPath(path);
+        }
+    }
+
     var clickedIdx = worldIdxFromMousePos(mousePos);
-    //var tileKindClicked = levelGrid[clickedIdx];
+    //var tileKindClicked = [clickedIdx];
     //console.log("tile clicked", clickedIdx);
     if(clickedIdx < 0 || clickedIdx >= levelGrid.length) { // invalid or out of bounds
         return;
@@ -441,7 +495,13 @@ function attackOrMoveToMousePos(evt) {
 function rightClickHandler(evt) {
     evt.preventDefault();
     if(battleMode) {
-        attackOrMoveToMousePos(evt);
+        // if right mouse is released after a right-drap map pan, we don't also want to move there,
+        // so ignore if we dragged more than a tiny amount to account for mouse wobbles during a click
+        if (MOUSE_MAP_PAN_ENABLED&&(currentMouseMapPanDist>maxMouseMapPanDistToBeAClick)) {
+            //console.log("right click ignored because it was the end of a map pan drag. currentMouseMapPanDist="+currentMouseMapPanDist);
+        } else {
+            attackOrMoveToMousePos(evt);
+        }
     }
 }
 

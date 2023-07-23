@@ -14,34 +14,7 @@ var gameSeason = "summer";
 
 var levelGrid = [];
 
-// world terrain values
-/*
-const WORLD_ROAD = 0;
-const WORLD_WALL = 1;
-//const WORLD_PLAYERSTART = 2;
-const WORLD_GOAL = 2;
-const WORLD_FLAG = 3;
-const WORLD_TREE = 4;
-*/
-
-// world terrain
-const WORLD_MOUNTAINS = 1;
-const WORLD_FOREST = 2;
-const WORLD_GRASS = 3;
-const WORLD_FARM = 4;
-const WORLD_WATER = 5;
-const WORLD_SHALLOWS = 6;
-
-const SEASON_SUMMER = 1;
-const SEASON_WINTER = 2;
-
-// battle terrain values
-//const BATTLE_GRASS = 8;
-
-// battle terrain
-const BATTLE_FIELD = 11;
-const BATTLE_TREES = 12;
-const BATTLE_ROCKS = 13;
+// for terrain const definitions, see js/common/global-vars.js
 
 // these are set once per game, saved before battles and loaded after battles
 var gameWorldGrid, gameWorldRows, gameWorldCols;
@@ -58,8 +31,8 @@ function startNewGame(whichWorld) {
 
 function setupWorldMode() {
     console.log("entering world mode");
-    this.battleMode = false;
-    this.editorMode = false;
+    battleMode = false;
+    editorMode = false;
 
     levelGrid = gameWorldGrid;
     level_cols = gameWorldCols;
@@ -72,8 +45,8 @@ function setupWorldMode() {
 
 function setupBattleMode() {
     console.log("entering battle mode");
-    this.editorMode = false;
-    this.battleMode = true;
+    editorMode = false;
+    battleMode = true;
     
     // using "let" instead of "var" here to limit this variable's scope
     let pickedBattlefield = getRandomBattlefield();
@@ -92,19 +65,33 @@ function setupBattleMode() {
     populateTeam(enemyUnits, ENEMY_START_UNITS, false);
 }
 
-function setupEditorMode() {
-    // TODO: account for battle & edit modes
-    console.log("entering editor mode");
-    this.battleMode = false;
-    this.editorMode = true;
+function setupEditorMode(battleOrWorld="world") {
+    console.log("entering editor mode for:", battleOrWorld);
+    editorMode = true;
 
-    levelGrid = gameWorldGrid;
-    level_cols = gameWorldCols;
-    level_rows = gameWorldRows;
-    level_width = LEVEL_TILE_W * level_cols;
-    level_height = LEVEL_TILE_H * level_rows;
+    if(battleOrWorld === "battle") {
+        // setup editor for battle maps
+        battleMode = true;
 
-    currentSidebarButtons = WORLD_EDITOR_SIDEBAR_BUTTONS;
+        levelGrid = battlefield1.grid;
+        level_cols = battlefield1.cols;
+        level_rows = battlefield1.rows;
+        level_width = LEVEL_TILE_W * level_cols;
+        level_height = LEVEL_TILE_H * level_rows;
+
+        currentSidebarButtons = BATTLE_EDITOR_SIDEBAR_BUTTONS;
+    } else { 
+        // setup editor for world map
+        battleMode = false;
+
+        levelGrid = gameWorldGrid;
+        level_cols = gameWorldCols;
+        level_rows = gameWorldRows;
+        level_width = LEVEL_TILE_W * level_cols;
+        level_height = LEVEL_TILE_H * level_rows;
+
+        currentSidebarButtons = WORLD_EDITOR_SIDEBAR_BUTTONS;
+    }
     
 }
 

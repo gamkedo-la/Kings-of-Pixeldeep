@@ -2,12 +2,6 @@ var canvas, canvasContext;
 var playerTurn = true;
 var enemyTurn = false;
 
-// TODO: put in a game preferences object
-var gameOptions = {
-    showGrid: false,
-    showDebug: false,
-}
-
 var sliderTest = new sliderClass({
     x: 300,
     y: 300,
@@ -162,4 +156,3 @@ function camDebug() {
             //"CamPanDelta: ("+ camPanDeltaX +","+ camPanDeltaY + ") <br>";
     }
 }
-
