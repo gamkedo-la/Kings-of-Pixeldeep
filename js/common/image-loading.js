@@ -9,7 +9,8 @@ var rowsThatFitOnScreen = document.createElement("img");
 var battleTerrain  = document.createElement("img");
 var placeholderUnitAtk = document.createElement("img");
 var placeholderUnitWalk = document.createElement("img");
-var placeholderUnitSingleFrame = document.createElement("img");
+var yellowPeasantUnitSingleFrame = document.createElement("img");
+var redPeasantUnitSingleFrame = document.createElement("img");
 var cityPanelBackdrop = document.createElement("img");
 var worldPics = [];
 var unitPics = [];
@@ -54,7 +55,8 @@ function loadImages() {
 
 		{varName: placeholderUnitAtk, theFile: "pixeldeep-placeholder-atk.png"},
 		{varName: placeholderUnitWalk, theFile: "pixeldeep-placeholder-walk.png"},
-		{varName: placeholderUnitSingleFrame, theFile: "placeholder-unit-single-frame.png"},
+		{varName: yellowPeasantUnitSingleFrame, theFile: "yellowUnitSingleframe.png"},
+		{varName: redPeasantUnitSingleFrame, theFile: "redUnitSingleframe.png"},
 		{varName: cityPanelBackdrop, theFile: "city_screen_backdrop.png"},
 
 		/*
