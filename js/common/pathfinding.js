@@ -1,5 +1,6 @@
-// pathfinding.js
-// by Christer "McFunkypants" Kaitila
+// pathfinding.js by McFunkypants
+// customized for use in kings of pixeldeep: uses levelGrid[]
+
 // A slightly simplified version of A-Star pathfinding, 
 // Edsger Dijkstra's 1959 algorithm, with contributions from
 // Andrea Giammarchi, Alessandro Crugnola, Jeroen Beckers,
@@ -14,7 +15,11 @@ var walkableTiles = [
     WORLD_SHALLOWS,
 ]; // any other tile index is considered a wall
 
-// customized for use in kings of pixeldeep: uses levelGrid[]
+// optional walkable tiles that add extra distance (movement cost) when entering
+var walkableTileExtraCosts = [];
+walkableTileExtraCosts[WORLD_FARM] = 100; 
+walkableTileExtraCosts[WORLD_SHALLOWS] = 20; 
+
 // the result is in the form [[x,y],[x,y],etc];
 // or it returns null if no path possible
 function levelGridPathfind(ax,ay,bx,by)
@@ -73,10 +78,22 @@ function levelGridPathfind(ax,ay,bx,by)
         return allowed;
 	};
 
-	// which heuristic should we use?
+	function tileDistExtraCost(x,y)
+	{
+		if (world[x] == null) return 0;
+        if (world[x][y] == null) return 0;
+        
+        let theCost = walkableTileExtraCosts[world[x][y]];
+        if (theCost!=undefined) return theCost;
+        
+        // default for tiles not listed in the array
+        return 0;
+	};
+
+    // which heuristic should we use?
 
     // default: no diagonals (Manhattan)
-	var distanceFunction = ManhattanDistance;
+	var distanceFunction = ManhattanDistanceWithCosts; // kings of pixeldeep mods! =)
 	var findNeighbours = function(){}; // empty
 
 	/*
@@ -103,7 +120,16 @@ function levelGridPathfind(ax,ay,bx,by)
 	// distanceFunction functions
 	// these return how far away a point is to another
 
-	function ManhattanDistance(Point, Goal)
+	// custom for kings of pixeldeep - not sure if this is correct
+    function ManhattanDistanceWithCosts(Point, Goal)
+	{	
+		// we add the extra cost of the tile as extra distance
+        let extraCost = tileDistExtraCost(Goal.x,Goal.y);
+        if (extraCost) console.log("extra cost for "+Goal.x+","+Goal.y+"="+extraCost);
+        return extraCost + abs(Point.x - Goal.x) + abs(Point.y - Goal.y);
+	}
+
+    function ManhattanDistance(Point, Goal)
 	{	// linear movement - no diagonals - just cardinal directions (NSEW)
 		return abs(Point.x - Goal.x) + abs(Point.y - Goal.y);
 	}
