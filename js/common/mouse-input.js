@@ -69,6 +69,21 @@ function mousemoveHandler(evt) {
         hoverPos = mousePos;// see editor.js for hoverPos usage
     } else if(selectedArmy) {
         hoverPos = mousePos;
+
+        if (selectedArmy) {
+            // map tile coordinates
+            let ax = selectedArmy.worldCol;
+            let ay = selectedArmy.worldRow;
+            let bx = Math.floor( (mousePos.levelX) / LEVEL_TILE_W);
+            let by = Math.floor( (mousePos.levelY) / LEVEL_TILE_H);    
+            let path = levelGridPathfind(ax,ay,bx,by);
+            if (path && path[0]) {
+                console.log("levelGridPathfind result: "+JSON.stringify(path));
+            } else {
+                console.log("levelGridPathfind found NO path possible.");
+            }
+            selectedArmy.setMovementPath(path);
+        }
     } else if(hoverPos !== null) {
         hoverPos = null;
     }
@@ -362,22 +377,9 @@ function handleMainWindowClick(mousePos, evt) {
     } 
 
     // test pathfinding code - TODO add to army class and change move to use path array to tween the path
-    if (TEST_PATHFINDING) {
-        if (selectedArmy) {
-            // map tile coordinates
-            let ax = selectedArmy.worldCol;
-            let ay = selectedArmy.worldRow;
-            let bx = Math.floor( (mousePos.levelX) / LEVEL_TILE_W);
-            let by = Math.floor( (mousePos.levelY) / LEVEL_TILE_H);    
-            let path = levelGridPathfind(ax,ay,bx,by);
-            if (path && path[0]) {
-                console.log("levelGridPathfind result: "+JSON.stringify(path));
-            } else {
-                console.log("levelGridPathfind found NO path possible.");
-            }
-            selectedArmy.setMovementPath(path);
-        }
-    }
+    //if (TEST_PATHFINDING) {
+    // // moved up to mousemoveHandler
+    //}
 
     var clickedIdx = worldIdxFromMousePos(mousePos);
     //var tileKindClicked = [clickedIdx];
