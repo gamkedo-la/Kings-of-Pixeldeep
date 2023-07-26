@@ -155,9 +155,15 @@ function armyClass(configObj) {
                             LEVEL_TILE_W - boxShrinkPx, LEVEL_TILE_H - boxShrinkPx,
                             'white');
                     } else {
+                        let circleColor = 'white';
+
+                        if(n > this.currentMovementPoints) {
+                            circleColor = 'darkgrey';
+                        }
+
                         colorCircle(x + (LEVEL_TILE_W / 2),
                             y + (LEVEL_TILE_H / 2),
-                            8, 'white');
+                            8, circleColor);
                     } // end else
 
 
