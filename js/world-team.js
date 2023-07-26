@@ -53,8 +53,8 @@ var army1  = new armyClass({
 playerArmies.push(army1);
 
 var army2 = new armyClass({
-    worldCol: 7,
-    worldRow: 7,
+    worldCol: 30,
+    worldRow: 9,
     name: "Enemy Army",
     playerControlled: false,
 });
