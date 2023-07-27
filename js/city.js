@@ -1,4 +1,7 @@
 const POPULATION_GROWTH_RATE = 0.1;
+const CITY_TYPE_PLAYER = 1;
+const CITY_TYPE_ENEMY = 2;
+const CITY_TYPE_NEUTRAL = 3;
 
 function cityClass(configObj) {
 
@@ -25,9 +28,8 @@ function cityClass(configObj) {
             );
         },
         */
-
     };
-
+    this.cityType = CITY_TYPE_NEUTRAL;
     this.playerControlled = true;
 
     if(configObj) {
@@ -67,7 +69,20 @@ function cityClass(configObj) {
     }
 	
     this.draw = function() {
-        drawBitmapCenteredWithRotation(this.picToUse, this.x(),this.y(), 0);
+        sX = sY = 0;
+        if (this.cityType === CITY_TYPE_PLAYER) {
+            sX = LEVEL_TILE_W  * 1;
+        } else if (this.cityType === CITY_TYPE_ENEMY) {
+            sX = LEVEL_TILE_W  * 2;
+        } else { // if (this.cityType === CITY_TYPE_NEUTRAL)
+            sX = LEVEL_TILE_W  * 0;
+        }
+
+        // TODO: Find out why must add TILE_W to this.x
+        drawBitmapPartialCenteredWithRotation(
+            this.picToUse, this.x()+LEVEL_TILE_W,this.y(),LEVEL_TILE_W, LEVEL_TILE_H, 
+            withAngle=0,sX, sY, LEVEL_TILE_W, LEVEL_TILE_H);
+
         // TODO: draw city name under city? Debatable. Lords 2 doesn't, but...:shrug:
     }
     

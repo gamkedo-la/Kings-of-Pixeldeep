@@ -129,6 +129,9 @@ for(var i=0;i<enemyCities.length;i++) {
 for(var i=0;i<playerCities.length;i++) {
     playerCities[i].draw();
 }
+for(var i=0;i<neutralCities.length;i++) {
+    neutralCities[i].draw();
+}
 
 // armies
 for(var i=0;i<enemyArmies.length;i++) {

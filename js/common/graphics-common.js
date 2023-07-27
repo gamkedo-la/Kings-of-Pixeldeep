@@ -32,6 +32,15 @@ function drawBitmapCenteredWithRotation(graphic, atX, atY,withAngle) {
   canvasContext.restore(); // undo the translation movement and rotation since save()
 }
 
+function drawBitmapPartialCenteredWithRotation(graphic, atX, atY, dWidth, dHeight, withAngle, sX, sY, sWidth, sHeight) {
+  canvasContext.save(); // allows us to undo translate movement and rotate spin
+  canvasContext.translate(atX,atY); // sets the point where our graphic will go
+  canvasContext.rotate(withAngle); // sets the rotation
+  canvasContext.drawImage(graphic,sX,sY,sWidth,sHeight,
+    -graphic.width/2,-graphic.height/2,graphic.width/3,graphic.height); // center, draw partial
+  canvasContext.restore(); // undo the translation movement and rotation since save()
+}
+
 function colorText(showWords, textX,textY, fillColor) {
     canvasContext.fillStyle = fillColor;
     canvasContext.fillText(showWords, textX,textY);
