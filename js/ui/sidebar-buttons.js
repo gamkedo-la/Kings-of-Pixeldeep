@@ -36,9 +36,14 @@ const WORLD_SIDEBAR_BUTTONS = [
     new buttonClass({
         label: "End Turn", 
         onClick: function() { 
+            // TODO: extract to own function, once I find a good place to put it
             console.log("clicked end turn");
             playerTurn = !playerTurn;
             enemyTurn = !enemyTurn;
+
+            for(const army of allArmies) {
+                army.currentMovementPoints = army.maxMovementPoints;
+            }
         },
         highlightIf: function() {
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);

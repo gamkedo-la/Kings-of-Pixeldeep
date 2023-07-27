@@ -71,6 +71,7 @@ var army1  = new armyClass({
     name: "My First Army",
 });
 playerArmies.push(army1);
+allArmies.push(army1);
 
 var army2 = new armyClass({
     worldCol: 30,
@@ -79,6 +80,7 @@ var army2 = new armyClass({
     playerControlled: false,
 });
 enemyArmies.push(army2);
+allArmies.push(army2);
 
 // BATTLE CHECK FUNCTIONS
 // these should definately go someplace else, but it's where I can think to put them for now
