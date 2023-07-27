@@ -13,6 +13,7 @@ var playerResources = {
 }
 
 var enemyCities = [];
+var neutralCities = [];
 
 // DEMO MAP SETUP
 
@@ -36,14 +37,33 @@ var city1  = new cityClass({
     worldCol: 8,
     worldRow: 8,
     name: "Atlanta",
+    cityType: CITY_TYPE_PLAYER,
 });
 playerCities.push(city1);
 
 var city2  = new cityClass({
-    worldCol: 32,
+    worldCol: 31,
     worldRow: 7,
     name: "Boston",
+    cityType: CITY_TYPE_ENEMY,
 });
+enemyCities.push(city2);
+
+var city3  = new cityClass({
+    worldCol: 10,
+    worldRow: 24,
+    name: "New Orleans",
+    cityType: CITY_TYPE_NEUTRAL,
+});
+neutralCities.push(city3);
+
+var city4  = new cityClass({
+    worldCol: 30,
+    worldRow: 25,
+    name: "Miami",
+    cityType: CITY_TYPE_NEUTRAL,
+});
+neutralCities.push(city4);
 
 var army1  = new armyClass({
     worldCol: 5,
