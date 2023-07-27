@@ -78,10 +78,9 @@ function cityClass(configObj) {
             sX = LEVEL_TILE_W  * 0;
         }
 
-        // TODO: Find out why must add TILE_W to this.x
         drawBitmapPartialCenteredWithRotation(
-            this.picToUse, this.x()+LEVEL_TILE_W,this.y(),LEVEL_TILE_W, LEVEL_TILE_H, 
-            withAngle=0,sX, sY, LEVEL_TILE_W, LEVEL_TILE_H);
+            this.picToUse, this.x(), this.y(), LEVEL_TILE_W, LEVEL_TILE_H, 
+            withAngle=0, sX, sY, LEVEL_TILE_W, LEVEL_TILE_H);
 
         // TODO: draw city name under city? Debatable. Lords 2 doesn't, but...:shrug:
     }

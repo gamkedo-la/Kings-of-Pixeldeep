@@ -37,7 +37,7 @@ function drawBitmapPartialCenteredWithRotation(graphic, atX, atY, dWidth, dHeigh
   canvasContext.translate(atX,atY); // sets the point where our graphic will go
   canvasContext.rotate(withAngle); // sets the rotation
   canvasContext.drawImage(graphic,sX,sY,sWidth,sHeight,
-    -graphic.width/2,-graphic.height/2,graphic.width/3,graphic.height); // center, draw partial
+    -dWidth/2,-dHeight/2,dWidth,dHeight); // center, draw partial
   canvasContext.restore(); // undo the translation movement and rotation since save()
 }
 
