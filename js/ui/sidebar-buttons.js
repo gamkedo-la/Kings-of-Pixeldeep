@@ -195,7 +195,12 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
     new buttonClass({
         label: "Leave Editor", 
         onClick: function() {
-            setupWorldMode();
+            editorMode = false;
+            if (pauseMode) {
+                setupPauseMode('world');
+            } else {
+                setupWorldMode();
+            }
         },
         x:620,
         y:520, 
@@ -370,10 +375,45 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
     new buttonClass({
         label: "Leave Editor", 
         onClick: function() {
-            setupWorldMode();
+            editorMode = false;
+            if (pauseMode) {
+                setupPauseMode('battle');
+            } else {
+                resumeBattleMode();
+            }
         },
         x:620,
         y:520, 
+    }),
+];
+
+const WORLD_PAUSE_SIDEBAR_BUTTONS = [
+    new buttonClass({
+        label: "Unpause",
+        padding: 1,
+        onClick: function() { 
+            Unpause('world');
+        },
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
+        x:650,
+        y:550, 
+    }),
+];
+
+const BATTLE_PAUSE_SIDEBAR_BUTTONS = [
+    new buttonClass({
+        label: "Unpause",
+        padding: 1,
+        onClick: function() {
+            Unpause('battle');
+        },
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
+        x:650,
+        y:550, 
     }),
 ];
 
@@ -385,4 +425,3 @@ function printWithSign(number) {
         //return "-"+ Math.abs(number); 
     }
 }
-

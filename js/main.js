@@ -39,7 +39,7 @@ function moveEverything() {
     cameraFollow();
     camDebug();
 
-    if(battleMode) {
+    if(battleMode && !pauseMode) {
       /*  for(var i=0;i<allUnits.length;i++) {
             allUnits[i].move();
         } */

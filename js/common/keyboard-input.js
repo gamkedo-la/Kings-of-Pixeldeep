@@ -2,7 +2,6 @@ function setupKeyboardInput() {
 
 	document.addEventListener('keydown', keyPressed);
 	document.addEventListener('keyup', keyReleased);
-
 }
 
 function keyPressed(evt) {
@@ -19,11 +18,15 @@ function keyReleased(evt) {
 	// console.log("released " + evt.keyCode);
 
 	if( evt.keyCode === 66 ) { // key: b
-		setupBattleMode();
+		if (!battleMode) {
+			setupBattleMode();
+		}
 	}
 
 	if(evt.keyCode === 87 ) { // key: w
-		setupWorldMode();
+		if (battleMode) {
+			setupWorldMode();
+		}
 	}
 
 	if(evt.keyCode === 69 ) { // key: e
@@ -32,5 +35,22 @@ function keyReleased(evt) {
         } else {
             setupEditorMode('world');
         }
+	}
+
+	if(evt.keyCode === 80 ) { // key: p
+        if(pauseMode) {
+			if (battleMode) {
+            	Unpause('battle');
+        	} else {
+	            Unpause('world');
+			}
+        } else {
+			if (battleMode) {
+            	setupPauseMode('battle');
+        	} else {
+	            setupPauseMode('world');
+			}
+		}
+		console.log("pauseMode = ", pauseMode);
 	}
 }

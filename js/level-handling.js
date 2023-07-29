@@ -9,6 +9,7 @@ var level_height = LEVEL_TILE_H * level_rows;
 
 var battleMode = false;
 var editorMode = false;
+var pauseMode = false;
 
 var gameSeason = "summer";
 
@@ -40,7 +41,11 @@ function setupWorldMode() {
     level_width = LEVEL_TILE_W * level_cols;
     level_height = LEVEL_TILE_H * level_rows;
 
-    currentSidebarButtons = WORLD_SIDEBAR_BUTTONS;
+    if (!pauseMode) {
+        currentSidebarButtons = WORLD_SIDEBAR_BUTTONS;
+    } else {
+        setupPauseMode('world');
+    }
 }
 
 function setupBattleMode() {
@@ -57,12 +62,33 @@ function setupBattleMode() {
     level_width = LEVEL_TILE_W * level_cols;
     level_height = LEVEL_TILE_H * level_rows;
 
-    currentSidebarButtons = BATTLE_SIDEBAR_BUTTONS;
-
+    if (!pauseMode) {
+        currentSidebarButtons = BATTLE_SIDEBAR_BUTTONS;
+    } else {
+        setupPauseMode('battle');
+    }
 
     // TODO: determine player/enemy start units
     populateTeam(playerUnits, PLAYER_START_UNITS, true);
     populateTeam(enemyUnits, ENEMY_START_UNITS, false);
+}
+
+function resumeBattleMode() {
+    console.log("resuming battle mode");
+    editorMode = false;
+    battleMode = true;
+
+    levelGrid = battlefield1.grid;
+    level_cols = battlefield1.cols;
+    level_rows = battlefield1.rows;
+    level_width = LEVEL_TILE_W * level_cols;
+    level_height = LEVEL_TILE_H * level_rows;
+
+    if (!pauseMode) {
+        currentSidebarButtons = BATTLE_SIDEBAR_BUTTONS;
+    } else {
+        setupPauseMode('battle');
+    }
 }
 
 function setupEditorMode(battleOrWorld="world") {
@@ -93,6 +119,41 @@ function setupEditorMode(battleOrWorld="world") {
         currentSidebarButtons = WORLD_EDITOR_SIDEBAR_BUTTONS;
     }
     
+}
+
+function setupPauseMode(battleOrWorld='world') {
+    console.log("entering pause mode");
+    pauseMode = true
+
+    if (!editorMode) {
+        if (battleOrWorld === "battle") {
+            // setup pause menu for battle maps
+            currentSidebarButtons = BATTLE_PAUSE_SIDEBAR_BUTTONS;
+        } else { 
+            // setup pause menu for world map
+            currentSidebarButtons = WORLD_PAUSE_SIDEBAR_BUTTONS;
+        }
+    } else {
+        if (battleOrWorld === "battle") {
+            console.log('battle editor in pause mode')
+        } else {
+            console.log('world editor in pause mode')
+        }
+    }
+
+    level_width = LEVEL_TILE_W * level_cols;
+    level_height = LEVEL_TILE_H * level_rows;
+}
+
+function Unpause(battleOrWorld='world') {
+    pauseMode = false;
+    if (editorMode) {
+        setupEditorMode(battleOrWorld);
+    } else if (battleOrWorld === 'battle') {
+        resumeBattleMode();
+    } else {
+        setupWorldMode();
+    }
 }
 
 function getRandomBattlefield() {

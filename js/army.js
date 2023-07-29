@@ -104,7 +104,7 @@ function armyClass(configObj) {
         }
         
         // if can, move
-        if(canMoveToTarget) {
+        if(canMoveToTarget && !pauseMode) {
             console.log(level_cols, clickedIdx, "moving "+ this.name + " to tile (" + newRow + "," + newCol +")");
 
             // TODO: tween based off path
