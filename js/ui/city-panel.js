@@ -1,6 +1,6 @@
 const CITY_PANEL_X = 100;
 const CITY_PANEL_Y = 150;
-const CITY_PANEL_W = 300;
+const CITY_PANEL_W = 400;
 const CITY_PANEL_H = 400;
 
 var showCityPanel = false;
