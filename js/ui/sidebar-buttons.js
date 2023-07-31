@@ -34,16 +34,23 @@ const WORLD_SIDEBAR_BUTTONS = [
     }),
     */
     new buttonClass({
-        label: "End Turn", 
+        label: "Pause (P)",
+        padding: 1,
         onClick: function() { 
-            // TODO: extract to own function, once I find a good place to put it
-            console.log("clicked end turn");
-            playerTurn = !playerTurn;
-            enemyTurn = !enemyTurn;
+            return togglePauseMode();
+        },
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
+        x:605,
+        y:510, 
+    }),
 
-            for(const army of allArmies) {
-                army.currentMovementPoints = army.maxMovementPoints;
-            }
+    new buttonClass({
+        label: "End Turn", 
+        padding: 1,
+        onClick: function() { 
+            endTurn();
         },
         highlightIf: function() {
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
@@ -57,22 +64,24 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
 // Terrain Type Buttons
     new buttonClass({
         label: "Mtn", 
+        padding: 1,
         onClick: function() {
             terrainBrushCode = WORLD_MOUNTAINS;
         },
         highlightIf: function() {
-            return terrainBrushCode === WORLD_MOUNTAINS;
+            return terrainBrushCode === WORLD_MOUNTAINS || isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:605,
         y:210, 
     }),
     new buttonClass({
         label: "Forest", 
+        padding: 1,
         onClick: function() {
             terrainBrushCode = WORLD_FOREST;
         },
         highlightIf: function() {
-            return terrainBrushCode === WORLD_FOREST;
+            return terrainBrushCode === WORLD_FOREST || isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:605,
         y:250, 
@@ -80,11 +89,12 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
 
     new buttonClass({
         label: "Grass", 
+        padding: 1,
         onClick: function() {
             terrainBrushCode = WORLD_GRASS;
         },
         highlightIf: function() {
-            return terrainBrushCode === WORLD_GRASS;
+            return terrainBrushCode === WORLD_GRASS || isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:605,
         y:290, 
@@ -92,11 +102,12 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
 
     new buttonClass({
         label: "Farm", 
+        padding: 1,
         onClick: function() {
             terrainBrushCode = WORLD_FARM;
         },
         highlightIf: function() {
-            return terrainBrushCode === WORLD_FARM;
+            return terrainBrushCode === WORLD_FARM || isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:605,
         y:330, 
@@ -104,11 +115,12 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
 
     new buttonClass({
         label: "Water", 
+        padding: 1,
         onClick: function() {
             terrainBrushCode = WORLD_WATER;
         },
         highlightIf: function() {
-            return terrainBrushCode === WORLD_WATER;
+            return terrainBrushCode === WORLD_WATER || isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:605,
         y:370, 
@@ -116,11 +128,12 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
 
     new buttonClass({
         label: "Shallows", 
+        padding: 1,
         onClick: function() {
             terrainBrushCode = WORLD_SHALLOWS;
         },
         highlightIf: function() {
-            return terrainBrushCode === WORLD_SHALLOWS;
+            return terrainBrushCode === WORLD_SHALLOWS || isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:605,
         y:410, 
@@ -129,11 +142,12 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
 // Brush Size Buttons
     new buttonClass({
         label: "1x1", 
+        padding: 1,
         onClick: function() {
             terrainBrushSize = 1;
         },
         highlightIf: function() {
-            return terrainBrushSize === 1;
+            return terrainBrushSize === 1 || isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:740,
         y:210, 
@@ -141,11 +155,12 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
 
     new buttonClass({
         label: "3x3", 
+        padding: 1,
         onClick: function() {
             terrainBrushSize = 3;
         },
         highlightIf: function() {
-            return terrainBrushSize === 3;
+            return terrainBrushSize === 3 || isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:740,
         y:250, 
@@ -153,11 +168,12 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
 
     new buttonClass({
         label: "5x5", 
+        padding: 1,
         onClick: function() {
             terrainBrushSize = 5;
         },
         highlightIf: function() {
-            return terrainBrushSize === 5;
+            return terrainBrushSize === 5 || isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:740,
         y:290, 
@@ -167,6 +183,7 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
 
     new buttonClass({
         label: "New", 
+        padding: 1,
         onClick: testButton,
         x:602,
         y:470, 
@@ -174,6 +191,7 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
 
     new buttonClass({
         label: "Save", 
+        padding: 1,
         onClick: function() {
             console.log({
             cols: level_cols,
@@ -181,19 +199,29 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
             grid: levelGrid
             });
         },
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
         x:660,
         y:470, 
     }),
 
     new buttonClass({
         label: "Load", 
+        padding: 1,
         onClick: testButton,
+        highlightIf: function() {
+            return false;
+            // Once no longer a stub for a game options menu, uncomment the highlight functionality
+            // return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
         x:730,
         y:470, 
     }),
 
     new buttonClass({
         label: "Leave Editor", 
+        padding: 1,
         onClick: function() {
             editorMode = false;
             if (pauseMode) {
@@ -202,12 +230,40 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
                 setupWorldMode();
             }
         },
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
         x:620,
-        y:520, 
+        y:510, 
     }),
 ];
 
 const BATTLE_SIDEBAR_BUTTONS = [
+    new buttonClass({
+        label: "Pause (P)",
+        padding: 1,
+        onClick: function() { 
+            return togglePauseMode();
+        },
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
+        x:605,
+        y:510, 
+    }),
+    new buttonClass({
+        label: "Surrender",
+        padding: 1,
+        onClick: function() {
+            setupBattleMode(); // get a new map for next battle mode
+            requestWorldMode('battle');
+        },
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
+        x:605,
+        y:550, 
+    }),
     //
     //new buttonClass({
     //    label: "End Turn", 
@@ -225,22 +281,24 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
 // Terrain Type Buttons
     new buttonClass({
         label: "Grass", 
+        padding: 1,
         onClick: function() {
             terrainBrushCode = BATTLE_FIELD;
         },
         highlightIf: function() {
-            return terrainBrushCode === BATTLE_FIELD;
+            return terrainBrushCode === BATTLE_FIELD || isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:605,
         y:210, 
     }),
     new buttonClass({
         label: "Tree", 
+        padding: 1,
         onClick: function() {
             terrainBrushCode = BATTLE_TREES;
         },
         highlightIf: function() {
-            return terrainBrushCode === BATTLE_TREES;
+            return terrainBrushCode === BATTLE_TREES || isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:605,
         y:245, 
@@ -248,11 +306,12 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
 
     new buttonClass({
         label: "Rock", 
+        padding: 1,
         onClick: function() {
             terrainBrushCode = BATTLE_ROCKS;
         },
         highlightIf: function() {
-            return terrainBrushCode === BATTLE_ROCKS;
+            return terrainBrushCode === BATTLE_ROCKS || isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:605,
         y:280, 
@@ -260,11 +319,12 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
 
     new buttonClass({
         label: "Bush", 
+        padding: 1,
         onClick: function() {
             terrainBrushCode = BATTLE_BUSHES;
         },
         highlightIf: function() {
-            return terrainBrushCode === BATTLE_BUSHES;
+            return terrainBrushCode === BATTLE_BUSHES || isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:605,
         y:315, 
@@ -272,11 +332,12 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
 
     new buttonClass({
         label: "Mud", 
+        padding: 1,
         onClick: function() {
             terrainBrushCode = BATTLE_MUD;
         },
         highlightIf: function() {
-            return terrainBrushCode === BATTLE_MUD;
+            return terrainBrushCode === BATTLE_MUD || isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:605,
         y:350, 
@@ -284,11 +345,12 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
 
     new buttonClass({
         label: "Water", 
+        padding: 1,
         onClick: function() {
             terrainBrushCode = BATTLE_WATER;
         },
         highlightIf: function() {
-            return terrainBrushCode === BATTLE_WATER;
+            return terrainBrushCode === BATTLE_WATER || isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:605,
         y:385, 
@@ -296,11 +358,12 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
 
     new buttonClass({
         label: "Shallows", 
+        padding: 1,
         onClick: function() {
             terrainBrushCode = BATTLE_SHALLOWS;
         },
         highlightIf: function() {
-            return terrainBrushCode === BATTLE_SHALLOWS;
+            return terrainBrushCode === BATTLE_SHALLOWS || isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:605,
         y:420, 
@@ -309,11 +372,12 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
 // Brush Size Buttons
     new buttonClass({
         label: "1x1", 
+        padding: 1,
         onClick: function() {
             terrainBrushSize = 1;
         },
         highlightIf: function() {
-            return terrainBrushSize === 1;
+            return terrainBrushSize === 1 || isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:740,
         y:210, 
@@ -321,11 +385,12 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
 
     new buttonClass({
         label: "3x3", 
+        padding: 1,
         onClick: function() {
             terrainBrushSize = 3;
         },
         highlightIf: function() {
-            return terrainBrushSize === 3;
+            return terrainBrushSize === 3 || isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:740,
         y:250, 
@@ -333,11 +398,12 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
 
     new buttonClass({
         label: "5x5", 
+        padding: 1,
         onClick: function() {
             terrainBrushSize = 5;
         },
         highlightIf: function() {
-            return terrainBrushSize === 5;
+            return terrainBrushSize === 5 || isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:740,
         y:290, 
@@ -347,13 +413,20 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
 
     new buttonClass({
         label: "New", 
+        padding: 1,
         onClick: testButton,
+        highlightIf: function() {
+            return false;
+            // Once no longer a stub for a game options menu, uncomment the highlight functionality
+            // return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
         x:602,
         y:470, 
     }),
 
     new buttonClass({
         label: "Save", 
+        padding: 1,
         onClick: function() {
             console.log({
             cols: level_cols,
@@ -361,19 +434,29 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
             grid: levelGrid
             });
         },
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
         x:660,
         y:470, 
     }),
 
     new buttonClass({
         label: "Load", 
+        padding: 1,
         onClick: testButton,
+        highlightIf: function() {
+            return false;
+            // Once no longer a stub for a game options menu, uncomment the highlight functionality
+            // return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
         x:730,
         y:470, 
     }),
 
     new buttonClass({
         label: "Leave Editor", 
+        padding: 1,
         onClick: function() {
             editorMode = false;
             if (pauseMode) {
@@ -382,37 +465,107 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
                 resumeBattleMode();
             }
         },
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
         x:620,
-        y:520, 
+        y:550, 
     }),
 ];
 
 const WORLD_PAUSE_SIDEBAR_BUTTONS = [
     new buttonClass({
-        label: "Unpause",
+        label: "Game Options (stub)",
         padding: 1,
-        onClick: function() { 
-            Unpause('world');
+        onClick: function() {
+            // Add game options functionality request here
+        },
+        highlightIf: function() {
+            return false;
+            // Once no longer a stub for a game options menu, uncomment the highlight functionality
+            // return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
+        x:605,
+        y:430, 
+    }),
+
+    new buttonClass({
+        label: "Edit World Map",
+        padding: 1,
+        onClick: function() {
+            requestEditorMode('world');
         },
         highlightIf: function() {
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
-        x:650,
-        y:550, 
+        x:605,
+        y:470, 
+    }),
+
+    new buttonClass({
+        label: "Unpause (P)",
+        padding: 1,
+        onClick: function() { 
+            return togglePauseMode();
+        },
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
+        x:605,
+        y:310, 
     }),
 ];
 
 const BATTLE_PAUSE_SIDEBAR_BUTTONS = [
     new buttonClass({
-        label: "Unpause",
+        label: "Game Options (stub)",
         padding: 1,
         onClick: function() {
-            Unpause('battle');
+            // Add game options functionality request here
+        },
+        highlightIf: function() {
+            return false;
+            // Once no longer a stub for a game options menu, uncomment the highlight functionality
+            // return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
+        x:605,
+        y:470, 
+    }),
+    new buttonClass({
+        label: "Edit Battle Map",
+        padding: 1,
+        onClick: function() {
+            requestEditorMode('battle');
         },
         highlightIf: function() {
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
-        x:650,
+        x:605,
+        y:470, 
+    }),
+    new buttonClass({
+        label: "Unpause (P)",
+        padding: 1,
+        onClick: function() {
+            return togglePauseMode();
+        },
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
+        x:605,
+        y:310, 
+    }),
+    new buttonClass({
+        label: "Surrender",
+        padding: 1,
+        onClick: function() {
+            setupBattleMode(); // get a new map for next battle mode
+            requestWorldMode('battle');
+        },
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
+        x:605,
         y:550, 
     }),
 ];

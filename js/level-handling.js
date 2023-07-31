@@ -48,6 +48,23 @@ function setupWorldMode() {
     }
 }
 
+function requestWorldMode() {
+    if (battleMode) {
+        setupWorldMode();
+    }
+}
+
+function endTurn() {
+    // TODO: extract to own function, once I find a good place to put it
+    console.log("clicked end turn");
+    playerTurn = !playerTurn;
+    enemyTurn = !enemyTurn;
+
+    for(const army of allArmies) {
+        army.currentMovementPoints = army.maxMovementPoints;
+    }
+}
+
 function setupBattleMode() {
     console.log("entering battle mode");
     editorMode = false;
@@ -71,6 +88,12 @@ function setupBattleMode() {
     // TODO: determine player/enemy start units
     populateTeam(playerUnits, PLAYER_START_UNITS, true);
     populateTeam(enemyUnits, ENEMY_START_UNITS, false);
+}
+
+function requestBattleMode() { 
+    if (!battleMode) {
+        setupBattleMode();
+    }
 }
 
 function resumeBattleMode() {
@@ -121,6 +144,14 @@ function setupEditorMode(battleOrWorld="world") {
     
 }
 
+function requestEditorMode() {
+    if(battleMode) {
+        setupEditorMode('battle');
+    } else {
+        setupEditorMode('world');
+    }
+}
+
 function setupPauseMode(battleOrWorld='world') {
     console.log("entering pause mode");
     pauseMode = true
@@ -143,6 +174,23 @@ function setupPauseMode(battleOrWorld='world') {
 
     level_width = LEVEL_TILE_W * level_cols;
     level_height = LEVEL_TILE_H * level_rows;
+}
+
+function togglePauseMode() {
+    if(pauseMode) {
+        if (battleMode) {
+            Unpause('battle');
+        } else {
+            Unpause('world');
+        }
+    } else {
+        if (battleMode) {
+            setupPauseMode('battle');
+        } else {
+            setupPauseMode('world');
+        }
+    }
+    console.log("pauseMode = ", pauseMode);
 }
 
 function Unpause(battleOrWorld='world') {

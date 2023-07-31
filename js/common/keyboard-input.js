@@ -18,39 +18,18 @@ function keyReleased(evt) {
 	// console.log("released " + evt.keyCode);
 
 	if( evt.keyCode === 66 ) { // key: b
-		if (!battleMode) {
-			setupBattleMode();
-		}
+		requestBattleMode();
 	}
 
 	if(evt.keyCode === 87 ) { // key: w
-		if (battleMode) {
-			setupWorldMode();
-		}
+		requestWorldMode();
 	}
 
 	if(evt.keyCode === 69 ) { // key: e
-        if(battleMode) {
-            setupEditorMode('battle');
-        } else {
-            setupEditorMode('world');
-        }
+		requestEditorMode();
 	}
 
 	if(evt.keyCode === 80 ) { // key: p
-        if(pauseMode) {
-			if (battleMode) {
-            	Unpause('battle');
-        	} else {
-	            Unpause('world');
-			}
-        } else {
-			if (battleMode) {
-            	setupPauseMode('battle');
-        	} else {
-	            setupPauseMode('world');
-			}
-		}
-		console.log("pauseMode = ", pauseMode);
+		togglePauseMode();
 	}
 }
