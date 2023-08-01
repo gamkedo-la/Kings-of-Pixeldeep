@@ -92,7 +92,30 @@ function drawMiniMap() {
     colorText("cols,rows: "+level_cols+","+level_rows, MINI_MAP_START_X, 
 	MINI_MAP_START_Y + 300, "white");
 	*/
-}
+
+    if(!battleMode) {
+        // TODO: draw cities & armies
+    }
+
+    if(battleMode) {
+        for(const unit of allUnits) {
+            let unitMiniMapX = (unit.x / miniMapXScaleFactor) + MINI_MAP_START_X;
+            let unitMiniMapY = (unit.y / miniMapYScaleFactor) + MINI_MAP_START_Y;
+            let unitMiniMapBoxSize = 3;
+
+            let unitColor = "yellow";
+            if(!unit.playerControlled) {
+                unitColor = "red";
+            }
+
+            colorRect(unitMiniMapX, unitMiniMapY,
+                unitMiniMapBoxSize, unitMiniMapBoxSize,
+                unitColor);
+        } // end for loop
+
+    } // end if battleMode
+
+} // end function
 
 function handleMiniMapClick(mousePos) {
     var miniMapXScaleFactor = (level_cols * LEVEL_TILE_W) / MINI_MAP_WIDTH;
