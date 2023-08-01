@@ -229,7 +229,9 @@ function unitClass() {
       //colorCircle(this.x,this.y, UNIT_PLACEHOLDER_RADIUS, this.unitColor);
      // drawBitmapCenteredWithRotation(yellowPeasantUnitSingleFrame, this.x, this.y, moveAng)
       drawBitmapCenteredWithRotation(redPeasantUnitSingleFrame, this.x, this.y, moveAng)
-      colorText(this.moveDirection, this.x,this.y, "blue");
+        if(gameOptions.showDebug) {
+            colorText(this.moveDirection, this.x,this.y, "blue");
+        }
     } else {
       colorCircle(this.x,this.y, UNIT_PLACEHOLDER_RADIUS, "yellow");
     }
