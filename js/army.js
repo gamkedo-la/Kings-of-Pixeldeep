@@ -13,6 +13,8 @@ function armyClass(configObj) {
     this.maxMovementPoints = 10;
     this.currentMovementPoints = 10;
     this.currentPath = null; // pathfinding data in the form [[x,y],[x,y],etc]
+    this.pathAnimPercent = 1; // 0..1 so we can travel along the path
+    this.pathAnimSpeed = 0.02; // percent per frame
 
     this.troops = {
       archers: 0,
@@ -45,10 +47,49 @@ function armyClass(configObj) {
   
     this.x = function() {
         //console.log("calling this.x");
+
+        // if we have an existing path, travel it over time
+        // note that this does not change what tile we are on:
+        // for game logic we are already at the destination tile
+        // this is the reported sprite location which animates
+        if (this.pathAnimPercent < 1) {
+            if (this.animatingPath && this.animatingPath.length>1) {
+                let pathIndexFloat = (this.animatingPath.length-1)*this.pathAnimPercent;
+                let pathIndex = Math.floor(pathIndexFloat);
+                let x1 = this.animatingPath[pathIndex][0];
+                let x2 = this.animatingPath[pathIndex+1][0];
+                let remainder = pathIndexFloat - pathIndex;
+                let xpos = (x1+((x2-x1)*remainder))*LEVEL_TILE_H;
+                xpos += LEVEL_TILE_W/2;
+                //console.log("animated xpos="+xpos);
+                return xpos;
+            }
+        }
+
+        // default: the current tile destination
         return (this.worldCol * LEVEL_TILE_W) + (LEVEL_TILE_W / 2);
     }
     this.y = function() {
         //console.log("calling this.y");
+
+        // if we have an existing path, travel it over time
+        // note that this does not change what tile we are on:
+        // for game logic we are already at the destination tile
+        // this is the reported sprite location which animates
+        if (this.pathAnimPercent < 1) {
+            if (this.animatingPath && this.animatingPath.length>1) {
+                let pathIndexFloat = (this.animatingPath.length-1)*this.pathAnimPercent;
+                let pathIndex = Math.floor(pathIndexFloat);
+                let y1 = this.animatingPath[pathIndex][1];
+                let y2 = this.animatingPath[pathIndex+1][1];
+                let remainder = pathIndexFloat - pathIndex;
+                let ypos = (y1+((y2-y1)*remainder))*LEVEL_TILE_H;
+                ypos += LEVEL_TILE_H/2;
+                //console.log("animated ypos="+ypos);
+                return ypos;
+            }
+        }
+
         return (this.worldRow * LEVEL_TILE_H) + (LEVEL_TILE_H / 2);
     }
 
@@ -64,6 +105,8 @@ function armyClass(configObj) {
     this.setPosition = function(col,row) {
         this.worldCol = col;
         this.worldRow = row;
+        this.pathAnimPercent = 0; // start animating movement along path
+        console.log("setting army position to tile "+col+","+row+" and starting path movement anim");
     }
 
     // the results of pathfinding are sent here
@@ -111,6 +154,7 @@ function armyClass(configObj) {
             this.setPosition(newCol, newRow);
 
             this.currentMovementPoints -= this.currentPath.length;
+            this.animatingPath = this.currentPath.slice(); // duplicate
             this.currentPath = null;
 
             if(isEnemyArmyAtPosition(newCol, newRow)) {
@@ -129,7 +173,13 @@ function armyClass(configObj) {
     }
 
     this.draw = function() {
-        // TODO: fix
+
+        // keeps animating until this goes over 1
+        if (this.pathAnimPercent < 1) {
+            this.pathAnimPercent += this.pathAnimSpeed;
+            //console.log("this.pathAnimPercent="+this.pathAnimPercent.toFixed(2));
+        }
+
         if(selectedArmy && (selectedArmy.name == this.name)) {
             colorRect(
             this.x() - LEVEL_TILE_W/2,
@@ -158,14 +208,13 @@ function armyClass(configObj) {
                         let circleColor = 'white';
 
                         if(n > this.currentMovementPoints) {
-                            circleColor = 'darkgrey';
+                            circleColor = 'black';
                         }
 
                         colorCircle(x + (LEVEL_TILE_W / 2),
                             y + (LEVEL_TILE_H / 2),
                             8, circleColor);
                     } // end else
-
 
                 } // end for
             } // end if

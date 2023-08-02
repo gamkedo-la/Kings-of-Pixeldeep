@@ -125,7 +125,7 @@ function levelGridPathfind(ax,ay,bx,by)
 	{	
 		// we add the extra cost of the tile as extra distance
         let extraCost = tileDistExtraCost(Goal.x,Goal.y);
-        if (extraCost) console.log("extra cost for "+Goal.x+","+Goal.y+"="+extraCost);
+        //if (extraCost) console.log("extra cost for "+Goal.x+","+Goal.y+"="+extraCost);
         return extraCost + abs(Point.x - Goal.x) + abs(Point.y - Goal.y);
 	}
 
