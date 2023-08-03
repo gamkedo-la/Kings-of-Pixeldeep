@@ -370,16 +370,11 @@ function isClickInBox(mousePos, x1,y1, x2,y2) {
 }
 
 function handleMainWindowClick(mousePos, evt) {
-    //console.log(mousePos);
+    console.log(evt);
     if(battleMode && !editorMode) {
         return; 
         // mouseup, mousedown, & rightClick handlers take care of most battle layer stuff
     } 
-
-    // test pathfinding code - TODO add to army class and change move to use path array to tween the path
-    //if (TEST_PATHFINDING) {
-    // // moved up to mousemoveHandler
-    //}
 
     var clickedIdx = worldIdxFromMousePos(mousePos);
     //var tileKindClicked = [clickedIdx];
@@ -399,15 +394,19 @@ function handleMainWindowClick(mousePos, evt) {
                 openCityPanel(playerCities[i]);
             }
         }
+
         if(selectedArmy === null) {
             for(var i=0;i<playerArmies.length;i++) {
                 if(playerArmies[i].worldIdx() == clickedIdx) {
                     selectedArmy = playerArmies[i];
                 }
             }
-        } else {
+        } else { // we have a selected army
             selectedArmy.move(clickedIdx);
+            // NOTE: code for right-click to deselect army is in 
+            // rightClickHandler() function
         }
+
     }
 
     /*
@@ -505,7 +504,15 @@ function rightClickHandler(evt) {
             attackOrMoveToMousePos(evt);
         }
     }
-}
+
+    if(!battleMode && !editorMode) {
+        // right clicking while an army is selected in world mode deselects it
+        if(selectedArmy) {
+            selectedArmy.currentPath = null;
+            selectedArmy = null;
+        }
+    } // end if
+} // end function
 
 function mouseleaveHandler(evt) {
     camPanDeltaX = 0;

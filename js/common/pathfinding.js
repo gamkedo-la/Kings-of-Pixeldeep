@@ -9,7 +9,7 @@
 // add all traverseable map tile indeces to this array, a list of levelGrid sprite numbers
 var walkableTiles = [
     // see js/common/global-vars.js for these numeric const definitions
-    //WORLD_FOREST, 
+    WORLD_FOREST, 
     WORLD_GRASS,
     WORLD_FARM,
     WORLD_SHALLOWS,
@@ -17,7 +17,8 @@ var walkableTiles = [
 
 // optional walkable tiles that add extra distance (movement cost) when entering
 var walkableTileExtraCosts = [];
-walkableTileExtraCosts[WORLD_FARM] = 100; 
+walkableTileExtraCosts[WORLD_FOREST] = 100; 
+walkableTileExtraCosts[WORLD_FARM] = 50; 
 walkableTileExtraCosts[WORLD_SHALLOWS] = 20; 
 
 // the result is in the form [[x,y],[x,y],etc];

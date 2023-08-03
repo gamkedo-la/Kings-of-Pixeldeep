@@ -150,7 +150,6 @@ function armyClass(configObj) {
         if(canMoveToTarget && !pauseMode) {
             console.log(level_cols, clickedIdx, "moving "+ this.name + " to tile (" + newRow + "," + newCol +")");
 
-            // TODO: tween based off path
             this.setPosition(newCol, newRow);
 
             this.currentMovementPoints -= this.currentPath.length;
@@ -190,36 +189,35 @@ function armyClass(configObj) {
             );
         }
 
-        //if (TEST_PATHFINDING) {
-            if (this.currentPath && this.currentPath.length) {
-                for (let n=0; n<this.currentPath.length; n++) {
-                    let x = this.currentPath[n][0]*LEVEL_TILE_W+2;
-                    let y = this.currentPath[n][1]*LEVEL_TILE_H+2;
-                    //console.log("drawing a pathfinding tile at "+x+","+y);
-                    //outlineRect(x,y,LEVEL_TILE_W-4,LEVEL_TILE_H-4,"rgba(20,255,20,0.2)");
-                    // Temp army path hover indicators
-                    // TODO: indicate army remaining MP by coloring circles & end icon
-                    if(n === this.currentPath.length - 1) {
-                        let boxShrinkPx = 10;
-                        colorRect(x + boxShrinkPx, y + boxShrinkPx,
-                            LEVEL_TILE_W - boxShrinkPx, LEVEL_TILE_H - boxShrinkPx,
-                            'white');
-                    } else {
-                        let circleColor = 'white';
+        if (this.currentPath && this.currentPath.length) {
+            for (let n=0; n<this.currentPath.length; n++) {
+                let x = this.currentPath[n][0]*LEVEL_TILE_W+2;
+                let y = this.currentPath[n][1]*LEVEL_TILE_H+2;
+                //console.log("drawing a pathfinding tile at "+x+","+y);
+                //outlineRect(x,y,LEVEL_TILE_W-4,LEVEL_TILE_H-4,"rgba(20,255,20,0.2)");
 
-                        if(n > this.currentMovementPoints) {
-                            circleColor = 'black';
-                        }
+                let indicatorColor = 'white';
 
-                        colorCircle(x + (LEVEL_TILE_W / 2),
-                            y + (LEVEL_TILE_H / 2),
-                            8, circleColor);
-                    } // end else
+                // not sure why, but subtracting 1 here stops the tile
+                // after the army's last movement point being the wrong color
+                if(n > this.currentMovementPoints - 1) { 
+                    indicatorColor = 'black';
+                }
+                // Temp army path hover indicators
+                if(n === this.currentPath.length - 1) {
+                    let boxShrinkPx = 10;
+                    colorRect(x + boxShrinkPx, y + boxShrinkPx,
+                        LEVEL_TILE_W - boxShrinkPx, LEVEL_TILE_H - boxShrinkPx,
+                        indicatorColor);
+                } else {
+                    colorCircle(x + (LEVEL_TILE_W / 2),
+                        y + (LEVEL_TILE_H / 2),
+                        8, indicatorColor);
+                } // end else
 
-                } // end for
-            } // end if
+            } // end for
+        } // end if
 
-        //} // end if(TEST_PATHFINDING)
 
         drawBitmapCenteredWithRotation(this.picToUse(), this.x(),this.y(), 0);
 
