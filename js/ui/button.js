@@ -41,6 +41,7 @@ function buttonClass(configObj) {
 
         if(this.highlightIf()) {
             colorRect(this.x+3,this.y+3, this.width-6,this.height-6, "cyan");
+            buttonHoverSound.play();
         }
 
         this.drawButtonLabel();
@@ -77,4 +78,5 @@ function buttonClass(configObj) {
 
 function testButton() {
     console.log("Button pressed");
+    buttonClickSound.play();
 }

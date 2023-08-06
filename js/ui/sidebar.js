@@ -45,11 +45,17 @@ function handleSidebarButtonClick(mousePos) {
 }
 
 function isClickOnButton(mousePos, button) {
-
-    return isClickInBox(mousePos,
+    var clickedOnButton = isClickInBox(mousePos,
 	button.x, button.y,
 	button.x + button.width, button.y + button.height,
     );
+
+    if (clickedOnButton) {
+        if (buttonClickSound != null) {
+            buttonClickSound.play();
+        }
+    }   
+
     /*
     if(mousePos.x < button.x) {
 	//console.log("click is left of button");
@@ -70,6 +76,6 @@ function isClickOnButton(mousePos, button) {
     return true;
     */
 
-
+    return clickedOnButton;
 }
 

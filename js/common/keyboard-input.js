@@ -12,6 +12,7 @@ function keyPressed(evt) {
 	// b: 66 (battle)
 	// w: 87 (world)
 
+	toggleUserInteractStage();
 }
 
 function keyReleased(evt) {
@@ -31,5 +32,9 @@ function keyReleased(evt) {
 
 	if(evt.keyCode === 80 ) { // key: p
 		togglePauseMode();
+	}
+
+	if(evt.keyCode === 77 ) { // key: m
+		toggleAudioMute();
 	}
 }

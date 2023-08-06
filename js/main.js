@@ -2,6 +2,12 @@ var canvas, canvasContext;
 var playerTurn = true;
 var enemyTurn = false;
 
+// to handle Chrome pause on start audio
+const USER_INTERACT_STAGE_NONE = 0;
+const USER_INTERACT_STAGE_START = 1;
+const USER_INTERACT_STAGE_CONTINUED = 2;
+var userInteractStage = USER_INTERACT_STAGE_NONE;
+
 var sliderTest = new sliderClass({
     x: 300,
     y: 300,
@@ -15,8 +21,7 @@ window.onload = function() {
     colorText("Loading...", canvas.width/2,canvas.height/2, "white");
 
     loadImages();
-    //loadSounds();
-
+    loadSounds();
 }
 
 function imageLoadingDoneSoStartGame() {
@@ -157,5 +162,14 @@ function camDebug() {
             CamPanDelta: (${camPanDeltaX},${camPanDeltaY}) <br>`;
             //"CamPan: ("+ camPanX + "," + camPanY ") <br>" +
             //"CamPanDelta: ("+ camPanDeltaX +","+ camPanDeltaY + ") <br>";
+    }
+}
+
+function toggleUserInteractStage() {
+    if (userInteractStage === USER_INTERACT_STAGE_NONE) {
+        userInteractStage = USER_INTERACT_STAGE_START;
+        playStartupMusic();
+    } else if (userInteractStage === USER_INTERACT_STAGE_START) {
+        userInteractStage = USER_INTERACT_STAGE_CONTINUED;
     }
 }
