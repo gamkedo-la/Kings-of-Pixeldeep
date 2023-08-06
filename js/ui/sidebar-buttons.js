@@ -42,7 +42,7 @@ const WORLD_SIDEBAR_BUTTONS = [
         highlightIf: function() {
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
-        x:605,
+        x:642,
         y:510, 
     }),
 
