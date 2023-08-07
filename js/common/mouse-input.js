@@ -67,13 +67,13 @@ function mousemoveHandler(evt) {
     if(editorMode && mouseInMainWindow(mousePos)) {
         //drawHoverBox(mousePos);
         hoverPos = mousePos;// see editor.js for hoverPos usage
-    } else if(selectedArmy) {
+    } else if(selectedWorldEntity) {
         hoverPos = mousePos;
 
-        if (selectedArmy) {
+        if (selectedWorldEntity && selectedWorldEntity instanceof armyClass) {
             // map tile coordinates
-            let ax = selectedArmy.worldCol;
-            let ay = selectedArmy.worldRow;
+            let ax = selectedWorldEntity.worldCol;
+            let ay = selectedWorldEntity.worldRow;
             let bx = Math.floor( (mousePos.levelX) / LEVEL_TILE_W);
             let by = Math.floor( (mousePos.levelY) / LEVEL_TILE_H);    
             let path = levelGridPathfind(ax,ay,bx,by);
@@ -82,7 +82,7 @@ function mousemoveHandler(evt) {
             } else {
                 console.log("levelGridPathfind found NO path possible.");
             }
-            selectedArmy.setMovementPath(path);
+            selectedWorldEntity.setMovementPath(path);
         }
     } else if(hoverPos !== null) {
         hoverPos = null;
@@ -395,18 +395,21 @@ function handleMainWindowClick(mousePos, evt) {
         for(var i=0;i<playerCities.length;i++) {
             if(playerCities[i].worldIdx() == clickedIdx) {
                 //console.log("clicked on ", playerCities[i].name);
-                openCityPanel(playerCities[i]);
+                //openCityPanel(playerCities[i]);
+                selectedWorldEntity = playerCities[i];
             }
         }
 
-        if(selectedArmy === null) {
+        if(selectedWorldEntity === null || !selectedWorldEntity instanceof armyClass) {
             for(var i=0;i<playerArmies.length;i++) {
                 if(playerArmies[i].worldIdx() == clickedIdx) {
-                    selectedArmy = playerArmies[i];
+                    selectedWorldEntity = playerArmies[i];
                 }
             }
-        } else { // we have a selected army
-            selectedArmy.move(clickedIdx);
+        } 
+
+        if(selectedWorldEntity instanceof armyClass) {
+            selectedWorldEntity.move(clickedIdx);
             // NOTE: code for right-click to deselect army is in 
             // rightClickHandler() function
         }
@@ -510,10 +513,10 @@ function rightClickHandler(evt) {
     }
 
     if(!battleMode && !editorMode) {
-        // right clicking while an army is selected in world mode deselects it
-        if(selectedArmy) {
-            selectedArmy.currentPath = null;
-            selectedArmy = null;
+        // right clicking while an army (or city) is selected in world mode deselects it
+        if(selectedWorldEntity) {
+            selectedWorldEntity.currentPath = null;
+            selectedWorldEntity = null;
         }
     } // end if
 } // end function

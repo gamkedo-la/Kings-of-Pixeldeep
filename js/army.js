@@ -17,9 +17,10 @@ function armyClass(configObj) {
     this.pathAnimSpeed = 0.02; // percent per frame
 
     this.troops = {
-      archers: 0,
-      spearmen: 0,
-      horsemen: 0,
+        peasants: 0,
+        archers: 0,
+        spearmen: 0,
+        horsemen: 0,
     }
 
     if(configObj) {
@@ -161,15 +162,10 @@ function armyClass(configObj) {
             }
 
             // deselect army
-            selectedArmy = null;
+            selectedWorldEntity = null;
         }
 
     } // end this.move()
-
-    this.onClick = function() {
-        // select and move
-        // EDIT: now handled in handleMainWindowClick()
-    }
 
     this.draw = function() {
 
@@ -179,7 +175,8 @@ function armyClass(configObj) {
             //console.log("this.pathAnimPercent="+this.pathAnimPercent.toFixed(2));
         }
 
-        if(selectedArmy && (selectedArmy.name == this.name)) {
+        if(selectedWorldEntity && (selectedWorldEntity.name == this.name) &&
+            selectedWorldEntity instanceof armyClass) {
             colorRect(
             this.x() - LEVEL_TILE_W/2,
             this.y() - LEVEL_TILE_H/2,

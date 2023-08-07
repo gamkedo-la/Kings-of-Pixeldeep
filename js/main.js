@@ -1,4 +1,3 @@
-var canvas, canvasContext;
 var playerTurn = true;
 var enemyTurn = false;
 
@@ -115,6 +114,8 @@ function drawUnits() {
 function drawUI() {
     drawSidebar();
     drawMiniMap();
+    drawTopbar();
+
     if(editorMode) {
         drawHoverBox();
     }

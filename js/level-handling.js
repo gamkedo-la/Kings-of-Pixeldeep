@@ -55,13 +55,19 @@ function requestWorldMode() {
 }
 
 function endTurn() {
-    // TODO: extract to own function, once I find a good place to put it
     console.log("clicked end turn");
+    // TODO: only increment turn number if _player_ is ending turn, not enemy, once that matters
+    turnNumber++;
+
     playerTurn = !playerTurn;
     enemyTurn = !enemyTurn;
 
     for(const army of allArmies) {
         army.currentMovementPoints = army.maxMovementPoints;
+    }
+
+    for(const city of playerCities) {
+        city.produceAndGrow();
     }
 }
 
