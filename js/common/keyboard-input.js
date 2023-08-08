@@ -12,6 +12,7 @@ function keyPressed(evt) {
 	// b: 66 (battle)
 	// w: 87 (world)
 	// d: 68 (debug)
+	// g: 71 (grid)
 
 	toggleUserInteractStage();
 }
@@ -41,5 +42,9 @@ function keyReleased(evt) {
 
 	if (evt.keyCode === 68) { // key: d
 		gameOptions.showDebug = !gameOptions.showDebug;
+	}
+
+	if (evt.keyCode === 71) { // key: g
+		gameOptions.showGrid = !gameOptions.showGrid;
 	}
 }
