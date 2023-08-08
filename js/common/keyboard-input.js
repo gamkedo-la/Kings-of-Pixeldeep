@@ -11,6 +11,7 @@ function keyPressed(evt) {
 	// e: 69 (editor)
 	// b: 66 (battle)
 	// w: 87 (world)
+	// d: 68 (debug)
 
 	toggleUserInteractStage();
 }
@@ -18,23 +19,27 @@ function keyPressed(evt) {
 function keyReleased(evt) {
 	// console.log("released " + evt.keyCode);
 
-	if( evt.keyCode === 66 ) { // key: b
+	if (evt.keyCode === 66) { // key: b
 		requestBattleMode();
 	}
 
-	if(evt.keyCode === 87 ) { // key: w
+	if (evt.keyCode === 87) { // key: w
 		requestWorldMode();
 	}
 
-	if(evt.keyCode === 69 ) { // key: e
+	if (evt.keyCode === 69) { // key: e
 		requestEditorMode();
 	}
 
-	if(evt.keyCode === 80 ) { // key: p
+	if (evt.keyCode === 80) { // key: p
 		togglePauseMode();
 	}
 
-	if(evt.keyCode === 77 ) { // key: m
+	if (evt.keyCode === 77) { // key: m
 		toggleAudioMute();
+	}
+
+	if (evt.keyCode === 68) { // key: d
+		gameOptions.showDebug = !gameOptions.showDebug;
 	}
 }
