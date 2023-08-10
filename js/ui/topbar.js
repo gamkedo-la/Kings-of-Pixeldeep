@@ -7,21 +7,20 @@ function drawTopbar() {
     let topBarWidth = canvas.width - MINI_MAP_WIDTH;
 
     // background
-    colorRect(0, 0, 
-        topBarWidth, TOPBAR_HEIGHT, 
-        'grey');
+    canvasContext.drawImage(guiTopBarBackdrop,0,0);
 
     // TODO: move pause button to left of topbar
 
-    // show turn number
-    colorText("Turn: "+turnNumber, 
-        (topBarWidth / 2) - 15, (TOPBAR_HEIGHT / 2) + TOPBAR_TEXT_VERT_OFFSET,
-        'black');
+    // set the font
+    canvasContext.font = "Bold 15px Serif"; // easier to read
 
-    if(playerGold) {
-        // show player gold
-        colorText("Gold: "+playerGold, 
-            topBarWidth - 100, (TOPBAR_HEIGHT / 2) + TOPBAR_TEXT_VERT_OFFSET,
-            'black');
-    }
+    // show map state (battle or overworld)
+    colorTextShadow((battleMode?"Battle Mode":"World Mode"),34,(TOPBAR_HEIGHT/2)+TOPBAR_TEXT_VERT_OFFSET,'white');
+
+    // show turn number
+    colorTextShadow("Turn: "+turnNumber,(topBarWidth/2)-20,(TOPBAR_HEIGHT/2)+TOPBAR_TEXT_VERT_OFFSET,'white');
+
+    // show player gold
+    colorTextShadow("Gold: "+(playerGold?playerGold:0),topBarWidth-100,(TOPBAR_HEIGHT/2)+TOPBAR_TEXT_VERT_OFFSET,'white');
+
 }

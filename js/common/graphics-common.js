@@ -46,6 +46,12 @@ function colorText(showWords, textX,textY, fillColor) {
     canvasContext.fillText(showWords, textX,textY);
 }
 
+function colorTextShadow(showWords, textX,textY, fillColor) {
+    colorText(showWords,textX+1,textY+1,"black")
+    colorText(showWords,textX,textY,fillColor)
+}
+
+
 /*
 function drawText(fontSize, color, textAlign, text, x, y){
   canvasContext.save();

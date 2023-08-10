@@ -110,6 +110,10 @@ function toggleAudioMute() {
 
 function playStartupMusic() {
     // add a ended listener to startup music to play loop music after it finishes
+    if (!startupMusic.musicSound) {
+        console.error("startupMusic.musicSound is null!");
+        return;
+    }
     startupMusic.musicSound.addEventListener("ended", function() {
         currentMusic = loopMusic;
         if (currentMusic != null) {
