@@ -7,11 +7,15 @@ const SIDEBAR_WIDTH = 200;
 var currentSidebarButtons = [];
 
 function drawSidebar() {
-    colorRect(canvas.width-SIDEBAR_WIDTH,MINI_MAP_HEIGHT, 
-	SIDEBAR_WIDTH,canvas.height, 'grey');
+    
+    colorRect(canvas.width-SIDEBAR_WIDTH,MINI_MAP_HEIGHT,SIDEBAR_WIDTH,canvas.height, 'grey');
 
+    // draw background
+    canvasContext.drawImage(guiSideBarBackdrop,canvas.width-SIDEBAR_WIDTH,0);
+
+    // draw all buttons
     for(const button of currentSidebarButtons) {
-	button.draw();
+    	button.draw();
     }
     /*
     if(battleMode == false && editorMode == false) {

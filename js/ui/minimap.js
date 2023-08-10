@@ -115,6 +115,10 @@ function drawMiniMap() {
 
     } // end if battleMode
 
+    // draw wooden bezel overlay
+    canvasContext.drawImage(guiSideBarBackdrop,0,0,MINI_MAP_WIDTH,MINI_MAP_HEIGHT,canvas.width-MINI_MAP_WIDTH,0,MINI_MAP_WIDTH,MINI_MAP_HEIGHT);
+
+
 } // end function
 
 function handleMiniMapClick(mousePos) {
