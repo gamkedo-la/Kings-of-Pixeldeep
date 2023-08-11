@@ -42,8 +42,8 @@ const WORLD_SIDEBAR_BUTTONS = [
         highlightIf: function() {
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
-        x:642,
-        y:510, 
+        x:625,
+        y:450, 
     }),
 
     new buttonClass({
@@ -55,8 +55,8 @@ const WORLD_SIDEBAR_BUTTONS = [
         highlightIf: function() {
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
-        x:642,
-        y:550, 
+        x:625,
+        y:525, 
     }),
 ];
 
@@ -73,6 +73,9 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:605,
         y:210, 
+        width:150,
+        height:25,
+        paddingPx:7
     }),
     new buttonClass({
         label: "Forest", 
@@ -85,6 +88,9 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:605,
         y:250, 
+        width:150,
+        height:25,
+        paddingPx:7
     }),
 
     new buttonClass({
@@ -98,6 +104,9 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:605,
         y:290, 
+        width:150,
+        height:25,
+        paddingPx:7
     }),
 
     new buttonClass({
@@ -111,6 +120,9 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:605,
         y:330, 
+        width:150,
+        height:25,
+        paddingPx:7
     }),
 
     new buttonClass({
@@ -124,6 +136,9 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:605,
         y:370, 
+        width:150,
+        height:25,
+        paddingPx:7
     }),
 
     new buttonClass({
@@ -137,6 +152,9 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:605,
         y:410, 
+        width:150,
+        height:25,
+        paddingPx:7
     }),
 
 // Brush Size Buttons
@@ -151,6 +169,9 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:740,
         y:210, 
+        width:50,
+        height:25,
+        paddingPx:7
     }),
 
     new buttonClass({
@@ -164,7 +185,10 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:740,
         y:250, 
-    }),
+        width:50,
+        height:25,
+        paddingPx:7
+   }),
 
     new buttonClass({
         label: "5x5", 
@@ -177,6 +201,9 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:740,
         y:290, 
+        width:50,
+        height:25,
+        paddingPx:7
     }),
 
 // Utility Buttons
@@ -187,6 +214,9 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         onClick: testButton,
         x:602,
         y:470, 
+        width:50,
+        height:25,
+        paddingPx:7
     }),
 
     new buttonClass({
@@ -204,6 +234,9 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:660,
         y:470, 
+        width:50,
+        height:25,
+        paddingPx:7
     }),
 
     new buttonClass({
@@ -217,6 +250,9 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:730,
         y:470, 
+        width:50,
+        height:25,
+        paddingPx:7
     }),
 
     new buttonClass({
@@ -235,6 +271,9 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:620,
         y:510, 
+        width:150,
+        height:25,
+        paddingPx:7
     }),
 ];
 
@@ -248,8 +287,8 @@ const BATTLE_SIDEBAR_BUTTONS = [
         highlightIf: function() {
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
-        x:605,
-        y:510, 
+        x:625,
+        y:450, 
     }),
     new buttonClass({
         label: "Surrender",
@@ -261,8 +300,8 @@ const BATTLE_SIDEBAR_BUTTONS = [
         highlightIf: function() {
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
-        x:605,
-        y:550, 
+        x:625,
+        y:525, 
     }),
     //
     //new buttonClass({
@@ -290,6 +329,8 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:605,
         y:210, 
+        width:150,
+        height:25
     }),
     new buttonClass({
         label: "Tree", 
@@ -302,6 +343,8 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:605,
         y:245, 
+        width:150,
+        height:25
     }),
 
     new buttonClass({
@@ -315,6 +358,8 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:605,
         y:280, 
+        width:150,
+        height:25
     }),
 
     new buttonClass({
@@ -328,6 +373,8 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:605,
         y:315, 
+        width:150,
+        height:25
     }),
 
     new buttonClass({
@@ -341,6 +388,8 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:605,
         y:350, 
+        width:150,
+        height:25
     }),
 
     new buttonClass({
@@ -354,6 +403,8 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:605,
         y:385, 
+        width:150,
+        height:25
     }),
 
     new buttonClass({
@@ -367,6 +418,8 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:605,
         y:420, 
+        width:150,
+        height:25
     }),
 
 // Brush Size Buttons
@@ -381,6 +434,8 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:740,
         y:210, 
+        width:150,
+        height:25
     }),
 
     new buttonClass({
@@ -394,6 +449,8 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:740,
         y:250, 
+        width:150,
+        height:25
     }),
 
     new buttonClass({
@@ -407,6 +464,8 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:740,
         y:290, 
+        width:150,
+        height:25
     }),
 
 // Utility Buttons
@@ -422,6 +481,8 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:602,
         y:470, 
+        width:150,
+        height:25
     }),
 
     new buttonClass({
@@ -439,6 +500,9 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:660,
         y:470, 
+        width:150,
+        height:25
+
     }),
 
     new buttonClass({
@@ -452,7 +516,9 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:730,
         y:470, 
-    }),
+        width:150,
+        height:25
+   }),
 
     new buttonClass({
         label: "Leave Editor", 
@@ -470,6 +536,8 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         },
         x:620,
         y:550, 
+        width:150,
+        height:25
     }),
 ];
 
@@ -485,8 +553,8 @@ const WORLD_PAUSE_SIDEBAR_BUTTONS = [
             // Once no longer a stub for a game options menu, uncomment the highlight functionality
             // return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
-        x:605,
-        y:430, 
+        x:625,
+        y:450, 
     }),
 
     new buttonClass({
@@ -498,9 +566,9 @@ const WORLD_PAUSE_SIDEBAR_BUTTONS = [
         highlightIf: function() {
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
-        x:605,
-        y:470, 
-    }),
+        x:625,
+        y:525, 
+   }),
 
     new buttonClass({
         label: "Unpause (P)",
@@ -511,8 +579,8 @@ const WORLD_PAUSE_SIDEBAR_BUTTONS = [
         highlightIf: function() {
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
-        x:605,
-        y:310, 
+        x:625,
+        y:325, 
     }),
 ];
 
