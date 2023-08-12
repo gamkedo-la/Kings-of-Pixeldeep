@@ -8,6 +8,7 @@ function buttonClass(configObj) {
     this.fontSize = 15;
     this.font = "Bold 15px Serif";
     this.onClick = null;
+    this.hoverSoundPlayed = false;
 
     // these values are hardcoded to fit the background image
     // defaults are for BIG buttons (world move mode etc)
@@ -48,7 +49,13 @@ function buttonClass(configObj) {
 
         if(this.highlightIf()) {
             colorRect(this.x+3,this.y+3, this.width-6,this.height-6, "cyan");
-            buttonHoverSound.play();
+            if(this.hoverSoundPlayed == false){
+                this.hoverSoundPlayed = true;
+                buttonHoverSound.play();
+            }
+            
+        } else{
+            this.hoverSoundPlayed = false;
         }
 
         this.drawButtonLabel();
