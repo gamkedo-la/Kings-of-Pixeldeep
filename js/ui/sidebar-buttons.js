@@ -269,11 +269,8 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         highlightIf: function() {
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
-        x:620,
-        y:510, 
-        width:150,
-        height:25,
-        paddingPx:7
+        x:625,
+        y:525, 
     }),
 ];
 
@@ -580,7 +577,7 @@ const WORLD_PAUSE_SIDEBAR_BUTTONS = [
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:625,
-        y:325, 
+        y:375, 
     }),
 ];
 
@@ -633,8 +630,8 @@ const BATTLE_PAUSE_SIDEBAR_BUTTONS = [
         highlightIf: function() {
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
-        x:605,
-        y:550, 
+        x:625,
+        y:525, 
     }),
 ];
 
