@@ -7,11 +7,15 @@ const SIDEBAR_WIDTH = 200;
 var currentSidebarButtons = [];
 
 function drawSidebar() {
-    colorRect(canvas.width-SIDEBAR_WIDTH,MINI_MAP_HEIGHT, 
-	SIDEBAR_WIDTH,canvas.height, 'grey');
+    
+    colorRect(canvas.width-SIDEBAR_WIDTH,MINI_MAP_HEIGHT,SIDEBAR_WIDTH,canvas.height, 'grey');
 
+    // draw background
+    canvasContext.drawImage(guiSideBarBackdrop,canvas.width-SIDEBAR_WIDTH,0);
+
+    // draw all buttons
     for(const button of currentSidebarButtons) {
-	button.draw();
+    	button.draw();
     }
     /*
     if(battleMode == false && editorMode == false) {
@@ -45,11 +49,17 @@ function handleSidebarButtonClick(mousePos) {
 }
 
 function isClickOnButton(mousePos, button) {
-
-    return isClickInBox(mousePos,
+    var clickedOnButton = isClickInBox(mousePos,
 	button.x, button.y,
 	button.x + button.width, button.y + button.height,
     );
+
+    if (clickedOnButton) {
+        if (buttonClickSound != null) {
+            buttonClickSound.play();
+        }
+    }   
+
     /*
     if(mousePos.x < button.x) {
 	//console.log("click is left of button");
@@ -70,6 +80,6 @@ function isClickOnButton(mousePos, button) {
     return true;
     */
 
-
+    return clickedOnButton;
 }
 

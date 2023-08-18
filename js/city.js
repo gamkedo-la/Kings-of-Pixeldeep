@@ -1,4 +1,5 @@
 const POPULATION_GROWTH_RATE = 0.1;
+const POPULATION_GOLD_PRODUCE_RATE = 0.1;
 const CITY_TYPE_PLAYER = 1;
 const CITY_TYPE_ENEMY = 2;
 const CITY_TYPE_NEUTRAL = 3;
@@ -8,29 +9,10 @@ function cityClass(configObj) {
     // set default values
     this.worldRow = 3;
     this.worldCol = 3;
-    this.picToUse = cityPic;
+    this.citySpriteImg = cityPic;
     this.name = "Untitled City";
-    this.population = {
-        total: 100,
-        forestry: 30,
-        wheatFields: 30,
-        stables: 30,
-        mines: 10,
-        blacksmiths: 0,
-        /*
-        idle: function() {
-            return this.population.total - ( 
-                this.population.forestry +
-                this.population.wheatFields +
-                this.population.stables +
-                this.population.mines +
-                this.population.blacksmiths
-            );
-        },
-        */
-    };
+    this.population = 100;
     this.cityType = CITY_TYPE_NEUTRAL;
-    this.playerControlled = true;
 
     if(configObj) {
         for( const [key, val] of Object.entries(configObj) ) {
@@ -50,24 +32,24 @@ function cityClass(configObj) {
         //console.log("calling this.x");
         return (this.worldCol * LEVEL_TILE_W) + (LEVEL_TILE_W / 2);
     }
+
     this.y = function() {
         //console.log("calling this.y");
         return (this.worldRow * LEVEL_TILE_H) + (LEVEL_TILE_H / 2);
     }
 
+    this.produceAndGrow = function() {
+        if(this.cityType === CITY_TYPE_PLAYER) {
+            // produce
+            goldProduced = Math.round(this.population * POPULATION_GOLD_PRODUCE_RATE);
+            playerGold += goldProduced;
 
-    /*
-    this.setPosition = function(col,row) {
-        this.worldCol = col;
-        this.worldRow = row;
+            // grow
+            let newBirths = Math.round(100 * (1 + POPULATION_GROWTH_RATE));
+            this.population += newBirths;
+        }
     }
-    */
 
-    this.construct = function(cityName/*, imageToUse*/) {
-	    this.name = cityName;
-	    //this.cityImg = imageToUse; // if/when we have more than one
-    }
-	
     this.draw = function() {
         sX = sY = 0;
         if (this.cityType === CITY_TYPE_PLAYER) {
@@ -79,13 +61,8 @@ function cityClass(configObj) {
         }
 
         drawBitmapPartialCenteredWithRotation(
-            this.picToUse, this.x(), this.y(), LEVEL_TILE_W, LEVEL_TILE_H, 
+            this.citySpriteImg, this.x(), this.y(), LEVEL_TILE_W, LEVEL_TILE_H, 
             withAngle=0, sX, sY, LEVEL_TILE_W, LEVEL_TILE_H);
-
-        // TODO: draw city name under city? Debatable. Lords 2 doesn't, but...:shrug:
     }
     
-    this.onClick = function() {
-        openCityPanel(this);
-    }
 }

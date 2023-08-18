@@ -1,5 +1,7 @@
 // This file is for global vars that need to be initialized first so they can be 
 // more easily referenced by the rest of the code
+var canvas, canvasContext;
+var turnNumber = 1;
 
 // world terrain
 const WORLD_MOUNTAINS = 1;

@@ -12,6 +12,9 @@ var placeholderUnitWalk = document.createElement("img");
 var yellowPeasantUnitSingleFrame = document.createElement("img");
 var redPeasantUnitSingleFrame = document.createElement("img");
 var cityPanelBackdrop = document.createElement("img");
+var guiTopBarBackdrop = document.createElement("img");
+var guiSideBarBackdrop = document.createElement("img");
+
 var worldPics = [];
 var unitPics = [];
 
@@ -58,6 +61,10 @@ function loadImages() {
 		{varName: yellowPeasantUnitSingleFrame, theFile: "yellowUnitSingleframe.png"},
 		{varName: redPeasantUnitSingleFrame, theFile: "redUnitSingleframe.png"},
 		{varName: cityPanelBackdrop, theFile: "city_screen_backdrop.png"},
+
+        {varName: guiTopBarBackdrop, theFile: "gui_top_bar.png"},
+        {varName: guiSideBarBackdrop, theFile: "gui_side_bar.png"},
+        
 
 		/*
 		{worldType: WORLD_ROAD, theFile: "track_road.png"},
