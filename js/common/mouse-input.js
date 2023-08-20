@@ -38,8 +38,18 @@ function setupMouseInput() {
 function mousemoveHandler(evt) {
 
     if (MOUSE_MAP_PAN_ENABLED && isMouseMapPanning) {
-        camPanX -= evt.movementX;
-        camPanY -= evt.movementY;
+        //lerp camPanX and camPanY towards mouse position
+        function lerp(a,b,t) { return a+(b-a)*t; }
+        const lerpFactor = 0.6;
+        camPanX = lerp(camPanX, camPanX-evt.movementX, lerpFactor);
+        camPanY = lerp(camPanY, camPanY-evt.movementY, lerpFactor);
+
+        // round to nearest pixel
+        camPanX = Math.round(camPanX);
+        camPanY = Math.round(camPanY);
+
+       // camPanX -= evt.movementX;
+       // camPanY -= evt.movementY;
         currentMouseMapPanDist += Math.sqrt(evt.movementX*evt.movementX+evt.movementY*evt.movementY);
     }
 
