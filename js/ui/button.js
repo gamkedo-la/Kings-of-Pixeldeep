@@ -3,7 +3,7 @@ function buttonClass(configObj) {
     this.x = null;
     this.y = null;
     this.label = null;
-    this.color = 'rgba(255,255,255,0.1)'; //'#d3d3d3';
+    this.color = 'rgba(255,255,255,0.3)'; // faint white
     this.textColor = 'black';
     this.fontSize = 15;
     this.font = "Bold 15px Serif";
