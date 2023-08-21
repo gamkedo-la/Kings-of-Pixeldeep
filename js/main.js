@@ -119,9 +119,15 @@ function drawUI() {
     if(editorMode) {
         drawHoverBox();
     }
+
     if(!battleMode && showCityPanel) {
         drawCityPanel();
     }
+
+    if(!battleMode && showCreateArmyScreen) {
+        drawCreateArmyScreen();
+    }
+
     if(showSliderTest) {
         sliderTest.draw();
     }
