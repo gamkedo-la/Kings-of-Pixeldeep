@@ -6,6 +6,8 @@ var currentMusic = null;
 var startupMusic = null;
 var loopMusic = null;
 
+var userHasInteractedWithGame = false; // no sound allowed until the first click
+
 function setFormat() {
     var audio = new Audio();
     if (audio.canPlayType("audio/wav")) {
@@ -26,6 +28,10 @@ function SoundOverlapsClass(filenameWithPath) {
     var altSound = new Audio(filenameWithPath + audioFormat);
 
     this.play = function() {
+
+        // avoid browser errors due to autoplay permissions
+        if (!userHasInteractedWithGame) return;
+
         if (!audioMute) {
             if (altSoundTurn) {
               altSound.currentTime = 0;
@@ -44,6 +50,10 @@ function BackgroundMusicClass() {
     this.musicSound = null;
 
     this.loopSong = function(filenameWithPath) {
+
+        // avoid browser errors due to autoplay permissions
+        if (!userHasInteractedWithGame) return;
+
         // calling this to ensure that audioFormat is set before needed
         setFormat();
 
@@ -58,6 +68,10 @@ function BackgroundMusicClass() {
     }
 
     this.playSong = function(filenameWithPath) {
+
+        // avoid browser errors due to autoplay permissions
+        if (!userHasInteractedWithGame) return;
+
         setFormat();
 
         if (this.musicSound != null) {
@@ -71,6 +85,10 @@ function BackgroundMusicClass() {
     }
 
     this.startOrStopMusic = function() {
+
+        // avoid browser errors due to autoplay permissions
+        if (!userHasInteractedWithGame) return;
+
         if (this.musicSound != null) {
             this.musicSound.muted = audioMute;
             if (this.musicSound.paused) {

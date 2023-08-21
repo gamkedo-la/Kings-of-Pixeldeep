@@ -109,6 +109,8 @@ function mousemoveHandler(evt) {
 
 function mousedownHandler(evt) {
     
+    userHasInteractedWithGame = true; // sounds not allowed until 1st click
+    
     if (MOUSE_MAP_PAN_ENABLED && evt.button==2) { // right mouse button
         //console.log("starting a right-drag mouse map pan");
         isMouseMapPanning = true;
