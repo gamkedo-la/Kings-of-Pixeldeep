@@ -159,7 +159,8 @@ function requestEditorMode() {
 }
 
 function setupPauseMode(battleOrWorld='world') {
-    console.log("entering pause mode");
+    
+    console.log("entering pause mode. editorMode is",editorMode);
     pauseMode = true
 
     if (!editorMode) {
@@ -196,7 +197,7 @@ function togglePauseMode() {
             setupPauseMode('world');
         }
     }
-    console.log("pauseMode = ", pauseMode);
+    console.log("pauseMode =", pauseMode);
 }
 
 function Unpause(battleOrWorld='world') {
