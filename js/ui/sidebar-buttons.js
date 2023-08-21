@@ -615,7 +615,7 @@ const WORLD_PAUSE_SIDEBAR_BUTTONS = [
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:BUTTON_X,
-        y:525, 
+        y:300, 
    }),
 
     new buttonClass({
