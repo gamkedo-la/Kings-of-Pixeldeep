@@ -48,6 +48,7 @@ const WORLD_SIDEBAR_BUTTONS = [
         label: "Pause (P)",
         padding: 1,
         onClick: function() { 
+            console.log("button clicked: "+this.label);
             return togglePauseMode();
         },
         highlightIf: function() {
@@ -61,6 +62,7 @@ const WORLD_SIDEBAR_BUTTONS = [
         label: "End Turn", 
         padding: 1,
         onClick: function() { 
+            console.log("button clicked: "+this.label);
             endTurn();
         },
         highlightIf: function() {
@@ -77,6 +79,7 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         label: "Mtn", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             terrainBrushCode = WORLD_MOUNTAINS;
         },
         highlightIf: function() {
@@ -92,6 +95,7 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         label: "Forest", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             terrainBrushCode = WORLD_FOREST;
         },
         highlightIf: function() {
@@ -108,6 +112,7 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         label: "Grass", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             terrainBrushCode = WORLD_GRASS;
         },
         highlightIf: function() {
@@ -124,6 +129,7 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         label: "Farm", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             terrainBrushCode = WORLD_FARM;
         },
         highlightIf: function() {
@@ -140,6 +146,7 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         label: "Water", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             terrainBrushCode = WORLD_WATER;
         },
         highlightIf: function() {
@@ -156,6 +163,7 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         label: "Shallows", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             terrainBrushCode = WORLD_SHALLOWS;
         },
         highlightIf: function() {
@@ -173,6 +181,7 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         label: "1x1", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             terrainBrushSize = 1;
         },
         highlightIf: function() {
@@ -189,6 +198,7 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         label: "3x3", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             terrainBrushSize = 3;
         },
         highlightIf: function() {
@@ -205,6 +215,7 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         label: "5x5", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             terrainBrushSize = 5;
         },
         highlightIf: function() {
@@ -234,6 +245,7 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         label: "Save", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             console.log({
             cols: level_cols,
             rows: level_rows,
@@ -270,6 +282,7 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
         label: "Leave Editor", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             editorMode = false;
             if (pauseMode) {
                 setupPauseMode('world');
@@ -290,6 +303,7 @@ const BATTLE_SIDEBAR_BUTTONS = [
         label: "Pause (P)",
         padding: 1,
         onClick: function() { 
+            console.log("button clicked: "+this.label);
             return togglePauseMode();
         },
         highlightIf: function() {
@@ -302,6 +316,7 @@ const BATTLE_SIDEBAR_BUTTONS = [
         label: "Surrender",
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             setupBattleMode(); // get a new map for next battle mode
             requestWorldMode('battle');
         },
@@ -330,6 +345,7 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         label: "Grass", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             terrainBrushCode = BATTLE_FIELD;
         },
         highlightIf: function() {
@@ -345,6 +361,7 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         label: "Tree", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             terrainBrushCode = BATTLE_TREES;
         },
         highlightIf: function() {
@@ -361,6 +378,7 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         label: "Rock", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             terrainBrushCode = BATTLE_ROCKS;
         },
         highlightIf: function() {
@@ -377,6 +395,7 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         label: "Bush", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             terrainBrushCode = BATTLE_BUSHES;
         },
         highlightIf: function() {
@@ -393,6 +412,7 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         label: "Mud", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             terrainBrushCode = BATTLE_MUD;
         },
         highlightIf: function() {
@@ -409,6 +429,7 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         label: "Water", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             terrainBrushCode = BATTLE_WATER;
         },
         highlightIf: function() {
@@ -425,6 +446,7 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         label: "Shallows", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             terrainBrushCode = BATTLE_SHALLOWS;
         },
         highlightIf: function() {
@@ -442,6 +464,7 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         label: "1x1", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             terrainBrushSize = 1;
         },
         highlightIf: function() {
@@ -458,6 +481,7 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         label: "3x3", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             terrainBrushSize = 3;
         },
         highlightIf: function() {
@@ -474,6 +498,7 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         label: "5x5", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             terrainBrushSize = 5;
         },
         highlightIf: function() {
@@ -508,6 +533,7 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         label: "Save", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             console.log({
             cols: level_cols,
             rows: level_rows,
@@ -545,6 +571,7 @@ const BATTLE_EDITOR_SIDEBAR_BUTTONS = [
         label: "Leave Editor", 
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             editorMode = false;
             if (pauseMode) {
                 setupPauseMode('battle');
@@ -565,6 +592,7 @@ const WORLD_PAUSE_SIDEBAR_BUTTONS = [
         label: "Game Options (stub)",
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             // Add game options functionality request here
         },
         highlightIf: function() {
@@ -580,6 +608,7 @@ const WORLD_PAUSE_SIDEBAR_BUTTONS = [
         label: "Edit World Map",
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             requestEditorMode('world');
         },
         highlightIf: function() {
@@ -593,6 +622,7 @@ const WORLD_PAUSE_SIDEBAR_BUTTONS = [
         label: "Unpause (P)",
         padding: 1,
         onClick: function() { 
+            console.log("button clicked: "+this.label);
             return togglePauseMode();
         },
         highlightIf: function() {
@@ -608,6 +638,7 @@ const BATTLE_PAUSE_SIDEBAR_BUTTONS = [
         label: "Game Options (stub)",
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             // Add game options functionality request here
         },
         highlightIf: function() {
@@ -622,6 +653,7 @@ const BATTLE_PAUSE_SIDEBAR_BUTTONS = [
         label: "Edit Battle Map",
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             requestEditorMode('battle');
         },
         highlightIf: function() {
@@ -634,6 +666,7 @@ const BATTLE_PAUSE_SIDEBAR_BUTTONS = [
         label: "Unpause (P)",
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             return togglePauseMode();
         },
         highlightIf: function() {
@@ -646,6 +679,7 @@ const BATTLE_PAUSE_SIDEBAR_BUTTONS = [
         label: "Surrender",
         padding: 1,
         onClick: function() {
+            console.log("button clicked: "+this.label);
             setupBattleMode(); // get a new map for next battle mode
             requestWorldMode('battle');
         },
