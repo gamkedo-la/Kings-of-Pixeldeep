@@ -23,6 +23,10 @@ const miniMapColors = [
     '#009923', // BATTLE_FIELD
     '#006f00', // BATTLE_TREES
     '#a5a5a5', // BATTLE_ROCKS
+    '#143c1d', // BATTLE_BUSH
+    'brown',   // BATTLE_MUD
+    'lightblue', // BATTLE_WATER
+    'tan', // BATTLE_SHALLOWS
 ]
 
 
@@ -36,6 +40,7 @@ function drawMiniMap() {
         MINI_MAP_WIDTH,MINI_MAP_HEIGHT,
         'black');
 
+    // draw terrain tiles
     var miniMapXScaleFactor = (level_cols * LEVEL_TILE_W) / MINI_MAP_WIDTH;
     var miniMapYScaleFactor = (level_rows * LEVEL_TILE_H) / MINI_MAP_HEIGHT;
 
@@ -47,20 +52,18 @@ function drawMiniMap() {
     var miniMapY = MINI_MAP_START_Y;
 
     for(var miniMapRow=0;miniMapRow<level_rows;miniMapRow++) {
-	for(var miniMapCol=0;miniMapCol<level_cols;miniMapCol++) {
-	    var miniMapTileKind = levelGrid[miniMapIndex];
-	    var miniMapColor = miniMapColors[miniMapTileKind];
-	    colorRect( miniMapX,miniMapY, miniMapTileW,miniMapTileH, miniMapColor);
-		//miniMapTileSize,miniMapTileSize, miniMapColor);
-		//LEVEL_TILE_W / miniMapXScaleFactor,
-		//LEVEL_TILE_H / miniMapYScaleFactor,
-		//miniMapColor);
+        for(var miniMapCol=0;miniMapCol<level_cols;miniMapCol++) {
+            var miniMapTileKind = levelGrid[miniMapIndex];
+            var miniMapColor = miniMapColors[miniMapTileKind];
 
-	    miniMapX += miniMapTileW; //miniMapTileSize;
-	    miniMapIndex++;
-	}
-	miniMapY += miniMapTileH; //miniMapTileSize;
-	miniMapX = MINI_MAP_START_X;
+            colorRect( miniMapX,miniMapY, miniMapTileW+1,miniMapTileH+1, miniMapColor);
+                // added +1 to width and height here to cover gaps
+
+            miniMapX += miniMapTileW; //miniMapTileSize;
+            miniMapIndex++;
+        }
+        miniMapY += miniMapTileH; //miniMapTileSize;
+        miniMapX = MINI_MAP_START_X;
     }
 
     // draw camera box
@@ -93,6 +96,7 @@ function drawMiniMap() {
 	MINI_MAP_START_Y + 300, "white");
 	*/
 
+    // draw player & enemy map features
     if(!battleMode) {
         // TODO: draw cities & armies
     }
@@ -101,7 +105,7 @@ function drawMiniMap() {
         for(const unit of allUnits) {
             let unitMiniMapX = (unit.x / miniMapXScaleFactor) + MINI_MAP_START_X;
             let unitMiniMapY = (unit.y / miniMapYScaleFactor) + MINI_MAP_START_Y;
-            let unitMiniMapBoxSize = 3;
+            let unitMiniMapBoxSize = 4;
 
             let unitColor = "yellow";
             if(!unit.playerControlled) {
