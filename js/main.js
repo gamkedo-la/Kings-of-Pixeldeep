@@ -44,20 +44,22 @@ function moveEverything() {
     camDebug();
 
     if(battleMode && !pauseMode) {
-      /*  for(var i=0;i<allUnits.length;i++) {
+        // Allow all units to move in battle mode
+        for(var i=0;i<allUnits.length;i++) {
             allUnits[i].move();
-        } */
+        }
+        /*
         if(playerTurn){
             for(var i=0;i<playerUnits.length;i++) {
                 playerUnits[i].move();
             }
         }
-       ;
         if(enemyTurn){
             for(var i=0;i<enemyUnits.length;i++) {
                 enemyUnits[i].move();
             }
         }
+        */
         removeDeadUnits();
         checkAndHandleVictory();
     }
