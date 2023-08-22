@@ -691,6 +691,20 @@ const BATTLE_PAUSE_SIDEBAR_BUTTONS = [
     }),
 ];
 
+const CITY_SIDEBAR_BUTTONS = [
+    new buttonClass({
+        label: "Create Army",
+        onClick: function() {
+            showCreateArmyScreen = true;
+        },
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
+        x: BUTTON_X,
+        y: 500,
+    }),
+];
+
 function printWithSign(number) {
     if(number > 0) {
         return "+"+ number;

@@ -17,24 +17,6 @@ function drawSidebar() {
     for(const button of currentSidebarButtons) {
     	button.draw();
     }
-    /*
-    if(battleMode == false && editorMode == false) {
-	for(const button of WORLD_SIDEBAR_BUTTONS) {
-	    button.draw();
-	}
-    }
-
-    if(editorMode) {
-	for(const button of EDITOR_SIDEBAR_BUTTONS) {
-	    button.draw();
-	}
-    }
-    if(battleMode) {
-        for(const button of BATTLE_SIDEBAR_BUTTONS) {
-            button.draw();
-        }
-    }
-    */
 }
 
 function handleSidebarButtonClick(mousePos) {
@@ -42,13 +24,13 @@ function handleSidebarButtonClick(mousePos) {
 
     for(let i=0;i<currentSidebarButtons.length; i++) {
 	let currentButton = currentSidebarButtons[i];
-	if(isClickOnButton(mousePos, currentButton)) {
-	    // FIXME: this seems to check ALL buttons but
-        // we should only check visible buttons?
-        console.log("handleSidebarButtonClick is clicking "+currentButton.label);
-        currentButton.onClick(); 
-        break; // stop looking for more buttons, only click the first match
-	}
+        if(isClickOnButton(mousePos, currentButton)) {
+            // FIXME: this seems to check ALL buttons but
+            // we should only check visible buttons?
+            console.log("handleSidebarButtonClick is clicking "+currentButton.label);
+            currentButton.onClick(); 
+            break; // stop looking for more buttons, only click the first match
+        }
     }
 }
 
