@@ -47,11 +47,19 @@ function drawCreateArmyScreen() {
     }
 }
 
-createArmy(troopList) {
+function createArmy(troopList) {
     let newArmy = new armyClass({
         worldCol: 7,
         worldRow: 8,
         name: "createdArmy", // TODO: make unique
         troops: troopList,
     });
+}
+
+function handleCreateArmyScreenMouseup(mousePos) {
+    for(let i=0;i<createArmyScreenControls.length;i++) {
+        let currentButton = createArmyScreenControls[i];
+        currentButton.onClick();
+        break;
+    }
 }

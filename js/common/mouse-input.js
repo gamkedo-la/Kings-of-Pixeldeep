@@ -229,6 +229,19 @@ function mouseupHandler(evt) {
         // always let go of all sliders on mouseup
         cityPanelControls[1].mouseupHandler(evt);
     }
+
+    if(showCreateArmyScreen) { 
+        var mousePos = calculateMousePos(evt);
+        if(isClickInBox(mousePos,
+            CREATE_ARMY_SCREEN_X, CREATE_ARMY_SCREEN_Y, 
+            CREATE_ARMY_SCREEN_X + CREATE_ARMY_SCREEN_W,
+            CREATE_ARMY_SCREEN_Y + CREATE_ARMY_SCREEN_H)) {
+
+            handleCreateArmyScreenMouseup(mousePos);
+        }
+        // always let go of all sliders on mouseup
+        createArmyScreenControls[1].mouseupHandler(evt);
+    }
 }
 
 function findClickedCitySectionIdx(mousePos) {
