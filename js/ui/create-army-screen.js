@@ -5,6 +5,10 @@ const CREATE_ARMY_SCREEN_H = 400;
 
 var showCreateArmyScreen = false;
 
+var newArmyTroops = {
+    peasants: 50,
+};
+
 var createArmyScreenControls = [
     new buttonClass({
         x: CREATE_ARMY_SCREEN_X + 125,
@@ -18,6 +22,7 @@ var createArmyScreenControls = [
         y: CITY_PANEL_Y + CITY_PANEL_H - 80,
         label: "Create",
         onClick: function() {
+            createArmy(newArmyTroops, selectedWorldEntity);
             showCreateArmyScreen = false;
         },
     }),
@@ -40,4 +45,13 @@ function drawCreateArmyScreen() {
     for(var i=0;i<createArmyScreenControls.length;i++) {
         createArmyScreenControls[i].draw();
     }
+}
+
+createArmy(troopList) {
+    let newArmy = new armyClass({
+        worldCol: 7,
+        worldRow: 8,
+        name: "createdArmy", // TODO: make unique
+        troops: troopList,
+    });
 }

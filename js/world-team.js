@@ -50,6 +50,9 @@ var army1  = new armyClass({
     worldCol: 5,
     worldRow: 5,
     name: "My First Army",
+    troops: {
+        peasants: 75,
+    }
 });
 playerArmies.push(army1);
 allArmies.push(army1);
