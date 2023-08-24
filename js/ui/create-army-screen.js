@@ -21,6 +21,9 @@ var createArmyScreenControls = [
         x: CITY_PANEL_X + CITY_PANEL_W - 350,
         y: CITY_PANEL_Y + CITY_PANEL_H - 80,
         label: "Create",
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
         onClick: function() {
             createArmy(newArmyTroops, selectedWorldEntity);
             showCreateArmyScreen = false;
@@ -31,6 +34,9 @@ var createArmyScreenControls = [
         x: CITY_PANEL_X + CITY_PANEL_W - 170,
         y: CITY_PANEL_Y + CITY_PANEL_H - 80,
         label: "Close",
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
         onClick: function() {
             showCreateArmyScreen = false;
         },
@@ -54,12 +60,17 @@ function createArmy(troopList) {
         name: "createdArmy", // TODO: make unique
         troops: troopList,
     });
+    playerArmies.push(newArmy);
+    allArmies.push(newArmy);
 }
 
 function handleCreateArmyScreenMouseup(mousePos) {
     for(let i=0;i<createArmyScreenControls.length;i++) {
         let currentButton = createArmyScreenControls[i];
-        currentButton.onClick();
-        break;
+
+        if(isClickOnButton(mousePos, currentButton)) {
+            currentButton.onClick();
+            break;
+        }
     }
 }

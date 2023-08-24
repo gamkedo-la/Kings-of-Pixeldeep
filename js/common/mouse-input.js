@@ -231,6 +231,7 @@ function mouseupHandler(evt) {
     }
 
     if(showCreateArmyScreen) { 
+        console.log('click is in create army screen');
         var mousePos = calculateMousePos(evt);
         if(isClickInBox(mousePos,
             CREATE_ARMY_SCREEN_X, CREATE_ARMY_SCREEN_Y, 
@@ -239,8 +240,6 @@ function mouseupHandler(evt) {
 
             handleCreateArmyScreenMouseup(mousePos);
         }
-        // always let go of all sliders on mouseup
-        createArmyScreenControls[1].mouseupHandler(evt);
     }
 }
 
@@ -541,8 +540,11 @@ function rightClickHandler(evt) {
     if(!battleMode && !editorMode) {
         // right clicking while an army (or city) is selected in world mode deselects it
         if(selectedWorldEntity) {
+            console.log('deselecting', selectedWorldEntity);
             selectedWorldEntity.currentPath = null;
             selectedWorldEntity = null;
+            // restore default sidebar buttons
+            currentSidebarButtons = WORLD_SIDEBAR_BUTTONS;
         }
     } // end if
 } // end function

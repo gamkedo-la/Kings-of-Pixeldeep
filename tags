@@ -62,6 +62,7 @@ cols	js/battle_maps/battlefield1.js	/^    cols: 30,$/;"	p	class:let
 cols	js/world_maps/world1-v2.js	/^    "cols": 40,$/;"	p	class:let
 cols	js/world_maps/world1.js	/^    cols: 40,$/;"	p	class:let
 countLoadedImagesAndLaunchIfReady	js/common/image-loading.js	/^function countLoadedImagesAndLaunchIfReady() {$/;"	f
+createArmy	js/ui/create-army-screen.js	/^function createArmy(troopList) {$/;"	f
 createArmyScreenControls	js/ui/create-army-screen.js	/^var createArmyScreenControls = [$/;"	v
 currentMouseMapPanDist	js/common/mouse-input.js	/^var currentMouseMapPanDist = 0;$/;"	v
 currentMusic	js/common/sound-and-music.js	/^var currentMusic = null;$/;"	v
@@ -132,6 +133,7 @@ handleCityPanelClick	js/ui/city-panel.js	/^function handleCityPanelClick(mousePo
 handleCityPanelMousedown	js/ui/city-panel.js	/^function handleCityPanelMousedown(mousePos) {$/;"	f
 handleCityPanelMousemove	js/ui/city-panel.js	/^function handleCityPanelMousemove(mousePos) {$/;"	f
 handleCityPanelMouseup	js/ui/city-panel.js	/^function handleCityPanelMouseup(mousePos) {$/;"	f
+handleCreateArmyScreenMouseup	js/ui/create-army-screen.js	/^function handleCreateArmyScreenMouseup(mousePos) {$/;"	f
 handleMainWindowClick	js/common/mouse-input.js	/^function handleMainWindowClick(mousePos, evt) {$/;"	f
 handleMiniMapClick	js/ui/minimap.js	/^function handleMiniMapClick(mousePos) {$/;"	f
 handleSidebarButtonClick	js/ui/sidebar.js	/^function handleSidebarButtonClick(mousePos) {$/;"	f
@@ -195,10 +197,12 @@ move	js/unit.js	/^  this.move = function() {$/;"	m	class:unitClass
 moveEverything	js/main.js	/^function moveEverything() {$/;"	f
 moveTo	js/city-worker.js	/^    this.moveTo = function(newWorkerPlaceIdx) {$/;"	m	class:workerClass
 neutralCities	js/world-team.js	/^var neutralCities = [];$/;"	v
+newArmyTroops	js/ui/create-army-screen.js	/^var newArmyTroops = {$/;"	v
 openCityPanel	js/ui/city-panel.js	/^function openCityPanel(city) {$/;"	f
 outlineRect	js/common/graphics-common.js	/^function outlineRect(topLeftX, topLeftY, boxWidth, boxHeight, lineColor) {$/;"	f
 pauseMode	js/level-handling.js	/^var pauseMode = false;$/;"	v
 peasants	js/army.js	/^        peasants: 0,$/;"	p	class:armyClass.troops
+peasants	js/ui/create-army-screen.js	/^    peasants: 50,$/;"	p	class:newArmyTroops
 picToUse	js/army.js	/^    this.picToUse = function() {$/;"	m	class:armyClass
 picsToLoad	js/common/image-loading.js	/^var picsToLoad = 0; \/\/set automatically based on number of imageList in loadImages()$/;"	v
 placeholderUnitAtk	js/common/image-loading.js	/^var placeholderUnitAtk = document.createElement("img");$/;"	v
