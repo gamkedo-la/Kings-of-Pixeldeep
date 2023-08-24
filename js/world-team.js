@@ -78,3 +78,15 @@ function isEnemyArmyAtPosition(col, row) {
     
     return false;
 }
+
+function runEnemyTurn() {
+    for(const army of enemyArmies) {
+        army.AIMove();
+    }
+
+    // TODO: randomly spawn enemy-controlled armies every
+    // few turns, ramping up army difficulty and freqency 
+    // as the game goes on
+    
+    endTurn(); // this may cause recursion, not sure
+}

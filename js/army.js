@@ -167,6 +167,14 @@ function armyClass(configObj) {
 
     } // end this.move()
 
+    this.AIMove = function() {
+        if(this.playerControlled) {
+            return; // enemy AI can't move player armies
+        }
+
+        console.log('Calling AIMove() on enemy army', this);
+    }
+
     this.draw = function() {
 
         // keeps animating until this goes over 1

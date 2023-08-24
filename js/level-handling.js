@@ -69,6 +69,10 @@ function endTurn() {
     for(const city of playerCities) {
         city.produceAndGrow();
     }
+
+    if(enemyTurn) {
+        runEnemyTurn();
+    }
 }
 
 function setupBattleMode() {
@@ -442,4 +446,3 @@ function drawBattleTerrain(terrainCode, drawTileX, drawTileY, arrayIndex) {
     LEVEL_TILE_W, LEVEL_TILE_H,
   );
 }
-
