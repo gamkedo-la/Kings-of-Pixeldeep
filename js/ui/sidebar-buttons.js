@@ -692,6 +692,13 @@ const BATTLE_PAUSE_SIDEBAR_BUTTONS = [
 ];
 
 const CITY_SIDEBAR_BUTTONS = [
+    new labelClass({
+        label: "City Info",
+        width: 200,
+        x: canvas.width - SIDEBAR_WIDTH,
+        y: 200,
+    }),
+
     new buttonClass({
         label: "Create Army",
         onClick: function() {

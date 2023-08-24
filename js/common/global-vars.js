@@ -3,6 +3,10 @@
 var canvas, canvasContext;
 var turnNumber = 1;
 
+canvas = document.getElementById('gameCanvas');
+canvasContext = canvas.getContext('2d');
+
+
 // world terrain
 const WORLD_MOUNTAINS = 1;
 const WORLD_FOREST = 2;

@@ -3,7 +3,7 @@ function labelClass(configObj) {
     this.x = null;
     this.y = null;
     this.text = null;
-    this.color = null;
+    this.color = 'transparent';
     this.textColor = 'black';
     this.fontSize = 12;
     //this.onClick = null;
@@ -18,9 +18,14 @@ function labelClass(configObj) {
         if(val) {
             this[key] = val;
         }
+
+        // buttons use 'label', this technically uses text. I'm just making both work.
+        if(key === "label") {
+            this.text = val;
+        }
     }
 
-    if(typeof(this.text) !== "function") {
+    if(typeof(this.text) !== "function" && !configObj.width) {
         this.width = this.text.length*this.fontSize + (this.paddingPx * 2);
     }
 
