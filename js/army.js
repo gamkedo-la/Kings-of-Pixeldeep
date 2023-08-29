@@ -173,6 +173,16 @@ function armyClass(configObj) {
         }
 
         console.log('Calling AIMove() on enemy army', this);
+
+        // choose a tile totally randomly just for testing!
+        let tileIndex = Math.floor(Math.random()*LEVEL_TILE_W*LEVEL_TILE_H);
+
+        // TODO: choose an index "near to the closest enemy (player) army"
+        // we could choose several possible targets randomly, 
+        // then measure the pathfinding cost of each and reject impossible ones
+
+        this.move(tileIndex);
+
     }
 
     this.draw = function() {
