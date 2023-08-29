@@ -17,7 +17,6 @@ var selectedWorldEntity = null;
 var city1  = new cityClass({
     worldCol: 8,
     worldRow: 8,
-    name: "Atlanta",
     cityType: CITY_TYPE_PLAYER,
 });
 playerCities.push(city1);
@@ -25,7 +24,6 @@ playerCities.push(city1);
 var city2  = new cityClass({
     worldCol: 31,
     worldRow: 7,
-    name: "Boston",
     cityType: CITY_TYPE_ENEMY,
 });
 enemyCities.push(city2);
@@ -33,7 +31,6 @@ enemyCities.push(city2);
 var city3  = new cityClass({
     worldCol: 10,
     worldRow: 24,
-    name: "New Orleans",
     cityType: CITY_TYPE_NEUTRAL,
 });
 neutralCities.push(city3);
@@ -41,17 +38,16 @@ neutralCities.push(city3);
 var city4  = new cityClass({
     worldCol: 30,
     worldRow: 25,
-    name: "Miami",
     cityType: CITY_TYPE_NEUTRAL,
 });
 neutralCities.push(city4);
 
 var army1  = new armyClass({
-    worldCol: 5,
+    worldCol: 7,
     worldRow: 5,
     name: "My First Army",
     troops: {
-        peasants: 75,
+        peasants: 20,
     }
 });
 playerArmies.push(army1);
@@ -62,6 +58,9 @@ var army2 = new armyClass({
     worldRow: 6,//9,
     name: "Enemy Army",
     playerControlled: false,
+    troops: {
+        peasants: 10,
+    }
 });
 enemyArmies.push(army2);
 allArmies.push(army2);

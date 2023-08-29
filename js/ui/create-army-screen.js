@@ -63,6 +63,9 @@ function createArmy(troopList) {
     });
     playerArmies.push(newArmy);
     allArmies.push(newArmy);
+
+    // deselect the city so you can immediately click to select your army
+    selectedWorldEntity = null;
 }
 
 function handleCreateArmyScreenMouseup(mousePos) {

@@ -317,7 +317,7 @@ const BATTLE_SIDEBAR_BUTTONS = [
         padding: 1,
         onClick: function() {
             console.log("button clicked: "+this.label);
-            setupBattleMode(); // get a new map for next battle mode
+            //setupBattleMode(); // get a new map for next battle mode
             requestWorldMode('battle');
         },
         highlightIf: function() {

@@ -9,7 +9,7 @@ function armyClass(configObj) {
     this.goToX = null;
     this.goToY = null;
     this.playerControlled = true;
-    this.name = "Army 1"; // may pick randomly from a list or not end up getting used, we'll see
+    this.name = "Army 1"; 
     this.maxMovementPoints = 10;
     this.currentMovementPoints = 10;
     this.currentPath = null; // pathfinding data in the form [[x,y],[x,y],etc]
@@ -158,10 +158,10 @@ function armyClass(configObj) {
             this.currentPath = null;
 
             if(this.playerControlled && isEnemyArmyAtPosition(newCol, newRow)) {
-                setupBattleMode();
+                setupBattleMode(newCol, newRow);
             }
             if(!this.playerControlled && isPlayerArmyAtPosition(newCol, newRow)) {
-                setupBattleMode();
+                setupBattleMode(newCol, newRow);
             }
 
             // deselect army

@@ -1,5 +1,5 @@
-const PLAYER_START_UNITS = 20;
-const ENEMY_START_UNITS = 15;
+//const PLAYER_START_UNITS = 20;
+//const ENEMY_START_UNITS = 15;
 
 var playerUnits = [];
 var enemyUnits = [];

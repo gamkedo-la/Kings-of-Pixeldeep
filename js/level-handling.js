@@ -75,7 +75,7 @@ function endTurn() {
     }
 }
 
-function setupBattleMode() {
+function setupBattleMode(worldCol, worldRow) {
     console.log("entering battle mode");
     editorMode = false;
     battleMode = true;
@@ -95,9 +95,26 @@ function setupBattleMode() {
         setupPauseMode('battle');
     }
 
-    // TODO: determine player/enemy start units
-    populateTeam(playerUnits, PLAYER_START_UNITS, true);
-    populateTeam(enemyUnits, ENEMY_START_UNITS, false);
+    if(worldCol, worldRow) {
+        // find player army at given coordinates
+        let playerArmy = playerArmies.find((army) => {
+            return army.worldCol == worldCol && army.worldRow == worldRow
+        });
+        // find enemy army at given coordinates
+        let enemyArmy = enemyArmies.find((army) => {
+            return army.worldCol == worldCol && army.worldRow == worldRow
+        });
+
+        console.log('playerArmy', playerArmy, 'enemyArmy', enemyArmy);
+        populateTeam(playerUnits, playerArmy.troops.peasants, true);
+        populateTeam(enemyUnits, enemyArmy.troops.peasants, false);
+    } else {
+        let debugArmySoldiers = 20;
+        console.log('starting debug battle');
+
+        populateTeam(playerUnits, debugArmySoldiers, true);
+        populateTeam(enemyUnits, debugArmySoldiers, false);
+    }
 }
 
 function requestBattleMode() { 
