@@ -58,8 +58,8 @@ playerArmies.push(army1);
 allArmies.push(army1);
 
 var army2 = new armyClass({
-    worldCol: 30,
-    worldRow: 9,
+    worldCol: 12,//30,
+    worldRow: 6,//9,
     name: "Enemy Army",
     playerControlled: false,
 });
@@ -71,6 +71,17 @@ allArmies.push(army2);
 function isEnemyArmyAtPosition(col, row) {
     for(var i=0;i<enemyArmies.length;i++) {
         let checkArmy = enemyArmies[i];
+        if(checkArmy.worldRow == row && checkArmy.worldCol == col) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+function isPlayerArmyAtPosition(col, row) {
+    for(var i=0;i<playerArmies.length;i++) {
+        let checkArmy = playerArmies[i];
         if(checkArmy.worldRow == row && checkArmy.worldCol == col) {
             return true;
         }

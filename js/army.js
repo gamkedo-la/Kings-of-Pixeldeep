@@ -157,7 +157,10 @@ function armyClass(configObj) {
             this.animatingPath = this.currentPath.slice(); // duplicate
             this.currentPath = null;
 
-            if(isEnemyArmyAtPosition(newCol, newRow)) {
+            if(this.playerControlled && isEnemyArmyAtPosition(newCol, newRow)) {
+                setupBattleMode();
+            }
+            if(!this.playerControlled && isPlayerArmyAtPosition(newCol, newRow)) {
                 setupBattleMode();
             }
 
@@ -174,6 +177,7 @@ function armyClass(configObj) {
 
         console.log('Calling AIMove() on enemy army', this);
 
+        console.log('worldCol', this.worldCol, 'worldRow', this.worldRow)
         let targetX = 0;
         let targetY = 0;
         let tileIndex = 0;
