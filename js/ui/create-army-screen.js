@@ -54,10 +54,11 @@ function drawCreateArmyScreen() {
 }
 
 function createArmy(troopList) {
+    let milisecondTimestamp = Date.now();
     let newArmy = new armyClass({
         worldCol: 7,
         worldRow: 8,
-        name: "createdArmy", // TODO: make unique
+        name: "player_army_" + milisecondTimestamp,
         troops: troopList,
     });
     playerArmies.push(newArmy);
