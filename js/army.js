@@ -174,14 +174,41 @@ function armyClass(configObj) {
 
         console.log('Calling AIMove() on enemy army', this);
 
-        // choose a tile totally randomly just for testing!
-        let tileIndex = Math.floor(Math.random()*LEVEL_TILE_W*LEVEL_TILE_H);
+        let targetX = 0;
+        let targetY = 0;
+        let tileIndex = 0;
+        let MAX_TRIES = 50;
+        let tries = 0;
+        // keep trying until we find a "possible move"
+        while (!this.canMoveToTarget && tries<MAX_TRIES) { // avoid an infinite loop if we always fail
 
-        // TODO: choose an index "near to the closest enemy (player) army"
-        // we could choose several possible targets randomly, 
-        // then measure the pathfinding cost of each and reject impossible ones
+            tries++;
+            
+            // move to somewhere within ONE TILE of me (for now!!)
+            targetX = this.worldCol + Math.round(Math.random()*2-1);
+            targetY = this.worldRow + Math.round(Math.random()*2-1);
+            // choose from ENTIRE MAP
+            //targetX = Math.floor(Math.random()*level_cols);
+            //targetY = Math.floor(Math.random()*level_rows);
 
-        this.move(tileIndex);
+            console.log("AIMove: trying "+targetX+","+targetY+" = index "+tileIndex);
+
+            // TODO: we could choose several possible targets randomly from the array of enemy armies! 
+            // then measure the pathfinding cost of each and reject impossible ones
+            let path = levelGridPathfind(this.worldCol,this.worldRow,targetX,targetY);
+            // FIXME: the above seems to ALWAYS return null..
+            // why? are we located outside the map maybe?
+            
+            this.setMovementPath(path);
+            tileIndex = tileCoordToIndex(targetX,targetY);
+            this.move(tileIndex);
+
+            if (!this.canMoveToTarget) {
+                console.log("AIMove: unable to get to "+targetX+","+targetY+" - trying another...");
+            }
+        }
+
+        console.log("AIMove: chosen target is: "+targetX+","+targetY);
 
     }
 
