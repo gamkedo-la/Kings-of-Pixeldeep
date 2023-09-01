@@ -4,6 +4,7 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AIMove	js/army.js	/^    this.AIMove = function() {$/;"	m	class:armyClass
 BackgroundMusicClass	js/common/sound-and-music.js	/^function BackgroundMusicClass() {$/;"	c
 DiagonalDistance	js/common/pathfinding.js	/^	function DiagonalDistance(Point, Goal)$/;"	f	function:levelGridPathfind
 DiagonalNeighbours	js/common/pathfinding.js	/^	function DiagonalNeighbours(myN, myS, myE, myW, N, S, E, W, result)$/;"	f	function:levelGridPathfind
@@ -156,6 +157,7 @@ isInBox	js/city-worker.js	/^    this.isInBox = function(x1, y1, x2, y2) {$/;"	m	
 isInBox	js/unit.js	/^  this.isInBox = function(x1, y1, x2, y2) {$/;"	m	class:unitClass
 isMouseDragging	js/common/mouse-input.js	/^var isMouseDragging = false; \/\/ left drag to region select$/;"	v
 isMouseMapPanning	js/common/mouse-input.js	/^var isMouseMapPanning = false; \/\/ right drag to pan map$/;"	v
+isPlayerArmyAtPosition	js/world-team.js	/^function isPlayerArmyAtPosition(col, row) {$/;"	f
 isXYinPath	js/common/pathfinding.js	/^	function isXYinPath(x,y,path) {$/;"	f	function:levelGridPathfind
 keepInPlayableArea	js/unit.js	/^  this.keepInPlayableArea = function() {$/;"	m	class:unitClass
 keyPressed	js/common/keyboard-input.js	/^function keyPressed(evt) {$/;"	f
@@ -236,6 +238,7 @@ rows	js/battle_maps/battlefield1.js	/^    rows: 30,$/;"	p	class:let
 rows	js/world_maps/world1-v2.js	/^    "rows": 40,$/;"	p	class:let
 rows	js/world_maps/world1.js	/^    rows: 40,$/;"	p	class:let
 rowsThatFitOnScreen	js/common/image-loading.js	/^var rowsThatFitOnScreen = document.createElement("img");$/;"	v
+runEnemyTurn	js/world-team.js	/^function runEnemyTurn() {$/;"	f
 scaleFactor	js/ui/slider.js	/^    this.scaleFactor = function() {$/;"	m	class:sliderClass
 selectedUnits	js/common/mouse-input.js	/^var selectedUnits = [];$/;"	v
 selectedWorldEntity	js/world-team.js	/^var selectedWorldEntity = null;$/;"	v
@@ -245,7 +248,7 @@ setMovementPath	js/army.js	/^    this.setMovementPath = function(pathData) {$/;"
 setPosition	js/army.js	/^    this.setPosition = function(col,row) {$/;"	m	class:armyClass
 setTarget	js/unit.js	/^  this.setTarget = function(newTarget) {$/;"	m	class:unitClass
 setTerrainBrushCode	js/editor.js	/^function setTerrainBrushCode(newVal) {$/;"	f
-setupBattleMode	js/level-handling.js	/^function setupBattleMode() {$/;"	f
+setupBattleMode	js/level-handling.js	/^function setupBattleMode(worldCol, worldRow) {$/;"	f
 setupEditorMode	js/level-handling.js	/^function setupEditorMode(battleOrWorld="world") {$/;"	f
 setupKeyboardInput	js/common/keyboard-input.js	/^function setupKeyboardInput() {$/;"	f
 setupMouseInput	js/common/mouse-input.js	/^function setupMouseInput() {$/;"	f

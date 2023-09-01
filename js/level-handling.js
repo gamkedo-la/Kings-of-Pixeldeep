@@ -13,6 +13,9 @@ var pauseMode = false;
 
 var gameSeason = "summer";
 
+var playerBattleArmy = null;
+var enemyBattleArmy = null;
+
 var levelGrid = [];
 
 // for terrain const definitions, see js/common/global-vars.js
@@ -97,17 +100,17 @@ function setupBattleMode(worldCol, worldRow) {
 
     if(worldCol, worldRow) {
         // find player army at given coordinates
-        let playerArmy = playerArmies.find((army) => {
+        playerBattleArmy = playerArmies.find((army) => {
             return army.worldCol == worldCol && army.worldRow == worldRow
         });
         // find enemy army at given coordinates
-        let enemyArmy = enemyArmies.find((army) => {
+        enemyBattleArmy = enemyArmies.find((army) => {
             return army.worldCol == worldCol && army.worldRow == worldRow
         });
 
-        console.log('playerArmy', playerArmy, 'enemyArmy', enemyArmy);
-        populateTeam(playerUnits, playerArmy.troops.peasants, true);
-        populateTeam(enemyUnits, enemyArmy.troops.peasants, false);
+        console.log('playerBattleArmy', playerBattleArmy, 'enemyBattleArmy', enemyBattleArmy);
+        populateTeam(playerUnits, playerBattleArmy.troops.peasants, true);
+        populateTeam(enemyUnits, enemyBattleArmy.troops.peasants, false);
     } else {
         let debugArmySoldiers = 20;
         console.log('starting debug battle');
