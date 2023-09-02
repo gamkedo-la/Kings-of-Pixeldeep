@@ -83,7 +83,7 @@ function unitClass() {
         soonCheckUnitsToClear();
       }
     } else if(this.playerControlled === false) {
-      if(Math.random() < 0.0) {
+      if(Math.random() < 0.02) {
         var nearestOpponentFound = 
           findClosestUnitInRange(this.x, this.y, 
             UNIT_AI_ATTACK_INITIATE, opponentUnits);
