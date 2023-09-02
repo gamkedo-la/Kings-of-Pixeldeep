@@ -45,6 +45,9 @@ function moveEverything() {
         for(var i=0;i<allUnits.length;i++) {
             allUnits[i].move();
         }
+        for(var i=0;i<allUnits.length;i++) {
+            allUnits[i].checkForCollisions();
+        }
         /*
         if(playerTurn){
             for(var i=0;i<playerUnits.length;i++) {
@@ -107,7 +110,6 @@ function drawUnits() {
     for(var i=0;i<selectedUnits.length;i++) {
         selectedUnits[i].drawSelectionBox();
     }
-
 }
 
 function drawUI() {

@@ -8,15 +8,29 @@ const UNIT_PLAYABLE_AREA_MARGIN = 20;
 
 function unitClass() {
   this.resetAndSetPlayerTeam = function(playerTeam) {
+    this.receiveId();
     this.playerControlled = playerTeam;
+
+    // get units in formation from the start
     this.x = Math.random()*canvas.width/4;
+    this.x += 30;
     this.y = Math.random()*canvas.height/4;
+    this.y += 30;
+
+    this.moveX = 0;
+    this.moveY = 0;
+
+    // queue for x, y goto data when an extended path is necessary
+    this.gotoQueue = [];
+    this.gotoQueueLimit = 2;
+
     this.moveDirection = "S";
     this.myTarget = null;
     this.maxDistancePerTurn = 100;
 
     // Flip all non-player units to opposite corner
-    if(this.playerControlled == false) {
+    if(this.playerControlled === false) {
+      var unitsAlongside = Math.floor(Math.sqrt(enemyUnits.length+3));
       this.x = canvas.width - this.x;
       this.y = canvas.height - this.y;
       this.unitColor = 'red';
@@ -28,60 +42,179 @@ function unitClass() {
     this.gotoX = this.x;
     this.gotoY = this.y;
     this.isDead = false;
+    this.move();
+  }
+
+  // create an unique count
+  if (typeof unitClass.idCount === 'undefined') {
+    unitClass.idCount = 0;
+  }
+
+  // give unit a unique based on the count
+  unitClass.giveId = function(unit) {
+    unit.id = (unitClass.idCount++).toString(16).toUpperCase();
+  }
+  // request a new id
+  this.receiveId = function() {
+    unitClass.giveId(this);
   }
 
   this.move = function() {
+    var opponentUnits = null;
+    var directionModifier = 0;
+    if(this.playerControlled === false) {
+      opponentUnits = playerUnits;
+      directionModifier = -1;
+    } else {
+      opponentUnits = enemyUnits;
+      directionModifier = 1;
+    }
+
     if(this.myTarget != null) {
       if(this.myTarget.isDead) {
         this.myTarget = null;
-        this.gotoX = this.x;
-        this.gotoY = this.y;
+        this.stopMoving();
       } else if(this.distFrom(this.myTarget.x, this.myTarget.y) > UNIT_ATTACK_RANGE) {
         this.gotoX = this.myTarget.x;
         this.gotoY = this.myTarget.y;
       } else {
         this.myTarget.isDead = true;
-        this.gotoX = this.x;
-        this.gotoY = this.y;
+        this.stopMoving();
         soonCheckUnitsToClear();
       }
-    } else if(this.playerControlled == false) {
-      if(Math.random() < 0.02) {
+    } else if(this.playerControlled === false) {
+      if(Math.random() < 0.0) {
         var nearestOpponentFound = 
           findClosestUnitInRange(this.x, this.y, 
-            UNIT_AI_ATTACK_INITIATE, playerUnits);
+            UNIT_AI_ATTACK_INITIATE, opponentUnits);
 
         if(nearestOpponentFound != null) {
           this.myTarget = nearestOpponentFound;
         } else {
-          this.gotoX = this.x - Math.random()*70;
-          this.gotoY = this.y - Math.random()*70;
+          this.gotoX = this.x + directionModifier * Math.random()*70;
+          this.gotoY = this.y + directionModifier * Math.random()*70;
         } // end of else, no target found in attack radius
-      } // end of randomized ai resoponse lag check
-    } // end of playerControlled == false (i.e. code block for computer control)
+      } // end of randomized ai response lag check
+    } // end of playerControlled === false (i.e. code block for computer control)
 
+    this.moveIncrement();
     this.keepInPlayableArea();
-    var deltaX = this.gotoX - this.x;
-    var deltaY = this.gotoY - this.y;
-    var distToGo = Math.sqrt(deltaX*deltaX + deltaY*deltaY);
-    var moveX = UNIT_PIXELS_MOVE_RATE * deltaX/distToGo;
-    var moveY = UNIT_PIXELS_MOVE_RATE * deltaY/distToGo;
-
-    this.moveDirection = this.resolveMoveDirection(moveX, moveY);
-
-    if(distToGo > UNIT_PIXELS_MOVE_RATE) {
-      this.x += moveX;
-      this.y += moveY;
-    } else {
-      this.x = this.gotoX;
-      this.y = this.gotoY;
-
-    }
+    this.moveDirection = 
+      this.resolveMoveDirection(this.gotoX - this.x, this.gotoY - this.y);
   } // end of move function
+
+  this.checkForCollisions = function() {
+    // respond to any unit in the same position
+    var nearbyUnit = 
+      findClosestOtherUnitInRange(this, UNIT_RANKS_SPACING, allUnits);
+
+    if(nearbyUnit != null) {
+      // check unit's bounding box reach relative the other unit's bounding box
+      var { collided, isRightBy, isLeftBy, isDownBy, isUpBy } = this.isCollision(nearbyUnit);
+
+
+      // check for a collision
+      if (collided) {
+        // if both units are still
+        if (this.isStopped() && nearbyUnit.isStopped()) {
+          // nudge this unit back, needs personal space
+          this.nudgeUnit(-isRightBy, isLeftBy, -isDownBy, isUpBy);
+          nearbyUnit.nudgeUnit(isRightBy, -isLeftBy, isDownBy, -isUpBy);
+          this.stopMoving();
+          nearbyUnit.stopMoving();
+        } else {
+          var battleWait = 20;
+          // going my way?
+          var isGoingMyWay = 
+            this.moveDirection === nearbyUnit.moveDirection ||
+            this.moveDirection.indexOf(nearbyUnit.moveDirection) > -1 ||
+            this.moveDirection.slice(0, 1).indexOf(nearbyUnit.moveDirection) > -1 ||
+            this.moveDirection.slice(1).indexOf(nearbyUnit.moveDirection) > -1 ||
+            nearbyUnit.moveDirection.indexOf(this.moveDirection) > -1 ||
+            nearbyUnit.moveDirection.slice(0, 1).indexOf(this.moveDirection) > -1 ||
+            nearbyUnit.moveDirection.slice(1).indexOf(this.moveDirection) > -1;
+
+          if (this.unitColor != nearbyUnit.unitColor) {
+            // attack nearby opponent unit, while still on target
+            if (isGoingMyWay) {
+              // opponent unit is facing away, so it dies
+              nearbyUnit.isDead = true;
+            } else {
+              // opponent unit is facing this unit, so battle!
+              fightOutcome = Math.random();
+              if (fightOutcome < 0.4) {
+                // this unit dies
+                this.isDead = true;
+              } else if (fightOutcome < 0.8) {
+                // opponent unit dies
+                nearbyUnit.isDead = true;
+              } else {
+                // some shoving occurs, but one gets hurt
+                this.nudgeUnit(-isRightBy, isLeftBy, -isDownBy, isUpBy);
+                nearbyUnit.nudgeUnit(isRightBy, -isLeftBy, isDownBy, -isUpBy);
+                this.gotoPathAndWait(this.x, this.y, Math.floor(battleWait * Math.random()), "ENEMY_SHOVE");
+                nearbyUnit.gotoPathAndWait(nearbyUnit.x, nearbyUnit.y, Math.floor(battleWait * Math.random()), "ENEMY_SHOVE");
+              }
+            }
+          } else {
+            // nearbyUnit is an ally
+            if (this.isMoving() && nearbyUnit.isMoving()) {
+              // yield and pauses movement for moving ally to pass
+              if (isGoingMyWay) {
+                nearbyUnit.nudgeUnit(isRightBy, -isLeftBy, isDownBy, -isUpBy);
+              } else {
+                this.nudgeUnit(-isRightBy, isLeftBy, -isDownBy, isUpBy);
+                this.gotoPathAndWait(this.x, this.y, Math.floor(battleWait * Math.random()), "YIELD_WAY");
+              }
+            } else if (this.isStopped() && nearbyUnit.isMoving()) {
+              // make way (swap places with) ally moving
+              this.nudgeUnit(-isRightBy, isLeftBy, -isDownBy, isUpBy);
+              this.makeWay(nearbyUnit);
+              this.gotoPathAndWait(this.x, this.y, Math.floor(battleWait * Math.random()), "MAKE_WAY");
+              // this.stopMoving();
+            } else if (this.isMoving() && nearbyUnit.isStopped()) {
+              nearbyUnit.nudgeUnit(isRightBy, -isLeftBy, isDownBy, -isUpBy);
+              this.makeWay(nearbyUnit);
+              nearbyUnit.gotoPathAndWait(nearbyUnit.x, nearbyUnit.y, Math.floor(battleWait * Math.random()));
+            } else {
+              this.stopMoving();
+            }
+          }
+        }
+        nearbyUnit.keepInPlayableArea();
+      } // end of if, unit in immediate path
+
+      soonCheckUnitsToClear();
+    } // end of if, nearby unit detected
+
+    this.moveIncrement();
+    this.keepInPlayableArea();
+  } // end of checkForCollisions function
+
+  this.isMoving = function() {
+    var isMoving = false;
+    if (this.gotoQueue != null && this.gotoQueue.length > 0) {
+      location = this.gotoQueue[this.gotoQueue.length - 1];
+      if (location.x != this.x || location.y != this.y) {
+        isMoving = true;
+      }
+    }
+    return isMoving || this.gotoX != this.x || this.gotoY != this.y ;
+  }
+
+  this.isStopped = function() {
+    return this.isMoving() === false;
+  }
+
+  this.stopMoving = function() {
+    this.gotoX = this.x;
+    this.gotoY = this.y;
+    this.gotoQueue = [];
+  }
 
   this.resolveMoveDirection = function(moveX, moveY) {
     if( (moveX === 0 && moveY === 0) || 
-        (moveX !== moveX && moveY !== moveY) ) {
+        (moveX != moveX && moveY != moveY) ) {
         // JS trick to check for NaN, see https://stackoverflow.com/q/30314447
       return this.moveDirection;
     }
@@ -113,6 +246,129 @@ function unitClass() {
         } else {
           return "NW";
         }
+      }
+    }
+  }
+
+  unitClass.isCollision = function(unit1, unit2) {
+    // check for a collision
+    var twoUnitRanksWide = UNIT_RANKS_SPACING * 2;
+    var isRightBy = Math.round((unit1.x + UNIT_RANKS_SPACING - unit2.x)*1000)/1000;
+    var isLeftBy = Math.round((twoUnitRanksWide - isRightBy)*1000)/1000;
+    var isDownBy = Math.round((unit1.y + UNIT_RANKS_SPACING - unit2.y)*1000)/1000;
+    var isUpBy = Math.round((twoUnitRanksWide - isDownBy)*1000)/1000;
+
+    var maxMoveX = Math.round(Math.max(Math.abs(unit1.moveX), Math.abs(unit2.moveX))*1000)/1000;
+    var maxMoveY = Math.round(Math.max(Math.abs(unit1.moveY), Math.abs(unit2.moveY))*1000)/1000;
+    var collided = 
+      isRightBy > maxMoveX && isRightBy < twoUnitRanksWide &&
+      isLeftBy > maxMoveX && isLeftBy < twoUnitRanksWide &&
+      isDownBy > maxMoveY && isDownBy < twoUnitRanksWide &&
+      isUpBy > maxMoveY && isUpBy < twoUnitRanksWide;
+    return { collided, isRightBy, isLeftBy, isDownBy, isUpBy };
+  }
+
+  this.isCollision = function(otherUnit) {
+    var isCollision = unitClass.isCollision(this, otherUnit);
+    return isCollision;
+  }
+
+  this.moveIncrement = function() {
+    var gotoX = this.gotoX;
+    var gotoY = this.gotoY;
+    if (this.gotoQueue != null && this.gotoQueue.length > 0) {
+      var location = this.gotoQueue[this.gotoQueue.length - 1];
+      if (location.wait <= 0) {
+        // pop location off the queue after wait is over
+        this.gotoQueue.pop();
+        if (this.gotoQueue.length > 0) {
+          // grab the next location
+          location = this.gotoQueue[this.gotoQueue.length - 1];
+        }
+      }
+      if (location != null) {
+        gotoX = location.x;
+        gotoY = location.y;
+        location.wait--; 
+      }
+    }
+
+    var deltaX = gotoX - this.x;
+    var deltaY = gotoY - this.y;
+    var distToGo = Math.sqrt(deltaX*deltaX + deltaY*deltaY);
+    var distToGoReciprocal = 0;
+
+    if(distToGo != 0) { 
+      distToGoReciprocal = 1 / distToGo;
+    };
+
+    // set incremental move variables
+    this.moveX = UNIT_PIXELS_MOVE_RATE * deltaX * distToGoReciprocal;
+    this.moveY = UNIT_PIXELS_MOVE_RATE * deltaY * distToGoReciprocal;    
+
+    if (distToGo > UNIT_PIXELS_MOVE_RATE) {
+      this.x += this.moveX;
+      this.y += this.moveY;
+    } else if (distToGo > 0) {
+      this.x = this.gotoX;
+      this.y = this.gotoY;
+    }
+  }
+
+  this.makeWay = function(otherUnit) {
+    if (otherUnit != null) {
+      // swap places
+      var thisX = this.x;
+      var thisY = this.y;
+      this.x = otherUnit.x;
+      this.y = otherUnit.y;
+      otherUnit.x = thisX;
+      otherUnit.y = thisY;
+    }
+  }
+
+  this.nudgeUnit = function(nudgeLeftBy, nudgeRightBy, nudgeUpBy, nudgeDownBy) {
+    // nudge unit a distance on x and y axis
+    var bounceMultiplier = 1;
+    var nudgeX = 0
+    var nudgeY = 0;
+
+    if (Math.abs(nudgeLeftBy) < Math.abs(nudgeRightBy)) {
+      nudgeX = nudgeLeftBy;
+    } else {
+      nudgeX = nudgeRightBy;
+    }
+
+    if (Math.abs(nudgeUpBy) < Math.abs(nudgeDownBy)) {
+      nudgeY = nudgeUpBy;
+    } else {
+      nudgeY = nudgeDownBy;
+    }
+
+    // only nudge along the axis w/ smallest change 
+    if (Math.abs(nudgeX) < Math.abs(nudgeY)) {
+      nudgeX *= bounceMultiplier;
+      this.x += nudgeX;
+    } else {
+      nudgeY *= bounceMultiplier;
+      this.y += nudgeY;
+    }
+  }
+
+  this.gotoPathAndWait = function(x, y, wait, reason=(Math.random() * 100).toString()) {
+    if (this.gotoQueue != null && this.gotoQueue.length > 0) {
+      var worthyWaitQueue = [];
+      for(var i=0;i<this.gotoQueue.length;i++){
+        var location = this.gotoQueue[i];
+        if (location.wait > 0 && reason != location.reason) {
+          worthyWaitQueue.add(this.gotoQueue[location]);
+        }
+      }
+
+      this.gotoQueue = worthyWaitQueue;
+
+      if (this.gotoQueue.length < this.gotoQueueLimit) {
+        this.gotoQueue.push({ x: x, y: y, wait: wait, reason: reason });
       }
     }
   }
@@ -174,7 +430,6 @@ function unitClass() {
     }
     return true;
   }
-  
 
   this.distFrom = function(otherX, otherY) {
     var deltaX = otherX - this.x;
@@ -190,7 +445,7 @@ function unitClass() {
   }
 
   this.draw = function() {
-    if(this.isDead == false) {
+    if(this.isDead === false) {
       let moveAng = 0;
       switch(this.moveDirection) {
         case "N":
@@ -227,11 +482,19 @@ function unitClass() {
       //TODO: draw unit sprite (var placeholderUnitWalk or placeholderUnitAtk, each as 2 frames)
 
       //colorCircle(this.x,this.y, UNIT_PLACEHOLDER_RADIUS, this.unitColor);
-     // drawBitmapCenteredWithRotation(yellowPeasantUnitSingleFrame, this.x, this.y, moveAng)
-      drawBitmapCenteredWithRotation(redPeasantUnitSingleFrame, this.x, this.y, moveAng)
-        if(gameOptions.showDebug) {
-            colorText(this.moveDirection, this.x,this.y, "blue");
-        }
+      
+      // found this and uncommented for testing to tell the diff in units
+      if (this.playerControlled) {
+        drawBitmapCenteredWithRotation(yellowPeasantUnitSingleFrame, this.x, this.y, moveAng);
+      } else {
+        drawBitmapCenteredWithRotation(redPeasantUnitSingleFrame, this.x, this.y, moveAng);
+      }
+      
+      if(gameOptions.showDebug) {
+        colorText(this.moveDirection, this.x,this.y, "blue");
+        // add indicator of unit id
+        colorText(this.id, this.x, this.y + UNIT_RANKS_SPACING, "magenta");
+      }
     } else {
       colorCircle(this.x,this.y, UNIT_PLACEHOLDER_RADIUS, "yellow");
     }

@@ -61,7 +61,26 @@ function findClosestUnitInRange(fromX, fromY, maxRange, inUnitList) {
     var nearestUnitDist = maxRange;
     var nearestUnitFound = null;
     for(var i=0;i<inUnitList.length;i++) {
-        var distTo = inUnitList[i].distFrom(fromX, fromY);
+        var otherUnit = inUnitList[i];
+        var distTo = otherUnit.distFrom(fromX, fromY);
+        if(distTo < nearestUnitDist) {
+            nearestUnitDist = distTo;
+            nearestUnitFound = otherUnit;
+        }
+    }
+    return nearestUnitFound;
+}
+
+// like findClosestUnitInRange, but is from a given unit's perspective
+function findClosestOtherUnitInRange(fromUnit, maxRange, inUnitList) {
+    var nearestUnitDist = maxRange;
+    var nearestUnitFound = null;
+    for(var i=0;i<inUnitList.length;i++) {
+        if (fromUnit.id === inUnitList[i].id) {
+            // ensure that the from unit isn't chosen as it's own nearest
+            continue;
+        }
+        var distTo = inUnitList[i].distFrom(fromUnit.x, fromUnit.y);
         if(distTo < nearestUnitDist) {
             nearestUnitDist = distTo;
             nearestUnitFound = inUnitList[i];
