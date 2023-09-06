@@ -1,7 +1,8 @@
 const UNIT_PLACEHOLDER_RADIUS = 10;
 const UNIT_SELECT_DIM_HALF = UNIT_PLACEHOLDER_RADIUS + 3;
 const UNIT_PIXELS_MOVE_RATE = 2.2;
-const UNIT_RANKS_SPACING = UNIT_PLACEHOLDER_RADIUS *3;
+const UNIT_RANKS_SPACING = UNIT_PLACEHOLDER_RADIUS *3.5;
+const UNIT_COLLISION_RADIUS = 20;
 const UNIT_ATTACK_RANGE = 55;
 const UNIT_AI_ATTACK_INITIATE = UNIT_ATTACK_RANGE + 10;
 const UNIT_PLAYABLE_AREA_MARGIN = 20;
@@ -106,7 +107,7 @@ function unitClass() {
   this.checkForCollisions = function() {
     // respond to any unit in the same position
     var nearbyUnit = 
-      findClosestOtherUnitInRange(this, UNIT_RANKS_SPACING, allUnits);
+      findClosestOtherUnitInRange(this, UNIT_COLLISION_RADIUS, allUnits);
 
     if(nearbyUnit != null) {
       // check unit's bounding box reach relative the other unit's bounding box
@@ -252,10 +253,10 @@ function unitClass() {
 
   unitClass.isCollision = function(unit1, unit2) {
     // check for a collision
-    var twoUnitRanksWide = UNIT_RANKS_SPACING * 2;
-    var isRightBy = Math.round((unit1.x + UNIT_RANKS_SPACING - unit2.x)*1000)/1000;
+    var twoUnitRanksWide = UNIT_COLLISION_RADIUS * 2;
+    var isRightBy = Math.round((unit1.x + UNIT_COLLISION_RADIUS - unit2.x)*1000)/1000;
     var isLeftBy = Math.round((twoUnitRanksWide - isRightBy)*1000)/1000;
-    var isDownBy = Math.round((unit1.y + UNIT_RANKS_SPACING - unit2.y)*1000)/1000;
+    var isDownBy = Math.round((unit1.y + UNIT_COLLISION_RADIUS - unit2.y)*1000)/1000;
     var isUpBy = Math.round((twoUnitRanksWide - isDownBy)*1000)/1000;
 
     var maxMoveX = Math.round(Math.max(Math.abs(unit1.moveX), Math.abs(unit2.moveX))*1000)/1000;
