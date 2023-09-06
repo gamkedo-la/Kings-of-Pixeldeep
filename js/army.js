@@ -183,32 +183,42 @@ function armyClass(configObj) {
         let tileIndex = 0;
         let MAX_TRIES = 50;
         let tries = 0;
+        let canMoveToTarget = false;
+
         // keep trying until we find a "possible move"
-        while (!this.canMoveToTarget && tries<MAX_TRIES) { // avoid an infinite loop if we always fail
+        while (!canMoveToTarget && tries<MAX_TRIES) { // avoid an infinite loop if we always fail
 
             tries++;
             
             // move to somewhere within ONE TILE of me (for now!!)
             targetX = this.worldCol + Math.round(Math.random()*2-1);
             targetY = this.worldRow + Math.round(Math.random()*2-1);
+            tileIndex = tileCoordToIndex(targetX,targetY);
             // choose from ENTIRE MAP
             //targetX = Math.floor(Math.random()*level_cols);
             //targetY = Math.floor(Math.random()*level_rows);
 
             console.log("AIMove: trying "+targetX+","+targetY+" = index "+tileIndex);
+            
+            // checking if can move to target
+            if(targetX != this.x && targetY != this.y) {
+                canMoveToTarget = true;
+            } else {
+                canMoveToTarget = false;
+            }
 
             // TODO: we could choose several possible targets randomly from the array of enemy armies! 
             // then measure the pathfinding cost of each and reject impossible ones
-            let path = levelGridPathfind(this.worldCol,this.worldRow,targetX,targetY);
-            // FIXME: the above seems to ALWAYS return null..
-            // why? are we located outside the map maybe?
-            
-            this.setMovementPath(path);
-            tileIndex = tileCoordToIndex(targetX,targetY);
-            this.move(tileIndex);
 
-            if (!this.canMoveToTarget) {
+            if (!canMoveToTarget) {
                 console.log("AIMove: unable to get to "+targetX+","+targetY+" - trying another...");
+            } else {
+                let path = levelGridPathfind(this.worldCol,this.worldRow,targetX,targetY);
+                console.log('AI found path', path);
+
+                this.setMovementPath(path);
+                this.move(tileIndex);
+                break;
             }
         }
 

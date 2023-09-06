@@ -58,9 +58,10 @@ function requestWorldMode() {
 }
 
 function endTurn() {
-    console.log("clicked end turn");
-    // TODO: only increment turn number if _player_ is ending turn, not enemy, once that matters
-    turnNumber++;
+    console.log("running end turn");
+    if(playerTurn) {
+        turnNumber++;
+    }
 
     playerTurn = !playerTurn;
     enemyTurn = !enemyTurn;
