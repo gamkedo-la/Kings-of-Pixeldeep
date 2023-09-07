@@ -7,7 +7,7 @@ const UNIT_ATTACK_RANGE = 55;
 const UNIT_AI_ATTACK_INITIATE = UNIT_ATTACK_RANGE + 10;
 const UNIT_PLAYABLE_AREA_MARGIN = 20;
 const UNIT_NEARBY_UNIT_SEEK_RANGE = 
-  Math.max(canvas.width, canvas.height) - UNIT_PLAYABLE_AREA_MARGIN;
+  Math.max(level_width, level_height) - UNIT_PLAYABLE_AREA_MARGIN;
 
 function unitClass() {
   this.resetAndSetPlayerTeam = function(playerTeam) {
