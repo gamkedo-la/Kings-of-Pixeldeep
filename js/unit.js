@@ -1,6 +1,6 @@
 const UNIT_PLACEHOLDER_RADIUS = 10;
 const UNIT_SELECT_DIM_HALF = UNIT_PLACEHOLDER_RADIUS + 3;
-const UNIT_PIXELS_MOVE_RATE = 2.2;
+const UNIT_PIXELS_MOVE_RATE = 1.5;
 const UNIT_RANKS_SPACING = UNIT_PLACEHOLDER_RADIUS *3.5;
 const UNIT_COLLISION_RADIUS = 20;
 const UNIT_ATTACK_RANGE = 55;
@@ -16,9 +16,9 @@ function unitClass() {
 
     // get units in formation from the start
     this.x = Math.random()*canvas.width/4;
-    this.x += 30;
+    this.x += 50;
     this.y = Math.random()*canvas.height/4;
-    this.y += 30;
+    this.y += 50;
 
     this.moveX = 0;
     this.moveY = 0;
@@ -29,13 +29,12 @@ function unitClass() {
 
     this.moveDirection = "S";
     this.myTarget = null;
-    this.maxDistancePerTurn = 100;
 
     // Flip all non-player units to opposite corner
     if(this.playerControlled === false) {
       var unitsAlongside = Math.floor(Math.sqrt(enemyUnits.length+3));
-      this.x = canvas.width - this.x;
-      this.y = canvas.height - this.y;
+      this.x = level_width - this.x;
+      this.y = level_height - this.y;
       this.unitColor = 'red';
       this.moveDirection = "N";
     } else {
@@ -109,7 +108,7 @@ function unitClass() {
             this.myTarget = nearestAllyFound;
             // buddy up with nearest ally, gotoNear(x, y, 1 for second unit (in 
             // pair) and 5 for 2 units along side (in pair) + 3
-            gotoNear(nearestAllyFound.x, nearestAllyFound.y, 1, 5);
+            this.gotoNear(nearestAllyFound.x, nearestAllyFound.y, 1, 5);
           } else {
             this.gotoX = this.x + directionModifier * Math.random()*70;
             this.gotoY = this.y + directionModifier * Math.random()*70;
