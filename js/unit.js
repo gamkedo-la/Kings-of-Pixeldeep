@@ -6,6 +6,8 @@ const UNIT_COLLISION_RADIUS = 20;
 const UNIT_ATTACK_RANGE = 55;
 const UNIT_AI_ATTACK_INITIATE = UNIT_ATTACK_RANGE + 10;
 const UNIT_PLAYABLE_AREA_MARGIN = 20;
+const UNIT_NEARBY_UNIT_SEEK_RANGE = 
+  Math.max(canvas.width, canvas.height) - UNIT_PLAYABLE_AREA_MARGIN;
 
 function unitClass() {
   this.resetAndSetPlayerTeam = function(playerTeam) {
@@ -61,12 +63,15 @@ function unitClass() {
   }
 
   this.move = function() {
+    var allyUnits = null;
     var opponentUnits = null;
     var directionModifier = 0;
     if(this.playerControlled === false) {
+      allyUnits = enemyUnits;
       opponentUnits = playerUnits;
       directionModifier = -1;
     } else {
+      allyUnits = playerUnits;
       opponentUnits = enemyUnits;
       directionModifier = 1;
     }
@@ -79,7 +84,10 @@ function unitClass() {
         this.gotoX = this.myTarget.x;
         this.gotoY = this.myTarget.y;
       } else {
-        this.myTarget.isDead = true;
+        // allow for myTarget to be an ally, but only to seek and join up
+        if(this.myTarget.playerControlled != this.playerControlled) {
+          this.myTarget.isDead = true;
+        }
         this.stopMoving();
         soonCheckUnitsToClear();
       }
@@ -87,14 +95,26 @@ function unitClass() {
       if(Math.random() < 0.02) {
         var nearestOpponentFound = 
           findClosestUnitInRange(this.x, this.y, 
-            UNIT_AI_ATTACK_INITIATE, opponentUnits);
+            UNIT_NEARBY_UNIT_SEEK_RANGE, opponentUnits);
 
         if(nearestOpponentFound != null) {
           this.myTarget = nearestOpponentFound;
         } else {
-          this.gotoX = this.x + directionModifier * Math.random()*70;
-          this.gotoY = this.y + directionModifier * Math.random()*70;
-        } // end of else, no target found in attack radius
+          // no nearby opponent found, so find some allies
+          var nearestAllyFound = 
+          findClosestUnitInRange(this.x, this.y, 
+            UNIT_NEARBY_UNIT_SEEK_RANGE, allyUnits);
+
+          if(nearestAllyFound != null) {
+            this.myTarget = nearestAllyFound;
+            // buddy up with nearest ally, gotoNear(x, y, 1 for second unit (in 
+            // pair) and 5 for 2 units along side (in pair) + 3
+            gotoNear(nearestAllyFound.x, nearestAllyFound.y, 1, 5);
+          } else {
+            this.gotoX = this.x + directionModifier * Math.random()*70;
+            this.gotoY = this.y + directionModifier * Math.random()*70;
+          } // end of else, no nearby ally unit found to buddy-up with
+        } // end of else, no nearby target found
       } // end of randomized ai response lag check
     } // end of playerControlled === false (i.e. code block for computer control)
 
