@@ -49,6 +49,9 @@ function setupWorldMode() {
     } else {
         setupPauseMode('world');
     }
+
+    stopAllMusic();
+    // TODO: play world background music when we have some
 }
 
 function requestWorldMode() {
@@ -119,6 +122,9 @@ function setupBattleMode(worldCol, worldRow) {
         populateTeam(playerUnits, debugArmySoldiers, true);
         populateTeam(enemyUnits, debugArmySoldiers, false);
     }
+
+    stopAllMusic();
+    battleMusic.startMusic();
 }
 
 function requestBattleMode() { 
@@ -143,6 +149,8 @@ function resumeBattleMode() {
     } else {
         setupPauseMode('battle');
     }
+
+    battleMusic.startMusic();
 }
 
 function setupEditorMode(battleOrWorld="world") {
@@ -173,6 +181,8 @@ function setupEditorMode(battleOrWorld="world") {
         currentSidebarButtons = WORLD_EDITOR_SIDEBAR_BUTTONS;
     }
     
+    stopAllMusic();
+
 }
 
 function requestEditorMode() {
@@ -206,6 +216,8 @@ function setupPauseMode(battleOrWorld='world') {
 
     level_width = LEVEL_TILE_W * level_cols;
     level_height = LEVEL_TILE_H * level_rows;
+    
+    stopAllMusic();
 }
 
 function togglePauseMode() {

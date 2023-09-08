@@ -5,6 +5,7 @@ var buttonHoverSound = null;
 var currentMusic = null;
 var startupMusic = null;
 var loopMusic = null;
+var battleMusic = null;
 
 var userHasInteractedWithGame = false; // no sound allowed until the first click
 
@@ -100,6 +101,32 @@ function BackgroundMusicClass() {
             console.log("error music sound not toggled")
         }
     }
+
+    // added definite start/stop functions, because sometimes I need to
+    // ensure one state or another explicitly
+    this.startMusic = function() {
+        // avoid browser errors due to autoplay permissions
+        if (!userHasInteractedWithGame) return;
+
+        if (this.musicSound != null) {
+            this.musicSound.muted = audioMute;
+            this.musicSound.play();
+        } else {
+            console.log("error music sound not started")
+        }
+    }
+
+    this.stopMusic = function() {
+        // avoid browser errors due to autoplay permissions
+        if (!userHasInteractedWithGame) return;
+
+        if (this.musicSound != null) {
+            this.musicSound.muted = audioMute;
+            this.musicSound.pause();
+        } else {
+            console.log("error music sound not stopped")
+        }
+    }
 }
 
 function loadSounds() {
@@ -109,6 +136,7 @@ function loadSounds() {
     // this song will only play once at the beginning
     startupMusic = new BackgroundMusicClass();
 //    startupMusic.playSong("audio/sfx/music_startup");
+//    startupMusic.playSong("audio/sfx/music_startup");
 //    startupMusic.startOrStopMusic(); // stop music at first
     startupMusic.startOrStopMusic(); // stop music at first
 
@@ -116,6 +144,10 @@ function loadSounds() {
     loopMusic = new BackgroundMusicClass();
 //    loopMusic.loopSong("audio/sfx/music_world_loop");
 //    loopMusic.startOrStopMusic(); // stop music at first
+    
+    battleMusic = new BackgroundMusicClass();
+    battleMusic.loopSong("audio/Pixeldeep_Battle_1.mp3");
+    battleMusic.stopMusic(); // stop music playing immediately; wait for battle mode to trigger
 }
 
 function toggleAudioMute() {
@@ -142,5 +174,17 @@ function playStartupMusic() {
     currentMusic = startupMusic;
     if (currentMusic != null) {
         currentMusic.startOrStopMusic();
+    }
+}
+
+function stopAllMusic() {
+    if(startupMusic) {
+        startupMusic.stopMusic();
+    }
+    if(loopMusic) {
+        loopMusic.stopMusic();
+    }
+    if(battleMusic) {
+        battleMusic.stopMusic();
     }
 }
