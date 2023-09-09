@@ -28,8 +28,7 @@ function loadAudioFile(filenameWithPath) {
     // check to see if filenameWithPath contains the extension at the end
     // assuming a 3 character extention (ie. wav, mp3, ogg, etc.) plus dot
     // at the beginning
-    setFormat();
-
+    setFormat(); // called often, but executes once per game
     var newAudio = null;
     var last4CharsOfFileName = filenameWithPath.slice(-4).toLocaleLowerCase();
     if (last4CharsOfFileName.slice(0, 1) === ".") {
@@ -51,7 +50,6 @@ function loadAudioFile(filenameWithPath) {
             newAudio = new Audio(filenameWithPath + audioFormats[i]);
         }
     }
-
     return newAudio;
 }
 
@@ -83,22 +81,10 @@ function BackgroundMusicClass() {
     this.musicSound = null;
 
     this.loopSong = function(filenameWithPath) {
-
-        // avoid browser errors due to autoplay permissions
-        if (!userHasInteractedWithGame) return;
-
-        if (this.musicSound != null) {
-            this.musicSound.pause();
-            this.musicSound = null;
-        }
-        this.musicSound = loadAudioFile(filenameWithPath);
-        this.musicSound.loop = true;
-        this.musicSound.muted = audioMute;
-        this.musicSound.play();
+        this.playSong(filenameWithPath, true)
     }
 
-    this.playSong = function(filenameWithPath) {
-
+    this.playSong = function(filenameWithPath, loop=false) {
         // avoid browser errors due to autoplay permissions
         if (!userHasInteractedWithGame) return;
 
@@ -107,13 +93,21 @@ function BackgroundMusicClass() {
             this.musicSound = null;
         }
         this.musicSound = loadAudioFile(filenameWithPath);
-        this.musicSound.loop = false;
+        this.musicSound.loop = loop;
         this.musicSound.muted = audioMute;
-        this.musicSound.play();
+        // adapted from https://developer.chrome.com/blog/play-request-was-interrupted/
+        var playPromise = this.musicSound.play();
+        if (playPromise !== undefined) {
+          playPromise.then(_ => {
+            // playback starts, no code necessary
+          })
+          .catch(error => {
+            // playback prevented, in case of pause before play returns
+          });
+        }
     }
 
     this.startOrStopMusic = function() {
-
         // avoid browser errors due to autoplay permissions
         if (!userHasInteractedWithGame) return;
 
