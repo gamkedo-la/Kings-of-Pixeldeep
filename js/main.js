@@ -17,7 +17,6 @@ window.onload = function() {
     colorText("Loading...", canvas.width/2,canvas.height/2, "white");
 
     loadImages();
-    loadSounds();
 }
 
 function imageLoadingDoneSoStartGame() {
@@ -176,7 +175,9 @@ function camDebug() {
 function toggleUserInteractStage() {
     if (userInteractStage === USER_INTERACT_STAGE_NONE) {
         userInteractStage = USER_INTERACT_STAGE_START;
-        playStartupMusic();
+        userHasInteractedWithGame = true; // sounds not allowed until 1st click
+        loadSounds();
+//        playStartupMusic();
     } else if (userInteractStage === USER_INTERACT_STAGE_START) {
         userInteractStage = USER_INTERACT_STAGE_CONTINUED;
     }

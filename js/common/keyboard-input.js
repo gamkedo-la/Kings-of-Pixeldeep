@@ -47,4 +47,6 @@ function keyReleased(evt) {
 	if (evt.keyCode === 71) { // key: g
 		gameOptions.showGrid = !gameOptions.showGrid;
 	}
+
+	toggleUserInteractStage();
 }

@@ -1,4 +1,4 @@
-var audioFormat;
+var audioFormats = []
 var audioMute = false;
 var buttonClickSound = null;
 var buttonHoverSound = null;
@@ -10,23 +10,55 @@ var battleMusic = null;
 var userHasInteractedWithGame = false; // no sound allowed until the first click
 
 function setFormat() {
-    var audio = new Audio();
-    if (audio.canPlayType("audio/wav")) {
-        audioFormat = ".wav";
-    } else if (audio.canPlayType("audio/mp3")) {
-        audioFormat = ".mp3";
-    } else {
-        audioFormat = ".ogg";
+    if (audioFormats.length === 0) {
+        var audio = new Audio();
+        if (audio.canPlayType("audio/wav")) {
+            audioFormats.push(".wav");
+        } 
+        if (audio.canPlayType("audio/mp3")) {
+            audioFormats.push(".mp3");
+        }
+        if (audio.canPlayType("audio/ogg")) {
+            audioFormats.push(".ogg");
+        }
     }
 }
 
-function SoundOverlapsClass(filenameWithPath) {
-    // calling this to ensure that audioFormat is set before needed
+function loadAudioFile(filenameWithPath) {
+    // check to see if filenameWithPath contains the extension at the end
+    // assuming a 3 character extention (ie. wav, mp3, ogg, etc.) plus dot
+    // at the beginning
     setFormat();
 
+    var newAudio = null;
+    var last4CharsOfFileName = filenameWithPath.slice(-4).toLocaleLowerCase();
+    if (last4CharsOfFileName.slice(0, 1) === ".") {
+        if (audioFormats.length > 0) {
+            // check file name extension for playable audio formats
+            for(i = 0;i < audioFormats.length && newAudio === null; i++) {
+                var audioFormat = audioFormats[i].toLocaleLowerCase();
+                if (last4CharsOfFileName === audioFormat) {
+                    newAudio = new Audio(filenameWithPath);
+                }
+            }
+        }
+    }
+    // no extension in fileName so check if file loads with any our browser's 
+    // playable formats
+    if (newAudio === null && audioFormats.length > 0) {
+        // check file name extension for playable audio formats
+        for(i = 0;i < audioFormats.length && newAudio === null; i++) {
+            newAudio = new Audio(filenameWithPath + audioFormats[i]);
+        }
+    }
+
+    return newAudio;
+}
+
+function SoundOverlapsClass(filenameWithPath) {
     var altSoundTurn = false;
-    var mainSound = new Audio(filenameWithPath + audioFormat);
-    var altSound = new Audio(filenameWithPath + audioFormat);
+    var mainSound = loadAudioFile(filenameWithPath);
+    var altSound = loadAudioFile(filenameWithPath);
 
     this.play = function() {
 
@@ -35,8 +67,8 @@ function SoundOverlapsClass(filenameWithPath) {
 
         if (!audioMute) {
             if (altSoundTurn) {
-              altSound.currentTime = 0;
-              altSound.play();
+                altSound.currentTime = 0;
+                altSound.play();
             } else {
                 mainSound.currentTime = 0;
                 mainSound.play();
@@ -55,14 +87,11 @@ function BackgroundMusicClass() {
         // avoid browser errors due to autoplay permissions
         if (!userHasInteractedWithGame) return;
 
-        // calling this to ensure that audioFormat is set before needed
-        setFormat();
-
         if (this.musicSound != null) {
             this.musicSound.pause();
             this.musicSound = null;
         }
-        this.musicSound = new Audio(filenameWithPath + audioFormat);
+        this.musicSound = loadAudioFile(filenameWithPath);
         this.musicSound.loop = true;
         this.musicSound.muted = audioMute;
         this.musicSound.play();
@@ -73,13 +102,11 @@ function BackgroundMusicClass() {
         // avoid browser errors due to autoplay permissions
         if (!userHasInteractedWithGame) return;
 
-        setFormat();
-
         if (this.musicSound != null) {
             this.musicSound.pause();
             this.musicSound = null;
         }
-        this.musicSound = new Audio(filenameWithPath + audioFormat);
+        this.musicSound = loadAudioFile(filenameWithPath);
         this.musicSound.loop = false;
         this.musicSound.muted = audioMute;
         this.musicSound.play();
@@ -134,14 +161,14 @@ function loadSounds() {
     buttonHoverSound = new SoundOverlapsClass("audio/sfx/button_hover");
 
     // this song will only play once at the beginning
-    startupMusic = new BackgroundMusicClass();
+//    startupMusic = new BackgroundMusicClass();
 //    startupMusic.playSong("audio/sfx/music_startup");
 //    startupMusic.playSong("audio/sfx/music_startup");
 //    startupMusic.startOrStopMusic(); // stop music at first
-    startupMusic.startOrStopMusic(); // stop music at first
+//    startupMusic.startOrStopMusic(); // stop music at first
 
     // loop song to play after start up song
-    loopMusic = new BackgroundMusicClass();
+//    loopMusic = new BackgroundMusicClass();
 //    loopMusic.loopSong("audio/sfx/music_world_loop");
 //    loopMusic.startOrStopMusic(); // stop music at first
     

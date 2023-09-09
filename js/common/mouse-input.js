@@ -108,8 +108,7 @@ function mousemoveHandler(evt) {
 }
 
 function mousedownHandler(evt) {
-    
-    userHasInteractedWithGame = true; // sounds not allowed until 1st click
+    toggleUserInteractStage();
     
     if (MOUSE_MAP_PAN_ENABLED && evt.button==2) { // right mouse button
         //console.log("starting a right-drag mouse map pan");
@@ -157,6 +156,7 @@ function mousedownHandler(evt) {
 }
 
 function mouseupHandler(evt) {
+    toggleUserInteractStage();
 
     if (MOUSE_MAP_PAN_ENABLED && evt.button==2) { // right mouse button
         //console.log("ending a right-drag mouse map pan");
@@ -527,6 +527,8 @@ function attackOrMoveToMousePos(evt) {
 
 function rightClickHandler(evt) {
     evt.preventDefault();
+    toggleUserInteractStage();
+
     if(battleMode) {
         // if right mouse is released after a right-drap map pan, we don't also want to move there,
         // so ignore if we dragged more than a tiny amount to account for mouse wobbles during a click
