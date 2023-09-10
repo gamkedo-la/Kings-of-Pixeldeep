@@ -8,6 +8,12 @@ const UNIT_AI_ATTACK_INITIATE = UNIT_ATTACK_RANGE + 10;
 const UNIT_PLAYABLE_AREA_MARGIN = 20;
 const UNIT_NEARBY_UNIT_SEEK_RANGE = 
   Math.max(level_width, level_height) - UNIT_PLAYABLE_AREA_MARGIN;
+const UNIT_PLAYER_ATTACK_INITIATE = UNIT_AI_ATTACK_INITIATE; 
+const BATTLE_WAIT_LOOPS = 20;
+const UNIT_GOTO_QUEUE_LIMIT = 2;
+const UNIT_COURAGE_PCT_MAX = 0.05;
+const UNIT_COURAGE_PCT_MIN = 0.01;
+const UNIT_RANDOM_LAG_CHECK = 0.02;
 
 function unitClass() {
   this.resetAndSetPlayerTeam = function(playerTeam) {
@@ -25,10 +31,13 @@ function unitClass() {
 
     // queue for x, y goto data when an extended path is necessary
     this.gotoQueue = [];
-    this.gotoQueueLimit = 2;
+    this.gotoQueueLimit = UNIT_GOTO_QUEUE_LIMIT;
 
     this.moveDirection = "S";
-    this.myTarget = null;
+    this.clearTarget();
+
+    this.baseCourage = 
+      Math.max(UNIT_COURAGE_PCT_MAX * Math.random(), UNIT_COURAGE_PCT_MIN);
 
     // Flip all non-player units to opposite corner
     if(this.playerControlled === false) {
@@ -74,53 +83,83 @@ function unitClass() {
       opponentUnits = enemyUnits;
       directionModifier = 1;
     }
+    var allyRatio = 0;
+    if (allUnits.length > 0) {
+      allyRatio = allyUnits.length / allUnits.length;
+    }
+    var modifiedAllyRatio = allyRatio * (Math.random() % 0.25);
+    // apply allyRatio to courage
+    var modifiedCourage = this.baseCourage + modifiedAllyRatio;
 
     if(this.myTarget != null) {
-      if(this.myTarget.isDead) {
-        this.myTarget = null;
-        this.stopMoving();
-      } else if(this.distFrom(this.myTarget.x, this.myTarget.y) > UNIT_ATTACK_RANGE) {
-        this.gotoX = this.myTarget.x;
-        this.gotoY = this.myTarget.y;
-      } else {
-        // allow for myTarget to be an ally, but only to seek and join up
-        if(this.myTarget.playerControlled != this.playerControlled) {
-          this.myTarget.isDead = true;
+      if(this.distFrom(this.myTarget.x, this.myTarget.y) <= UNIT_ATTACK_RANGE) {
+        if(this.myTarget.isDead === false && 
+          this.myTarget.playerControlled != this.playerControlled
+        ) {
+          this.myTarget.dies();
+          soonCheckUnitsToClear();
         }
-        this.stopMoving();
-        soonCheckUnitsToClear();
+        this.clearTarget();
+      } else {
+        this.gotoPathAndWait(this.myTarget.x, this.myTarget.y, 1, "SEEK_TARGET");
       }
     } else if(this.playerControlled === false) {
-      if(Math.random() < 0.02) {
+      // AI player unit seeking
+      if(Math.random() < UNIT_RANDOM_LAG_CHECK) {
+        // determine whether units are individually courageous or not
+        var unitSeekRange = UNIT_AI_ATTACK_INITIATE;
+        // courage check depending on how many opponents
+        if(Math.random() < modifiedCourage && this.isStopped()) {
+          // widen unit seeking range
+          unitSeekRange = UNIT_NEARBY_UNIT_SEEK_RANGE;
+        }
         var nearestOpponentFound = 
-          findClosestUnitInRange(this.x, this.y, 
-            UNIT_NEARBY_UNIT_SEEK_RANGE, opponentUnits);
+          findClosestUnitInRange(this.x, this.y, unitSeekRange, opponentUnits);
 
         if(nearestOpponentFound != null) {
-          this.myTarget = nearestOpponentFound;
-        } else {
-          // no nearby opponent found, so find some allies
-          var nearestAllyFound = 
-          findClosestUnitInRange(this.x, this.y, 
-            UNIT_NEARBY_UNIT_SEEK_RANGE, allyUnits);
+          this.setTarget(nearestOpponentFound);
+          this.gotoPathAndWait(this.myTarget.x, this.myTarget.y, 1, "SEEK_TARGET");
+        // TODO: decide on ally seeking behavior for opponents; 
+        // causes them to be very busy once around an one of their own team
+        // } else {
+        //   // no nearby opponent found, so find some allies
+        //   var nearestAllyFound = 
+        //     findClosestOtherUnitInRange(this, unitSeekRange, allyUnits);
 
-          if(nearestAllyFound != null) {
-            this.myTarget = nearestAllyFound;
-            // buddy up with nearest ally, gotoNear(x, y, 1 for second unit (in 
-            // pair) and 5 for 2 units along side (in pair) + 3
-            this.gotoNear(nearestAllyFound.x, nearestAllyFound.y, 1, 5);
-          } else {
-            this.gotoX = this.x + directionModifier * Math.random()*70;
-            this.gotoY = this.y + directionModifier * Math.random()*70;
-          } // end of else, no nearby ally unit found to buddy-up with
-        } // end of else, no nearby target found
+        //   if(nearestAllyFound != null) {
+        //     var { distToGo, _, _ } = 
+        //       this.distToGoWithDeltas(nearestAllyFound.x, nearestAllyFound.y);
+        //     if (distToGo >= UNIT_RANKS_SPACING){
+        //       // buddy up with nearest ally
+        //       this.setTarget(nearestAllyFound);
+        //       this.gotoNear(this.myTarget.x, this.myTarget.y, 1, 4);
+        //     }
+        //   } // end of if
+        } // end of else, seek ally unit
       } // end of randomized ai response lag check
-    } // end of playerControlled === false (i.e. code block for computer control)
+    } else if(this.playerControlled === true) {
+      if(Math.random() < UNIT_RANDOM_LAG_CHECK) {
+        // player opponent unit seeking
+        // determine whether units are individually courageous or not
+        var unitSeekRange = UNIT_PLAYER_ATTACK_INITIATE;
+        if(Math.random() < modifiedCourage && this.isStopped()) {
+          // widen unit seeking range
+          unitSeekRange = UNIT_PLAYER_ATTACK_INITIATE * 2;
+        }
+
+        var nearestOpponentFound = 
+          findClosestUnitInRange(this.x, this.y, unitSeekRange, opponentUnits);
+
+        if(nearestOpponentFound != null) {
+          this.setTarget(nearestOpponentFound);
+          this.gotoPathAndWait(this.myTarget.x, this.myTarget.y, 1, "SEEK_TARGET");
+        }
+      } // end of randomized player unit response lag check
+    } // end of playerControlled === true
 
     this.moveIncrement();
     this.keepInPlayableArea();
-    this.moveDirection = 
-      this.resolveMoveDirection(this.gotoX - this.x, this.gotoY - this.y);
+    this.moveDirection = this.resolveMoveDirection();
   } // end of move function
 
   this.checkForCollisions = function() {
@@ -132,9 +171,10 @@ function unitClass() {
       // check unit's bounding box reach relative the other unit's bounding box
       var { collided, isRightBy, isLeftBy, isDownBy, isUpBy } = this.isCollision(nearbyUnit);
 
-
       // check for a collision
       if (collided) {
+        var battleWait = Math.floor(BATTLE_WAIT_LOOPS * Math.random() + 1);
+
         // if both units are still
         if (this.isStopped() && nearbyUnit.isStopped()) {
           // nudge this unit back, needs personal space
@@ -143,7 +183,6 @@ function unitClass() {
           this.stopMoving();
           nearbyUnit.stopMoving();
         } else {
-          var battleWait = 20;
           // going my way?
           var isGoingMyWay = 
             this.moveDirection === nearbyUnit.moveDirection ||
@@ -158,22 +197,22 @@ function unitClass() {
             // attack nearby opponent unit, while still on target
             if (isGoingMyWay) {
               // opponent unit is facing away, so it dies
-              nearbyUnit.isDead = true;
+              nearbyUnit.dies();
             } else {
               // opponent unit is facing this unit, so battle!
               fightOutcome = Math.random();
               if (fightOutcome < 0.4) {
                 // this unit dies
-                this.isDead = true;
+                this.dies();
               } else if (fightOutcome < 0.8) {
                 // opponent unit dies
-                nearbyUnit.isDead = true;
+                nearbyUnit.dies();
               } else {
-                // some shoving occurs, but one gets hurt
+                // some shoving occurs, but no one gets hurt
                 this.nudgeUnit(-isRightBy, isLeftBy, -isDownBy, isUpBy);
                 nearbyUnit.nudgeUnit(isRightBy, -isLeftBy, isDownBy, -isUpBy);
-                this.gotoPathAndWait(this.x, this.y, Math.floor(battleWait * Math.random()), "ENEMY_SHOVE");
-                nearbyUnit.gotoPathAndWait(nearbyUnit.x, nearbyUnit.y, Math.floor(battleWait * Math.random()), "ENEMY_SHOVE");
+                this.gotoPathAndWait(this.x, this.y, battleWait, "ENEMY_SHOVE");
+                nearbyUnit.gotoPathAndWait(nearbyUnit.x, nearbyUnit.y, battleWait, "ENEMY_SHOVE");
               }
             }
           } else {
@@ -184,19 +223,20 @@ function unitClass() {
                 nearbyUnit.nudgeUnit(isRightBy, -isLeftBy, isDownBy, -isUpBy);
               } else {
                 this.nudgeUnit(-isRightBy, isLeftBy, -isDownBy, isUpBy);
-                this.gotoPathAndWait(this.x, this.y, Math.floor(battleWait * Math.random()), "YIELD_WAY");
+                this.gotoPathAndWait(this.x, this.y, battleWait, "YIELD_WAY");
               }
             } else if (this.isStopped() && nearbyUnit.isMoving()) {
               // make way (swap places with) ally moving
               this.nudgeUnit(-isRightBy, isLeftBy, -isDownBy, isUpBy);
               this.makeWay(nearbyUnit);
-              this.gotoPathAndWait(this.x, this.y, Math.floor(battleWait * Math.random()), "MAKE_WAY");
-              // this.stopMoving();
+              this.gotoPathAndWait(this.x, this.y, battleWait, "MAKE_WAY");
             } else if (this.isMoving() && nearbyUnit.isStopped()) {
               nearbyUnit.nudgeUnit(isRightBy, -isLeftBy, isDownBy, -isUpBy);
               this.makeWay(nearbyUnit);
-              nearbyUnit.gotoPathAndWait(nearbyUnit.x, nearbyUnit.y, Math.floor(battleWait * Math.random()));
+              nearbyUnit.gotoPathAndWait(nearbyUnit.x, nearbyUnit.y, battleWait, "MAKE_WAY");
             } else {
+              // catch all; shouldn't reach here
+              console.log("checkForCollisions: nearbyUnit is ally - catch all; shouldn't reach here")
               this.stopMoving();
             }
           }
@@ -209,17 +249,24 @@ function unitClass() {
 
     this.moveIncrement();
     this.keepInPlayableArea();
+    this.moveDirection = this.resolveMoveDirection();
   } // end of checkForCollisions function
 
   this.isMoving = function() {
     var isMoving = false;
     if (this.gotoQueue != null && this.gotoQueue.length > 0) {
-      location = this.gotoQueue[this.gotoQueue.length - 1];
-      if (location.x != this.x || location.y != this.y) {
-        isMoving = true;
+      var location = this.gotoQueue[this.gotoQueue.length - 1];
+      if (location != null) {
+        if (location.x != undefined && location.y != undefined &&
+          location.wait != undefined && location.wait > 0
+        ) {
+          isMoving = location.x != this.x || location.y != this.y;
+        }
       }
     }
-    return isMoving || this.gotoX != this.x || this.gotoY != this.y ;
+
+    isMoving ||= this.gotoX != this.x || this.gotoY != this.y;
+    return isMoving;
   }
 
   this.isStopped = function() {
@@ -232,11 +279,25 @@ function unitClass() {
     this.gotoQueue = [];
   }
 
-  this.resolveMoveDirection = function(moveX, moveY) {
-    if( (moveX === 0 && moveY === 0) || 
-        (moveX != moveX && moveY != moveY) ) {
-        // JS trick to check for NaN, see https://stackoverflow.com/q/30314447
-      return this.moveDirection;
+  this.resolveMoveDirection = function() {
+    var { gotoX, gotoY, _ } = this.getLatestGotoCoords();
+    var moveX = gotoX - this.x;
+    var moveY = gotoY - this.y;
+    var moveDirection = unitClass.resolveMoveDirection(moveX, moveY);
+    if (moveDirection === undefined || moveDirection === "ERROR_DIRECTION") {
+      // if error, return current move direction
+      moveDirection = this.moveDirection;
+    }
+    return moveDirection;
+  }
+
+  unitClass.resolveMoveDirection = function(moveX, moveY) {
+    if(arguments.length < 2 || 
+      ((moveX === 0 && moveY === 0) || 
+      (moveX != moveX && moveY != moveY))
+    ) {
+      // JS trick to check for NaN, see https://stackoverflow.com/q/30314447
+      return "ERROR_DIRECTION"; // return a non-direction character
     }
 
     if(Math.abs(moveX) / 2 > Math.abs(moveY)) {
@@ -293,31 +354,43 @@ function unitClass() {
     return isCollision;
   }
 
-  this.moveIncrement = function() {
+  this.getLatestGotoCoords = function() {
     var gotoX = this.gotoX;
     var gotoY = this.gotoY;
-    if (this.gotoQueue != null && this.gotoQueue.length > 0) {
-      var location = this.gotoQueue[this.gotoQueue.length - 1];
-      if (location.wait <= 0) {
-        // pop location off the queue after wait is over
-        this.gotoQueue.pop();
-        if (this.gotoQueue.length > 0) {
-          // grab the next location
-          location = this.gotoQueue[this.gotoQueue.length - 1];
+    var location = null;
+    // look at latest queue location for latest goto path
+    if (this.gotoQueue.length > 0) {
+      location = this.gotoQueue[this.gotoQueue.length - 1];
+      if (location != null) {
+        if (location.wait != undefined)  {
+          if (location.wait <= 0) {
+            // pop location off the queue after wait is over
+            this.gotoQueue.pop();
+            // if (this.gotoQueue.length > 0) {
+            //   // grab the next location
+            //   location = this.gotoQueue[this.gotoQueue.length - 1];
+            // }
+          } else if (location.x != undefined && location.y != undefined) {
+            gotoX = location.x;
+            gotoY = location.y;
+          }
         }
       }
-      if (location != null) {
-        gotoX = location.x;
-        gotoY = location.y;
-        location.wait--; 
-      }
     }
+    return { gotoX, gotoY };
+  }
 
+  this.distToGoWithDeltas = function(gotoX, gotoY) {
     var deltaX = gotoX - this.x;
     var deltaY = gotoY - this.y;
     var distToGo = Math.sqrt(deltaX*deltaX + deltaY*deltaY);
-    var distToGoReciprocal = 0;
+    return { distToGo, deltaX, deltaY };
+  }
 
+  this.moveIncrement = function() {
+    var { gotoX, gotoY } = this.getLatestGotoCoords();
+    var { distToGo, deltaX, deltaY } = this.distToGoWithDeltas(gotoX, gotoY);
+    var distToGoReciprocal = 0;
     if(distToGo != 0) { 
       distToGoReciprocal = 1 / distToGo;
     };
@@ -330,8 +403,10 @@ function unitClass() {
       this.x += this.moveX;
       this.y += this.moveY;
     } else if (distToGo > 0) {
-      this.x = this.gotoX;
-      this.y = this.gotoY;
+      this.x = gotoX;
+      this.y = gotoY;
+    } else {
+      this.waitAtGotoQueueLocation();
     }
   }
 
@@ -375,29 +450,55 @@ function unitClass() {
     }
   }
 
-  this.gotoPathAndWait = function(x, y, wait, reason=(Math.random() * 100).toString()) {
+  this.gotoPathAndWait = function(x, y, wait, reason) {
+    // default the parameters where they are missing
+    switch(arguments.length) {
+      case 0: x = this.x; // fall-through
+      case 1: y = this.y; // fall-through
+      case 2: wait = 1;
+      case 3: reason = "STAY_PUT_" + (Math.random() * 100).toString();
+    }
+
     if (this.gotoQueue != null && this.gotoQueue.length > 0) {
+      // clean out exist locations matching reason
       var worthyWaitQueue = [];
       for(var i=0;i<this.gotoQueue.length;i++){
         var location = this.gotoQueue[i];
-        if (location.wait > 0 && reason != location.reason) {
-          worthyWaitQueue.add(this.gotoQueue[location]);
+        if (location != null && location.wait != undefined && 
+          location.wait > 0 && reason != location.reason
+        ) {
+          worthyWaitQueue.push(this.gotoQueue[location]);
         }
       }
 
       this.gotoQueue = worthyWaitQueue;
+    }
 
-      if (this.gotoQueue.length < this.gotoQueueLimit) {
-        this.gotoQueue.push({ x: x, y: y, wait: wait, reason: reason });
+    if (this.gotoQueue.length < this.gotoQueueLimit) {
+      this.gotoQueue.push({ x: x, y: y, wait: wait, reason: reason });
+    }
+  }
+
+  this.waitAtGotoQueueLocation = function() {
+    if (this.gotoQueue.length > 0) {
+      var location = this.gotoQueue[this.gotoQueue.length - 1];
+      if (location != undefined && 
+        location.wait != undefined && 
+        location.wait > 0
+      ) {
+        this.gotoQueue[this.gotoQueue.length - 1].wait--;
       }
     }
   }
 
   this.gotoNear = function(aroundX, aroundY, formationPos, formationDim) {
+    this.stopMoving();
+    this.clearTarget();
     var colNum = formationPos % formationDim;
     var rowNum = Math.floor(formationPos / formationDim);
     this.gotoX = aroundX + colNum*UNIT_RANKS_SPACING;
     this.gotoY = aroundY + rowNum*UNIT_RANKS_SPACING;
+    this.gotoPathAndWait(this.gotoX, this.gotoY, 100, "GOTO_NEAR");
   }
 
   this.keepInPlayableArea = function() {
@@ -415,6 +516,10 @@ function unitClass() {
 
   this.setTarget = function(newTarget) {
     this.myTarget = newTarget;
+  }
+
+  this.clearTarget = function() {
+    this.myTarget = null;
   }
 
   this.isInBox = function(x1, y1, x2, y2) {
@@ -518,6 +623,10 @@ function unitClass() {
     } else {
       colorCircle(this.x,this.y, UNIT_PLACEHOLDER_RADIUS, "yellow");
     }
+  }
+
+  this.dies = function() {
+    this.isDead = true;
   }
 }
 
