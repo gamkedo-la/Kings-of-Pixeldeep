@@ -20,26 +20,33 @@ function checkAndHandleVictory() {
     } else if(playerUnits.length == 0) {
         if(gameOptions.showDebug) {
             document.getElementById("debugText").innerHTML = "ENEMY TEAM WON";
-            console.log('battle over, enemy won');
+        }
 
-            // TODO: delete player army; below breaks game
-            // probably using array.findIndex() or array.find() or array.filter()
-            //playerBattleArmy.delete();
-            //playerBattleArmy = null;
+        console.log('battle over, enemy won');
+
+        if(playerBattleArmy || enemyBattleArmy) {
+            playerArmies = playerArmies.filter(
+                army => army.name !== playerBattleArmy.name
+            );
             enemyBattleArmy.troops.peasants = enemyUnits.length;
         }
+
         setupWorldMode();
+
     } else if(enemyUnits.length == 0) {
         if(gameOptions.showDebug) {
             document.getElementById("debugText").innerHTML = "PLAYER TEAM WON";
-            console.log('battle over, player won');
+        }
+        console.log('battle over, player won');
 
-            // TODO: delete enemy army; below breaks game
-            // probably using array.findIndex() or array.find() or array.filter()
-            //enemyBattleArmy.delete();
-            //enemyBattleArmy = null;
+        if(playerBattleArmy || enemyBattleArmy) {
+            enemyArmies = enemyArmies.filter(
+                army => army.name !== enemyBattleArmy.name
+            );
+
             playerBattleArmy.troops.peasants = playerUnits.length;
         }
+
         setupWorldMode();
   }
 }

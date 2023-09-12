@@ -44,6 +44,10 @@ function setupWorldMode() {
     level_width = LEVEL_TILE_W * level_cols;
     level_height = LEVEL_TILE_H * level_rows;
 
+    // clear battle mode army vars
+    playerBattleArmy = null;
+    enemyBattleArmy = null;
+
     if (!pauseMode) {
         currentSidebarButtons = WORLD_SIDEBAR_BUTTONS;
     } else {
