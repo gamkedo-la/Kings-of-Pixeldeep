@@ -10,6 +10,8 @@ var enemyGold = 10; // may not actually use this, just added for consistency
 
 var neutralCities = [];
 
+var allCities = [];
+
 var selectedWorldEntity = null;
 
 // WORLD MAP SETUP
@@ -18,29 +20,37 @@ var city1  = new cityClass({
     worldCol: 8,
     worldRow: 8,
     cityType: CITY_TYPE_PLAYER,
+    name: 'city1',
 });
 playerCities.push(city1);
+allCities.push(city1);
 
 var city2  = new cityClass({
     worldCol: 31,
     worldRow: 7,
     cityType: CITY_TYPE_ENEMY,
+    name: 'city2',
 });
 enemyCities.push(city2);
+allCities.push(city2);
 
 var city3  = new cityClass({
     worldCol: 10,
     worldRow: 24,
     cityType: CITY_TYPE_NEUTRAL,
+    name: 'city3',
 });
 neutralCities.push(city3);
+allCities.push(city3);
 
 var city4  = new cityClass({
     worldCol: 30,
     worldRow: 25,
     cityType: CITY_TYPE_NEUTRAL,
+    name: 'city4',
 });
 neutralCities.push(city4);
+allCities.push(city4);
 
 var army1  = new armyClass({
     worldCol: 7,
@@ -64,6 +74,17 @@ var army2 = new armyClass({
 });
 enemyArmies.push(army2);
 allArmies.push(army2);
+
+var army3  = new armyClass({
+    worldCol: 7,
+    worldRow: 25,
+    name: "army3",
+    troops: {
+        peasants: 30,
+    }
+});
+playerArmies.push(army3);
+allArmies.push(army3);
 
 // BATTLE CHECK FUNCTIONS
 // these should definately go someplace else, but it's where I can think to put them for now
@@ -99,4 +120,23 @@ function runEnemyTurn() {
     // as the game goes on
     
     endTurn(); // this may cause recursion, not sure
+}
+
+function tryToCapture(city, withArmy) {
+    if(withArmy.playerControlled) {
+        if(city.cityType == CITY_TYPE_PLAYER) {
+            console.log('city is player controlled already, no need to capture');
+        } else {
+            console.log('player capturing city: ', city.name);
+            // change to a player city
+            city.cityType = CITY_TYPE_PLAYER;
+
+            // remove this city from neutral and/or enemy city arrays
+            enemyCities = enemyCities.filter(checkCity => checkCity.name !== city.name);
+            neutralCities = neutralCities.filter(checkCity => checkCity.name !== city.name);
+
+            // add to player cities array
+            playerCities.push(city);
+        }
+    }
 }

@@ -157,6 +157,7 @@ function armyClass(configObj) {
             this.animatingPath = this.currentPath.slice(); // duplicate
             this.currentPath = null;
 
+            // check for other armies & start battle mode if necessary
             if(this.playerControlled && isEnemyArmyAtPosition(newCol, newRow)) {
                 setupBattleMode(newCol, newRow);
             }
@@ -164,8 +165,17 @@ function armyClass(configObj) {
                 setupBattleMode(newCol, newRow);
             }
 
+            // check for a city at new army's location
+            for(const city of allCities) {
+                //console.log('checking city', city);
+                if(city.worldCol === newCol && city.worldRow === newRow) {
+                    tryToCapture(city, this);
+                }
+            }
+
             // deselect army
             selectedWorldEntity = null;
+
         }
 
     } // end this.move()
