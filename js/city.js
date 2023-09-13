@@ -60,6 +60,19 @@ function cityClass(configObj) {
             sX = LEVEL_TILE_W  * 0;
         }
 
+        if(selectedWorldEntity && selectedWorldEntity.name === this.name) {
+            // draw highlighted border around selected city
+            let highlightBorderWidth = 3;
+
+            colorRect(
+            (this.x() - LEVEL_TILE_W/2) - highlightBorderWidth,
+            (this.y() - LEVEL_TILE_H/2) - highlightBorderWidth,
+            LEVEL_TILE_W + (highlightBorderWidth * 2),
+            LEVEL_TILE_H + (highlightBorderWidth * 2),
+            'aqua', 
+            );
+        }
+
         drawBitmapPartialCenteredWithRotation(
             this.citySpriteImg, this.x(), this.y(), LEVEL_TILE_W, LEVEL_TILE_H, 
             withAngle=0, sX, sY, LEVEL_TILE_W, LEVEL_TILE_H);
