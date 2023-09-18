@@ -192,28 +192,94 @@ function armyClass(configObj) {
         let targetY = 0;
         let tileIndex = 0;
         let MAX_TRIES = 50;
+        let chosenTargetTries = 10;
         let tries = 0;
         let canMoveToTarget = false;
+
+        // pick target
+        let possibleTargets = playerArmies.concat(playerCities);
+        let pathsInRange = [];
+        let chosenTargetPath = null;
+
+        for(const target of possibleTargets) {
+            let pathToTarget = levelGridPathfind(this.worldCol, this.worldRow, 
+                target.worldCol, target.worldRow);
+
+            if(pathToTarget.length <= this.currentMovementPoints) {
+                pathsInRange.push(pathToTarget);
+            }
+        }
+
+        if(pathsInRange.length > 0) {
+            chosenTargetPath = pickRandomFromArray(pathsInRange);
+        }
 
         // keep trying until we find a "possible move"
         while (!canMoveToTarget && tries<MAX_TRIES) { // avoid an infinite loop if we always fail
 
             tries++;
             
+            /*
             // move to somewhere within ONE TILE of me (for now!!)
             targetX = this.worldCol + Math.round(Math.random()*2-1);
             targetY = this.worldRow + Math.round(Math.random()*2-1);
+            // choose from ENTIRE MAP
+            //targetX = Math.floor(Math.random()*level_cols);
+            //targetY = Math.floor(Math.random()*level_rows);
+            */
 
             if(targetCoords) {
-                console.log('updating target based on provided coords');
+                console.log('debug coordinates were provided', targetCoords);
                 targetX = targetCoords.x;
                 targetY = targetCoords.y;
             }
 
+            // no target coords, checking for a chosen target
+            if(chosenTargetPath && tries < chosenTargetTries) {
+                console.log('moving along chosen target path', chosenTargetPath);
+
+                // we already have a path, let's just use it
+                let pathEnd = chosenTargetPath[chosenTargetPath.length - 1];
+                tileIndex = tileCoordToIndex(pathEnd.x,pathEnd.y);
+
+                this.setMovementPath(chosenTargetPath);
+                this.move(tileIndex);
+                break;
+
+            } else {
+                console.log('moving randomly in the direction of a possible target');
+                // choose a random possible target and move vaguely in it's direction
+                let randomTarget = pickRandomFromArray(possibleTargets);
+                console.log('random target', randomTarget);
+
+                if(randomTarget.worldCol > this.worldCol) {
+                    // pick random target worldCol in positive X direction
+                    targetX = Math.round(Math.random() * this.currentMovementPoints) + this.worldCol;
+                } else {
+                    // pick random target worldCol in negative X direction
+                    targetX = (Math.round(Math.random() * this.currentMovementPoints) * -1) +
+                        this.worldRow;
+                }
+
+                if(randomTarget.worldRow > this.worldRow) {
+                    // pick random target worldRow in positive Y direction
+                    targetY = Math.round(Math.random() * this.currentMovementPoints) + this.worldRow;
+                } else {
+                    // pick random target worldRow in negative Y direction
+                    targetY = (Math.round(Math.random() * this.currentMovementPoints) * -1) + 
+                        this.worldRow;
+                }
+            }
+            
+            // last possible fallback, just move randomly
+            if(!targetX && !targetY) {
+                console.log('all else has failed, we are just moving randomly at this point');
+                targetX = this.worldCol + Math.round(Math.random()*this.currentMovementPoints) - 1;
+                targetY = this.worldRow + Math.round(Math.random()*this.currentMovementPoints) - 1;
+            }
+
+            // coordinates picked, let's get moving
             tileIndex = tileCoordToIndex(targetX,targetY);
-            // choose from ENTIRE MAP
-            //targetX = Math.floor(Math.random()*level_cols);
-            //targetY = Math.floor(Math.random()*level_rows);
 
             console.log("AIMove: trying "+targetX+","+targetY+" = index "+tileIndex);
             
