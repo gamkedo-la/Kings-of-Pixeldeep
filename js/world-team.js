@@ -138,5 +138,20 @@ function tryToCapture(city, withArmy) {
             // add to player cities array
             playerCities.push(city);
         }
+    } else { // withArmy must be an enemy army
+        if(city.cityType == CITY_TYPE_ENEMY) {
+            console.log('city is enemy controlled already, no need to capture');
+        } else {
+            console.log('enemy capturing city: ', city.name);
+            // change to a enemy city
+            city.cityType = CITY_TYPE_ENEMY;
+
+            // remove this city from neutral and/or player city arrays
+            playerCities = playerCities.filter(checkCity => checkCity.name !== city.name);
+            neutralCities = neutralCities.filter(checkCity => checkCity.name !== city.name);
+
+            // add to enemy cities array
+            enemyCities.push(city);
+        }
     }
 }

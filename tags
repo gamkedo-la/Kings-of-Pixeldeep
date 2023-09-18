@@ -5,7 +5,6 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 AIMove	js/army.js	/^    this.AIMove = function() {$/;"	m	class:armyClass
-BackgroundMusicClass	js/common/sound-and-music.js	/^function BackgroundMusicClass() {$/;"	c
 DiagonalDistance	js/common/pathfinding.js	/^	function DiagonalDistance(Point, Goal)$/;"	f	function:levelGridPathfind
 DiagonalNeighbours	js/common/pathfinding.js	/^	function DiagonalNeighbours(myN, myS, myE, myW, N, S, E, W, result)$/;"	f	function:levelGridPathfind
 DiagonalNeighboursFree	js/common/pathfinding.js	/^	function DiagonalNeighboursFree(myN, myS, myE, myW, N, S, E, W, result)$/;"	f	function:levelGridPathfind
@@ -19,14 +18,15 @@ SoundOverlapsClass	js/common/sound-and-music.js	/^function SoundOverlapsClass(fi
 Unpause	js/level-handling.js	/^function Unpause(battleOrWorld='world') {$/;"	f
 addNewUnitToTeam	js/battle-team.js	/^function addNewUnitToTeam(spawnedUnit, fightsForTeam) {$/;"	f
 allArmies	js/world-team.js	/^var allArmies = [];$/;"	v
+allCities	js/world-team.js	/^var allCities = [];$/;"	v
 allUnits	js/battle-team.js	/^var allUnits = [];$/;"	v
 anyNewUnitsToClear	js/battle-team.js	/^var anyNewUnitsToClear = false;$/;"	v
 archers	js/army.js	/^        archers: 0,$/;"	p	class:armyClass.troops
 armyClass	js/army.js	/^function armyClass(configObj) {$/;"	c
 attackOrMoveToMousePos	js/common/mouse-input.js	/^function attackOrMoveToMousePos(evt) {$/;"	f
-audioFormat	js/common/sound-and-music.js	/^var audioFormat;$/;"	v
-audioMute	js/common/sound-and-music.js	/^var audioMute = false;$/;"	v
+audioFormats	js/common/sound-and-music.js	/^var audioFormats = []$/;"	v
 battleMode	js/level-handling.js	/^var battleMode = false;$/;"	v
+battleMusic	js/common/sound-and-music.js	/^var battleMusic = null;$/;"	v
 battleTerrain	js/common/image-loading.js	/^var battleTerrain  = document.createElement("img");$/;"	v
 beginLoadingImage	js/common/image-loading.js	/^function beginLoadingImage(imgVar, fileName) {$/;"	f
 buttonClass	js/ui/button.js	/^function buttonClass(configObj) {$/;"	c
@@ -47,10 +47,12 @@ cameraPanSpeed	js/common/global-vars.js	/^    cameraPanSpeed: 10,$/;"	p	class:ga
 canWalkHere	js/common/pathfinding.js	/^	function canWalkHere(x,y)$/;"	f	function:levelGridPathfind
 canvas	js/common/global-vars.js	/^var canvas, canvasContext;$/;"	v
 checkAndHandleVictory	js/battle-team.js	/^function checkAndHandleVictory() {$/;"	f
+checkForCollisions	js/unit.js	/^  this.checkForCollisions = function() {$/;"	m	class:unitClass
 cityClass	js/city.js	/^function cityClass(configObj) {$/;"	c
 cityPanelBackdrop	js/common/image-loading.js	/^var cityPanelBackdrop = document.createElement("img");$/;"	v
 cityPanelControls	js/ui/city-panel.js	/^var cityPanelControls = [$/;"	v
 cityPic	js/common/image-loading.js	/^var cityPic = document.createElement("img");$/;"	v
+clearTarget	js/unit.js	/^  this.clearTarget = function() {$/;"	c
 clickHandler	js/common/mouse-input.js	/^function clickHandler(evt) {$/;"	f
 closeCityPanel	js/ui/city-panel.js	/^function closeCityPanel() {$/;"	f
 coastalWaterTerrain	js/common/image-loading.js	/^var coastalWaterTerrain = document.createElement("img");$/;"	v
@@ -70,7 +72,9 @@ currentMusic	js/common/sound-and-music.js	/^var currentMusic = null;$/;"	v
 currentSidebarButtons	js/ui/sidebar.js	/^var currentSidebarButtons = [];$/;"	v
 debug	js/main.js	/^function debug(text) {$/;"	f
 dialogBoxClass	js/ui/dialog-box.js	/^function dialogBoxClass(configObj) {$/;"	c
-distFrom	js/unit.js	/^  this.distFrom = function(otherX, otherY) {$/;"	m	class:unitClass
+dies	js/unit.js	/^  this.dies = function() {$/;"	c
+distFrom	js/unit.js	/^  this.distFrom = function(otherX, otherY) {$/;"	f
+distToGoWithDeltas	js/unit.js	/^  this.distToGoWithDeltas = function(gotoX, gotoY) {$/;"	f
 draw	js/army.js	/^    this.draw = function() {$/;"	m	class:armyClass
 draw	js/city-worker.js	/^    this.draw = function() {$/;"	m	class:workerClass
 draw	js/city.js	/^    this.draw = function() {$/;"	m	class:cityClass
@@ -79,7 +83,7 @@ draw	js/ui/dialog-box.js	/^    this.draw = function() {$/;"	m	class:dialogBoxCla
 draw	js/ui/label.js	/^    this.draw = function() {$/;"	m	class:labelClass
 draw	js/ui/slider-group.js	/^    this.draw = function() {$/;"	m	class:sliderGroupClass
 draw	js/ui/slider.js	/^    this.draw = function() {$/;"	m	class:sliderClass
-draw	js/unit.js	/^  this.draw = function() {$/;"	m	class:unitClass
+draw	js/unit.js	/^  this.draw = function() {$/;"	f
 drawBattleTerrain	js/level-handling.js	/^function drawBattleTerrain(terrainCode, drawTileX, drawTileY, arrayIndex) {$/;"	f
 drawBitmapCenteredWithRotation	js/common/graphics-common.js	/^function drawBitmapCenteredWithRotation(graphic, atX, atY,withAngle) {$/;"	f
 drawBitmapPartialCenteredWithRotation	js/common/graphics-common.js	/^function drawBitmapPartialCenteredWithRotation(graphic, atX, atY, dWidth, dHeight, withAngle, sX, sY, sWidth, sHeight) {$/;"	f
@@ -95,7 +99,7 @@ drawHoverBox	js/editor.js	/^function drawHoverBox() {$/;"	f
 drawLabelText	js/ui/label.js	/^    this.drawLabelText = function() {$/;"	m	class:labelClass
 drawLevel	js/level-handling.js	/^function drawLevel() {$/;"	f
 drawSelectionBox	js/city-worker.js	/^  this.drawSelectionBox = function() {$/;"	m	class:workerClass
-drawSelectionBox	js/unit.js	/^  this.drawSelectionBox = function() {$/;"	m	class:unitClass
+drawSelectionBox	js/unit.js	/^  this.drawSelectionBox = function() {$/;"	f
 drawSidebar	js/ui/sidebar.js	/^function drawSidebar() {$/;"	f
 drawTopbar	js/ui/topbar.js	/^function drawTopbar() {$/;"	f
 drawUI	js/main.js	/^function drawUI() {$/;"	f
@@ -105,6 +109,7 @@ editorMode	js/level-handling.js	/^var editorMode = false;$/;"	v
 endTurn	js/level-handling.js	/^function endTurn() {$/;"	f
 enemyArmies	js/world-team.js	/^var enemyArmies = [];$/;"	v
 enemyArmyPic	js/common/image-loading.js	/^var enemyArmyPic = document.createElement("img");$/;"	v
+enemyBattleArmy	js/level-handling.js	/^var enemyBattleArmy = null;$/;"	v
 enemyCities	js/world-team.js	/^var enemyCities = [];$/;"	v
 enemyGold	js/world-team.js	/^var enemyGold = 10; \/\/ may not actually use this, just added for consistency$/;"	v
 enemyTurn	js/main.js	/^var enemyTurn = false;$/;"	v
@@ -113,18 +118,21 @@ equalizeSliders	js/ui/slider-group.js	/^    this.equalizeSliders = function(chan
 exportLevel	js/editor.js	/^function exportLevel() {$/;"	f
 farmTerrain	js/common/image-loading.js	/^var farmTerrain = document.createElement("img");$/;"	v
 findClickedCitySectionIdx	js/common/mouse-input.js	/^function findClickedCitySectionIdx(mousePos) {$/;"	f
+findClosestOtherUnitInRange	js/battle-team.js	/^function findClosestOtherUnitInRange(fromUnit, maxRange, inUnitList) {$/;"	f
 findClosestUnitInRange	js/battle-team.js	/^function findClosestUnitInRange(fromX, fromY, maxRange, inUnitList) {$/;"	f
 findNeighbours	js/common/pathfinding.js	/^	var findNeighbours = function(){}; \/\/ empty$/;"	f	function:levelGridPathfind
 forestTerrain	js/common/image-loading.js	/^var forestTerrain = document.createElement("img");$/;"	v
 gameBattleGrid	js/level-handling.js	/^var gameBattleGrid, gameBattleRows, gameBattleCols;$/;"	v
 gameSeason	js/level-handling.js	/^var gameSeason = "summer";$/;"	v
 gameWorldGrid	js/level-handling.js	/^var gameWorldGrid, gameWorldRows, gameWorldCols;$/;"	v
+getLatestGotoCoords	js/unit.js	/^  this.getLatestGotoCoords = function() {$/;"	f
 getModifiableSliders	js/ui/slider-group.js	/^    this.getModifiableSliders = function(changedIndex) {$/;"	m	class:sliderGroupClass
 getRandomBattlefield	js/level-handling.js	/^function getRandomBattlefield() {$/;"	f
 getSeasonMultiplier	js/level-handling.js	/^function getSeasonMultiplier() {$/;"	f
 getUnitUnderMouse	js/common/mouse-input.js	/^function getUnitUnderMouse(currentMousePos) {$/;"	f
 goToRandomSpotInCityPanelSection	js/city-worker.js	/^    this.goToRandomSpotInCityPanelSection = function() {$/;"	m	class:workerClass
-gotoNear	js/unit.js	/^  this.gotoNear = function(aroundX, aroundY, formationPos, formationDim) {$/;"	m	class:unitClass
+gotoNear	js/unit.js	/^  this.gotoNear = function(aroundX, aroundY, formationPos, formationDim) {$/;"	c
+gotoPathAndWait	js/unit.js	/^  this.gotoPathAndWait = function(x, y, wait, reason) {$/;"	f
 grid	js/battle_maps/battlefield1.js	/^    grid: [$/;"	p	class:let
 grid	js/world_maps/world1-v2.js	/^    "grid": [$/;"	p	class:let
 grid	js/world_maps/world1.js	/^    grid: [$/;"	p	class:let
@@ -152,14 +160,17 @@ isClickInsideMainWindow	js/common/mouse-input.js	/^function isClickInsideMainWin
 isClickInsideMiniMap	js/common/mouse-input.js	/^function isClickInsideMiniMap(mousePos) {$/;"	f
 isClickInsideSidebar	js/common/mouse-input.js	/^function isClickInsideSidebar(mousePos) {$/;"	f
 isClickOnButton	js/ui/sidebar.js	/^function isClickOnButton(mousePos, button) {$/;"	f
+isCollision	js/unit.js	/^  this.isCollision = function(otherUnit) {$/;"	f
 isEnemyArmyAtPosition	js/world-team.js	/^function isEnemyArmyAtPosition(col, row) {$/;"	f
 isInBox	js/city-worker.js	/^    this.isInBox = function(x1, y1, x2, y2) {$/;"	m	class:workerClass
-isInBox	js/unit.js	/^  this.isInBox = function(x1, y1, x2, y2) {$/;"	m	class:unitClass
+isInBox	js/unit.js	/^  this.isInBox = function(x1, y1, x2, y2) {$/;"	f
 isMouseDragging	js/common/mouse-input.js	/^var isMouseDragging = false; \/\/ left drag to region select$/;"	v
 isMouseMapPanning	js/common/mouse-input.js	/^var isMouseMapPanning = false; \/\/ right drag to pan map$/;"	v
+isMoving	js/unit.js	/^  this.isMoving = function() {$/;"	m	class:unitClass
 isPlayerArmyAtPosition	js/world-team.js	/^function isPlayerArmyAtPosition(col, row) {$/;"	f
+isStopped	js/unit.js	/^  this.isStopped = function() {$/;"	m	class:unitClass
 isXYinPath	js/common/pathfinding.js	/^	function isXYinPath(x,y,path) {$/;"	f	function:levelGridPathfind
-keepInPlayableArea	js/unit.js	/^  this.keepInPlayableArea = function() {$/;"	m	class:unitClass
+keepInPlayableArea	js/unit.js	/^  this.keepInPlayableArea = function() {$/;"	f
 keyPressed	js/common/keyboard-input.js	/^function keyPressed(evt) {$/;"	f
 keyReleased	js/common/keyboard-input.js	/^function keyReleased(evt) {$/;"	f
 labelClass	js/ui/label.js	/^function labelClass(configObj) {$/;"	c
@@ -176,12 +187,14 @@ level_height	js/level-handling.js	/^var level_height = LEVEL_TILE_H * level_rows
 level_rows	js/level-handling.js	/^var level_rows = 50;$/;"	v
 level_width	js/level-handling.js	/^var level_width = LEVEL_TILE_W * level_cols;$/;"	v
 linkedSliders	js/ui/city-panel.js	/^var linkedSliders = [];$/;"	v
+loadAudioFile	js/common/sound-and-music.js	/^function loadAudioFile(filenameWithPath) {$/;"	f
 loadImageForUnitCode	js/common/image-loading.js	/^function loadImageForUnitCode(unitCode, fileName) {$/;"	f
 loadImageForWorldCode	js/common/image-loading.js	/^function loadImageForWorldCode(worldCode, fileName) {$/;"	f
 loadImages	js/common/image-loading.js	/^function loadImages() {$/;"	f
-loadSounds	js/common/sound-and-music.js	/^function loadSounds() {$/;"	f
+loadSounds	js/common/sound-and-music.js	/^function loadSounds() {$/;"	f	function:BackgroundMusicClass
 loopMusic	js/common/sound-and-music.js	/^var loopMusic = null;$/;"	v
 loopSong	js/common/sound-and-music.js	/^    this.loopSong = function(filenameWithPath) {$/;"	m	class:BackgroundMusicClass
+makeWay	js/unit.js	/^  this.makeWay = function(otherUnit) {$/;"	f
 mouseInMainWindow	js/common/mouse-input.js	/^function mouseInMainWindow(mousePos) {$/;"	f
 mouseMovedEnoughToTreatAsDragging	js/common/mouse-input.js	/^function mouseMovedEnoughToTreatAsDragging() {$/;"	f
 mousedownHandler	js/common/mouse-input.js	/^function mousedownHandler(evt) {$/;"	f
@@ -197,9 +210,11 @@ mouseupHandler	js/ui/slider.js	/^    this.mouseupHandler = function(mousePos) {$
 move	js/army.js	/^    this.move = function(clickedIdx) {$/;"	m	class:armyClass
 move	js/unit.js	/^  this.move = function() {$/;"	m	class:unitClass
 moveEverything	js/main.js	/^function moveEverything() {$/;"	f
+moveIncrement	js/unit.js	/^  this.moveIncrement = function() {$/;"	c
 moveTo	js/city-worker.js	/^    this.moveTo = function(newWorkerPlaceIdx) {$/;"	m	class:workerClass
 neutralCities	js/world-team.js	/^var neutralCities = [];$/;"	v
 newArmyTroops	js/ui/create-army-screen.js	/^var newArmyTroops = {$/;"	v
+nudgeUnit	js/unit.js	/^  this.nudgeUnit = function(nudgeLeftBy, nudgeRightBy, nudgeUpBy, nudgeDownBy) {$/;"	f
 openCityPanel	js/ui/city-panel.js	/^function openCityPanel(city) {$/;"	f
 outlineRect	js/common/graphics-common.js	/^function outlineRect(topLeftX, topLeftY, boxWidth, boxHeight, lineColor) {$/;"	f
 pauseMode	js/level-handling.js	/^var pauseMode = false;$/;"	v
@@ -210,10 +225,11 @@ picsToLoad	js/common/image-loading.js	/^var picsToLoad = 0; \/\/set automaticall
 placeholderUnitAtk	js/common/image-loading.js	/^var placeholderUnitAtk = document.createElement("img");$/;"	v
 placeholderUnitWalk	js/common/image-loading.js	/^var placeholderUnitWalk = document.createElement("img");$/;"	v
 play	js/common/sound-and-music.js	/^    this.play = function() {$/;"	m	class:SoundOverlapsClass
-playSong	js/common/sound-and-music.js	/^    this.playSong = function(filenameWithPath) {$/;"	m	class:BackgroundMusicClass
-playStartupMusic	js/common/sound-and-music.js	/^function playStartupMusic() {$/;"	f
+playSong	js/common/sound-and-music.js	/^    this.playSong = function(filenameWithPath, loop=false) {$/;"	m	class:BackgroundMusicClass.loopSong
+playStartupMusic	js/common/sound-and-music.js	/^function playStartupMusic() {$/;"	f	function:BackgroundMusicClass
 playerArmies	js/world-team.js	/^var playerArmies = [];$/;"	v
 playerArmyPic	js/common/image-loading.js	/^var playerArmyPic = document.createElement("img");$/;"	v
+playerBattleArmy	js/level-handling.js	/^var playerBattleArmy = null;$/;"	v
 playerCities	js/world-team.js	/^var playerCities = [];$/;"	v
 playerGold	js/world-team.js	/^var playerGold = 10;$/;"	v
 playerTurn	js/main.js	/^var playerTurn = true;$/;"	v
@@ -221,6 +237,7 @@ playerUnits	js/battle-team.js	/^var playerUnits = [];$/;"	v
 populateTeam	js/battle-team.js	/^function populateTeam(whichTeam, howMany, isPlayerControlled) {$/;"	f
 printWithSign	js/ui/sidebar-buttons.js	/^function printWithSign(number) {$/;"	f
 produceAndGrow	js/city.js	/^    this.produceAndGrow = function() {$/;"	m	class:cityClass
+receiveId	js/unit.js	/^  this.receiveId = function() {$/;"	m	class:unitClass
 redPeasantUnitSingleFrame	js/common/image-loading.js	/^var redPeasantUnitSingleFrame = document.createElement("img");$/;"	v
 removeDeadUnits	js/battle-team.js	/^function removeDeadUnits() {$/;"	f
 removeDeadUnitsFromList	js/battle-team.js	/^function removeDeadUnitsFromList(fromArray) {$/;"	f
@@ -229,7 +246,7 @@ requestBattleMode	js/level-handling.js	/^function requestBattleMode() { $/;"	f
 requestEditorMode	js/level-handling.js	/^function requestEditorMode() {$/;"	f
 requestWorldMode	js/level-handling.js	/^function requestWorldMode() {$/;"	f
 resetAndSetPlayerTeam	js/unit.js	/^  this.resetAndSetPlayerTeam = function(playerTeam) {$/;"	m	class:unitClass
-resolveMoveDirection	js/unit.js	/^  this.resolveMoveDirection = function(moveX, moveY) {$/;"	m	class:unitClass
+resolveMoveDirection	js/unit.js	/^  this.resolveMoveDirection = function() {$/;"	m	class:unitClass
 resumeBattleMode	js/level-handling.js	/^function resumeBattleMode() {$/;"	f
 returnTileTypeAtColRow	js/level-handling.js	/^function returnTileTypeAtColRow(col,row) {$/;"	f
 rightClickHandler	js/common/mouse-input.js	/^function rightClickHandler(evt) {$/;"	f
@@ -246,7 +263,7 @@ setCamPanDeltas	js/common/cam-pan.js	/^function setCamPanDeltas(mousePos) {$/;"	
 setFormat	js/common/sound-and-music.js	/^function setFormat() {$/;"	f
 setMovementPath	js/army.js	/^    this.setMovementPath = function(pathData) {$/;"	m	class:armyClass
 setPosition	js/army.js	/^    this.setPosition = function(col,row) {$/;"	m	class:armyClass
-setTarget	js/unit.js	/^  this.setTarget = function(newTarget) {$/;"	m	class:unitClass
+setTarget	js/unit.js	/^  this.setTarget = function(newTarget) {$/;"	c
 setTerrainBrushCode	js/editor.js	/^function setTerrainBrushCode(newVal) {$/;"	f
 setupBattleMode	js/level-handling.js	/^function setupBattleMode(worldCol, worldRow) {$/;"	f
 setupEditorMode	js/level-handling.js	/^function setupEditorMode(battleOrWorld="world") {$/;"	f
@@ -263,9 +280,13 @@ sliderClass	js/ui/slider.js	/^function sliderClass(configObj) {$/;"	c
 sliderGroupClass	js/ui/slider-group.js	/^function sliderGroupClass(configObj) {$/;"	c
 soonCheckUnitsToClear	js/battle-team.js	/^function soonCheckUnitsToClear() {$/;"	f
 spearmen	js/army.js	/^        spearmen: 0,$/;"	p	class:armyClass.troops
+startMusic	js/common/sound-and-music.js	/^    this.startMusic = function() {$/;"	m	class:BackgroundMusicClass.loopSong
 startNewGame	js/level-handling.js	/^function startNewGame(whichWorld) {$/;"	f
-startOrStopMusic	js/common/sound-and-music.js	/^    this.startOrStopMusic = function() {$/;"	m	class:BackgroundMusicClass
+startOrStopMusic	js/common/sound-and-music.js	/^    this.startOrStopMusic = function() {$/;"	m	class:BackgroundMusicClass.loopSong
 startupMusic	js/common/sound-and-music.js	/^var startupMusic = null;$/;"	v
+stopAllMusic	js/common/sound-and-music.js	/^function stopAllMusic() {$/;"	f	function:BackgroundMusicClass
+stopMoving	js/unit.js	/^  this.stopMoving = function() {$/;"	m	class:unitClass
+stopMusic	js/common/sound-and-music.js	/^    this.stopMusic = function() {$/;"	m	class:BackgroundMusicClass.loopSong
 terrainBrushCode	js/editor.js	/^var terrainBrushCode = 1;$/;"	v
 terrainBrushSize	js/editor.js	/^var terrainBrushSize = 1;$/;"	v
 test1	js/ui/slider-group.js	/^        test1: 10,$/;"	p	class:sliderGroupClass.values
@@ -274,11 +295,15 @@ test3	js/ui/slider-group.js	/^        test3: 10,$/;"	p	class:sliderGroupClass.va
 testButton	js/ui/button.js	/^function testButton() {$/;"	f
 tileCoordToIndex	js/common/mouse-input.js	/^function tileCoordToIndex(tileCol, tileRow) {$/;"	f
 tileDistExtraCost	js/common/pathfinding.js	/^	function tileDistExtraCost(x,y)$/;"	f	function:levelGridPathfind
-toggleAudioMute	js/common/sound-and-music.js	/^function toggleAudioMute() {$/;"	f
+toggleAudioMute	js/common/sound-and-music.js	/^function toggleAudioMute() {$/;"	f	function:BackgroundMusicClass
 togglePauseMode	js/level-handling.js	/^function togglePauseMode() {$/;"	f
 toggleUserInteractStage	js/main.js	/^function toggleUserInteractStage() {$/;"	f
 total	js/ui/slider-group.js	/^        total: 30,$/;"	p	class:sliderGroupClass.values
+tryToCapture	js/world-team.js	/^function tryToCapture(city, withArmy) {$/;"	f
 turnNumber	js/common/global-vars.js	/^var turnNumber = 1;$/;"	v
+unitClass	js/unit.js	/^  unitClass.giveId = function(unit) {$/;"	m
+unitClass	js/unit.js	/^  unitClass.isCollision = function(unit1, unit2) {$/;"	m
+unitClass	js/unit.js	/^  unitClass.resolveMoveDirection = function(moveX, moveY) {$/;"	m
 unitClass	js/unit.js	/^function unitClass() {$/;"	c
 unitPics	js/common/image-loading.js	/^var unitPics = [];$/;"	v
 updateAll	js/main.js	/^function updateAll() {$/;"	f
@@ -287,6 +312,7 @@ userHasInteractedWithGame	js/common/sound-and-music.js	/^var userHasInteractedWi
 userInteractStage	js/main.js	/^var userInteractStage = USER_INTERACT_STAGE_NONE;$/;"	v
 value	js/common/pathfinding.js	/^			value:Point.x + (Point.y * worldWidth),$/;"	p	class:levelGridPathfind.Node.newNode
 viewingCity	js/ui/city-panel.js	/^var viewingCity = null;$/;"	v
+waitAtGotoQueueLocation	js/unit.js	/^  this.waitAtGotoQueueLocation = function() {$/;"	f
 walkableTileExtraCosts	js/common/pathfinding.js	/^var walkableTileExtraCosts = [];$/;"	v
 walkableTiles	js/common/pathfinding.js	/^var walkableTiles = [$/;"	v
 window.onload	js/main.js	/^window.onload = function() {$/;"	f
