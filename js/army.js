@@ -180,7 +180,7 @@ function armyClass(configObj) {
 
     } // end this.move()
 
-    this.AIMove = function() {
+    this.AIMove = function(targetCoords=null) {
         if(this.playerControlled) {
             return; // enemy AI can't move player armies
         }
@@ -203,6 +203,13 @@ function armyClass(configObj) {
             // move to somewhere within ONE TILE of me (for now!!)
             targetX = this.worldCol + Math.round(Math.random()*2-1);
             targetY = this.worldRow + Math.round(Math.random()*2-1);
+
+            if(targetCoords) {
+                console.log('updating target based on provided coords');
+                targetX = targetCoords.x;
+                targetY = targetCoords.y;
+            }
+
             tileIndex = tileCoordToIndex(targetX,targetY);
             // choose from ENTIRE MAP
             //targetX = Math.floor(Math.random()*level_cols);
