@@ -121,8 +121,19 @@ function armyClass(configObj) {
     }
 
     this.move = function(clickedIdx) {
-        let newRow = Math.floor(clickedIdx  / level_cols);
-        let newCol = clickedIdx % level_cols;
+        let newRow, newCol;
+
+        if(clickedIdx) {
+            // player clicked to start the move, use click location as target
+            newRow = Math.floor(clickedIdx  / level_cols);
+            newCol = clickedIdx % level_cols;
+        } else {
+            // assuming we've set the path manually from this.AIMove()
+            // rather than calling this from a player mouse click
+            newRow = this.currentPath[this.currentPath.length - 1][1]; // row = Y coord
+            newCol = this.currentPath[this.currentPath.length - 1][0]; // col = X coord
+        }
+
         let canMoveToTarget = true;
 
         // check that there _is_ a path
@@ -157,11 +168,15 @@ function armyClass(configObj) {
             this.animatingPath = this.currentPath.slice(); // duplicate
             this.currentPath = null;
 
+            console.log('move complete, checking for armies and cities at destination', newCol, newRow);
+
             // check for other armies & start battle mode if necessary
             if(this.playerControlled && isEnemyArmyAtPosition(newCol, newRow)) {
+                console.log('player army checking for enemy army at', newCol, newRow);
                 setupBattleMode(newCol, newRow);
             }
             if(!this.playerControlled && isPlayerArmyAtPosition(newCol, newRow)) {
+                console.log('enemy army checking for player army at', newCol, newRow);
                 setupBattleMode(newCol, newRow);
             }
 
@@ -243,7 +258,7 @@ function armyClass(configObj) {
                 tileIndex = tileCoordToIndex(pathEnd.x,pathEnd.y);
 
                 this.setMovementPath(chosenTargetPath);
-                this.move(tileIndex);
+                this.move();
                 break;
 
             } else {
