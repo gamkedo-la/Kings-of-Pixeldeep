@@ -408,7 +408,28 @@ function unitClass() {
     } else {
       this.waitAtGotoQueueLocation();
     }
+
+    // finally, avoid walking through trees and rocks
+    this.avoidMapObstacles();
+
   }
+
+  this.avoidMapObstacles = function() { // $CTK
+        //console.log("unit "+this.id+" avoiding obstacles at pos="+this.x+","+this.y);
+        //console.log(levelGrid,level_cols,level_rows,level_width,LEVEL_TILE_W,level_height,LEVEL_TILE_H);
+        let myGridX = Math.floor(this.x / LEVEL_TILE_W);
+        let myGridY = Math.floor(this.y / LEVEL_TILE_H);
+        let myTile = levelGrid[myGridX+myGridY*level_cols];
+        if (myTile != 11) {
+            // exit the tile slowly
+            //console.log("I am on tile "+myGridX+","+myGridY+" which is "+myTile);
+            let tileCenterX = myGridX * LEVEL_TILE_W + LEVEL_TILE_W/2;
+            let tileCenterY = myGridY * LEVEL_TILE_H + LEVEL_TILE_H/2;
+            if (this.x<tileCenterX) this.x -= 2; else this.x += 2;
+            if (this.y<tileCenterX) this.y -= 2; else this.y += 2;
+        }
+  };
+
 
   this.makeWay = function(otherUnit) {
     if (otherUnit != null) {
