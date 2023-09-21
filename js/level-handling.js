@@ -55,7 +55,7 @@ function setupWorldMode() {
     }
 
     stopAllMusic();
-    // TODO: play world background music when we have some
+    worldMusic.startMusic();
 }
 
 function requestWorldMode() {

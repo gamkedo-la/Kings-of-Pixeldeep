@@ -16,6 +16,7 @@ window.onload = function() {
     colorRect(0,0, canvas.width,canvas.height, "black");
     colorText("Loading...", canvas.width/2,canvas.height/2, "white");
 
+    loadSounds(); // calling before game start avoids `worldMusic is null` error
     loadImages();
 }
 

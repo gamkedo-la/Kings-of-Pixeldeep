@@ -6,6 +6,7 @@ var currentMusic = null;
 var startupMusic = null;
 var loopMusic = null;
 var battleMusic = null;
+var worldMusic = null;
 
 var userHasInteractedWithGame = false; // no sound allowed until the first click
 
@@ -169,6 +170,10 @@ function loadSounds() {
     battleMusic = new BackgroundMusicClass();
     battleMusic.loopSong("audio/Pixeldeep_Battle_1.mp3");
     battleMusic.stopMusic(); // stop music playing immediately; wait for battle mode to trigger
+    //
+    worldMusic = new BackgroundMusicClass();
+    worldMusic.loopSong("audio/slow_map_Pixeldeep.mp3");
+    worldMusic.stopMusic(); // stop music playing immediately; wait for battle mode to trigger
 }
 
 function toggleAudioMute() {
@@ -207,5 +212,8 @@ function stopAllMusic() {
     }
     if(battleMusic) {
         battleMusic.stopMusic();
+    }
+    if(worldMusic) {
+        worldMusic.stopMusic();
     }
 }
