@@ -10,3 +10,10 @@ function pickRandomFromArray(arrayArg) {
 
     return arrayArg[chosenIdx];
 }
+
+function getRandomBattlefield() {
+  const battlefieldNames = ["battlefield1", "battlefield2"];
+  const randomIndex = Math.floor(Math.random() * battlefieldNames.length);
+  let chosenBattlefield = "battlefield" + randomIndex;
+  return chosenBattlefield;
+}
