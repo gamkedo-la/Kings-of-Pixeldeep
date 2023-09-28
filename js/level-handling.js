@@ -362,7 +362,8 @@ function drawWorldTerrain(terrainCode, drawTileX, drawTileY, arrayIndex) {
     if(terrainCode == WORLD_FARM){
         terrainPic = farmTerrain;
     }
-    if (terrainCode == WORLD_FOREST){
+    if (//terrainCode == WORLD_MOUNTAINS || // mountains have forest edges
+        terrainCode == WORLD_FOREST){
         terrainPic = forestTerrain;
     }
 
@@ -370,7 +371,8 @@ function drawWorldTerrain(terrainCode, drawTileX, drawTileY, arrayIndex) {
         terrainPic = coastalWaterTerrain;
         terrainCode = WORLD_WATER;
     }
-    if (terrainCode == WORLD_FOREST ||
+    if (//terrainCode == WORLD_MOUNTAINS || //fixme: doesn't work as intended (draw mountain AND forest auto edges)
+        terrainCode == WORLD_FOREST ||
         terrainCode == WORLD_WATER ||
         terrainCode == WORLD_FARM){
         //check if same tile type is above

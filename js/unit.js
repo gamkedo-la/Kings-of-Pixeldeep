@@ -1,4 +1,5 @@
 const UNIT_PLACEHOLDER_RADIUS = 10;
+const UNIT_TILE_WALKABLE = 11; // grass. everything else, (trees etc) we avoid
 const UNIT_SELECT_DIM_HALF = UNIT_PLACEHOLDER_RADIUS + 3;
 const UNIT_PIXELS_MOVE_RATE = 1.5;
 const UNIT_RANKS_SPACING = UNIT_PLACEHOLDER_RADIUS *3.5;
@@ -420,7 +421,8 @@ function unitClass() {
         let myGridX = Math.floor(this.x / LEVEL_TILE_W);
         let myGridY = Math.floor(this.y / LEVEL_TILE_H);
         let myTile = levelGrid[myGridX+myGridY*level_cols];
-        if (myTile != 11) {
+
+        if (myTile != UNIT_TILE_WALKABLE) {
             // exit the tile slowly
             //console.log("I am on tile "+myGridX+","+myGridY+" which is "+myTile);
             let tileCenterX = myGridX * LEVEL_TILE_W + LEVEL_TILE_W/2;
