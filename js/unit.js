@@ -426,7 +426,7 @@ function unitClass() {
             let tileCenterX = myGridX * LEVEL_TILE_W + LEVEL_TILE_W/2;
             let tileCenterY = myGridY * LEVEL_TILE_H + LEVEL_TILE_H/2;
             if (this.x<tileCenterX) this.x -= 2; else this.x += 2;
-            if (this.y<tileCenterX) this.y -= 2; else this.y += 2;
+            if (this.y<tileCenterY) this.y -= 2; else this.y += 2;
         }
   };
 
