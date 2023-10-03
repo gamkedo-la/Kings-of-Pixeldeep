@@ -49,7 +49,7 @@ function loadImages() {
 	var imageList = [
 		{varName: cityPic, theFile: "townSprite.png"},
 		{varName: playerArmyPic, theFile: "peasant.png"},
-		{varName: enemyArmyPic, theFile: "Person1-alt-color.png"},
+		{varName: enemyArmyPic, theFile: "redPeasant.png"},
 		{varName: worldTerrain, theFile: "world_terrain.png"},
 		{varName: forestTerrain, theFile: "forestSprite.png"},
 		{varName: coastalWaterTerrain, theFile: "coastalWaters.png"},
