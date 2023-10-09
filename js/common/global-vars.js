@@ -36,3 +36,6 @@ var gameOptions = {
     cameraEdgePanSize: 60,
 }
 
+
+// win state
+var winner = null;
