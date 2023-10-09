@@ -155,3 +155,13 @@ function tryToCapture(city, withArmy) {
         }
     }
 }
+
+function checkWinConditions() {
+    if(playerCities.length === allCities.length) {
+        console.log("Player Wins");
+    }
+
+    if(enemyCities.length === allCities.length) {
+        console.log("Enemy Wins");
+    }
+}

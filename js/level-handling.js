@@ -84,6 +84,8 @@ function endTurn() {
     if(enemyTurn) {
         runEnemyTurn();
     }
+
+    checkWinConditions();
 }
 
 function setupBattleMode(worldCol, worldRow) {
