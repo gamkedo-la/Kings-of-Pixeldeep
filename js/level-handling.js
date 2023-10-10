@@ -103,6 +103,7 @@ function setupBattleMode(worldCol, worldRow) {
     level_height = LEVEL_TILE_H * level_rows;
 
     if (!pauseMode) {
+        currentSidebarLabels = BATTLE_SIDEBAR_LABELS;
         currentSidebarButtons = BATTLE_SIDEBAR_BUTTONS;
     } else {
         setupPauseMode('battle');
@@ -151,6 +152,7 @@ function resumeBattleMode() {
     level_height = LEVEL_TILE_H * level_rows;
 
     if (!pauseMode) {
+        currentSidebarLabels = BATTLE_SIDEBAR_LABELS;
         currentSidebarButtons = BATTLE_SIDEBAR_BUTTONS;
     } else {
         setupPauseMode('battle');

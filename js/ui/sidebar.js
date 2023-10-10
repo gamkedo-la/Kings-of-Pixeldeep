@@ -3,7 +3,7 @@ const SIDEBAR_WIDTH = 200;
 //const SIDEBAR_START_Y = MINI_MAP_HEIGHT;
 
 
-
+var currentSidebarLabels = [];
 var currentSidebarButtons = [];
 
 function drawSidebar() {
@@ -12,6 +12,11 @@ function drawSidebar() {
 
     // draw background
     canvasContext.drawImage(guiSideBarBackdrop,canvas.width-SIDEBAR_WIDTH,0);
+
+    // draw all labels
+    for(const label of currentSidebarLabels) {
+    	label.draw();
+    }
 
     // draw all buttons
     for(const button of currentSidebarButtons) {
