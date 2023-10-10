@@ -204,6 +204,9 @@ function mouseupHandler(evt) {
             
         } // end else (!mouseMovedEnoughToTreatAsDragging)
 
+        // update selected unit count display in the sidebar
+        selectedUnitCountLabel.text = SELECTED_UNITS + String(selectedUnits.length);
+
     } // end if(battleMode)
 
     if(showSliderTest) { 

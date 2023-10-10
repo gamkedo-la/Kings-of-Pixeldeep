@@ -1,11 +1,15 @@
 const LABEL_X = 550; // left column of all large sidebar labels
+const SELECTED_UNITS = "Selected units: ";
 
-const BATTLE_SIDEBAR_LABELS = [
+const selectedUnitCountLabel = 
     new labelClass({
-        text: "Selected units: 0",
+        text: SELECTED_UNITS + " 0",
         x: LABEL_X,
         y: 200,
     })
+
+const BATTLE_SIDEBAR_LABELS = [
+    selectedUnitCountLabel,
 ];
     // new buttonClass({
     //     label: "Pause (P)",
