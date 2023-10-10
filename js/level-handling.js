@@ -54,6 +54,11 @@ function setupWorldMode() {
         setupPauseMode('world');
     }
 
+    // remove all labels in BATTLE_SIDE_LABELS
+    currentSidebarLabels = currentSidebarLabels.filter(
+        label => label in BATTLE_SIDEBAR_LABELS
+    );
+
     stopAllMusic();
     worldMusic.startMusic();
 }
