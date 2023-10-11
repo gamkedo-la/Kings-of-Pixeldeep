@@ -97,6 +97,7 @@ function mousemoveHandler(evt) {
     } else if(hoverPos !== null) {
         hoverPos = null;
     }
+
     if(showSliderTest && sliderTest.isDragging) {
 
         sliderTest.mousemoveHandler(mousePos);
@@ -104,6 +105,14 @@ function mousemoveHandler(evt) {
 
     if(showCityPanel) {
         handleCityPanelMousemove(mousePos);
+    }
+
+    if(showCreateArmyScreen) {
+        // Index 1 is the pctOfPopulation slider object
+        var pctOfPopulation = createArmyScreenControls[1]; 
+        if(pctOfPopulation != null && pctOfPopulation.isDragging) {
+            pctOfPopulation.mousemoveHandler(mousePos);
+        }
     }
 }
 
@@ -151,6 +160,16 @@ function mousedownHandler(evt) {
             CITY_PANEL_Y + CITY_PANEL_H)) {
 
             handleCityPanelMousedown(mousePos);
+        }
+    }
+    if(showCreateArmyScreen) { 
+        var mousePos = calculateMousePos(evt);
+        if(isClickInBox(mousePos,
+            CREATE_ARMY_SCREEN_X, CREATE_ARMY_SCREEN_Y, 
+            CREATE_ARMY_SCREEN_X + CREATE_ARMY_SCREEN_W,
+            CREATE_ARMY_SCREEN_Y + CREATE_ARMY_SCREEN_H)) {
+
+            handleCreateArmyScreenMousedown(mousePos);
         }
     }
 }

@@ -17,6 +17,15 @@ var createArmyScreenControls = [
         label: "Create An Army",
     }),
 
+    new sliderClass({
+        x: CREATE_ARMY_SCREEN_X + 25,
+        y: CREATE_ARMY_SCREEN_Y + 75,
+        showValue: true,
+        maxValue: 90,
+        currentValue: 25,
+        label: "% of Population",
+    }),
+
     new buttonClass({
         x: CITY_PANEL_X + CITY_PANEL_W - 350,
         y: CITY_PANEL_Y + CITY_PANEL_H - 80,
@@ -25,8 +34,25 @@ var createArmyScreenControls = [
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         onClick: function() {
-            createArmy(newArmyTroops, selectedWorldEntity);
-            showCreateArmyScreen = false;
+            if(selectedWorldEntity instanceof cityClass) {
+                var viewingCity = selectedWorldEntity;
+                // Index 1 is the pctOfPopulation slider object
+                var pctOfPopulation = createArmyScreenControls[1]; 
+                var newTroopCount = viewingCity.population;
+                if(pctOfPopulation != null && pctOfPopulation.isDragging) {
+                    // use the % of Population slider to determine how many army troops
+                    newTroopCount *= pctOfPopulation.currentValue / 100;
+                }
+                newTroopCount = Math.floor(Math.max(newTroopCount, 0));
+                newTroops = newArmyTroops;
+                // set the number of new troops
+                newTroops.peasants = newTroopCount;
+                // remove new troop count from city's population
+                viewingCity.population -= newTroopCount;
+                viewingCity.population = Math.max(viewingCity.population, 0);
+                createArmy(newTroops, viewingCity);
+                showCreateArmyScreen = false;
+            }
         },
     }),
 
@@ -68,13 +94,40 @@ function createArmy(troopList) {
     selectedWorldEntity = null;
 }
 
+function handleCreateArmyScreenMousemove(mousePos) {
+    for(let i=0;i<createArmyScreenControls.length;i++) {
+        let currentButton = createArmyScreenControls[i];
+        if(currentButton instanceof sliderClass) {
+            // slider mousemoveHandler does the isDragging check,
+            // so is safe to call whenever mouse is moving in create army panel
+            currentButton.mousemoveHandler(mousePos);
+        }  
+    }
+}
+
 function handleCreateArmyScreenMouseup(mousePos) {
     for(let i=0;i<createArmyScreenControls.length;i++) {
         let currentButton = createArmyScreenControls[i];
 
         if(isClickOnButton(mousePos, currentButton)) {
-            currentButton.onClick();
+            if(currentButton instanceof sliderClass) {
+                currentButton.mouseupHandler(mousePos);
+            } else {
+                currentButton.onClick();
+            }
             break;
+        }
+    }
+}
+
+function handleCreateArmyScreenMousedown(mousePos) {
+    for(let i=0;i<createArmyScreenControls.length;i++) {
+        let currentButton = createArmyScreenControls[i];
+
+        if(isClickOnButton(mousePos, currentButton)) {
+            if(currentButton instanceof sliderClass) {
+                currentButton.mousedownHandler(mousePos);
+            }
         }
     }
 }
