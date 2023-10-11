@@ -2,6 +2,8 @@ const CREATE_ARMY_SCREEN_X = 100;
 const CREATE_ARMY_SCREEN_Y = 150;
 const CREATE_ARMY_SCREEN_W = 400;
 const CREATE_ARMY_SCREEN_H = 400;
+const CREATE_ARMY_MIN_RECRUIT_PCT = 0;
+const CREATE_ARMY_MAX_RECRUIT_PCT = 90;
 
 var showCreateArmyScreen = false;
 
@@ -24,6 +26,66 @@ var createArmyScreenControls = [
         maxValue: 90,
         currentValue: 25,
         label: "% of Population",
+    }),
+
+    new buttonClass({
+        x: CREATE_ARMY_SCREEN_X + 25,
+        y: CREATE_ARMY_SCREEN_Y + 110,
+        label: "Min",
+        color: "wheat",
+        textcolor: "blue",
+        width: 45,
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
+        onClick: function() {
+            createArmyScreenControls[1].currentValue = CREATE_ARMY_MIN_RECRUIT_PCT;
+        },
+    }),
+
+    new buttonClass({
+        x: CREATE_ARMY_SCREEN_X + 80,
+        y: CREATE_ARMY_SCREEN_Y + 110,
+        label: "-",
+        color: "wheat",
+        textcolor: "blue",
+        width: 45,
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
+        onClick: function() {
+            createArmyScreenControls[1].currentValue -= 1;
+        },
+    }),
+
+    new buttonClass({
+        x: CREATE_ARMY_SCREEN_X + 125,
+        y: CREATE_ARMY_SCREEN_Y + 110,
+        label: "+",
+        color: "wheat",
+        textcolor: "blue",
+        width: 45,
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
+        onClick: function() {
+            createArmyScreenControls[1].currentValue += 1;
+        },
+    }),
+
+    new buttonClass({
+        x: CREATE_ARMY_SCREEN_X + 180,
+        y: CREATE_ARMY_SCREEN_Y + 110,
+        label: "Max",
+        color: "wheat",
+        textcolor: "blue",
+        width: 45,
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
+        onClick: function() {
+            createArmyScreenControls[1].currentValue = CREATE_ARMY_MAX_RECRUIT_PCT;
+        },
     }),
 
     new buttonClass({
