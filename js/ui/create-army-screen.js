@@ -11,6 +11,32 @@ var newArmyTroops = {
     peasants: 50,
 };
 
+var newArmyTroopCost = {
+    peasants: 1,
+};
+
+var newTroopCount = function() {
+    var newTroopCount = 0;
+    if(selectedWorldEntity instanceof cityClass) {
+        var viewingCity = selectedWorldEntity;
+        // Index 1 is the pctOfPopulation slider object
+        var pctOfPopulation = createArmyScreenControls[1]; 
+        newTroopCount = viewingCity.population;
+        if(pctOfPopulation != null) {
+            // use the % of Population slider to determine how many army troops
+            newTroopCount *= pctOfPopulation.currentValue / 100;
+        }
+        newTroopCount = Math.floor(Math.max(newTroopCount, 0));
+    }
+    return newTroopCount;
+}
+
+var newArmyCost = function() {
+    var troopCount = newTroopCount();
+    var cost = newArmyTroopCost.peasants * troopCount;
+    return cost;
+}
+
 var createArmyScreenControls = [
     new buttonClass({
         x: CREATE_ARMY_SCREEN_X + 125,
@@ -55,6 +81,8 @@ var createArmyScreenControls = [
         },
         onClick: function() {
             createArmyScreenControls[1].currentValue -= 1;
+            createArmyScreenControls[1].currentValue = 
+                Math.max(createArmyScreenControls[1].currentValue, CREATE_ARMY_MIN_RECRUIT_PCT);
         },
     }),
 
@@ -70,6 +98,8 @@ var createArmyScreenControls = [
         },
         onClick: function() {
             createArmyScreenControls[1].currentValue += 1;
+            createArmyScreenControls[1].currentValue = 
+                Math.min(createArmyScreenControls[1].currentValue, CREATE_ARMY_MAX_RECRUIT_PCT);
         },
     }),
 
@@ -88,33 +118,51 @@ var createArmyScreenControls = [
         },
     }),
 
+    /* Create Army button */
     new buttonClass({
         x: CITY_PANEL_X + CITY_PANEL_W - 350,
         y: CITY_PANEL_Y + CITY_PANEL_H - 80,
-        label: "Create",
+        label: function() {
+            var armyCost = newArmyCost();
+            return "Create = " + armyCost + " gold";
+        },
+        color: function() {
+            var armyCost = newArmyCost();
+            var newColor = BUTTON_CLASS_COLOR_FAINT_WHITE;
+            return newColor;
+        },
         highlightIf: function() {
-            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+            var armyCost = newArmyCost();
+            var hoverHighlight = false;
+            if (playerGold >= armyCost && armyCost > 0) {
+                var hoverHighlight = isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+            }
+            return hoverHighlight;
         },
         onClick: function() {
-            if(selectedWorldEntity instanceof cityClass) {
-                var viewingCity = selectedWorldEntity;
-                // Index 1 is the pctOfPopulation slider object
-                var pctOfPopulation = createArmyScreenControls[1]; 
-                var newTroopCount = viewingCity.population;
-                if(pctOfPopulation != null && pctOfPopulation.isDragging) {
-                    // use the % of Population slider to determine how many army troops
-                    newTroopCount *= pctOfPopulation.currentValue / 100;
-                }
-                newTroopCount = Math.floor(Math.max(newTroopCount, 0));
-                newTroops = newArmyTroops;
-                // set the number of new troops
-                newTroops.peasants = newTroopCount;
+            var armyCost = newArmyCost();
+            var armyTroopCount = newTroopCount();
+            if(selectedWorldEntity instanceof cityClass && playerGold >= armyCost && armyCost > 0) {
+                viewingCity = selectedWorldEntity;
+                // copy newArmyTroops structure and reset to army troop count
+                var newTroops = structuredClone(newArmyTroopCost);
+                newTroops.peasants = armyTroopCount;
                 // remove new troop count from city's population
-                viewingCity.population -= newTroopCount;
-                viewingCity.population = Math.max(viewingCity.population, 0);
                 createArmy(newTroops, viewingCity);
+                viewingCity.population -= armyTroopCount;
+                viewingCity.population = Math.max(viewingCity.population, 0);
+                // remove the armyCost from player's gold
+                playerGold -= armyCost;
                 showCreateArmyScreen = false;
             }
+        },
+        textColor: function() {
+            var armyCost = newArmyCost();
+            var newTextColor = "black";
+            if (playerGold < armyCost || armyCost === 0) {
+                newTextColor = "grey";
+            }
+            return newTextColor;
         },
     }),
 

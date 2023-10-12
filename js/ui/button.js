@@ -1,9 +1,11 @@
+const BUTTON_CLASS_COLOR_FAINT_WHITE = 'rgba(255,255,255,0.3)';
+
 function buttonClass(configObj) {
 
     this.x = null;
     this.y = null;
     this.label = null;
-    this.color = 'rgba(255,255,255,0.3)'; // faint white
+    this.color = BUTTON_CLASS_COLOR_FAINT_WHITE;
     this.textColor = 'black';
     this.fontSize = 15;
     this.font = "Bold 15px Serif";
@@ -45,7 +47,14 @@ function buttonClass(configObj) {
     this.draw = function() {
         // TODO: make button images for prettier buttons
 
-        colorRect(this.x,this.y, this.width, this.height, this.color);
+        let newColor = "";
+        if(typeof(this.color) === "function") {
+            newColor = this.color();
+        } else {
+            newColor = this.color;
+        }
+
+        colorRect(this.x,this.y, this.width, this.height, newColor);
 
         if(this.highlightIf()) {
             colorRect(this.x+3,this.y+3, this.width-6,this.height-6, "cyan");
@@ -79,11 +88,17 @@ function buttonClass(configObj) {
         let labelx = this.x + (this.width / 2); // shouldn't need the x2, but apparently I do
         let labely = this.y + this.paddingPx;
 
+        let newTextColor = "";
+        if(typeof(this.textColor) === "function") {
+            newTextColor = this.textColor();
+        } else {
+            newTextColor = this.textColor;
+        }
 
         canvasContext.save();
         canvasContext.textBaseline = "top";
         canvasContext.font = this.font;
-        canvasContext.fillStyle = this.textColor;
+        canvasContext.fillStyle = newTextColor;
         canvasContext.textAlign = "center";
         canvasContext.fillText(labelText, labelx, labely);
         canvasContext.restore();
