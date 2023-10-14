@@ -178,7 +178,7 @@ function toggleUserInteractStage() {
         userInteractStage = USER_INTERACT_STAGE_START;
         userHasInteractedWithGame = true; // sounds not allowed until 1st click
         loadSounds();
-//        playStartupMusic();
+        playStartupMusic();
     } else if (userInteractStage === USER_INTERACT_STAGE_START) {
         userInteractStage = USER_INTERACT_STAGE_CONTINUED;
     }

@@ -4,7 +4,7 @@ var buttonClickSound = null;
 var buttonHoverSound = null;
 var currentMusic = null;
 var startupMusic = null;
-var loopMusic = null;
+var startupLoopMusic = null;
 var battleMusic = null;
 var worldMusic = null;
 
@@ -133,6 +133,7 @@ function BackgroundMusicClass() {
         if (this.musicSound != null) {
             this.musicSound.muted = audioMute;
             this.musicSound.play();
+            currentMusic = this;
         } else {
             console.log("error music sound not started")
         }
@@ -146,7 +147,7 @@ function BackgroundMusicClass() {
             this.musicSound.muted = audioMute;
             this.musicSound.pause();
         } else {
-            console.log("error music sound not stopped")
+            console.log("error music sound not stopped");
         }
     }
 }
@@ -155,32 +156,30 @@ function loadSounds() {
     buttonClickSound = new SoundOverlapsClass("audio/sfx/button_click");
     buttonHoverSound = new SoundOverlapsClass("audio/sfx/button_hover");
 
-    // this song will only play once at the beginning
-//    startupMusic = new BackgroundMusicClass();
-//    startupMusic.playSong("audio/sfx/music_startup");
-//    startupMusic.playSong("audio/sfx/music_startup");
-//    startupMusic.startOrStopMusic(); // stop music at first
-//    startupMusic.startOrStopMusic(); // stop music at first
-
-    // loop song to play after start up song
-//    loopMusic = new BackgroundMusicClass();
-//    loopMusic.loopSong("audio/sfx/music_world_loop");
-//    loopMusic.startOrStopMusic(); // stop music at first
-    
     battleMusic = new BackgroundMusicClass();
     battleMusic.loopSong("audio/Pixeldeep_Battle_1.mp3");
-    battleMusic.stopMusic(); // stop music playing immediately; wait for battle mode to trigger
-    //
+    battleMusic.startOrStopMusic(); // stop music playing immediately; wait for battle mode to trigger
+
     worldMusic = new BackgroundMusicClass();
     worldMusic.loopSong("audio/slow_map_Pixeldeep.mp3");
-    worldMusic.stopMusic(); // stop music playing immediately; wait for battle mode to trigger
+    worldMusic.startOrStopMusic(); // stop music playing immediately; wait for battle mode to trigger
+
+    // this song will only play once at the beginning of game interaction
+    startupMusic = worldMusic;
+    // startupMusic.playSong("audio/world_background_Pixeldeep.mp3");
+    // startupMusic.startOrStopMusic(); // stop music at first
+
+    // Use worldMusic until different startupLoopMusic is desired
+    startupLoopMusic = worldMusic;
+    // startupLoopMusic.loopSong("audio/slow_map_Pixeldeep.mp3");
+    // startupLoopMusic.stopMusic(); // stop music at first
 }
 
 function toggleAudioMute() {
     audioMute = !audioMute;
 
-    if (currentMusic != null) {
-        currentMusic.startOrStopMusic();
+    if (currentMusic && currentMusic.musicSound) {
+        currentMusic.musicSound.muted = audioMute;
     }
 }
 
@@ -191,15 +190,15 @@ function playStartupMusic() {
         return;
     }
     startupMusic.musicSound.addEventListener("ended", function() {
-        currentMusic = loopMusic;
+        currentMusic = startupLoopMusic;
         if (currentMusic != null) {
-            currentMusic.startOrStopMusic();
+            currentMusic.startMusic();
         }
     });
 
     currentMusic = startupMusic;
     if (currentMusic != null) {
-        currentMusic.startOrStopMusic();
+        currentMusic.startMusic();
     }
 }
 
@@ -207,13 +206,23 @@ function stopAllMusic() {
     if(startupMusic) {
         startupMusic.stopMusic();
     }
-    if(loopMusic) {
-        loopMusic.stopMusic();
+    if(startupLoopMusic) {
+        startupLoopMusic.stopMusic();
     }
     if(battleMusic) {
         battleMusic.stopMusic();
     }
     if(worldMusic) {
         worldMusic.stopMusic();
+    }
+}
+
+function stopAllMusicAndPlay(musicToPlayNow) {
+    if (musicToPlayNow) {
+        if (currentMusic != musicToPlayNow) {
+            stopAllMusic();
+            currentMusic = musicToPlayNow;
+        }
+        currentMusic.startMusic();
     }
 }

@@ -59,8 +59,7 @@ function setupWorldMode() {
         label => label in BATTLE_SIDEBAR_LABELS
     );
 
-    stopAllMusic();
-    worldMusic.startMusic();
+    stopAllMusicAndPlay(worldMusic);
 }
 
 function requestWorldMode() {
@@ -135,8 +134,7 @@ function setupBattleMode(worldCol, worldRow) {
         populateTeam(enemyUnits, debugArmySoldiers, false);
     }
 
-    stopAllMusic();
-    battleMusic.startMusic();
+    stopAllMusicAndPlay(battleMusic);
 }
 
 function requestBattleMode() { 
@@ -163,7 +161,7 @@ function resumeBattleMode() {
         setupPauseMode('battle');
     }
 
-    battleMusic.startMusic();
+    stopAllMusicAndPlay(battleMusic);
 }
 
 function setupEditorMode(battleOrWorld="world") {
@@ -195,7 +193,6 @@ function setupEditorMode(battleOrWorld="world") {
     }
     
     stopAllMusic();
-
 }
 
 function requestEditorMode() {
