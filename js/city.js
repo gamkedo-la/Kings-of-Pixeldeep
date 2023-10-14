@@ -38,15 +38,23 @@ function cityClass(configObj) {
         return (this.worldRow * LEVEL_TILE_H) + (LEVEL_TILE_H / 2);
     }
 
+    this.goldProduced = function() {
+        let newGold = Math.round(this.population * POPULATION_GOLD_PRODUCE_RATE);
+        return newGold;
+    }
+
+    this.newBirths = function() {
+        let births = Math.round(100 * (1 + POPULATION_GROWTH_RATE));
+        return births;
+    }
+
     this.produceAndGrow = function() {
         if(this.cityType === CITY_TYPE_PLAYER) {
             // produce
-            goldProduced = Math.round(this.population * POPULATION_GOLD_PRODUCE_RATE);
-            playerGold += goldProduced;
+            playerGold += this.goldProduced();
 
             // grow
-            let newBirths = Math.round(100 * (1 + POPULATION_GROWTH_RATE));
-            this.population += newBirths;
+            this.population += this.newBirths();
         }
     }
 

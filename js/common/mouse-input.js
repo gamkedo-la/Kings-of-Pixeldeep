@@ -564,14 +564,20 @@ function rightClickHandler(evt) {
     if(!battleMode && !editorMode) {
         // right clicking while an army (or city) is selected in world mode deselects it
         if(selectedWorldEntity) {
-            console.log('deselecting', selectedWorldEntity);
-            selectedWorldEntity.currentPath = null;
-            selectedWorldEntity = null;
-            // restore default sidebar buttons
-            currentSidebarButtons = WORLD_SIDEBAR_BUTTONS;
+            deselectWorldEntity();
         }
     } // end if
 } // end function
+
+function deselectWorldEntity() {
+    if(selectedWorldEntity) {
+        console.log('deselecting', selectedWorldEntity);
+        selectedWorldEntity.currentPath = null;
+        selectedWorldEntity = null;
+        // restore default sidebar buttons
+        currentSidebarButtons = WORLD_SIDEBAR_BUTTONS;
+    }
+}
 
 function mouseleaveHandler(evt) {
     camPanDeltaX = 0;

@@ -699,6 +699,52 @@ const CITY_SIDEBAR_BUTTONS = [
         y: 200,
     }),
 
+    new labelClass({
+        text: function() {
+            const population = selectedCityPopulation();
+            return "Population: " + population;
+        },
+        textAlign: 'left',
+        textColor: 'blue',
+        width: 50,
+        x: canvas.width - SIDEBAR_WIDTH,
+        y: 240,
+    }),
+
+    new labelClass({
+        text: function() {
+            const city = selectedCity();
+            const population = selectedCityPopulation();
+            let populationNextTurn = population;
+            if (city != null) {
+                populationNextTurn += city.newBirths();
+            }
+            return "Population next turn: " + populationNextTurn;
+        },
+        textAlign: 'left',
+        textColor: 'blue',
+        width: 50,
+        x: canvas.width - SIDEBAR_WIDTH,
+        y: 280,
+    }),
+
+    new labelClass({
+        text: function() {
+            const city = selectedCity();
+            let goldNextTurn = playerGold;
+            if (city != null) {
+                goldNextTurn += city.goldProduced();
+            }
+            return "Gold next turn: " + goldNextTurn;
+        },
+        textAlign: 'left',
+        textColor: 'blue',
+        width: 50,
+        x: canvas.width - SIDEBAR_WIDTH,
+        y: 320,
+    }),
+
+
     new buttonClass({
         label: "Create Army",
         onClick: function() {
@@ -719,4 +765,22 @@ function printWithSign(number) {
         return number;
         //return "-"+ Math.abs(number); 
     }
+}
+
+function selectedCityPopulation() {
+    let population = 0;
+    let city = null;
+    city = selectedCity();
+    if (city !== null) {
+        population = city.population;
+    }
+    return population;
+}
+
+function selectedCity() {
+    let selectedCity = null;
+    if(selectedWorldEntity instanceof cityClass) {
+        selectedCity = selectedWorldEntity;
+    }
+    return selectedCity;
 }

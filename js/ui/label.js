@@ -6,6 +6,7 @@ function labelClass(configObj) {
     this.color = 'transparent';
     this.textColor = 'black';
     this.fontSize = 12;
+    this.textAlign = 'center';
     //this.onClick = null;
 
     this.width = 10;
@@ -58,7 +59,7 @@ function labelClass(configObj) {
         canvasContext.textBaseline = "top";
         canvasContext.font = this.fontSize+"pt Serif";
         canvasContext.fillStyle = this.textColor;
-        canvasContext.textAlign = "center";
+        canvasContext.textAlign = this.textAlign;
         canvasContext.fillText(labelText, labelx, labely);
         canvasContext.restore();
     }

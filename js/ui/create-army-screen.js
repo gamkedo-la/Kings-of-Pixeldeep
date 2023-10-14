@@ -140,15 +140,15 @@ var createArmyScreenControls = [
             return hoverHighlight;
         },
         onClick: function() {
-            var armyCost = newArmyCost();
-            var armyTroopCount = newTroopCount();
+            let armyCost = newArmyCost();
+            let armyTroopCount = newTroopCount();
             if(selectedWorldEntity instanceof cityClass && playerGold >= armyCost && armyCost > 0) {
                 viewingCity = selectedWorldEntity;
                 // copy newArmyTroops structure and reset to army troop count
                 var newTroops = structuredClone(newArmyTroopCost);
                 newTroops.peasants = armyTroopCount;
                 // remove new troop count from city's population
-                createArmy(newTroops, viewingCity);
+                createArmy(newTroops);
                 viewingCity.population -= armyTroopCount;
                 viewingCity.population = Math.max(viewingCity.population, 0);
                 // remove the armyCost from player's gold
@@ -201,7 +201,7 @@ function createArmy(troopList) {
     allArmies.push(newArmy);
 
     // deselect the city so you can immediately click to select your army
-    selectedWorldEntity = null;
+    deselectWorldEntity();
 }
 
 function handleCreateArmyScreenMousemove(mousePos) {
