@@ -48,5 +48,16 @@ function keyReleased(evt) {
 		gameOptions.showGrid = !gameOptions.showGrid;
 	}
 
+    if (evt.key == "Escape") {
+        if(battleMode && !editorMode) { 
+            selectedUnits = [];
+        }
+        if(!battleMode && !editorMode) {
+            if(selectedWorldEntity) {
+                deselectWorldEntity();
+            }
+        }
+    }
+
 	toggleUserInteractStage();
 }
