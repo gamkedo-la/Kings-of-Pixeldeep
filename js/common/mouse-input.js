@@ -93,6 +93,9 @@ function mousemoveHandler(evt) {
                 console.log("levelGridPathfind found NO path possible.");
             }
             selectedWorldEntity.setMovementPath(path);
+
+            currentSidebarLabels = WORLD_SIDEBAR_LABELS;
+            movementPointsLabel.text = MOVEMENT_POINTS + String(selectedWorldEntity.currentMovementPoints - selectedWorldEntity.currentPath.length);
         }
     } else if(hoverPos !== null) {
         hoverPos = null;
@@ -574,6 +577,9 @@ function deselectWorldEntity() {
         console.log('deselecting', selectedWorldEntity);
         selectedWorldEntity.currentPath = null;
         selectedWorldEntity = null;
+        currentSidebarLabels = currentSidebarLabels.filter(
+            label => label in WORLD_SIDEBAR_LABELS
+        );
         // restore default sidebar buttons
         currentSidebarButtons = WORLD_SIDEBAR_BUTTONS;
     }

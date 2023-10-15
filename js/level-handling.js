@@ -49,15 +49,15 @@ function setupWorldMode() {
     enemyBattleArmy = null;
 
     if (!pauseMode) {
+        // remove all labels in BATTLE_SIDE_LABELS
+        currentSidebarLabels = currentSidebarLabels.filter(
+            label => label in BATTLE_SIDEBAR_LABELS
+        );
+
         currentSidebarButtons = WORLD_SIDEBAR_BUTTONS;
     } else {
         setupPauseMode('world');
     }
-
-    // remove all labels in BATTLE_SIDE_LABELS
-    currentSidebarLabels = currentSidebarLabels.filter(
-        label => label in BATTLE_SIDEBAR_LABELS
-    );
 
     stopAllMusicAndPlay(worldMusic);
 }
