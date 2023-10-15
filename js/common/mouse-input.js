@@ -95,6 +95,7 @@ function mousemoveHandler(evt) {
             selectedWorldEntity.setMovementPath(path);
 
             currentSidebarLabels = WORLD_SIDEBAR_LABELS;
+            selectedWorldEntityLabel.text = String(selectedWorldEntity.name);
             movementPointsLabel.text = MOVEMENT_POINTS + String(selectedWorldEntity.currentMovementPoints - selectedWorldEntity.currentPath.length);
         }
     } else if(hoverPos !== null) {
