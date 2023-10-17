@@ -157,11 +157,36 @@ function tryToCapture(city, withArmy) {
 }
 
 function checkWinConditions() {
+    console.log('checking win conditions');
     if(playerCities.length === allCities.length) {
         console.log("Player Wins");
+        winner = 'player';
+
+        showEndGameDialogScreen = true;
     }
 
     if(enemyCities.length === allCities.length) {
         console.log("Enemy Wins");
+        winner = 'enemy';
+
+        showEndGameDialogScreen = true;
+    }
+}
+
+function makePlayerWin() {
+    for (const city of allCities) {
+        if(!playerCities.includes(city)) {
+            city.cityType = CITY_TYPE_PLAYER;
+            playerCities.push(city);
+        }
+    }
+}
+
+function makeEnemyWin() {
+    for (const city of allCities) {
+        if(!enemyCities.includes(city)) {
+            city.cityType = CITY_TYPE_ENEMY;
+            enemyCities.push(city);
+        }
     }
 }

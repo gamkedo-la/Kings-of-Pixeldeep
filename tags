@@ -4,7 +4,7 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-AIMove	js/army.js	/^    this.AIMove = function() {$/;"	m	class:armyClass
+AIMove	js/army.js	/^    this.AIMove = function(targetCoords=null) {$/;"	m	class:armyClass
 DiagonalDistance	js/common/pathfinding.js	/^	function DiagonalDistance(Point, Goal)$/;"	f	function:levelGridPathfind
 DiagonalNeighbours	js/common/pathfinding.js	/^	function DiagonalNeighbours(myN, myS, myE, myW, N, S, E, W, result)$/;"	f	function:levelGridPathfind
 DiagonalNeighboursFree	js/common/pathfinding.js	/^	function DiagonalNeighboursFree(myN, myS, myE, myW, N, S, E, W, result)$/;"	f	function:levelGridPathfind
@@ -25,6 +25,7 @@ archers	js/army.js	/^        archers: 0,$/;"	p	class:armyClass.troops
 armyClass	js/army.js	/^function armyClass(configObj) {$/;"	c
 attackOrMoveToMousePos	js/common/mouse-input.js	/^function attackOrMoveToMousePos(evt) {$/;"	f
 audioFormats	js/common/sound-and-music.js	/^var audioFormats = []$/;"	v
+avoidMapObstacles	js/unit.js	/^  this.avoidMapObstacles = function() { \/\/ $CTK$/;"	f
 battleMode	js/level-handling.js	/^var battleMode = false;$/;"	v
 battleMusic	js/common/sound-and-music.js	/^var battleMusic = null;$/;"	v
 battleTerrain	js/common/image-loading.js	/^var battleTerrain  = document.createElement("img");$/;"	v
@@ -48,6 +49,7 @@ canWalkHere	js/common/pathfinding.js	/^	function canWalkHere(x,y)$/;"	f	function
 canvas	js/common/global-vars.js	/^var canvas, canvasContext;$/;"	v
 checkAndHandleVictory	js/battle-team.js	/^function checkAndHandleVictory() {$/;"	f
 checkForCollisions	js/unit.js	/^  this.checkForCollisions = function() {$/;"	m	class:unitClass
+checkWinConditions	js/world-team.js	/^function checkWinConditions() {$/;"	f
 cityClass	js/city.js	/^function cityClass(configObj) {$/;"	c
 cityPanelBackdrop	js/common/image-loading.js	/^var cityPanelBackdrop = document.createElement("img");$/;"	v
 cityPanelControls	js/ui/city-panel.js	/^var cityPanelControls = [$/;"	v
@@ -70,7 +72,9 @@ createArmyScreenControls	js/ui/create-army-screen.js	/^var createArmyScreenContr
 currentMouseMapPanDist	js/common/mouse-input.js	/^var currentMouseMapPanDist = 0;$/;"	v
 currentMusic	js/common/sound-and-music.js	/^var currentMusic = null;$/;"	v
 currentSidebarButtons	js/ui/sidebar.js	/^var currentSidebarButtons = [];$/;"	v
+currentSidebarLabels	js/ui/sidebar.js	/^var currentSidebarLabels = [];$/;"	v
 debug	js/main.js	/^function debug(text) {$/;"	f
+deselectWorldEntity	js/common/mouse-input.js	/^function deselectWorldEntity() {$/;"	f
 dialogBoxClass	js/ui/dialog-box.js	/^function dialogBoxClass(configObj) {$/;"	c
 dies	js/unit.js	/^  this.dies = function() {$/;"	c
 distFrom	js/unit.js	/^  this.distFrom = function(otherX, otherY) {$/;"	f
@@ -94,6 +98,7 @@ drawCreateArmyScreen	js/ui/create-army-screen.js	/^function drawCreateArmyScreen
 drawDialogBodyText	js/ui/dialog-box.js	/^    this.drawDialogBodyText = function() {$/;"	m	class:dialogBoxClass
 drawDialogButtons	js/ui/dialog-box.js	/^    this.drawDialogButtons = function() {$/;"	m	class:dialogBoxClass
 drawDialogTitle	js/ui/dialog-box.js	/^    this.drawDialogTitle = function() {$/;"	m	class:dialogBoxClass
+drawEndGameDialogScreen	js/ui/end-game-dialog.js	/^function drawEndGameDialogScreen() {$/;"	f
 drawEverything	js/main.js	/^function drawEverything() {$/;"	f
 drawHoverBox	js/editor.js	/^function drawHoverBox() {$/;"	f
 drawLabelText	js/ui/label.js	/^    this.drawLabelText = function() {$/;"	m	class:labelClass
@@ -106,6 +111,7 @@ drawUI	js/main.js	/^function drawUI() {$/;"	f
 drawUnits	js/main.js	/^function drawUnits() {$/;"	f
 drawWorldTerrain	js/level-handling.js	/^function drawWorldTerrain(terrainCode, drawTileX, drawTileY, arrayIndex) {$/;"	f
 editorMode	js/level-handling.js	/^var editorMode = false;$/;"	v
+endGameDialogScreenControls	js/ui/end-game-dialog.js	/^var endGameDialogScreenControls = [$/;"	v
 endTurn	js/level-handling.js	/^function endTurn() {$/;"	f
 enemyArmies	js/world-team.js	/^var enemyArmies = [];$/;"	v
 enemyArmyPic	js/common/image-loading.js	/^var enemyArmyPic = document.createElement("img");$/;"	v
@@ -123,14 +129,17 @@ findClosestUnitInRange	js/battle-team.js	/^function findClosestUnitInRange(fromX
 findNeighbours	js/common/pathfinding.js	/^	var findNeighbours = function(){}; \/\/ empty$/;"	f	function:levelGridPathfind
 forestTerrain	js/common/image-loading.js	/^var forestTerrain = document.createElement("img");$/;"	v
 gameBattleGrid	js/level-handling.js	/^var gameBattleGrid, gameBattleRows, gameBattleCols;$/;"	v
+gameOptions	js/common/global-vars.js	/^var gameOptions = {$/;"	v
 gameSeason	js/level-handling.js	/^var gameSeason = "summer";$/;"	v
 gameWorldGrid	js/level-handling.js	/^var gameWorldGrid, gameWorldRows, gameWorldCols;$/;"	v
 getLatestGotoCoords	js/unit.js	/^  this.getLatestGotoCoords = function() {$/;"	f
 getModifiableSliders	js/ui/slider-group.js	/^    this.getModifiableSliders = function(changedIndex) {$/;"	m	class:sliderGroupClass
+getRandomBattlefield	js/common/helper-functions.js	/^function getRandomBattlefield() {$/;"	f
 getRandomBattlefield	js/level-handling.js	/^function getRandomBattlefield() {$/;"	f
 getSeasonMultiplier	js/level-handling.js	/^function getSeasonMultiplier() {$/;"	f
 getUnitUnderMouse	js/common/mouse-input.js	/^function getUnitUnderMouse(currentMousePos) {$/;"	f
 goToRandomSpotInCityPanelSection	js/city-worker.js	/^    this.goToRandomSpotInCityPanelSection = function() {$/;"	m	class:workerClass
+goldProduced	js/city.js	/^    this.goldProduced = function() {$/;"	m	class:cityClass
 gotoNear	js/unit.js	/^  this.gotoNear = function(aroundX, aroundY, formationPos, formationDim) {$/;"	c
 gotoPathAndWait	js/unit.js	/^  this.gotoPathAndWait = function(x, y, wait, reason) {$/;"	f
 grid	js/battle_maps/battlefield1.js	/^    grid: [$/;"	p	class:let
@@ -142,7 +151,10 @@ handleCityPanelClick	js/ui/city-panel.js	/^function handleCityPanelClick(mousePo
 handleCityPanelMousedown	js/ui/city-panel.js	/^function handleCityPanelMousedown(mousePos) {$/;"	f
 handleCityPanelMousemove	js/ui/city-panel.js	/^function handleCityPanelMousemove(mousePos) {$/;"	f
 handleCityPanelMouseup	js/ui/city-panel.js	/^function handleCityPanelMouseup(mousePos) {$/;"	f
+handleCreateArmyScreenMousedown	js/ui/create-army-screen.js	/^function handleCreateArmyScreenMousedown(mousePos) {$/;"	f
+handleCreateArmyScreenMousemove	js/ui/create-army-screen.js	/^function handleCreateArmyScreenMousemove(mousePos) {$/;"	f
 handleCreateArmyScreenMouseup	js/ui/create-army-screen.js	/^function handleCreateArmyScreenMouseup(mousePos) {$/;"	f
+handleEndGameDialogScreenMouseup	js/ui/end-game-dialog.js	/^function handleEndGameDialogScreenMouseup(mousePos) {$/;"	f
 handleMainWindowClick	js/common/mouse-input.js	/^function handleMainWindowClick(mousePos, evt) {$/;"	f
 handleMiniMapClick	js/ui/minimap.js	/^function handleMiniMapClick(mousePos) {$/;"	f
 handleSidebarButtonClick	js/ui/sidebar.js	/^function handleSidebarButtonClick(mousePos) {$/;"	f
@@ -192,7 +204,6 @@ loadImageForUnitCode	js/common/image-loading.js	/^function loadImageForUnitCode(
 loadImageForWorldCode	js/common/image-loading.js	/^function loadImageForWorldCode(worldCode, fileName) {$/;"	f
 loadImages	js/common/image-loading.js	/^function loadImages() {$/;"	f
 loadSounds	js/common/sound-and-music.js	/^function loadSounds() {$/;"	f	function:BackgroundMusicClass
-loopMusic	js/common/sound-and-music.js	/^var loopMusic = null;$/;"	v
 loopSong	js/common/sound-and-music.js	/^    this.loopSong = function(filenameWithPath) {$/;"	m	class:BackgroundMusicClass
 makeWay	js/unit.js	/^  this.makeWay = function(otherUnit) {$/;"	f
 mouseInMainWindow	js/common/mouse-input.js	/^function mouseInMainWindow(mousePos) {$/;"	f
@@ -213,14 +224,20 @@ moveEverything	js/main.js	/^function moveEverything() {$/;"	f
 moveIncrement	js/unit.js	/^  this.moveIncrement = function() {$/;"	c
 moveTo	js/city-worker.js	/^    this.moveTo = function(newWorkerPlaceIdx) {$/;"	m	class:workerClass
 neutralCities	js/world-team.js	/^var neutralCities = [];$/;"	v
+newArmyCost	js/ui/create-army-screen.js	/^var newArmyCost = function() {$/;"	f
+newArmyTroopCost	js/ui/create-army-screen.js	/^var newArmyTroopCost = {$/;"	v
 newArmyTroops	js/ui/create-army-screen.js	/^var newArmyTroops = {$/;"	v
+newBirths	js/city.js	/^    this.newBirths = function() {$/;"	m	class:cityClass
+newTroopCount	js/ui/create-army-screen.js	/^var newTroopCount = function() {$/;"	f
 nudgeUnit	js/unit.js	/^  this.nudgeUnit = function(nudgeLeftBy, nudgeRightBy, nudgeUpBy, nudgeDownBy) {$/;"	f
 openCityPanel	js/ui/city-panel.js	/^function openCityPanel(city) {$/;"	f
 outlineRect	js/common/graphics-common.js	/^function outlineRect(topLeftX, topLeftY, boxWidth, boxHeight, lineColor) {$/;"	f
 pauseMode	js/level-handling.js	/^var pauseMode = false;$/;"	v
 peasants	js/army.js	/^        peasants: 0,$/;"	p	class:armyClass.troops
+peasants	js/ui/create-army-screen.js	/^    peasants: 1,$/;"	p	class:newArmyTroopCost
 peasants	js/ui/create-army-screen.js	/^    peasants: 50,$/;"	p	class:newArmyTroops
 picToUse	js/army.js	/^    this.picToUse = function() {$/;"	m	class:armyClass
+pickRandomFromArray	js/common/helper-functions.js	/^function pickRandomFromArray(arrayArg) {$/;"	f
 picsToLoad	js/common/image-loading.js	/^var picsToLoad = 0; \/\/set automatically based on number of imageList in loadImages()$/;"	v
 placeholderUnitAtk	js/common/image-loading.js	/^var placeholderUnitAtk = document.createElement("img");$/;"	v
 placeholderUnitWalk	js/common/image-loading.js	/^var placeholderUnitWalk = document.createElement("img");$/;"	v
@@ -257,6 +274,8 @@ rows	js/world_maps/world1.js	/^    rows: 40,$/;"	p	class:let
 rowsThatFitOnScreen	js/common/image-loading.js	/^var rowsThatFitOnScreen = document.createElement("img");$/;"	v
 runEnemyTurn	js/world-team.js	/^function runEnemyTurn() {$/;"	f
 scaleFactor	js/ui/slider.js	/^    this.scaleFactor = function() {$/;"	m	class:sliderClass
+selectedCity	js/ui/sidebar-buttons.js	/^function selectedCity() {$/;"	f
+selectedCityPopulation	js/ui/sidebar-buttons.js	/^function selectedCityPopulation() {$/;"	f
 selectedUnits	js/common/mouse-input.js	/^var selectedUnits = [];$/;"	v
 selectedWorldEntity	js/world-team.js	/^var selectedWorldEntity = null;$/;"	v
 setCamPanDeltas	js/common/cam-pan.js	/^function setCamPanDeltas(mousePos) {$/;"	f
@@ -274,6 +293,7 @@ setupWorldMode	js/level-handling.js	/^function setupWorldMode() {$/;"	f
 showCityPanel	js/ui/city-panel.js	/^var showCityPanel = false;$/;"	v
 showCreateArmyScreen	js/ui/create-army-screen.js	/^var showCreateArmyScreen = false;$/;"	v
 showDebug	js/common/global-vars.js	/^    showDebug: false,$/;"	p	class:gameOptions
+showEndGameDialogScreen	js/ui/end-game-dialog.js	/^var showEndGameDialogScreen = false;$/;"	v
 showGrid	js/common/global-vars.js	/^    showGrid: false,$/;"	p	class:gameOptions
 showSliderTest	js/ui/slider.js	/^var showSliderTest = false;$/;"	v
 sliderClass	js/ui/slider.js	/^function sliderClass(configObj) {$/;"	c
@@ -283,8 +303,10 @@ spearmen	js/army.js	/^        spearmen: 0,$/;"	p	class:armyClass.troops
 startMusic	js/common/sound-and-music.js	/^    this.startMusic = function() {$/;"	m	class:BackgroundMusicClass.loopSong
 startNewGame	js/level-handling.js	/^function startNewGame(whichWorld) {$/;"	f
 startOrStopMusic	js/common/sound-and-music.js	/^    this.startOrStopMusic = function() {$/;"	m	class:BackgroundMusicClass.loopSong
+startupLoopMusic	js/common/sound-and-music.js	/^var startupLoopMusic = null;$/;"	v
 startupMusic	js/common/sound-and-music.js	/^var startupMusic = null;$/;"	v
 stopAllMusic	js/common/sound-and-music.js	/^function stopAllMusic() {$/;"	f	function:BackgroundMusicClass
+stopAllMusicAndPlay	js/common/sound-and-music.js	/^function stopAllMusicAndPlay(musicToPlayNow) {$/;"	f	function:BackgroundMusicClass
 stopMoving	js/unit.js	/^  this.stopMoving = function() {$/;"	m	class:unitClass
 stopMusic	js/common/sound-and-music.js	/^    this.stopMusic = function() {$/;"	m	class:BackgroundMusicClass.loopSong
 terrainBrushCode	js/editor.js	/^var terrainBrushCode = 1;$/;"	v
@@ -299,6 +321,7 @@ toggleAudioMute	js/common/sound-and-music.js	/^function toggleAudioMute() {$/;"	
 togglePauseMode	js/level-handling.js	/^function togglePauseMode() {$/;"	f
 toggleUserInteractStage	js/main.js	/^function toggleUserInteractStage() {$/;"	f
 total	js/ui/slider-group.js	/^        total: 30,$/;"	p	class:sliderGroupClass.values
+troopCount	js/army.js	/^    this.troopCount = function() {$/;"	m	class:armyClass
 tryToCapture	js/world-team.js	/^function tryToCapture(city, withArmy) {$/;"	f
 turnNumber	js/common/global-vars.js	/^var turnNumber = 1;$/;"	v
 unitClass	js/unit.js	/^  unitClass.giveId = function(unit) {$/;"	m
@@ -320,6 +343,7 @@ workerClass	js/city-worker.js	/^function workerClass(configObj) {$/;"	c
 worldIdx	js/army.js	/^    this.worldIdx = function() {$/;"	m	class:armyClass
 worldIdx	js/city.js	/^    this.worldIdx = function() {$/;"	m	class:cityClass
 worldIdxFromMousePos	js/common/mouse-input.js	/^function worldIdxFromMousePos(mousePos) {$/;"	f
+worldMusic	js/common/sound-and-music.js	/^var worldMusic = null;$/;"	v
 worldPics	js/common/image-loading.js	/^var worldPics = [];$/;"	v
 worldTerrain	js/common/image-loading.js	/^var worldTerrain = document.createElement("img");$/;"	v
 x	js/army.js	/^    this.x = function() {$/;"	m	class:armyClass

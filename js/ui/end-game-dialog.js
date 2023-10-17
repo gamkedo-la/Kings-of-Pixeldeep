@@ -13,10 +13,10 @@ var endGameDialogScreenControls = [
         label: () => {
 
             if(winner === 'player') {
-                return "Player Wins";
+                return "Player Wins!";
             }
             if(winner === 'enemy') {
-                return "Enemy Wins";
+                return "Enemy Wins!";
             }
         },
     }),
@@ -24,25 +24,13 @@ var endGameDialogScreenControls = [
     new buttonClass({
         x: END_GAME_DIALOG_SCREEN_X + END_GAME_DIALOG_SCREEN_W - 350,
         y: END_GAME_DIALOG_SCREEN_Y + END_GAME_DIALOG_SCREEN_H - 80,
-        label: "Create",
-        highlightIf: function() {
-            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
-        },
-        onClick: function() {
-            
-            showEndGameDialogScreen = false;
-        },
-    }),
-
-    new buttonClass({
-        x: END_GAME_DIALOG_SCREEN_X + END_GAME_DIALOG_SCREEN_W - 170,
-        y: END_GAME_DIALOG_SCREEN_Y + END_GAME_DIALOG_SCREEN_H - 80,
-        label: "Close",
+        label: "Main Menu",
         highlightIf: function() {
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         onClick: function() {
             showEndGameDialogScreen = false;
+            startMainMenuMode();
         },
     }),
 ];

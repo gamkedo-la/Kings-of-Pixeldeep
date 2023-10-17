@@ -132,6 +132,10 @@ function drawUI() {
     if(showSliderTest) {
         sliderTest.draw();
     }
+
+    if(showEndGameDialogScreen) {
+        drawEndGameDialogScreen();
+    }
 }
 
 function drawCitiesAndArmies() {
