@@ -97,6 +97,11 @@ function mousemoveHandler(evt) {
             currentSidebarLabels = WORLD_SIDEBAR_LABELS;
             selectedWorldEntityLabel.text = String(selectedWorldEntity.name);
             movementPointsLabel.text = MOVEMENT_POINTS + String(selectedWorldEntity.currentMovementPoints - selectedWorldEntity.currentPath.length);
+            if (selectedWorldEntity instanceof armyClass) {
+                selectedArmyUnitCountLabel.text = 
+                    SELECTED_ARMY_UNIT_COUNT + String(selectedWorldEntity.troopCount());
+            }
+            
         }
     } else if(hoverPos !== null) {
         hoverPos = null;

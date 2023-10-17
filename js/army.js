@@ -377,4 +377,14 @@ function armyClass(configObj) {
 
     } // end this.draw()
 
+    this.troopCount = function() {
+        let unitsCounted = 0;
+        Object.entries(this.troops).map(troopTypeCountPair => {
+            const value = troopTypeCountPair[1];
+            unitsCounted += value;
+            // do whatever you want with those values.
+         });
+
+         return unitsCounted;
+    }
 } // end army class

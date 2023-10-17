@@ -3,6 +3,7 @@ const LABEL_X = 600; // left column of all large sidebar labels
 const SELECTED_WORLD_ENTITY = "Selected: ";
 const MOVEMENT_POINTS = "Movement points: ";
 const SELECTED_UNITS = "Selected units: ";
+const SELECTED_ARMY_UNIT_COUNT = "Total Units:  ";
 
 const selectedWorldEntityLabel = 
     new labelClass({
@@ -20,9 +21,18 @@ const movementPointsLabel =
         y: 224,
     })
 
+const selectedArmyUnitCountLabel = 
+new labelClass({
+    text: SELECTED_ARMY_UNIT_COUNT + " 0",
+    width: 200, 
+    x: LABEL_X,
+    y: 248,
+})
+
 const WORLD_SIDEBAR_LABELS = [
     selectedWorldEntityLabel,
     movementPointsLabel,
+    selectedArmyUnitCountLabel,
 ];
 
 const selectedUnitCountLabel = 
