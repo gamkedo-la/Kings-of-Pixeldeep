@@ -691,11 +691,12 @@ const BATTLE_PAUSE_SIDEBAR_BUTTONS = [
     }),
 ];
 
+const CITY_SIDEBAR_LABEL_OFFSET = 20;
 const CITY_SIDEBAR_BUTTONS = [
     new labelClass({
         label: "City Info",
         width: 200,
-        x: canvas.width - SIDEBAR_WIDTH,
+        x: canvas.width - (SIDEBAR_WIDTH + CITY_SIDEBAR_LABEL_OFFSET),
         y: 200,
     }),
 
@@ -707,7 +708,7 @@ const CITY_SIDEBAR_BUTTONS = [
         textAlign: 'left',
         textColor: 'blue',
         width: 50,
-        x: canvas.width - SIDEBAR_WIDTH,
+        x: canvas.width - (SIDEBAR_WIDTH + CITY_SIDEBAR_LABEL_OFFSET),
         y: 240,
     }),
 
@@ -724,7 +725,7 @@ const CITY_SIDEBAR_BUTTONS = [
         textAlign: 'left',
         textColor: 'blue',
         width: 50,
-        x: canvas.width - SIDEBAR_WIDTH,
+        x: canvas.width - (SIDEBAR_WIDTH + CITY_SIDEBAR_LABEL_OFFSET),
         y: 280,
     }),
 
@@ -740,7 +741,7 @@ const CITY_SIDEBAR_BUTTONS = [
         textAlign: 'left',
         textColor: 'blue',
         width: 50,
-        x: canvas.width - SIDEBAR_WIDTH,
+        x: canvas.width - (SIDEBAR_WIDTH + CITY_SIDEBAR_LABEL_OFFSET),
         y: 320,
     }),
 
