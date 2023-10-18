@@ -334,13 +334,21 @@ function armyClass(configObj) {
 
         if(selectedWorldEntity && (selectedWorldEntity.name == this.name) &&
             selectedWorldEntity instanceof armyClass) {
-            colorRect(
-            this.x() - LEVEL_TILE_W/2,
-            this.y() - LEVEL_TILE_H/2,
-            LEVEL_TILE_W,
-            LEVEL_TILE_H,
-            'aqua', 
-            );
+            
+                // a blue square
+                //colorRect(
+                //this.x() - LEVEL_TILE_W/2,
+                //this.y() - LEVEL_TILE_H/2,
+                //LEVEL_TILE_W,
+                //LEVEL_TILE_H,
+                //'aqua');
+
+                canvasContext.globalAlpha = 0.5;
+                canvasContext.drawImage(armySelection,this.x()-LEVEL_TILE_W/2-12,this.y()-LEVEL_TILE_H/2-12);
+                canvasContext.globalAlpha = 1;
+
+
+
         }
 
         if (this.currentPath && this.currentPath.length) {
@@ -350,23 +358,39 @@ function armyClass(configObj) {
                 //console.log("drawing a pathfinding tile at "+x+","+y);
                 //outlineRect(x,y,LEVEL_TILE_W-4,LEVEL_TILE_H-4,"rgba(20,255,20,0.2)");
 
-                let indicatorColor = 'white';
+                let indicatorColor = 'rgba(255,255,255,0.25)'; //'white';
 
                 // not sure why, but subtracting 1 here stops the tile
                 // after the army's last movement point being the wrong color
                 if(n > this.currentMovementPoints - 1) { 
                     indicatorColor = 'black';
                 }
-                // Temp army path hover indicators
+                // Temp armby path hover indicators
                 if(n === this.currentPath.length - 1) {
-                    let boxShrinkPx = 10;
-                    colorRect(x + boxShrinkPx, y + boxShrinkPx,
-                        LEVEL_TILE_W - boxShrinkPx, LEVEL_TILE_H - boxShrinkPx,
-                        indicatorColor);
+                    
+                    // a box
+                    //let boxShrinkPx = 10;
+                    //colorRect(x + boxShrinkPx, y + boxShrinkPx,
+                    //    LEVEL_TILE_W - boxShrinkPx, LEVEL_TILE_H - boxShrinkPx,
+                    //    indicatorColor);
+
+                    canvasContext.globalAlpha = 0.25;
+                    canvasContext.drawImage(destinationMarker, x, y);
+                    canvasContext.globalAlpha = 1;
+
+                    if (n > this.currentMovementPoints - 1) { // path too long?
+                        colorText("Not enough move points.",x,y-10,"rgba(255,255,255,0.5)");
+                    }
+
+
+
                 } else {
+                    
+                    // dots showing the path
                     colorCircle(x + (LEVEL_TILE_W / 2),
                         y + (LEVEL_TILE_H / 2),
-                        8, indicatorColor);
+                        6, indicatorColor);
+
                 } // end else
 
             } // end for

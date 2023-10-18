@@ -14,6 +14,8 @@ var redPeasantUnitSingleFrame = document.createElement("img");
 var cityPanelBackdrop = document.createElement("img");
 var guiTopBarBackdrop = document.createElement("img");
 var guiSideBarBackdrop = document.createElement("img");
+var destinationMarker = document.createElement("img");
+var armySelection = document.createElement("img");
 
 var worldPics = [];
 var unitPics = [];
@@ -64,6 +66,8 @@ function loadImages() {
 
         {varName: guiTopBarBackdrop, theFile: "gui_top_bar.png"},
         {varName: guiSideBarBackdrop, theFile: "gui_side_bar.png"},
+        {varName: destinationMarker, theFile: "destinationMarker.png"},
+        {varName: armySelection, theFile: "armySelection.png"},
         
 
 		/*
