@@ -26,9 +26,9 @@ function imageLoadingDoneSoStartGame() {
 
     setupMouseInput();
     setupKeyboardInput();
-    startNewGame(world1);
-    setupWorldMode();
-    //setupBoard();
+    setupMainMenuMode();
+    //startNewGame(world1);
+    //setupWorldMode();
 }
 
 function updateAll() {
@@ -70,35 +70,33 @@ function drawEverything() {
     // its coordinates are not supposed to scroll when the camera view does
     colorRect(0, 0, canvas.width, canvas.height, 'black');
 
-    canvasContext.save(); // needed to undo this .translate() used for scroll
+    if(!mainMenuMode) {
+        canvasContext.save(); // needed to undo this .translate() used for scroll
 
-    // this next line is like subtracting camPanX and camPanY from every
-    // canvasContext draw operation up until we call canvasContext.restore
-    // this way we can just draw them at their "actual" position coordinates
-    canvasContext.translate(-camPanX,-camPanY);
+        // this next line is like subtracting camPanX and camPanY from every
+        // canvasContext draw operation up until we call canvasContext.restore
+        // this way we can just draw them at their "actual" position coordinates
+        canvasContext.translate(-camPanX,-camPanY);
 
-    drawLevel();
+        drawLevel();
 
-    if(!battleMode) {
-        drawCitiesAndArmies();
-    } else {
-        drawUnits();
-        if(isMouseDragging) {
-            // battle drag box, uses world coords
-            coloredOutlineRectCornerToCorner(lassoX1,lassoY1, lassoX2,lassoY2, 'yellow');
+        if(!battleMode) {
+            drawCitiesAndArmies();
+        } else {
+            drawUnits();
+            if(isMouseDragging) {
+                // battle drag box, uses world coords
+                coloredOutlineRectCornerToCorner(lassoX1,lassoY1, lassoX2,lassoY2, 'yellow');
+            }
         }
+
+        canvasContext.restore(); // undoes the .translate() used for cam scroll
+
+        drawUI();
+
+    } else { // ie: we are in main menu mode
+        drawMainMenu();
     }
-
-    canvasContext.restore(); // undoes the .translate() used for cam scroll
-
-    drawUI();
-    /*
-    if(showCityPanel && isMouseDragging) {
-        // city panel drag box, uses screen coords
-        coloredOutlineRectCornerToCorner(lassoX1,lassoY1, lassoX2,lassoY2, 'blue');
-    }
-    */
-
 
 }
 

@@ -51,15 +51,12 @@ function colorTextShadow(showWords, textX,textY, fillColor) {
     colorText(showWords,textX,textY,fillColor)
 }
 
-
-/*
 function drawText(fontSize, color, textAlign, text, x, y){
   canvasContext.save();
   canvasContext.textBaseline = "top";
-  canvasContext.font = fontSize+"pt Stick";
+  canvasContext.font = fontSize+"pt sans-serif";
   canvasContext.fillStyle = color;
   canvasContext.textAlign = textAlign;
   canvasContext.fillText(text, x, y);
   canvasContext.restore();
 }
-*/

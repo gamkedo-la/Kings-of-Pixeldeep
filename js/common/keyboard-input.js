@@ -14,7 +14,7 @@ function keyPressed(evt) {
 	// d: 68 (debug)
 	// g: 71 (grid)
 
-	toggleUserInteractStage();
+	//toggleUserInteractStage();
 }
 
 function keyReleased(evt) {
@@ -59,5 +59,5 @@ function keyReleased(evt) {
         }
     }
 
-	toggleUserInteractStage();
+	//toggleUserInteractStage();
 }

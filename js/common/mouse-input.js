@@ -287,12 +287,17 @@ function findClickedCitySectionIdx(mousePos) {
 
 
 function clickHandler(evt) {
+    toggleUserInteractStage();
     // find out where the click was
     var mousePos = calculateMousePos(evt);
 
+    if(mainMenuMode) {
+        handleMainMenuClick(mousePos);
+        return;
+    }
+
     if(showCityPanel && isClickInsideCityPanel(mousePos)) {
         //console.log("click was on city panel", mousePos.x, mousePos.y);
-        toggleUserInteractStage();
         handleCityPanelClick(mousePos);
         return;
     } 
@@ -302,19 +307,16 @@ function clickHandler(evt) {
 
     if(isClickInsideMiniMap(mousePos)) {
         //console.log("click was on minimap");
-        toggleUserInteractStage();
         handleMiniMapClick(mousePos);
         return; // mini map clicks shouldn't select/trigger anything else
     }
     if(isClickInsideSidebar(mousePos)) {
         //console.log("click was on sidebar");
-        toggleUserInteractStage();
         handleSidebarButtonClick(mousePos);
         return;
     }
     if(isClickInsideMainWindow(mousePos)) {
         //console.log("click was on main window");
-        toggleUserInteractStage();
         handleMainWindowClick(mousePos, evt);
         return;
     }

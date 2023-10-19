@@ -10,6 +10,7 @@ var level_height = LEVEL_TILE_H * level_rows;
 var battleMode = false;
 var editorMode = false;
 var pauseMode = false;
+var mainMenuMode = false;
 
 var gameSeason = "summer";
 
@@ -33,10 +34,20 @@ function startNewGame(whichWorld) {
     gameWorldCols = whichWorld.cols;
 }
 
+function setupMainMenuMode() {
+    console.log('entering main menu mode');
+    mainMenuMode = true;
+    battleMode = false;
+    pauseMode = false;
+    editorMode = false;
+
+}
+
 function setupWorldMode() {
     console.log("entering world mode");
     battleMode = false;
     editorMode = false;
+    mainMenuMode = false;
 
     levelGrid = gameWorldGrid;
     level_cols = gameWorldCols;
@@ -96,6 +107,7 @@ function setupBattleMode(worldCol, worldRow) {
     console.log("entering battle mode");
     editorMode = false;
     battleMode = true;
+    mainMenuMode = false;
     
     // using "let" instead of "var" here to limit this variable's scope
     let pickedBattlefield = getRandomBattlefield();
@@ -491,3 +503,4 @@ function drawBattleTerrain(terrainCode, drawTileX, drawTileY, arrayIndex) {
     LEVEL_TILE_W, LEVEL_TILE_H,
   );
 }
+
