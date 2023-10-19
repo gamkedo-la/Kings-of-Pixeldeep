@@ -458,7 +458,7 @@ function handleMainWindowClick(mousePos, evt) {
             }
         }
 
-        if(selectedWorldEntity === null || !selectedWorldEntity instanceof armyClass) {
+        if(selectedWorldEntity === null || !(selectedWorldEntity instanceof armyClass)) {
             for(var i=0;i<playerArmies.length;i++) {
                 if(playerArmies[i].worldIdx() == clickedIdx) {
                     selectedWorldEntity = playerArmies[i];
