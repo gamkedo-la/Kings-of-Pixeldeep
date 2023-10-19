@@ -199,26 +199,29 @@ function createArmy(troopList) {
 
     // search around the selected city tiles clockwise to find an open one
     let options = [
-        { x: -1, y: 0}
-        { x: -1, y: -1}
-        { x: 0, y: -1}
-        { x: 1, y: -1}
-        { x: 1, y: 0}
-        { x: 1, y: 1}
-        { x: 0, y: 1}
-        { x: -1, y: 1}
+        { x: -1, y: 0},
+        { x: -1, y: -1},
+        { x: 0, y: -1},
+        { x: 1, y: -1},
+        { x: 1, y: 0},
+        { x: 1, y: 1},
+        { x: 0, y: 1},
+        { x: -1, y: 1},
+        { x: 0, y: 0 },
     ];
 
+    // default to city index just in case city is surrounded, as long as we can
+    // click the new army and move them out of the city
     let selectedOffset = options[0];
-    //let selectedOffset = null;
-
     for(const option of options) {
-        // TODO:
-        // if no entity at (cityWorldCol + option.x, cityWorldRow + option.y) {
-        //      let selectedOffset = option;
-        //      break;
-        // }
-
+        let outskirts = { col: cityWorldCol + option.x, row: cityWorldRow + option.y };
+        // avoid placing new army on any type of existing army: player or enemy
+        if(!isPlayerArmyAtPosition(outskirts.col, outskirts.row) &&
+            !isEnemyArmyAtPosition(outskirts.col, outskirts.row)
+        ) {
+            selectedOffset = option;
+            break;
+        }
     }
 
     let newArmy = new armyClass({
