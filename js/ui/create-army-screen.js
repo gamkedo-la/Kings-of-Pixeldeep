@@ -191,9 +191,39 @@ function drawCreateArmyScreen() {
 
 function createArmy(troopList) {
     let milisecondTimestamp = Date.now();
+
+    // get selected city for coordinates
+
+    let cityWorldCol = selectedWorldEntity.worldCol;
+    let cityWorldRow = selectedWorldEntity.worldRow;
+
+    // search around the selected city tiles clockwise to find an open one
+    let options = [
+        { x: -1, y: 0}
+        { x: -1, y: -1}
+        { x: 0, y: -1}
+        { x: 1, y: -1}
+        { x: 1, y: 0}
+        { x: 1, y: 1}
+        { x: 0, y: 1}
+        { x: -1, y: 1}
+    ];
+
+    let selectedOffset = options[0];
+    //let selectedOffset = null;
+
+    for(const option of options) {
+        // TODO:
+        // if no entity at (cityWorldCol + option.x, cityWorldRow + option.y) {
+        //      let selectedOffset = option;
+        //      break;
+        // }
+
+    }
+
     let newArmy = new armyClass({
-        worldCol: 7,
-        worldRow: 8,
+        worldCol: cityWorldCol + selectedOffset.x,
+        worldRow: cityWorldRow + selectedOffset.y,
         name: "player_army_" + milisecondTimestamp,
         troops: troopList,
     });
