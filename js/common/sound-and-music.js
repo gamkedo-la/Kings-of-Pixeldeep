@@ -2,11 +2,13 @@ var audioFormats = []
 var audioMute = false;
 var buttonClickSound = null;
 var buttonHoverSound = null;
+var armyMarchingSound = null;
 var currentMusic = null;
 var startupMusic = null;
 var startupLoopMusic = null;
 var battleMusic = null;
 var worldMusic = null;
+var mainMenuMusic = null;
 
 var userHasInteractedWithGame = false; // no sound allowed until the first click
 
@@ -60,20 +62,53 @@ function SoundOverlapsClass(filenameWithPath) {
     var altSound = loadAudioFile(filenameWithPath);
 
     this.play = function() {
-
         // avoid browser errors due to autoplay permissions
         if (!userHasInteractedWithGame) return;
 
         if (!audioMute) {
             if (altSoundTurn) {
                 altSound.currentTime = 0;
-                altSound.play();
+                this.playWithPausability(altSound);
             } else {
                 mainSound.currentTime = 0;
-                mainSound.play();
+                this.playWithPausability(mainSound);
             }
             // toggle between sounds
             altSoundTurn = !altSoundTurn;
+        }
+    };
+
+    // adapted from https://developer.chrome.com/blog/play-request-was-interrupted/
+    this.playWithPausability = function(audioFile) {
+        var playPromise = audioFile.play();
+        if (playPromise !== undefined) {
+          playPromise.then(_ => {
+            // playback starts, no code necessary
+          })
+          .catch(error => {
+            // playback prevented, in case of pause before play returns
+          });
+        }   
+    }
+
+    this.paused = function() {
+        // avoid browser errors due to autoplay permissions
+        if (!userHasInteractedWithGame) return false;
+        return altSound.paused && mainSound.paused;
+    };
+
+    this.pause = function() {
+        // TODO: find a good place to pause the SoundOverlapsClass objects
+        // such as the marching sound
+
+        // avoid browser errors due to autoplay permissions
+        if (!userHasInteractedWithGame) return;
+
+        if (!altSound.paused) {
+            altSound.pause();
+        }
+        if (!mainSound.paused) {
+            mainSound.pause();
         }
     };
 }
@@ -97,6 +132,19 @@ function BackgroundMusicClass() {
         this.musicSound.loop = loop;
         this.musicSound.muted = audioMute;
         // adapted from https://developer.chrome.com/blog/play-request-was-interrupted/
+        // this.musicSound.load();
+        // fetch(this.musicSound.src)
+        //     .then(response => response.blob())
+        //     .then(blob => {
+        //       this.musicSound.srcObject = blob;
+        //       return video.play();
+        //     })
+        //     .then(_ => {
+        //       // Video playback started ;)
+        //     })
+        //     .catch(e => {
+        //       // Video playback failed ;(
+        //     });
         var playPromise = this.musicSound.play();
         if (playPromise !== undefined) {
           playPromise.then(_ => {
@@ -155,6 +203,7 @@ function BackgroundMusicClass() {
 function loadSounds() {
     buttonClickSound = new SoundOverlapsClass("audio/sfx/button_click");
     buttonHoverSound = new SoundOverlapsClass("audio/sfx/button_hover");
+    armyMarchingSound = new SoundOverlapsClass("audio/hundreds_marching_clatter");
 
     battleMusic = new BackgroundMusicClass();
     battleMusic.loopSong("audio/Pixeldeep_Battle_1.mp3");

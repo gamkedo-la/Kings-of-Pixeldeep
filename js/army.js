@@ -161,6 +161,9 @@ function armyClass(configObj) {
         // if can, move
         if(canMoveToTarget && !pauseMode) {
             console.log(level_cols, clickedIdx, "moving "+ this.name + " to tile (" + newRow + "," + newCol +")");
+            if (armyMarchingSound) {
+                armyMarchingSound.play();
+            }
 
             this.setPosition(newCol, newRow);
 
@@ -330,8 +333,8 @@ function armyClass(configObj) {
         if (this.pathAnimPercent < 1) {
             this.pathAnimPercent += this.pathAnimSpeed;
             //console.log("this.pathAnimPercent="+this.pathAnimPercent.toFixed(2));
-        }
-
+        } 
+        
         if(selectedWorldEntity && (selectedWorldEntity.name == this.name) &&
             selectedWorldEntity instanceof armyClass) {
             
