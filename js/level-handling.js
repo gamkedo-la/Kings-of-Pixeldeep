@@ -40,7 +40,8 @@ function setupMainMenuMode() {
     battleMode = false;
     pauseMode = false;
     editorMode = false;
-
+  
+    stopAllMusicAndPlay(mainMenuMusic);
 }
 
 function setupWorldMode() {

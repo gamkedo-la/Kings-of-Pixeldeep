@@ -164,13 +164,16 @@ function loadSounds() {
     worldMusic.loopSong("audio/slow_map_Pixeldeep.mp3");
     worldMusic.startOrStopMusic(); // stop music playing immediately; wait for battle mode to trigger
 
-    // this song will only play once at the beginning of game interaction
-    startupMusic = worldMusic;
-    // startupMusic.playSong("audio/world_background_Pixeldeep.mp3");
-    // startupMusic.startOrStopMusic(); // stop music at first
+    mainMenuMusic = new BackgroundMusicClass();
+    mainMenuMusic.loopSong("audio/world_background_Pixeldeep.mp3");
+    mainMenuMusic.startOrStopMusic(); // stop music playing immediately; wait for battle mode to trigger
 
-    // Use worldMusic until different startupLoopMusic is desired
-    startupLoopMusic = worldMusic;
+    // this song will only play once at the beginning of game interaction
+    startupMusic = new BackgroundMusicClass();
+    startupMusic.playSong("audio/world_background_Pixeldeep.mp3");
+    startupMusic.startOrStopMusic(); // stop music at first
+
+    startupLoopMusic = mainMenuMusic;
     // startupLoopMusic.loopSong("audio/slow_map_Pixeldeep.mp3");
     // startupLoopMusic.stopMusic(); // stop music at first
 }
@@ -184,15 +187,18 @@ function toggleAudioMute() {
 }
 
 function playStartupMusic() {
-    // add a ended listener to startup music to play loop music after it finishes
     if (!startupMusic.musicSound) {
         console.error("startupMusic.musicSound is null!");
         return;
     }
+
+    // add a ended listener to startup music to play loop music after it finishes
     startupMusic.musicSound.addEventListener("ended", function() {
-        currentMusic = startupLoopMusic;
-        if (currentMusic != null) {
-            currentMusic.startMusic();
+        if (currentMusic === startupMusic) {
+            currentMusic = startupLoopMusic;
+            if (currentMusic != null) {
+                currentMusic.startMusic();
+            }
         }
     });
 
@@ -214,6 +220,9 @@ function stopAllMusic() {
     }
     if(worldMusic) {
         worldMusic.stopMusic();
+    }
+    if(mainMenuMusic) {
+        mainMenuMusic.stopMusic();
     }
 }
 
