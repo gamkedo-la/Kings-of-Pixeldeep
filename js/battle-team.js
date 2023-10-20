@@ -31,6 +31,8 @@ function checkAndHandleVictory() {
             enemyBattleArmy.troops.peasants = enemyUnits.length;
         }
 
+        playerUnits = [];
+        enemyUnits  = [];
         setupWorldMode();
 
     } else if(enemyUnits.length == 0) {
@@ -47,6 +49,8 @@ function checkAndHandleVictory() {
             playerBattleArmy.troops.peasants = playerUnits.length;
         }
 
+        playerUnits = [];
+        enemyUnits  = [];
         setupWorldMode();
   }
 }

@@ -317,6 +317,12 @@ function armyClass(configObj) {
                 let path = levelGridPathfind(this.worldCol,this.worldRow,targetX,targetY);
                 console.log('AI found path', path);
 
+                // quick, hacky fix for army trying to move out of range
+                if(path.length > this.currentMovementPoints) {
+                    // trim movement path to as far as we can move
+                    path.splice(this.currentMovementPoints);
+                }
+
                 this.setMovementPath(path);
                 this.move(tileIndex);
                 break;
