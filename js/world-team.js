@@ -64,8 +64,8 @@ playerArmies.push(army1);
 allArmies.push(army1);
 
 var army2 = new armyClass({
-    worldCol: 12,//30,
-    worldRow: 6,//9,
+    worldCol: 30,
+    worldRow: 9,
     name: "Enemy Army",
     playerControlled: false,
     troops: {
@@ -119,11 +119,12 @@ function runEnemyTurn() {
     // few turns, ramping up army difficulty and freqency 
     // as the game goes on
     if (turnNumber % enemyCities.length === 0) {
+        let milisecondTimestamp = Date.now();
         let cityIdx = Math.floor(Math.random() * enemyCities.length);
         let newArmy = new armyClass({
             worldCol: enemyCities[cityIdx].worldCol - 1,
             worldRow: enemyCities[cityIdx].worldRow,
-            name: "Enemy Army " + enemyCities.length,
+            name: "Enemy Army " + milisecondTimestamp,
             playerControlled: false,
             troops: {
                 peasants: 20,

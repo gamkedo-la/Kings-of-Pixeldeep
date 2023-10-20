@@ -130,6 +130,7 @@ function armyClass(configObj) {
         } else {
             // assuming we've set the path manually from this.AIMove()
             // rather than calling this from a player mouse click
+            console.log('currentPath', this.currentPath);
             newRow = this.currentPath[this.currentPath.length - 1][1]; // row = Y coord
             newCol = this.currentPath[this.currentPath.length - 1][0]; // col = X coord
         }
@@ -317,15 +318,20 @@ function armyClass(configObj) {
                 let path = levelGridPathfind(this.worldCol,this.worldRow,targetX,targetY);
                 console.log('AI found path', path);
 
-                // quick, hacky fix for army trying to move out of range
-                if(path.length > this.currentMovementPoints) {
-                    // trim movement path to as far as we can move
-                    path.splice(this.currentMovementPoints);
-                }
+                if(path.length) {
+                    // quick, hacky fix for army trying to move out of range
+                    if(path.length > this.currentMovementPoints) {
+                        // trim movement path to as far as we can move
+                        path.splice(this.currentMovementPoints);
+                        console.log('spliced path', path);
+                    }
 
-                this.setMovementPath(path);
-                this.move(tileIndex);
-                break;
+                    this.setMovementPath(path);
+                    this.move(path[path.length - 1]);
+                    break;
+                } else {
+                    console.log('invalid path', path, 'picking new path');
+                }
             }
         }
 

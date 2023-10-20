@@ -28,6 +28,9 @@ function checkAndHandleVictory() {
             playerArmies = playerArmies.filter(
                 army => army.name !== playerBattleArmy.name
             );
+            allArmies = allArmies.filter(
+                army => army.name !== playerBattleArmy.name
+            );
             enemyBattleArmy.troops.peasants = enemyUnits.length;
         }
 
@@ -43,6 +46,9 @@ function checkAndHandleVictory() {
 
         if(playerBattleArmy || enemyBattleArmy) {
             enemyArmies = enemyArmies.filter(
+                army => army.name !== enemyBattleArmy.name
+            );
+            allArmies = allArmies.filter(
                 army => army.name !== enemyBattleArmy.name
             );
 
