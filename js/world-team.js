@@ -13,6 +13,7 @@ var neutralCities = [];
 var allCities = [];
 
 var selectedWorldEntity = null;
+var selectedWorldEntityIndex = -1;
 
 // WORLD MAP SETUP
 

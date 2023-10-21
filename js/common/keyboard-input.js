@@ -15,6 +15,11 @@ function keyPressed(evt) {
 	// g: 71 (grid)
 
 	//toggleUserInteractStage();
+    
+    if (evt.key == "Tab") {
+        evt.preventDefault();
+    }
+
 }
 
 function keyReleased(evt) {
@@ -59,5 +64,12 @@ function keyReleased(evt) {
         }
     }
 
+    if (evt.key == "Tab") {
+        if(!battleMode && !editorMode) {
+            selectNextWorldEntity();
+        }
+    }
+
 	//toggleUserInteractStage();
 }
+

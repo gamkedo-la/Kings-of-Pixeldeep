@@ -462,6 +462,7 @@ function handleMainWindowClick(mousePos, evt) {
             for(var i=0;i<playerArmies.length;i++) {
                 if(playerArmies[i].worldIdx() == clickedIdx) {
                     selectedWorldEntity = playerArmies[i];
+                    selectedWorldEntityIndex = i;
                 }
             }
         } 
@@ -579,6 +580,20 @@ function rightClickHandler(evt) {
         }
     } // end if
 } // end function
+
+function selectNextWorldEntity() {
+    if(!battleMode && !editorMode) {
+        if(selectedWorldEntity && selectedWorldEntity instanceof armyClass && !(selectedWorldEntity instanceof cityClass)) {
+            deselectWorldEntity();
+
+            selectedWorldEntityIndex++;
+            if (selectedWorldEntityIndex > playerArmies.length - 1) {
+                selectedWorldEntityIndex = 0;
+            } 
+            selectedWorldEntity = playerArmies[selectedWorldEntityIndex];
+        } 
+    }
+}
 
 function deselectWorldEntity() {
     if(selectedWorldEntity) {
