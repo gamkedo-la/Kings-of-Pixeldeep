@@ -581,7 +581,7 @@ function rightClickHandler(evt) {
     } // end if
 } // end function
 
-function selectNextWorldEntity() {
+function selectNextAvailableArmy() {
     if(!battleMode && !editorMode) {
         if(selectedWorldEntity && selectedWorldEntity instanceof armyClass && !(selectedWorldEntity instanceof cityClass)) {
             deselectWorldEntity();
@@ -591,6 +591,10 @@ function selectNextWorldEntity() {
                 selectedWorldEntityIndex = 0;
             } 
             selectedWorldEntity = playerArmies[selectedWorldEntityIndex];
+
+            // focus camera on selected army
+            camPanX = selectedWorldEntity.x() - canvas.width / 2;
+            camPanY = selectedWorldEntity.y() - canvas.height / 2;
         } 
     }
 }
