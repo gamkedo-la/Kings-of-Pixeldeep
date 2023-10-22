@@ -127,7 +127,7 @@ function armyClass(configObj) {
             // player clicked to start the move, use click location as target
             newRow = Math.floor(clickedIdx  / level_cols);
             newCol = clickedIdx % level_cols;
-            if(isNaN(newRow) || isNaN(newCol) {
+            if(isNaN(newRow) || isNaN(newCol)) {
                 console.error('ERROR: NaN found on clicked index');
             }
         } else {
@@ -269,7 +269,7 @@ function armyClass(configObj) {
             }
 
             // no target coords, checking for a chosen target
-            if(!chosenPathThisLoop) {
+            if(!chosenPathThisLoop && chosenTargetPath) {
                 console.log('moving along path to chosen target', chosenTargetPath);
 
                 if(chosenTargetPath.length <= this.currentMovementPoints || chosenTargetPath.length < 1) {
