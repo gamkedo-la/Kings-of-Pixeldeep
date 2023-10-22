@@ -66,7 +66,7 @@ function keyReleased(evt) {
 
     if (evt.key == "Tab") {
         if(!battleMode && !editorMode) {
-            selectNextWorldEntity();
+            selectNextAvailableArmy();
         }
     }
 
