@@ -73,6 +73,10 @@ var army2 = new armyClass({
         peasants: 10,
     }
 });
+
+if (quickBattleDebug) {
+	army2.worldCol = 10;
+}
 enemyArmies.push(army2);
 allArmies.push(army2);
 

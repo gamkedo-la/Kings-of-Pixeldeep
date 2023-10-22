@@ -39,3 +39,5 @@ var gameOptions = {
 
 // win state
 var winner = null;
+
+var quickBattleDebug = false;
