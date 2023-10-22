@@ -119,7 +119,11 @@ function runEnemyTurn() {
     // randomly spawn enemy-controlled armies every
     // few turns, ramping up army difficulty and freqency 
     // as the game goes on
-    if (turnNumber % enemyCities.length === 0) {
+    
+    let turnNumberFactor = 0.001; // higher makes enemy army spawn rate ramp up faster
+    
+    if (Math.random() + (turnNumber * turnNumberFactor) > 0.75) { 
+        // roughly 1/4 of the time to start, ramping up over time
         let milisecondTimestamp = Date.now();
         let cityIdx = Math.floor(Math.random() * enemyCities.length);
         let newArmy = new armyClass({
