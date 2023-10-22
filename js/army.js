@@ -127,12 +127,17 @@ function armyClass(configObj) {
             // player clicked to start the move, use click location as target
             newRow = Math.floor(clickedIdx  / level_cols);
             newCol = clickedIdx % level_cols;
+            if(isNaN(newRow) || isNaN(newCol) {
+                console.error('ERROR: NaN found on clicked index');
+            }
         } else {
             // assuming we've set the path manually from this.AIMove()
-            // rather than calling this from a player mouse click
-            console.log('currentPath', this.currentPath);
-            newRow = this.currentPath[this.currentPath.length - 1][1]; // row = Y coord
-            newCol = this.currentPath[this.currentPath.length - 1][0]; // col = X coord
+            if(!this.currentPath || this.currentPath.length < 1) {
+                console.log('ERROR: army.move() called without clickedIdx or valid currentPath', clickedIdx, this.currentPath);
+            } else {
+                newRow = this.currentPath[this.currentPath.length - 1][1]; // row = Y coord
+                newCol = this.currentPath[this.currentPath.length - 1][0]; // col = X coord
+            }
         }
 
         let canMoveToTarget = true;
@@ -211,131 +216,93 @@ function armyClass(configObj) {
         let targetY = 0;
         let tileIndex = 0;
         let MAX_TRIES = 50;
-        let chosenTargetTries = 10;
+        let chosenTargetTries = 20;
         let tries = 0;
         let canMoveToTarget = false;
 
-        // pick target
-        let possibleTargets = playerArmies.concat(playerCities);
-        let pathsInRange = [];
-        let chosenTargetPath = null;
-
-        for(const target of possibleTargets) {
-            let pathToTarget = levelGridPathfind(this.worldCol, this.worldRow, 
-                target.worldCol, target.worldRow);
-
-            if(pathToTarget.length <= this.currentMovementPoints) {
-                pathsInRange.push(pathToTarget);
-            }
-        }
-
-        if(pathsInRange.length > 0) {
-            chosenTargetPath = pickRandomFromArray(pathsInRange);
-        }
 
         // keep trying until we find a "possible move"
         while (!canMoveToTarget && tries<MAX_TRIES) { // avoid an infinite loop if we always fail
-
             tries++;
+            console.log('tries:', tries);
+
+            // select a path
+
+            // debug target coords are passed in the arg
+
+            // try for possible targets
+            let possibleTargets = playerArmies.concat(playerCities);
+            let pathsInRange = [];
+            let chosenTargetPath = null;
+
+            for(const target of possibleTargets) {
+                let pathToTarget = levelGridPathfind(this.worldCol, this.worldRow, 
+                    target.worldCol, target.worldRow);
+
+                if(pathToTarget.length <= this.currentMovementPoints && pathToTarget.length > 0) {
+                    pathsInRange.push(pathToTarget);
+                }
+            }
+
+            if(pathsInRange.length > 0) {
+                chosenTargetPath = pickRandomFromArray(pathsInRange);
+            }
             
-            /*
-            // move to somewhere within ONE TILE of me (for now!!)
-            targetX = this.worldCol + Math.round(Math.random()*2-1);
-            targetY = this.worldRow + Math.round(Math.random()*2-1);
-            // choose from ENTIRE MAP
-            //targetX = Math.floor(Math.random()*level_cols);
-            //targetY = Math.floor(Math.random()*level_rows);
-            */
+            // last possible fallback, pick a random targetX & targetY in range
+            randomTargetX = this.worldCol + Math.round(Math.random()*this.currentMovementPoints) - 1;
+            randomTargetY = this.worldRow + Math.round(Math.random()*this.currentMovementPoints) - 1;
+
+
+            // ok, we have all our path options, let's pick one & move
+            let chosenPathThisLoop = null;
 
             if(targetCoords) {
                 console.log('debug coordinates were provided', targetCoords);
-                targetX = targetCoords.x;
-                targetY = targetCoords.y;
+                let debugPath  = levelGridPathfind(this.worldCol, this.worldRow, 
+                    targetCoords.x, targetCoords.y);
+
+                if(debugPath.length <= this.currentMovementPoints || debugPath.length < 1) {
+                    chosenPathThisLoop = debugPath;
+                } else {
+                    console.log('debug path was too long or short', debugPath);
+                }
             }
 
             // no target coords, checking for a chosen target
-            if(chosenTargetPath && tries < chosenTargetTries) {
-                console.log('moving along chosen target path', chosenTargetPath);
+            if(!chosenPathThisLoop) {
+                console.log('moving along path to chosen target', chosenTargetPath);
 
-                // we already have a path, let's just use it
-                let pathEnd = chosenTargetPath[chosenTargetPath.length - 1];
-                tileIndex = tileCoordToIndex(pathEnd.x,pathEnd.y);
+                if(chosenTargetPath.length <= this.currentMovementPoints || chosenTargetPath.length < 1) {
+                    chosenPathThisLoop = chosenTargetPath;
+                } else {
+                    console.log('chosen target too long or short', chosenTargetPath);
+                }
 
-                this.setMovementPath(chosenTargetPath);
+            } 
+
+            // no valid chosen target, falling back to random coords
+            if(!chosenPathThisLoop) {
+                console.log('moving on to random location', randomTargetX, randomTargetY);
+                let randomPath = levelGridPathfind(this.worldCol,this.worldRow,
+                    randomTargetX,randomTargetY);
+                if(randomPath.length <= this.currentMovementPoints || randomPath.length < 1) {
+                    chosenPathThisLoop = randomPath;
+                } else {
+                    console.log('random path too long or short', randomPath);
+                }
+            }
+
+            // ok, we should have picked a path by now. If not, we'll send the loop around again
+            if(chosenPathThisLoop) {
+                this.setMovementPath(chosenPathThisLoop);
                 this.move();
-                break;
-
-            } else {
-                console.log('moving randomly in the direction of a possible target');
-                // choose a random possible target and move vaguely in it's direction
-                let randomTarget = pickRandomFromArray(possibleTargets);
-                console.log('random target', randomTarget);
-
-                if(randomTarget.worldCol > this.worldCol) {
-                    // pick random target worldCol in positive X direction
-                    targetX = Math.round(Math.random() * this.currentMovementPoints) + this.worldCol;
-                } else {
-                    // pick random target worldCol in negative X direction
-                    targetX = (Math.round(Math.random() * this.currentMovementPoints) * -1) +
-                        this.worldRow;
-                }
-
-                if(randomTarget.worldRow > this.worldRow) {
-                    // pick random target worldRow in positive Y direction
-                    targetY = Math.round(Math.random() * this.currentMovementPoints) + this.worldRow;
-                } else {
-                    // pick random target worldRow in negative Y direction
-                    targetY = (Math.round(Math.random() * this.currentMovementPoints) * -1) + 
-                        this.worldRow;
-                }
-            }
-            
-            // last possible fallback, just move randomly
-            if(!targetX && !targetY) {
-                console.log('all else has failed, we are just moving randomly at this point');
-                targetX = this.worldCol + Math.round(Math.random()*this.currentMovementPoints) - 1;
-                targetY = this.worldRow + Math.round(Math.random()*this.currentMovementPoints) - 1;
-            }
-
-            // coordinates picked, let's get moving
-            tileIndex = tileCoordToIndex(targetX,targetY);
-
-            console.log("AIMove: trying "+targetX+","+targetY+" = index "+tileIndex);
-            
-            // checking if can move to target
-            if(targetX != this.x && targetY != this.y) {
                 canMoveToTarget = true;
+                break;
             } else {
                 canMoveToTarget = false;
             }
 
-            // TODO: we could choose several possible targets randomly from the array of enemy armies! 
-            // then measure the pathfinding cost of each and reject impossible ones
-
-            if (!canMoveToTarget) {
-                console.log("AIMove: unable to get to "+targetX+","+targetY+" - trying another...");
-            } else {
-                let path = levelGridPathfind(this.worldCol,this.worldRow,targetX,targetY);
-                console.log('AI found path', path);
-
-                if(path.length) {
-                    // quick, hacky fix for army trying to move out of range
-                    if(path.length > this.currentMovementPoints) {
-                        // trim movement path to as far as we can move
-                        path.splice(this.currentMovementPoints);
-                        console.log('spliced path', path);
-                    }
-
-                    this.setMovementPath(path);
-                    this.move(path[path.length - 1]);
-                    break;
-                } else {
-                    console.log('invalid path', path, 'picking new path');
-                }
-            }
         }
-
-        console.log("AIMove: chosen target is: "+targetX+","+targetY);
 
     }
 

@@ -132,6 +132,7 @@ function runEnemyTurn() {
             }
         });
         enemyArmies.push(newArmy);
+        allArmies.push(newArmy);
     }
 
     endTurn(); // this may cause recursion, not sure
