@@ -51,7 +51,9 @@ function loadImages() {
 	var imageList = [
 		{varName: cityPic, theFile: "townSprite.png"},
 		{varName: playerArmyPic, theFile: "peasant.png"},
-		{varName: enemyArmyPic, theFile: "redPeasant.png"},
+		// test hack by chris deleon to help show art in game, apologies for ugly form
+		{varName: enemyArmyPic, theFile: (quickUseSpearArtDebug ? "Redspearman.png" :
+							"redPeasant.png")},
 		{varName: worldTerrain, theFile: "world_terrain.png"},
 		{varName: forestTerrain, theFile: "forestSprite.png"},
 		{varName: coastalWaterTerrain, theFile: "coastalWaters.png"},
@@ -61,7 +63,9 @@ function loadImages() {
 		{varName: placeholderUnitAtk, theFile: "pixeldeep-placeholder-atk.png"},
 		{varName: placeholderUnitWalk, theFile: "pixeldeep-placeholder-walk.png"},
 		{varName: yellowPeasantUnitSingleFrame, theFile: "yellowUnitSingleframe.png"},
-		{varName: redPeasantUnitSingleFrame, theFile: "redUnitSingleframe.png"},
+		// test hack by chris deleon to help show art in game, apologies for ugly form
+		{varName: redPeasantUnitSingleFrame, theFile: (quickUseSpearArtDebug ? "redSpearmensingleframe.png" :
+								"redUnitSingleframe.png")},
 		{varName: cityPanelBackdrop, theFile: "city_screen_backdrop.png"},
 
         {varName: guiTopBarBackdrop, theFile: "gui_top_bar.png"},

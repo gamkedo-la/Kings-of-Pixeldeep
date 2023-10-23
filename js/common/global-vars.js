@@ -41,3 +41,4 @@ var gameOptions = {
 var winner = null;
 
 var quickBattleDebug = false;
+var quickUseSpearArtDebug = false;
