@@ -3,6 +3,8 @@ var audioMute = false;
 var buttonClickSound = null;
 var buttonHoverSound = null;
 var armyMarchingSound = null;
+var battleSound1 = null;
+var battleSound2  = null;
 var currentMusic = null;
 var startupMusic = null;
 var startupLoopMusic = null;
@@ -204,6 +206,8 @@ function loadSounds() {
     buttonClickSound = new SoundOverlapsClass("audio/sfx/button_click");
     buttonHoverSound = new SoundOverlapsClass("audio/sfx/button_hover");
     armyMarchingSound = new SoundOverlapsClass("audio/hundreds_marching_clatter");
+    battleSound1 = new SoundOverlapsClass("audio/battle_sounds_1");
+    battleSound2 = new SoundOverlapsClass("audio/battle_sounds_2");
 
     battleMusic = new BackgroundMusicClass();
     battleMusic.loopSong("audio/Pixeldeep_Battle_1.mp3");

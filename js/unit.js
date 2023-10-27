@@ -200,6 +200,14 @@ function unitClass() {
               // opponent unit is facing away, so it dies
               nearbyUnit.dies();
             } else {
+              // play the other battle sound for other attacks
+              if (battleSound1 && battleSound2) {
+                if (Math.random() < 0.5) {
+                  battleSound1.play();
+                } else {
+                  battleSound2.play();
+                }
+              }
               // opponent unit is facing this unit, so battle!
               fightOutcome = Math.random();
               if (fightOutcome < 0.4) {

@@ -71,6 +71,8 @@ function setupWorldMode() {
         setupPauseMode('world');
     }
 
+    battleSound1.pause();
+    battleSound2.pause();
     stopAllMusicAndPlay(worldMusic);
 }
 
