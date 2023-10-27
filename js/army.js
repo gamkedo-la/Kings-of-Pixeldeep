@@ -15,7 +15,7 @@ function armyClass(configObj) {
     this.currentPath = null; // pathfinding data in the form [[x,y],[x,y],etc]
     this.pathAnimPercent = 1; // 0..1 so we can travel along the path
     this.pathAnimSpeed = 0.02; // percent per frame
-
+    this.eventTarget = new EventTarget();
     this.troops = {
         peasants: 0,
         archers: 0,
@@ -122,6 +122,7 @@ function armyClass(configObj) {
 
     this.move = function(clickedIdx) {
         let newRow, newCol;
+        let beginBattleAfterAnimation = false;
 
         if(clickedIdx) {
             // player clicked to start the move, use click location as target
@@ -180,13 +181,16 @@ function armyClass(configObj) {
             console.log('move complete, checking for armies and cities at destination', newCol, newRow);
 
             // check for other armies & start battle mode if necessary
-            if(this.playerControlled && isEnemyArmyAtPosition(newCol, newRow)) {
+            if(!beginBattleAfterAnimation && this.playerControlled && isEnemyArmyAtPosition(newCol, newRow)) {
                 console.log('player army checking for enemy army at', newCol, newRow);
-                setupBattleMode(newCol, newRow);
+
+                beginBattleAfterAnimation = true;
             }
-            if(!this.playerControlled && isPlayerArmyAtPosition(newCol, newRow)) {
+
+            if(!beginBattleAfterAnimation && !this.playerControlled && isPlayerArmyAtPosition(newCol, newRow)) {
                 console.log('enemy army checking for player army at', newCol, newRow);
-                setupBattleMode(newCol, newRow);
+
+                beginBattleAfterAnimation = true;
             }
 
             // check for a city at new army's location
@@ -195,6 +199,13 @@ function armyClass(configObj) {
                 if(city.worldCol === newCol && city.worldRow === newRow) {
                     tryToCapture(city, this);
                 }
+            }
+
+            // create a listener to begin a battle when the animation ends
+            if (beginBattleAfterAnimation) {
+                this.eventTarget.addEventListener('animationEnded', function(newCol, newRow) {
+                    setupBattleMode(newCol, newRow);
+                }, { once: true });
             }
 
             // deselect army
@@ -219,7 +230,6 @@ function armyClass(configObj) {
         let chosenTargetTries = 20;
         let tries = 0;
         let canMoveToTarget = false;
-
 
         // keep trying until we find a "possible move"
         while (!canMoveToTarget && tries<MAX_TRIES) { // avoid an infinite loop if we always fail
@@ -307,13 +317,14 @@ function armyClass(configObj) {
     }
 
     this.draw = function() {
+        let isAnimating = this.pathAnimPercent < 1;
 
         // keeps animating until this goes over 1
         if (this.pathAnimPercent < 1) {
             this.pathAnimPercent += this.pathAnimSpeed;
             //console.log("this.pathAnimPercent="+this.pathAnimPercent.toFixed(2));
         } 
-        
+
         if(selectedWorldEntity && (selectedWorldEntity.name == this.name) &&
             selectedWorldEntity instanceof armyClass) {
             
@@ -381,6 +392,11 @@ function armyClass(configObj) {
 
         drawBitmapCenteredWithRotation(this.picToUse(), this.x(),this.y(), 0);
 
+        if (isAnimating && this.pathAnimPercent >= 1) {
+            isAnimating = false;
+            let animationEndedEvent = new CustomEvent("animationEnded")
+            this.eventTarget.dispatchEvent(animationEndedEvent);
+        }
     } // end this.draw()
 
     this.troopCount = function() {
