@@ -731,3 +731,11 @@ function selectedCity() {
     }
     return selectedCity;
 }
+
+function updateWorldEntitySidebarButtons(selectedWorldEntity) {
+    currentSidebarButtons = WORLD_SIDEBAR_BUTTONS;
+
+    if (selectedWorldEntity instanceof cityClass) {
+        currentSidebarButtons = CITY_SIDEBAR_BUTTONS;
+    }
+}

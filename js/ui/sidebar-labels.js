@@ -105,7 +105,9 @@ const BATTLE_SIDEBAR_LABELS = [
     selectedUnitCountLabel,
 ];
 
-function updateWorldEntityLabels(selectedWorldEntity) {
+function updateWorldEntitySidebarLabels(selectedWorldEntity) {
+    currentSidebarLabels = [];
+
     if (selectedWorldEntity instanceof armyClass) {
         currentSidebarLabels = WORLD_SIDEBAR_LABELS.filter(label => label.tag == "worldArmy");
 

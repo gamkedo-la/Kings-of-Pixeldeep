@@ -93,7 +93,7 @@ function mousemoveHandler(evt) {
                 console.log("levelGridPathfind found NO path possible.");
             }
             selectedWorldEntity.setMovementPath(path);
-            updateWorldEntityLabels(selectedWorldEntity);
+            updateWorldEntitySidebarLabels(selectedWorldEntity);
         }
     } else if(hoverPos !== null) {
         hoverPos = null;
@@ -446,9 +446,6 @@ function handleMainWindowClick(mousePos, evt) {
                 //console.log("clicked on ", playerCities[i].name);
                 //openCityPanel(playerCities[i]);
                 selectedWorldEntity = playerCities[i];
-
-                updateWorldEntityLabels(selectedWorldEntity);
-                currentSidebarButtons = CITY_SIDEBAR_BUTTONS;
             }
         }
 
@@ -459,9 +456,10 @@ function handleMainWindowClick(mousePos, evt) {
                     selectedWorldEntityIndex = i;
                 }
             }
-            
-            updateWorldEntityLabels(selectedWorldEntity);
         } 
+
+        updateWorldEntitySidebarLabels(selectedWorldEntity);
+        updateWorldEntitySidebarButtons(selectedWorldEntity);
 
         if(selectedWorldEntity instanceof armyClass) {
             selectedWorldEntity.move(clickedIdx);
@@ -595,11 +593,8 @@ function selectNextAvailableArmy() {
             camPanX = selectedWorldEntity.x() - canvas.width / 2;
             camPanY = selectedWorldEntity.y() - canvas.height / 2;
         } 
-        if (selectedWorldEntity instanceof armyClass) {
-            currentSidebarLabels = WORLD_SIDEBAR_LABELS.filter(label => label.tag == "worldArmy");
-        }
 
-        updateWorldEntityLabels(selectedWorldEntity);
+        updateWorldEntitySidebarLabels(selectedWorldEntity);
     }
 }
 
@@ -609,9 +604,8 @@ function deselectWorldEntity() {
         selectedWorldEntity.currentPath = null;
         selectedWorldEntity = null;
 
-        currentSidebarLabels = [];
-        // restore default sidebar buttons
-        currentSidebarButtons = WORLD_SIDEBAR_BUTTONS;
+        updateWorldEntitySidebarLabels(selectedWorldEntity);
+        updateWorldEntitySidebarButtons(selectedWorldEntity);
     }
 }
 
