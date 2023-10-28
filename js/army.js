@@ -202,15 +202,18 @@ function armyClass(configObj) {
             }
 
             // create a listener to begin a battle when the animation ends
-            if (beginBattleAfterAnimation) {
-                this.eventTarget.addEventListener('animationEnded', function(newCol, newRow) {
+            this.eventTarget.addEventListener('animationEnded', function(newCol, newRow) {
+                if (armyMarchingSound && !armyMarchingSound.paused()) { 
+                    // stop marching sound
+                    armyMarchingSound.pause();
+                }
+                if (beginBattleAfterAnimation) {
                     setupBattleMode(newCol, newRow);
-                }, { once: true });
-            }
+                }
+            }, { once: true });
 
             // deselect army
             selectedWorldEntity = null;
-
         }
 
     } // end this.move()

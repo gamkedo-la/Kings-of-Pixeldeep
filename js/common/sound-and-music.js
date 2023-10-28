@@ -96,7 +96,7 @@ function SoundOverlapsClass(filenameWithPath) {
     this.paused = function() {
         // avoid browser errors due to autoplay permissions
         if (!userHasInteractedWithGame) return false;
-        return altSound.paused && mainSound.paused;
+        return ((!altSound || altSound.paused) && (!mainSound || mainSound.paused));
     };
 
     this.pause = function() {
@@ -106,10 +106,10 @@ function SoundOverlapsClass(filenameWithPath) {
         // avoid browser errors due to autoplay permissions
         if (!userHasInteractedWithGame) return;
 
-        if (!altSound.paused) {
+        if (altSound && !altSound.paused) {
             altSound.pause();
         }
-        if (!mainSound.paused) {
+        if (mainSound && !mainSound.paused) {
             mainSound.pause();
         }
     };
