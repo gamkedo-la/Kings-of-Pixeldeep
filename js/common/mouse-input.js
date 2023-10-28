@@ -609,6 +609,7 @@ function deselectWorldEntity() {
         selectedWorldEntity.currentPath = null;
         selectedWorldEntity = null;
 
+        currentSidebarLabels = [];
         // restore default sidebar buttons
         currentSidebarButtons = WORLD_SIDEBAR_BUTTONS;
     }
