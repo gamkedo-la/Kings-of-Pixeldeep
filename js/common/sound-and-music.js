@@ -113,6 +113,22 @@ function SoundOverlapsClass(filenameWithPath) {
             mainSound.pause();
         }
     };
+
+    this.setVolume = function(volumeSetting) {
+        // avoid browser errors due to autoplay permissions
+        if (!userHasInteractedWithGame) return;
+        if (volumeSetting === null || volumeSetting < 0 || volumeSetting > 1) {
+            console.log("error: the new volume setting is out of range 0..1")
+            return;
+        }
+
+        if (altSound) {
+            altSound.volume = volumeSetting;
+        }
+        if (mainSound) {
+            mainSound.volume = volumeSetting;
+        }
+    };
 }
 
 function BackgroundMusicClass() {
@@ -206,6 +222,7 @@ function loadSounds() {
     buttonClickSound = new SoundOverlapsClass("audio/sfx/button_click");
     buttonHoverSound = new SoundOverlapsClass("audio/sfx/button_hover");
     armyMarchingSound = new SoundOverlapsClass("audio/hundreds_marching_clatter");
+    armyMarchingSound.setVolume(0.5);
     battleSound1 = new SoundOverlapsClass("audio/battle_sounds_1");
     battleSound2 = new SoundOverlapsClass("audio/battle_sounds_2");
 
