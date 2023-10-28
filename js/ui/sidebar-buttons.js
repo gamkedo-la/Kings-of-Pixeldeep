@@ -691,61 +691,7 @@ const BATTLE_PAUSE_SIDEBAR_BUTTONS = [
     }),
 ];
 
-const CITY_SIDEBAR_LABEL_OFFSET = 20;
 const CITY_SIDEBAR_BUTTONS = [
-    new labelClass({
-        label: "City Info",
-        width: 200,
-        x: canvas.width - (SIDEBAR_WIDTH + CITY_SIDEBAR_LABEL_OFFSET),
-        y: 200,
-    }),
-
-    new labelClass({
-        text: function() {
-            const population = selectedCityPopulation();
-            return "Population: " + population;
-        },
-        textAlign: 'left',
-        textColor: 'blue',
-        width: 50,
-        x: canvas.width - (SIDEBAR_WIDTH + CITY_SIDEBAR_LABEL_OFFSET),
-        y: 240,
-    }),
-
-    new labelClass({
-        text: function() {
-            const city = selectedCity();
-            const population = selectedCityPopulation();
-            let populationNextTurn = population;
-            if (city != null) {
-                populationNextTurn += city.newBirths();
-            }
-            return "Population next turn: " + populationNextTurn;
-        },
-        textAlign: 'left',
-        textColor: 'blue',
-        width: 50,
-        x: canvas.width - (SIDEBAR_WIDTH + CITY_SIDEBAR_LABEL_OFFSET),
-        y: 280,
-    }),
-
-    new labelClass({
-        text: function() {
-            const city = selectedCity();
-            let goldNextTurn = playerGold;
-            if (city != null) {
-                goldNextTurn += city.goldProduced();
-            }
-            return "Gold next turn: " + goldNextTurn;
-        },
-        textAlign: 'left',
-        textColor: 'blue',
-        width: 50,
-        x: canvas.width - (SIDEBAR_WIDTH + CITY_SIDEBAR_LABEL_OFFSET),
-        y: 320,
-    }),
-
-
     new buttonClass({
         label: "Create Army",
         onClick: function() {

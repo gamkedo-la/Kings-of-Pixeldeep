@@ -454,6 +454,7 @@ function handleMainWindowClick(mousePos, evt) {
                 //console.log("clicked on ", playerCities[i].name);
                 //openCityPanel(playerCities[i]);
                 selectedWorldEntity = playerCities[i];
+                currentSidebarLabels = CITY_SIDEBAR_LABELS;
                 currentSidebarButtons = CITY_SIDEBAR_BUTTONS;
             }
         }
