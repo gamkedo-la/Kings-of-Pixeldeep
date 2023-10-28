@@ -15,15 +15,15 @@ var mainMenuMusic = null;
 var userHasInteractedWithGame = false; // no sound allowed until the first click
 
 function setFormat() {
-    if (audioFormats.length === 0) {
+    if(audioFormats.length === 0) {
         var audio = new Audio();
-        if (audio.canPlayType("audio/wav")) {
+        if(audio.canPlayType("audio/wav")) {
             audioFormats.push(".wav");
         } 
-        if (audio.canPlayType("audio/mp3")) {
+        if(audio.canPlayType("audio/mp3")) {
             audioFormats.push(".mp3");
         }
-        if (audio.canPlayType("audio/ogg")) {
+        if(audio.canPlayType("audio/ogg")) {
             audioFormats.push(".ogg");
         }
     }
@@ -36,12 +36,12 @@ function loadAudioFile(filenameWithPath) {
     setFormat(); // called often, but executes once per game
     var newAudio = null;
     var last4CharsOfFileName = filenameWithPath.slice(-4).toLocaleLowerCase();
-    if (last4CharsOfFileName.slice(0, 1) === ".") {
-        if (audioFormats.length > 0) {
+    if(last4CharsOfFileName.slice(0, 1) === ".") {
+        if(audioFormats.length > 0) {
             // check file name extension for playable audio formats
             for(i = 0;i < audioFormats.length && newAudio === null; i++) {
                 var audioFormat = audioFormats[i].toLocaleLowerCase();
-                if (last4CharsOfFileName === audioFormat) {
+                if(last4CharsOfFileName === audioFormat) {
                     newAudio = new Audio(filenameWithPath);
                 }
             }
@@ -49,7 +49,7 @@ function loadAudioFile(filenameWithPath) {
     }
     // no extension in fileName so check if file loads with any our browser's 
     // playable formats
-    if (newAudio === null && audioFormats.length > 0) {
+    if(newAudio === null && audioFormats.length > 0) {
         // check file name extension for playable audio formats
         for(i = 0;i < audioFormats.length && newAudio === null; i++) {
             newAudio = new Audio(filenameWithPath + audioFormats[i]);
@@ -65,10 +65,10 @@ function SoundOverlapsClass(filenameWithPath) {
 
     this.play = function() {
         // avoid browser errors due to autoplay permissions
-        if (!userHasInteractedWithGame) return;
+        if(!userHasInteractedWithGame) return;
 
-        if (!audioMute) {
-            if (altSoundTurn) {
+        if(!audioMute) {
+            if(altSoundTurn) {
                 altSound.currentTime = 0;
                 this.playWithPausability(altSound);
             } else {
@@ -83,7 +83,7 @@ function SoundOverlapsClass(filenameWithPath) {
     // adapted from https://developer.chrome.com/blog/play-request-was-interrupted/
     this.playWithPausability = function(audioFile) {
         var playPromise = audioFile.play();
-        if (playPromise !== undefined) {
+        if(playPromise !== undefined) {
           playPromise.then(_ => {
             // playback starts, no code necessary
           })
@@ -95,7 +95,7 @@ function SoundOverlapsClass(filenameWithPath) {
 
     this.paused = function() {
         // avoid browser errors due to autoplay permissions
-        if (!userHasInteractedWithGame) return false;
+        if(!userHasInteractedWithGame) return false;
         return ((!altSound || altSound.paused) && (!mainSound || mainSound.paused));
     };
 
@@ -104,28 +104,28 @@ function SoundOverlapsClass(filenameWithPath) {
         // such as the marching sound
 
         // avoid browser errors due to autoplay permissions
-        if (!userHasInteractedWithGame) return;
+        if(!userHasInteractedWithGame) return;
 
-        if (altSound && !altSound.paused) {
+        if(altSound && !altSound.paused) {
             altSound.pause();
         }
-        if (mainSound && !mainSound.paused) {
+        if(mainSound && !mainSound.paused) {
             mainSound.pause();
         }
     };
 
     this.setVolume = function(volumeSetting) {
         // avoid browser errors due to autoplay permissions
-        if (!userHasInteractedWithGame) return;
-        if (volumeSetting === null || volumeSetting < 0 || volumeSetting > 1) {
+        if(!userHasInteractedWithGame) return;
+        if(volumeSetting === null || volumeSetting < 0 || volumeSetting > 1) {
             console.log("error: the new volume setting is out of range 0..1")
             return;
         }
 
-        if (altSound) {
+        if(altSound) {
             altSound.volume = volumeSetting;
         }
-        if (mainSound) {
+        if(mainSound) {
             mainSound.volume = volumeSetting;
         }
     };
@@ -140,9 +140,9 @@ function BackgroundMusicClass() {
 
     this.playSong = function(filenameWithPath, loop=false) {
         // avoid browser errors due to autoplay permissions
-        if (!userHasInteractedWithGame) return;
+        if(!userHasInteractedWithGame) return;
 
-        if (this.musicSound != null) {
+        if(this.musicSound != null) {
             this.musicSound.pause();
             this.musicSound = null;
         }
@@ -164,7 +164,7 @@ function BackgroundMusicClass() {
         //       // Video playback failed ;(
         //     });
         var playPromise = this.musicSound.play();
-        if (playPromise !== undefined) {
+        if(playPromise !== undefined) {
           playPromise.then(_ => {
             // playback starts, no code necessary
           })
@@ -176,11 +176,11 @@ function BackgroundMusicClass() {
 
     this.startOrStopMusic = function() {
         // avoid browser errors due to autoplay permissions
-        if (!userHasInteractedWithGame) return;
+        if(!userHasInteractedWithGame) return;
 
-        if (this.musicSound != null) {
+        if(this.musicSound != null) {
             this.musicSound.muted = audioMute;
-            if (this.musicSound.paused) {
+            if(this.musicSound.paused) {
                 this.musicSound.play();
             } else {
                 this.musicSound.pause();
@@ -194,9 +194,9 @@ function BackgroundMusicClass() {
     // ensure one state or another explicitly
     this.startMusic = function() {
         // avoid browser errors due to autoplay permissions
-        if (!userHasInteractedWithGame) return;
+        if(!userHasInteractedWithGame) return;
 
-        if (this.musicSound != null) {
+        if(this.musicSound != null) {
             this.musicSound.muted = audioMute;
             this.musicSound.play();
             currentMusic = this;
@@ -207,9 +207,9 @@ function BackgroundMusicClass() {
 
     this.stopMusic = function() {
         // avoid browser errors due to autoplay permissions
-        if (!userHasInteractedWithGame) return;
+        if(!userHasInteractedWithGame) return;
 
-        if (this.musicSound != null) {
+        if(this.musicSound != null) {
             this.musicSound.muted = audioMute;
             this.musicSound.pause();
         } else {
@@ -251,29 +251,29 @@ function loadSounds() {
 function toggleAudioMute() {
     audioMute = !audioMute;
 
-    if (currentMusic && currentMusic.musicSound) {
+    if(currentMusic && currentMusic.musicSound) {
         currentMusic.musicSound.muted = audioMute;
     }
 }
 
 function playStartupMusic() {
-    if (!startupMusic.musicSound) {
+    if(!startupMusic.musicSound) {
         console.error("startupMusic.musicSound is null!");
         return;
     }
 
     // add a ended listener to startup music to play loop music after it finishes
     startupMusic.musicSound.addEventListener("ended", function() {
-        if (currentMusic === startupMusic) {
+        if(currentMusic === startupMusic) {
             currentMusic = startupLoopMusic;
-            if (currentMusic != null) {
+            if(currentMusic != null) {
                 currentMusic.startMusic();
             }
         }
     });
 
     currentMusic = startupMusic;
-    if (currentMusic != null) {
+    if(currentMusic != null) {
         currentMusic.startMusic();
     }
 }
@@ -297,11 +297,23 @@ function stopAllMusic() {
 }
 
 function stopAllMusicAndPlay(musicToPlayNow) {
-    if (musicToPlayNow) {
-        if (currentMusic != musicToPlayNow) {
+    if(musicToPlayNow) {
+        if(currentMusic != musicToPlayNow) {
             stopAllMusic();
             currentMusic = musicToPlayNow;
         }
         currentMusic.startMusic();
+    }
+}
+
+function playBattleSounds() {
+    // play the battle sounds
+    if(Math.random < 1) {
+        if(battleSound1 && battleSound1.paused) {
+            battleSound1.play();
+        }
+    }
+    else if(battleSound2 && battleSound2.paused) {
+        battleSound2.play();
     }
 }
