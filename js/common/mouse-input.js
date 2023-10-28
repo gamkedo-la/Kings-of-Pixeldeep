@@ -94,11 +94,12 @@ function mousemoveHandler(evt) {
             }
             selectedWorldEntity.setMovementPath(path);
 
-            currentSidebarLabels = WORLD_SIDEBAR_LABELS;
-            selectedWorldEntityLabel.text = String(selectedWorldEntity.name);
-            movementPointsLabel.text = MOVEMENT_POINTS + String(selectedWorldEntity.currentMovementPoints - selectedWorldEntity.currentPath.length);
+            currentSidebarLabels = WORLD_SIDEBAR_LABELS.filter(label => label.tag == "worldArmy");
+
+            selectedWorldEntityArmyLabels[0].text = String(selectedWorldEntity.name);
+            selectedWorldEntityArmyLabels[1].text = MOVEMENT_POINTS + String(selectedWorldEntity.currentMovementPoints - selectedWorldEntity.currentPath.length);
             if (selectedWorldEntity instanceof armyClass) {
-                selectedArmyUnitCountLabel.text = 
+                selectedWorldEntityArmyLabels[2].text = 
                     SELECTED_ARMY_UNIT_COUNT + String(selectedWorldEntity.troopCount());
             }
             
@@ -454,7 +455,8 @@ function handleMainWindowClick(mousePos, evt) {
                 //console.log("clicked on ", playerCities[i].name);
                 //openCityPanel(playerCities[i]);
                 selectedWorldEntity = playerCities[i];
-                currentSidebarLabels = CITY_SIDEBAR_LABELS;
+
+                currentSidebarLabels = WORLD_SIDEBAR_LABELS.filter(label => label.tag == "worldCity");
                 currentSidebarButtons = CITY_SIDEBAR_BUTTONS;
             }
         }
@@ -605,9 +607,7 @@ function deselectWorldEntity() {
         console.log('deselecting', selectedWorldEntity);
         selectedWorldEntity.currentPath = null;
         selectedWorldEntity = null;
-        currentSidebarLabels = currentSidebarLabels.filter(
-            label => label in WORLD_SIDEBAR_LABELS
-        );
+
         // restore default sidebar buttons
         currentSidebarButtons = WORLD_SIDEBAR_BUTTONS;
     }

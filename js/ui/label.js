@@ -1,5 +1,5 @@
 function labelClass(configObj) {
-
+    this.tag = ""; // attribute to filter array of labels
     this.x = null;
     this.y = null;
     this.text = null;
