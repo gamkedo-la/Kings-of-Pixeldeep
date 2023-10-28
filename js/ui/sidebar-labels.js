@@ -105,3 +105,22 @@ const BATTLE_SIDEBAR_LABELS = [
     selectedUnitCountLabel,
 ];
 
+function updateWorldEntityLabels(selectedWorldEntity) {
+    if (selectedWorldEntity instanceof armyClass) {
+        currentSidebarLabels = WORLD_SIDEBAR_LABELS.filter(label => label.tag == "worldArmy");
+
+        selectedWorldEntityArmyLabels[0].text = String(selectedWorldEntity.name);
+        if (selectedWorldEntity.currentPath) {
+            selectedWorldEntityArmyLabels[1].text = MOVEMENT_POINTS + String(selectedWorldEntity.currentMovementPoints - selectedWorldEntity.currentPath.length);
+        }
+        if (selectedWorldEntity instanceof armyClass) {
+            selectedWorldEntityArmyLabels[2].text = 
+                SELECTED_ARMY_UNIT_COUNT + String(selectedWorldEntity.troopCount());
+        }
+    }
+
+    if (selectedWorldEntity instanceof cityClass) {
+        currentSidebarLabels = WORLD_SIDEBAR_LABELS.filter(label => label.tag == "worldCity");
+    }
+}
+

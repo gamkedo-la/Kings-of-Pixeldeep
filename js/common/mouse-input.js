@@ -93,16 +93,7 @@ function mousemoveHandler(evt) {
                 console.log("levelGridPathfind found NO path possible.");
             }
             selectedWorldEntity.setMovementPath(path);
-
-            currentSidebarLabels = WORLD_SIDEBAR_LABELS.filter(label => label.tag == "worldArmy");
-
-            selectedWorldEntityArmyLabels[0].text = String(selectedWorldEntity.name);
-            selectedWorldEntityArmyLabels[1].text = MOVEMENT_POINTS + String(selectedWorldEntity.currentMovementPoints - selectedWorldEntity.currentPath.length);
-            if (selectedWorldEntity instanceof armyClass) {
-                selectedWorldEntityArmyLabels[2].text = 
-                    SELECTED_ARMY_UNIT_COUNT + String(selectedWorldEntity.troopCount());
-            }
-            
+            updateWorldEntityLabels(selectedWorldEntity);
         }
     } else if(hoverPos !== null) {
         hoverPos = null;
@@ -456,7 +447,7 @@ function handleMainWindowClick(mousePos, evt) {
                 //openCityPanel(playerCities[i]);
                 selectedWorldEntity = playerCities[i];
 
-                currentSidebarLabels = WORLD_SIDEBAR_LABELS.filter(label => label.tag == "worldCity");
+                updateWorldEntityLabels(selectedWorldEntity);
                 currentSidebarButtons = CITY_SIDEBAR_BUTTONS;
             }
         }
@@ -468,6 +459,8 @@ function handleMainWindowClick(mousePos, evt) {
                     selectedWorldEntityIndex = i;
                 }
             }
+            
+            updateWorldEntityLabels(selectedWorldEntity);
         } 
 
         if(selectedWorldEntity instanceof armyClass) {
@@ -586,6 +579,9 @@ function rightClickHandler(evt) {
 
 function selectNextAvailableArmy() {
     if(!battleMode && !editorMode) {
+        if (!selectedWorldEntity && playerArmies.length > 0) {
+            selectedWorldEntity = playerArmies[0];
+        }
         if(selectedWorldEntity && selectedWorldEntity instanceof armyClass && !(selectedWorldEntity instanceof cityClass)) {
             deselectWorldEntity();
 
@@ -599,6 +595,11 @@ function selectNextAvailableArmy() {
             camPanX = selectedWorldEntity.x() - canvas.width / 2;
             camPanY = selectedWorldEntity.y() - canvas.height / 2;
         } 
+        if (selectedWorldEntity instanceof armyClass) {
+            currentSidebarLabels = WORLD_SIDEBAR_LABELS.filter(label => label.tag == "worldArmy");
+        }
+
+        updateWorldEntityLabels(selectedWorldEntity);
     }
 }
 
@@ -621,3 +622,4 @@ function mouseleaveHandler(evt) {
         mouseupHandler(evt);
     }
 }
+
