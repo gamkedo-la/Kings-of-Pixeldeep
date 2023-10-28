@@ -298,7 +298,7 @@ function armyClass(configObj) {
                 console.log('moving on to random location', randomTargetX, randomTargetY);
                 let randomPath = levelGridPathfind(this.worldCol,this.worldRow,
                     randomTargetX,randomTargetY);
-                if(randomPath.length <= this.currentMovementPoints || randomPath.length < 1) {
+                if(randomPath.length <= this.currentMovementPoints && randomPath.length >= 1) {
                     chosenPathThisLoop = randomPath;
                 } else {
                     console.log('random path too long or short', randomPath);
