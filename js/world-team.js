@@ -80,16 +80,16 @@ if (quickBattleDebug) {
 enemyArmies.push(army2);
 allArmies.push(army2);
 
-var army3  = new armyClass({
-    worldCol: 7,
-    worldRow: 25,
-    name: "army3",
-    troops: {
-        peasants: 30,
-    }
-});
-playerArmies.push(army3);
-allArmies.push(army3);
+//var army3  = new armyClass({
+//    worldCol: 7,
+//    worldRow: 25,
+//    name: "army3",
+//    troops: {
+//        peasants: 30,
+//    }
+//});
+//playerArmies.push(army3);
+//allArmies.push(army3);
 
 // BATTLE CHECK FUNCTIONS
 // these should definately go someplace else, but it's where I can think to put them for now
