@@ -111,8 +111,8 @@ function drawUnits() {
 }
 
 function drawUI() {
-    drawSidebar();
     drawMiniMap();
+    drawSidebar();
     drawTopbar();
 
     if(editorMode) {
