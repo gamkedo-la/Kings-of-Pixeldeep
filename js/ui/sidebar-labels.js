@@ -111,7 +111,7 @@ function updateWorldEntitySidebarLabels(selectedWorldEntity) {
     if (selectedWorldEntity instanceof armyClass) {
         currentSidebarLabels = WORLD_SIDEBAR_LABELS.filter(label => label.tag == "worldArmy");
 
-        selectedWorldEntityArmyLabels[0].text = String(selectedWorldEntity.name);
+        selectedWorldEntityArmyLabels[0].text = "Army Info"; //String(selectedWorldEntity.name);
         if (selectedWorldEntity.currentPath) {
             selectedWorldEntityArmyLabels[1].text = MOVEMENT_POINTS + String(selectedWorldEntity.currentMovementPoints - selectedWorldEntity.currentPath.length);
         }
