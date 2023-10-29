@@ -393,7 +393,24 @@ function armyClass(configObj) {
         } // end if
 
 
+        // draw actual army sprite
         drawBitmapCenteredWithRotation(this.picToUse(), this.x(),this.y(), 0);
+
+        if(this.playerControlled) {
+        // draw movement-points-left indicator
+        let MPIndicatorXOffset = 20;
+        let MPIndicatorYOffset = -18;
+        let MPIndicatorColor = (this.currentMovementPoints > 0 ? "limegreen" : "darkred" );
+        let MPIndicatorRadius = (this.currentMovementPoints > 0 ? 3 : 2 );
+
+        // draw circle behind for white outline
+        colorCircle(this.x() + MPIndicatorXOffset, this.y() + MPIndicatorYOffset,
+            MPIndicatorRadius + 1, 'lightgray');
+
+        // draw indicator itself 
+        colorCircle(this.x() + MPIndicatorXOffset, this.y() + MPIndicatorYOffset,
+            MPIndicatorRadius, MPIndicatorColor);
+        }
 
         if (isAnimating && this.pathAnimPercent >= 1) {
             isAnimating = false;
