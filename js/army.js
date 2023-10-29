@@ -131,6 +131,16 @@ function armyClass(configObj) {
             if(isNaN(newRow) || isNaN(newCol)) {
                 console.error('ERROR: NaN found on clicked index');
             }
+
+            if(this.playerControlled) {
+                for(const playerArmy of playerArmies) {
+                    if(playerArmy.worldCol == newCol && playerArmy.worldRow == newRow) {
+                        console.error('ERROR: cannot move, target tile occupied by friendly army');
+                        return; // stop movement
+                    }
+                }
+            }
+            
         } else {
             // assuming we've set the path manually from this.AIMove()
             if(!this.currentPath || this.currentPath.length < 1) {
