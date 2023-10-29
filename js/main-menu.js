@@ -9,7 +9,7 @@ var MainMenuButtons = [
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x: canvas.width/2 - 150/2,
-        y: 200, 
+        y: 300, 
     }),
     new buttonClass({
         label: "Credits",
@@ -21,21 +21,24 @@ var MainMenuButtons = [
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x: canvas.width/2 - 150/2,
-        y: 300, 
+        y: 400, 
     }),
 ];
 
 function drawMainMenu() {
-    colorRect(0,0, canvas.width,canvas.height, 'grey');
 
-    drawText(24, 'black', 'center', "Kings Of Pixeldeep", canvas.width/2, 10);
+    //colorRect(0,0, canvas.width,canvas.height, 'grey');
+    //drawText(24, 'black', 'center', "Kings Of Pixeldeep", canvas.width/2, 10);
+
+    canvasContext.drawImage(titlescreenPic,0,0);
 
     if(userHasInteractedWithGame) {
         for (const button of MainMenuButtons) {
             button.draw();
         }
     } else {
-        colorText("Click anywhere to begin...", canvas.width/2, canvas.height - 100, 'black');
+        drawText(16,"black","center","Click anywhere to begin...", canvas.width/2+1, canvas.height+1 - 100);
+        drawText(16,"white","center","Click anywhere to begin...", canvas.width/2, canvas.height - 100);
     }
 }
 
