@@ -48,7 +48,7 @@ function unitClass() {
       this.unitColor = 'red';
       this.moveDirection = "N";
     } else {
-      this.unitColor = 'white';
+      this.unitColor = 'yellow';
     }
 
     this.gotoX = this.x;

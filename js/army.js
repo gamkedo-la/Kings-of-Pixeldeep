@@ -210,6 +210,12 @@ function armyClass(configObj) {
                 if (beginBattleAfterAnimation) {
                     setupBattleMode(newCol, newRow);
                 }
+
+                // clear selection & sidebar info after movement is complete
+                this.selectedWorldEntity = null;
+                currentSidebarLabels = [];
+                currentSidebarButtons = WORLD_SIDEBAR_BUTTONS;
+
             }, { once: true });
 
             // deselect army
