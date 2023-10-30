@@ -23,6 +23,54 @@
   #debugText2 {
     display:inline-block;
   }
+
+  #helpwindow {
+    display:none;
+    text-align:center;
+    padding:20px;
+    align:center;
+    position:absolute;
+    top:150px;
+    left:200px;
+    height:300px;
+    width:400px;
+    border:2px solid brown;
+    background:beige;
+    color:brown;
+    font:arial 16px bold;
+  }
+
+  #helpwindow h1 {
+    color:black;
+    background:tan;
+    padding:10px;
+    margin-top:0px;
+  }
+  
+  #helpwindow p {
+    margin-bottom:25px;
+  }
+
+  #closehelpwindow {
+    display:block;
+    margin:auto;
+    width:128px;
+    height:32px;
+    line-height:32px;
+    background:brown;
+    border:2px solid black;
+    text-align:center;
+    text-decoration:none;
+    cursor:pointer;
+    color:beige;
+    font-weight:bold;
+  }
+
+  #closehelpwindow:hover {
+    background:tan;
+    color:black;
+    border:2px solid brown;
+  }
 </style> 
 
       <canvas id="gameCanvas" width="800" height="600"> </canvas>
@@ -67,6 +115,15 @@
 
       <p id="debugText"> </p>
       <p id="debugText2"> </p>
+
+      <div id="helpwindow">
+        <h1>How to play:</h1>
+        <p>todo: write something here.</p>
+        <p>todo: write something here.</p>
+        <p>todo: write something here.</p>
+        <p>todo: write something here.</p>
+        <p><a id="closehelpwindow" onclick="closehelpwindow()">Close</a></p>
+      </div>
     </body>
 </html>
 
