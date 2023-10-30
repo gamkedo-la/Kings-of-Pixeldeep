@@ -11,6 +11,7 @@ var startupLoopMusic = null;
 var battleMusic = null;
 var worldMusic = null;
 var mainMenuMusic = null;
+var battleSoundQueue = [];
 
 var userHasInteractedWithGame = false; // no sound allowed until the first click
 
@@ -225,6 +226,7 @@ function loadSounds() {
     armyMarchingSound.setVolume(0.5);
     battleSound1 = new SoundOverlapsClass("audio/battle_sounds_1");
     battleSound2 = new SoundOverlapsClass("audio/battle_sounds_2");
+    battleSoundQueue = [ battleSound1, battleSound2 ];
 
     battleMusic = new BackgroundMusicClass();
     battleMusic.loopSong("audio/Pixeldeep_Battle_1.mp3");
@@ -308,12 +310,16 @@ function stopAllMusicAndPlay(musicToPlayNow) {
 
 function playBattleSounds() {
     // play the battle sounds
-    if(Math.random < 1) {
-        if(battleSound1 && battleSound1.paused) {
-            battleSound1.play();
+    if(battleSoundQueue && battleSoundQueue.length > 0) {
+        // see if the last battle sound is still playing before starting the new on
+        let lastBattleSound = battleSoundQueue[battleSoundQueue.length - 1];
+        if(lastBattleSound && lastBattleSound.paused()) {
+            // using shift and push to act like a queue
+            let battleSound = battleSoundQueue.shift();
+            if(battleSound && battleSound.paused()) {
+                battleSound.play();
+                battleSoundQueue.push(battleSound);
+            }
         }
-    }
-    else if(battleSound2 && battleSound2.paused) {
-        battleSound2.play();
     }
 }
