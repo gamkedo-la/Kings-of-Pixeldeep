@@ -28,7 +28,6 @@
     display:none;
     text-align:center;
     padding:20px;
-    align:center;
     position:absolute;
     top:150px;
     left:200px;
@@ -41,14 +40,22 @@
   }
 
   #helpwindow h1 {
+    font:arial 24px bold;
     color:black;
     background:tan;
-    padding:10px;
-    margin-top:0px;
+    padding:8px;
+    margin:0px;
   }
   
+  #helpwindow h2 {
+    font:arial 16px bold;
+    padding:8px;
+    margin:0px;
+  }
+
   #helpwindow p {
-    margin-bottom:25px;
+    margin:0;
+    margin-bottom:8px;
   }
 
   #closehelpwindow {
@@ -118,10 +125,13 @@
 
       <div id="helpwindow">
         <h1>How to play:</h1>
-        <p>todo: write something here.</p>
-        <p>todo: write something here.</p>
-        <p>todo: write something here.</p>
-        <p>todo: write something here.</p>
+        <h2>World mode: capture all cities!</h2>
+        <p>- Move an army to a city to capture it.</p>
+        <p>- Cities make gold & population</p>
+        <p>- Armies cost gold & population to produce</p>
+        <h2>Battle mode: defeat all enemies!</h2>
+        <p>- Click and drag to select your units</p>
+        <p>- Right-click to order selected units to move/attack</p>
         <p><a id="closehelpwindow" onclick="closehelpwindow()">Close</a></p>
       </div>
     </body>

@@ -10,6 +10,20 @@ const MINI_BUTTON_W = 50;
 const SIZE_BUTTON_X = 740;
 
 const WORLD_SIDEBAR_BUTTONS = [
+    new buttonClass({
+        label: "Help",
+        padding: 1,
+        onClick: function() {
+            console.log("help button clicked!");
+            let div = document.getElementById('helpwindow');
+            if (div) div.style.display = "block";
+        },
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
+        x:BUTTON_X,
+        y:375, 
+    }),
     /*
     new buttonClass({
         x:600,
@@ -299,6 +313,20 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
 ];
 
 const BATTLE_SIDEBAR_BUTTONS = [
+    new buttonClass({
+        label: "Help",
+        padding: 1,
+        onClick: function() {
+            console.log("help button clicked!");
+            let div = document.getElementById('helpwindow');
+            if (div) div.style.display = "block";
+        },
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
+        x:BUTTON_X,
+        y:375, 
+    }),
     new buttonClass({
         label: "Pause (P)",
         padding: 1,
@@ -705,6 +733,21 @@ const BATTLE_PAUSE_SIDEBAR_BUTTONS = [
         x:BUTTON_X,
         y:525, 
     }),
+    new buttonClass({
+        label: "Help",
+        padding: 1,
+        onClick: function() {
+            console.log("help button clicked!");
+            let div = document.getElementById('helpwindow');
+            if (div) div.style.display = "block";
+        },
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
+        x:BUTTON_X,
+        y:265, 
+    }),
+
 ];
 
 const CITY_SIDEBAR_BUTTONS = [
