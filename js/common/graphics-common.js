@@ -54,7 +54,8 @@ function colorTextShadow(showWords, textX,textY, fillColor) {
 function drawText(fontSize, color, textAlign, text, x, y){
   canvasContext.save();
   canvasContext.textBaseline = "top";
-  canvasContext.font = fontSize+"pt sans-serif";
+  //canvasContext.font = fontSize+"pt sens-serif"; // <---- old font
+  canvasContext.font = fontSize+"pt " + CUSTOM_WEBFONT_NAME; // <------- webfont
   canvasContext.fillStyle = color;
   canvasContext.textAlign = textAlign;
   canvasContext.fillText(text, x, y);

@@ -633,7 +633,7 @@ const WORLD_PAUSE_SIDEBAR_BUTTONS = [
     }),
 
     new buttonClass({
-        label: "Game Options (stub)",
+        label: "Game Options",
         padding: 1,
         onClick: function() {
             console.log("button clicked: "+this.label);
@@ -649,7 +649,7 @@ const WORLD_PAUSE_SIDEBAR_BUTTONS = [
     }),
 
     new buttonClass({
-        label: "Edit World Map",
+        label: "Edit Map",
         padding: 1,
         onClick: function() {
             console.log("button clicked: "+this.label);
@@ -679,7 +679,7 @@ const WORLD_PAUSE_SIDEBAR_BUTTONS = [
 
 const BATTLE_PAUSE_SIDEBAR_BUTTONS = [
     new buttonClass({
-        label: "Game Options (stub)",
+        label: "Game Options",
         padding: 1,
         onClick: function() {
             console.log("button clicked: "+this.label);
@@ -694,7 +694,7 @@ const BATTLE_PAUSE_SIDEBAR_BUTTONS = [
         y:460, 
     }),
     new buttonClass({
-        label: "Edit Battle Map",
+        label: "Edit Map",
         padding: 1,
         onClick: function() {
             console.log("button clicked: "+this.label);

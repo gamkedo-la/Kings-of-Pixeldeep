@@ -12,6 +12,20 @@ var MainMenuButtons = [
         y: 300, 
     }),
     new buttonClass({
+        label: "Help",
+        padding: 1,
+        onClick: function() {
+            console.log("help button clicked!");
+            let div = document.getElementById('helpwindow');
+            if (div) div.style.display = "block";
+        },
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
+        x:canvas.width/2 - 150/2,
+        y:400, 
+    }),
+    new buttonClass({
         label: "Credits",
         padding: 1,
         onClick: function() { 
@@ -21,7 +35,7 @@ var MainMenuButtons = [
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x: canvas.width/2 - 150/2,
-        y: 400, 
+        y: 500, 
     }),
 ];
 

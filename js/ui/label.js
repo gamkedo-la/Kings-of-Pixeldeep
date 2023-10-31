@@ -57,7 +57,9 @@ function labelClass(configObj) {
 
         canvasContext.save();
         canvasContext.textBaseline = "top";
-        canvasContext.font = this.fontSize+"pt Serif";
+        //canvasContext.font = this.fontSize+"pt Serif";
+        canvasContext.font = this.fontSize+"pt "+CUSTOM_WEBFONT_NAME;
+
         canvasContext.fillStyle = this.textColor;
         canvasContext.textAlign = this.textAlign;
         canvasContext.fillText(labelText, labelx, labely);

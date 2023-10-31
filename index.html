@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kings Of Pixeldeep</title>
     <link rel="preload" href="PressStart2P-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link href="stylesheet.css" rel="stylesheet">
     <style>
         body {
+            font-family: 'Press Start 2P';
             color: lightgrey;
             background-color: #030303;
         }
@@ -26,31 +28,39 @@
             padding:20px;
             position:absolute;
             top:150px;
-            left:200px;
+            left:100px;
             height:300px;
-            width:400px;
+            width:600px;
             border:2px solid brown;
             background:beige;
             color:brown;
-            font:arial 16px bold;
+            font-family:'Press Start 2P';
+            font-size:16px;
+            letter-spacing:-1px;
         }
         #helpwindow h1 {
-            font:arial 24px bold;
+            font-weight:normal;
+            font-size:16px;
             color:black;
             background:tan;
-            padding:8px;
+            padding:10px;
             margin:0px;
         }
         #helpwindow h2 {
-            font:arial 16px bold;
+            font-weight:normal;
+            color:black;
+            font-size:16px;
             padding:8px;
             margin:0px;
         }
         #helpwindow p {
+            font-size:16px;
             margin:0;
-            margin-bottom:8px;
+            margin-bottom:10px;
         }
         #closehelpwindow {
+            font-family:'Press Start 2P';
+            font-size:16px;
             display:block;
             margin:auto;
             width:128px;
@@ -62,7 +72,6 @@
             text-decoration:none;
             cursor:pointer;
             color:beige;
-            font-weight:bold;
         }
         #closehelpwindow:hover {
             background:tan;
@@ -108,6 +117,9 @@
 
     <p id="debugText"> </p>
     <p id="debugText2"> </p>
+
+    <!-- force webfont to download before the canvas needs it -->
+    <div id="temp">&nbsp;</div>
 
     <div id="helpwindow">
         <h1>How to play:</h1>

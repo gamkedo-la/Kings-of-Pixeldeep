@@ -3,7 +3,7 @@ const LABEL_X = 600; // left column of all large sidebar labels
 const SELECTED_WORLD_ENTITY = "Selected: ";
 const MOVEMENT_POINTS = "Movement points: ";
 const CITY_SIDEBAR_LABEL_OFFSET = 20;
-const SELECTED_UNITS = "Selected units: ";
+const SELECTED_UNITS = "Selected:";
 const SELECTED_ARMY_UNIT_COUNT = "Total Units:  ";
 
 const selectedWorldEntityArmyLabels = [

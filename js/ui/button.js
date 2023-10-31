@@ -8,7 +8,8 @@ function buttonClass(configObj) {
     this.color = BUTTON_CLASS_COLOR_FAINT_WHITE;
     this.textColor = 'black';
     this.fontSize = 15;
-    this.font = "Bold 15px Serif";
+    //this.font = "Bold 15px Serif";
+    this.font = "12px "+ CUSTOM_WEBFONT_NAME; // <------- webfont
     this.onClick = null;
     this.hoverSoundPlayed = false;
 

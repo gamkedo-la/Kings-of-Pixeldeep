@@ -6,7 +6,12 @@ var turnNumber = 1;
 canvas = document.getElementById('gameCanvas');
 canvasContext = canvas.getContext('2d');
 
-
+// a pixel font
+const CUSTOM_WEBFONT_NAME = "'Press Start 2P'";
+// this might help tell canvas about it but it appears to not be required
+//var myFont = new FontFace(CUSTOM_WEBFONT_NAME, "url(PressStart2P-Regular.woff2) format('woff2')");
+//myFont.load().then(function(font){ document.fonts.add(font); });
+  
 // world terrain
 const WORLD_MOUNTAINS = 1;
 const WORLD_FOREST = 2;
