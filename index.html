@@ -1,129 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Kings Of Pixeldeep</title>
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kings Of Pixeldeep</title>
+    <link rel="preload" href="PressStart2P-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <style>
+        body {
+            color: lightgrey;
+            background-color: #030303;
+        }
+        button {
+            color: black;
+            background-color: darkgrey;
+        }
+        #debugText {
+            /*display:inline-block; */
+        }
+        #debugText2 {
+            display:inline-block;
+        }
+        #helpwindow {
+            display:none;
+            text-align:center;
+            padding:20px;
+            position:absolute;
+            top:150px;
+            left:200px;
+            height:300px;
+            width:400px;
+            border:2px solid brown;
+            background:beige;
+            color:brown;
+            font:arial 16px bold;
+        }
+        #helpwindow h1 {
+            font:arial 24px bold;
+            color:black;
+            background:tan;
+            padding:8px;
+            margin:0px;
+        }
+        #helpwindow h2 {
+            font:arial 16px bold;
+            padding:8px;
+            margin:0px;
+        }
+        #helpwindow p {
+            margin:0;
+            margin-bottom:8px;
+        }
+        #closehelpwindow {
+            display:block;
+            margin:auto;
+            width:128px;
+            height:32px;
+            line-height:32px;
+            background:brown;
+            border:2px solid black;
+            text-align:center;
+            text-decoration:none;
+            cursor:pointer;
+            color:beige;
+            font-weight:bold;
+        }
+        #closehelpwindow:hover {
+            background:tan;
+            color:black;
+            border:2px solid brown;
+        }
+    </style> 
+</head>
+<body>
+    <canvas id="gameCanvas" width="800" height="600"> </canvas>
+    <script src="js/common/global-vars.js"></script>
+    <script src="js/common/helper-functions.js"></script>
+    <script src="js/ui/button.js"></script>
+    <script src="js/ui/label.js"></script>
+    <script src="js/ui/slider.js"></script>
+    <script src="js/ui/slider-group.js"></script>
+    <script src="js/ui/minimap.js"></script>
+    <script src="js/ui/city-panel.js"></script>
+    <script src="js/ui/create-army-screen.js"></script>
+    <script src="js/ui/end-game-dialog.js"></script>
+    <script src="js/ui/sidebar.js"></script>
+    <script src="js/ui/sidebar-labels.js"></script>
+    <script src="js/ui/sidebar-buttons.js"></script>
+    <script src="js/ui/topbar.js"></script>
+    <script src="js/common/graphics-common.js"></script>
+    <script src="js/common/image-loading.js"></script>
+    <script src="js/common/mouse-input.js"></script>
+    <script src="js/common/keyboard-input.js"></script>
+    <script src="js/common/cam-pan.js"></script>
+    <script src="js/common/pathfinding.js"></script>
+    <script src="js/common/sound-and-music.js"></script>
+    <script src="js/world_maps/world1-v2.js"></script>
+    <script src="js/battle_maps/battlefield1.js"></script>
+    <script src="js/level-handling.js"></script>
+    <script src="js/city.js"></script>
+    <script src="js/army.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/editor.js"></script>
+    <script src="js/battle-team.js"></script>
+    <script src="js/world-team.js"></script>
+    <script src="js/unit.js"></script>
+    <script src="js/main-menu.js"></script>
 
-<style>
-  body {
-    color: lightgrey;
-    background-color: #030303;
-  }
+    <p id="debugText"> </p>
+    <p id="debugText2"> </p>
 
-  button {
-    color: black;
-    background-color: darkgrey;
-  }
-
-  #debugText {
-    /*display:inline-block; */
-  }
-  #debugText2 {
-    display:inline-block;
-  }
-
-  #helpwindow {
-    display:none;
-    text-align:center;
-    padding:20px;
-    position:absolute;
-    top:150px;
-    left:200px;
-    height:300px;
-    width:400px;
-    border:2px solid brown;
-    background:beige;
-    color:brown;
-    font:arial 16px bold;
-  }
-
-  #helpwindow h1 {
-    font:arial 24px bold;
-    color:black;
-    background:tan;
-    padding:8px;
-    margin:0px;
-  }
-  
-  #helpwindow h2 {
-    font:arial 16px bold;
-    padding:8px;
-    margin:0px;
-  }
-
-  #helpwindow p {
-    margin:0;
-    margin-bottom:8px;
-  }
-
-  #closehelpwindow {
-    display:block;
-    margin:auto;
-    width:128px;
-    height:32px;
-    line-height:32px;
-    background:brown;
-    border:2px solid black;
-    text-align:center;
-    text-decoration:none;
-    cursor:pointer;
-    color:beige;
-    font-weight:bold;
-  }
-
-  #closehelpwindow:hover {
-    background:tan;
-    color:black;
-    border:2px solid brown;
-  }
-</style> 
-
-      <canvas id="gameCanvas" width="800" height="600"> </canvas>
-
-      <script src="js/common/global-vars.js"></script>
-      <script src="js/common/helper-functions.js"></script>
-
-      <script src="js/ui/button.js"></script>
-      <script src="js/ui/label.js"></script>
-      <script src="js/ui/slider.js"></script>
-      <script src="js/ui/slider-group.js"></script>
-      <script src="js/ui/minimap.js"></script>
-      <script src="js/ui/city-panel.js"></script>
-      <script src="js/ui/create-army-screen.js"></script>
-      <script src="js/ui/end-game-dialog.js"></script>
-      <script src="js/ui/sidebar.js"></script>
-      <script src="js/ui/sidebar-labels.js"></script>
-      <script src="js/ui/sidebar-buttons.js"></script>
-      <script src="js/ui/topbar.js"></script>
-
-      <script src="js/common/graphics-common.js"></script>
-      <script src="js/common/image-loading.js"></script>
-      <script src="js/common/mouse-input.js"></script>
-      <script src="js/common/keyboard-input.js"></script>
-      <script src="js/common/cam-pan.js"></script>
-      <script src="js/common/pathfinding.js"></script>
-      <script src="js/common/sound-and-music.js"></script>
-
-      <script src="js/world_maps/world1-v2.js"></script>
-
-      <script src="js/battle_maps/battlefield1.js"></script>
-
-      <script src="js/level-handling.js"></script>
-      <script src="js/city.js"></script>
-      <script src="js/army.js"></script>
-      <script src="js/main.js"></script>
-      <script src="js/editor.js"></script>
-      <script src="js/battle-team.js"></script>
-      <script src="js/world-team.js"></script>
-      <script src="js/unit.js"></script>
-      <script src="js/main-menu.js"></script>
-
-      <p id="debugText"> </p>
-      <p id="debugText2"> </p>
-
-      <div id="helpwindow">
+    <div id="helpwindow">
         <h1>How to play:</h1>
         <h2>World mode: capture all cities!</h2>
         <p>- Move an army to a city to capture it.</p>
@@ -133,7 +119,7 @@
         <p>- Click and drag to select your units</p>
         <p>- Right-click to order selected units to move/attack</p>
         <p><a id="closehelpwindow" onclick="closehelpwindow()">Close</a></p>
-      </div>
-    </body>
+    </div>
+</body>
 </html>
 
