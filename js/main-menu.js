@@ -30,6 +30,8 @@ var MainMenuButtons = [
         padding: 1,
         onClick: function() { 
             console.log("button clicked: "+this.label);
+            let div = document.getElementById('creditswindow');
+            if (div) div.style.display = "block";
         },
         highlightIf: function() {
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);

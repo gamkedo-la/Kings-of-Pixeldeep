@@ -22,7 +22,7 @@
         #debugText2 {
             display:inline-block;
         }
-        #helpwindow {
+        #helpwindow, #creditswindow {
             display:none;
             text-align:center;
             padding:20px;
@@ -38,7 +38,7 @@
             font-size:16px;
             letter-spacing:-1px;
         }
-        #helpwindow h1 {
+        #helpwindow h1, #creditswindow h1 {
             font-weight:normal;
             font-size:16px;
             color:black;
@@ -46,19 +46,24 @@
             padding:10px;
             margin:0px;
         }
-        #helpwindow h2 {
+        #helpwindow h2, #creditswindow h2 {
             font-weight:normal;
             color:black;
             font-size:16px;
             padding:8px;
             margin:0px;
         }
-        #helpwindow p {
+        #helpwindow p{
             font-size:16px;
             margin:0;
             margin-bottom:10px;
         }
-        #closehelpwindow {
+        #creditswindow p {
+            font-size:8px;
+            margin:0;
+            margin-bottom:10px;
+        }
+        #closehelpwindow, #closecreditswindow {
             font-family:'Press Start 2P';
             font-size:16px;
             display:block;
@@ -73,7 +78,7 @@
             cursor:pointer;
             color:beige;
         }
-        #closehelpwindow:hover {
+        #closehelpwindow:hover, #closecreditswindow:hover {
             background:tan;
             color:black;
             border:2px solid brown;
@@ -132,6 +137,21 @@
         <p>- Right-click to order selected units to move/attack</p>
         <p><a id="closehelpwindow" onclick="closehelpwindow()">Close</a></p>
     </div>
+
+    <div id="creditswindow">
+        <h1>Credits:</h1>
+        <p>&nbsp;</p>
+        <p>Name......... Contributions</p>
+        <p>Name......... Contributions</p>
+        <p>Name......... Contributions</p>
+        <p>Name......... Contributions</p>
+        <p>Name......... Contributions</p>
+        <p>Name......... Contributions</p>
+        <p>&nbsp;</p>
+        <p><a id="closecreditswindow" onclick="closecreditswindow()">Close</a></p>
+    </div>
+
+
 </body>
 </html>
 

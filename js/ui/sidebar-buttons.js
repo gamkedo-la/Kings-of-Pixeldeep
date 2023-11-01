@@ -804,3 +804,7 @@ function closehelpwindow() {
     let div = document.getElementById('helpwindow');
     if (div) div.style.display = "none";
 }
+function closecreditswindow() {
+    let div = document.getElementById('creditswindow');
+    if (div) div.style.display = "none";
+}
