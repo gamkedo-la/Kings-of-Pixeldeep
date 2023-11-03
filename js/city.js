@@ -11,7 +11,7 @@ function cityClass(configObj) {
     this.worldCol = 3;
     this.citySpriteImg = cityPic;
     this.name = "Untitled City";
-    this.population = 100;
+    this.population = 20;
     this.cityType = CITY_TYPE_NEUTRAL;
 
     if(configObj) {
@@ -44,7 +44,7 @@ function cityClass(configObj) {
     }
 
     this.newBirths = function() {
-        let births = Math.round(100 * (1 + POPULATION_GROWTH_RATE));
+        let births = Math.round(this.population * POPULATION_GROWTH_RATE);
         return births;
     }
 

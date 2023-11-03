@@ -233,8 +233,10 @@ function createArmy(troopList) {
     playerArmies.push(newArmy);
     allArmies.push(newArmy);
 
-    // deselect the city so you can immediately click to select your army
-    deselectWorldEntity();
+    if(selectedWorldEntity instanceof cityClass) {
+        // deselect the city so you can immediately click to select your army
+        deselectWorldEntity();
+    }
 }
 
 function handleCreateArmyScreenMousemove(mousePos) {
