@@ -17,7 +17,7 @@ var walkableTiles = [
 
 // optional walkable tiles that add extra distance (movement cost) when entering
 var walkableTileExtraCosts = [];
-walkableTileExtraCosts[WORLD_FOREST] = 100; 
+//walkableTileExtraCosts[WORLD_FOREST] = 100; 
 walkableTileExtraCosts[WORLD_FARM] = 50; 
 walkableTileExtraCosts[WORLD_SHALLOWS] = 20; 
 
