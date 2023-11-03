@@ -382,7 +382,7 @@ function armyClass(configObj) {
                 if(n > this.currentMovementPoints - 1) { 
                     indicatorColor = 'black';
                 }
-                // Temp armby path hover indicators
+                // Temp army path hover indicators
                 if(n === this.currentPath.length - 1) {
                     
                     // a box
@@ -398,6 +398,13 @@ function armyClass(configObj) {
                     if (n > this.currentMovementPoints - 1) { // path too long?
                         colorText("Not enough move points.",x,y-10,"rgba(255,255,255,0.5)");
                     }
+
+                    // warn about overlapping army
+                    for(const playerArmy of playerArmies) {
+                        if(playerArmy.worldCol == this.currentPath[n][0] && playerArmy.worldRow == this.currentPath[n][1]) {
+                            colorText("Occupied by friendly army.",x,y-10,"rgba(255,255,255,0.5)");
+                        }
+                    }                    
 
 
 
