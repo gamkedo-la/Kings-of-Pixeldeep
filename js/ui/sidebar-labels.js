@@ -61,7 +61,7 @@ const selectedWorldEntityCityLabels = [
                 if (city != null) {
                     populationNextTurn += city.newBirths();
                 }
-                return "Population next turn: " + populationNextTurn;
+                return "Next Pop.: " + populationNextTurn;
             },
             textAlign: 'left',
             textColor: 'blue',
@@ -78,7 +78,7 @@ const selectedWorldEntityCityLabels = [
                 if (city != null) {
                     goldNextTurn += city.goldProduced();
                 }
-                return "Gold next turn: " + goldNextTurn;
+                return "Next Gold: " + goldNextTurn;
             },
             textAlign: 'left',
             textColor: 'blue',

@@ -217,6 +217,7 @@ function armyClass(configObj) {
 
             // create a listener to begin a battle when the animation ends
             this.eventTarget.addEventListener('animationEnded', function(newCol, newRow) {
+                console.log("animation ended event was fired with these paramaters: newCol="+newCol+" newRow="+newRow);
                 if (armyMarchingSound && !armyMarchingSound.paused()) { 
                     // stop marching sound
                     armyMarchingSound.pause();
@@ -435,7 +436,7 @@ function armyClass(configObj) {
         if (isAnimating && this.pathAnimPercent >= 1) {
             isAnimating = false;
             let animationEndedEvent = new CustomEvent("animationEnded")
-            this.eventTarget.dispatchEvent(animationEndedEvent);
+            this.eventTarget.dispatchEvent(animationEndedEvent); // FIXME: needs row and column?
         }
     } // end this.draw()
 
