@@ -25,7 +25,7 @@ walkableTileExtraCosts[WORLD_SHALLOWS] = 20;
 // or it returns null if no path possible
 function levelGridPathfind(ax,ay,bx,by)
 {
-    console.log("pathfinding from "+ax+","+ay+" to "+bx+","+by);
+    //console.log("pathfinding from "+ax+","+ay+" to "+bx+","+by);
     var pathStart = [ax,ay];
     var pathEnd = [bx,by];
     var world = [];

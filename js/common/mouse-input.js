@@ -88,7 +88,7 @@ function mousemoveHandler(evt) {
             let by = Math.floor( (mousePos.levelY) / LEVEL_TILE_H);    
             let path = levelGridPathfind(ax,ay,bx,by);
             if (path && path[0]) {
-                console.log("levelGridPathfind result: "+JSON.stringify(path));
+                //console.log("levelGridPathfind result: "+JSON.stringify(path));
             } else {
                 console.log("levelGridPathfind found NO path possible.");
             }

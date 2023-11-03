@@ -119,7 +119,7 @@ function armyClass(configObj) {
         if (!pathData || !pathData.length) {
             console.log(this.name+" movement path reset. staying put.");
         } else {
-            console.log(this.name+" starting a movement path with "+pathData.length+" steps!");
+            console.log(this.name+" starting a movement path with "+pathData.length+" steps.");
         }
         this.currentPath = pathData;
     }
@@ -211,6 +211,9 @@ function armyClass(configObj) {
             for(const city of allCities) {
                 //console.log('checking city', city);
                 if(city.worldCol === newCol && city.worldRow === newRow) {
+                    // FIXME: always false at this point
+                    // but setting it to true here causes bugs
+                    // beginBattleAfterAnimation = true; 
                     tryToCapture(city, this);
                 }
             }
