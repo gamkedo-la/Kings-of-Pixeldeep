@@ -51,7 +51,7 @@ var createArmyScreenControls = [
         showValue: true,
         maxValue: 90,
         currentValue: 25,
-        label: "% of Population",
+        label: "% Pop.",
     }),
 
     new buttonClass({
@@ -124,7 +124,7 @@ var createArmyScreenControls = [
         y: CITY_PANEL_Y + CITY_PANEL_H - 80,
         label: function() {
             var armyCost = newArmyCost();
-            return "Create = " + armyCost + " gold";
+            return "Create (" + armyCost + "g)";
         },
         color: function() {
             var armyCost = newArmyCost();
