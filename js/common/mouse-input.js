@@ -441,6 +441,11 @@ function handleMainWindowClick(mousePos, evt) {
     }
 
     if(!battleMode && !editorMode) { // ie - if worldMode
+        if(selectedWorldEntity instanceof cityClass && selectedWorldEntity.worldIdx() !== clickedIdx) {
+            // deselect city
+            selectedWorldEntity = null;
+        }
+
         for(var i=0;i<playerCities.length;i++) {
             if(playerCities[i].worldIdx() == clickedIdx) {
                 //console.log("clicked on ", playerCities[i].name);
