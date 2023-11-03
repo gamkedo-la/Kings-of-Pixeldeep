@@ -1,3 +1,4 @@
+var debugKeys = false;
 function setupKeyboardInput() {
 
 	document.addEventListener('keydown', keyPressed);
@@ -25,17 +26,24 @@ function keyPressed(evt) {
 function keyReleased(evt) {
 	// console.log("released " + evt.keyCode);
 
-	if (evt.keyCode === 66) { // key: b
-		requestBattleMode();
-	}
+    if(debugKeys) {
+        if (evt.keyCode === 66) { // key: b
+            requestBattleMode();
+        }
 
-	if (evt.keyCode === 87) { // key: w
-		requestWorldMode();
-	}
+        if (evt.keyCode === 87) { // key: w
+            requestWorldMode();
+        }
 
-	if (evt.keyCode === 69) { // key: e
-		requestEditorMode();
-	}
+        if (evt.keyCode === 69) { // key: e
+            requestEditorMode();
+        }
+
+        if (evt.keyCode === 68) { // key: d
+            gameOptions.showDebug = !gameOptions.showDebug;
+        }
+
+    }
 
 	if (evt.keyCode === 80) { // key: p
 		togglePauseMode();
@@ -43,10 +51,6 @@ function keyReleased(evt) {
 
 	if (evt.keyCode === 77) { // key: m
 		toggleAudioMute();
-	}
-
-	if (evt.keyCode === 68) { // key: d
-		gameOptions.showDebug = !gameOptions.showDebug;
 	}
 
 	if (evt.keyCode === 71) { // key: g
