@@ -128,7 +128,8 @@ function setupBattleMode(worldCol, worldRow) {
         setupPauseMode('battle');
     }
 
-    if(worldCol, worldRow) {
+    if(worldCol && worldRow) {
+        console.log('starting regular battle', worldCol, worldRow);
         // find player army at given coordinates
         playerBattleArmy = playerArmies.find((army) => {
             return army.worldCol == worldCol && army.worldRow == worldRow
@@ -139,11 +140,11 @@ function setupBattleMode(worldCol, worldRow) {
         });
 
         console.log('playerBattleArmy', playerBattleArmy, 'enemyBattleArmy', enemyBattleArmy);
-        populateTeam(playerUnits, playerBattleArmy.troops.peasants, true);
-        populateTeam(enemyUnits, enemyBattleArmy.troops.peasants, false);
+        populateTeam(playerUnits, playerBattleArmy.troops, true);
+        populateTeam(enemyUnits, enemyBattleArmy.troops, false);
     } else {
         let debugArmySoldiers = 20;
-        console.log('starting debug battle');
+        console.log('starting debug battle', worldCol, worldRow);
 
         populateTeam(playerUnits, debugArmySoldiers, true);
         populateTeam(enemyUnits, debugArmySoldiers, false);

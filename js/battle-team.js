@@ -66,10 +66,15 @@ function addNewUnitToTeam(spawnedUnit, fightsForTeam) {
     allUnits.push(spawnedUnit);
 }
 
-function populateTeam(whichTeam, howMany, isPlayerControlled) {
-    for(var i=0;i<howMany;i++) {
+function populateTeam(whichTeam, armyTroops, isPlayerControlled) {
+    for(var i=0;i<armyTroops.peasants;i++) {
         var spawnUnit = new unitClass();
-        spawnUnit.resetAndSetPlayerTeam(isPlayerControlled);
+        spawnUnit.resetAndSetPlayerTeam(isPlayerControlled, 'peasant');
+        addNewUnitToTeam(spawnUnit, whichTeam);
+    }
+    for(var i=0;i<armyTroops.spearmen;i++) {
+        var spawnUnit = new unitClass();
+        spawnUnit.resetAndSetPlayerTeam(isPlayerControlled, 'spearman');
         addNewUnitToTeam(spawnUnit, whichTeam);
     }
 }

@@ -36,7 +36,11 @@ function armyClass(configObj) {
         if(this.playerControlled) {
             return playerArmyPic;
         } else {
-            return enemyArmyPic;
+            if(this.troops.spearmen && this.troops.spearmen > 0) {
+                return enemyArmySpearmanPic;
+            } else {
+                return enemyArmyPic;
+            }
         }
     }
 

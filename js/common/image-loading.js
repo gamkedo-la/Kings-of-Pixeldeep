@@ -1,6 +1,7 @@
 var cityPic = document.createElement("img");
 var playerArmyPic = document.createElement("img");
 var enemyArmyPic = document.createElement("img");
+var enemyArmySpearmanPic = document.createElement("img");
 var worldTerrain = document.createElement("img");
 var forestTerrain = document.createElement("img");
 var farmTerrain = document.createElement("img");
@@ -11,6 +12,7 @@ var placeholderUnitAtk = document.createElement("img");
 var placeholderUnitWalk = document.createElement("img");
 var yellowPeasantUnitSingleFrame = document.createElement("img");
 var redPeasantUnitSingleFrame = document.createElement("img");
+var redSpearmanUnitSingleFrame = document.createElement("img");
 var cityPanelBackdrop = document.createElement("img");
 var guiTopBarBackdrop = document.createElement("img");
 var guiSideBarBackdrop = document.createElement("img");
@@ -52,9 +54,8 @@ function loadImages() {
 	var imageList = [
 		{varName: cityPic, theFile: "townSprite.png"},
 		{varName: playerArmyPic, theFile: "peasant.png"},
-		// test hack by chris deleon to help show art in game, apologies for ugly form
-		{varName: enemyArmyPic, theFile: (quickUseSpearArtDebug ? "Redspearman.png" :
-							"redPeasant.png")},
+		{varName: enemyArmyPic, theFile: "redPeasant.png"},
+		{varName: enemyArmySpearmanPic, theFile: "Redspearman.png"},
 		{varName: worldTerrain, theFile: "world_terrain.png"},
 		{varName: forestTerrain, theFile: "forestSprite.png"},
 		{varName: coastalWaterTerrain, theFile: "coastalWaters.png"},
@@ -64,9 +65,8 @@ function loadImages() {
 		{varName: placeholderUnitAtk, theFile: "pixeldeep-placeholder-atk.png"},
 		{varName: placeholderUnitWalk, theFile: "pixeldeep-placeholder-walk.png"},
 		{varName: yellowPeasantUnitSingleFrame, theFile: "yellowUnitSingleframe.png"},
-		// test hack by chris deleon to help show art in game, apologies for ugly form
-		{varName: redPeasantUnitSingleFrame, theFile: (quickUseSpearArtDebug ? "redSpearmensingleframe.png" :
-								"redUnitSingleframe.png")},
+		{varName: redPeasantUnitSingleFrame, theFile: "redUnitSingleframe.png"},
+		{varName: redSpearmanUnitSingleFrame, theFile: "redSpearmensingleframe.png"},
 		{varName: cityPanelBackdrop, theFile: "city_screen_backdrop.png"},
 
         {varName: guiTopBarBackdrop, theFile: "gui_top_bar.png"},

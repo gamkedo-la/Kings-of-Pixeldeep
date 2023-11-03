@@ -17,9 +17,10 @@ const UNIT_COURAGE_PCT_MIN = 0.01;
 const UNIT_RANDOM_LAG_CHECK = 0.02;
 
 function unitClass() {
-  this.resetAndSetPlayerTeam = function(playerTeam) {
+  this.resetAndSetPlayerTeam = function(playerTeam, unitType="peasant") {
     this.receiveId();
     this.playerControlled = playerTeam;
+    this.unitType = unitType;
 
     // get units in formation from the start
     this.x = Math.random()*canvas.width/4;
@@ -638,7 +639,11 @@ function unitClass() {
       if (this.playerControlled) {
         drawBitmapCenteredWithRotation(yellowPeasantUnitSingleFrame, this.x, this.y, moveAng);
       } else {
-        drawBitmapCenteredWithRotation(redPeasantUnitSingleFrame, this.x, this.y, moveAng);
+          let spriteToDraw = redPeasantUnitSingleFrame;
+          if(this.unitType == "spearman") {
+              spriteToDraw = redSpearmanUnitSingleFrame;
+          }
+          drawBitmapCenteredWithRotation(spriteToDraw, this.x, this.y, moveAng);
       }
       
       if(gameOptions.showDebug) {

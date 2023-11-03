@@ -71,6 +71,7 @@ var army2 = new armyClass({
     playerControlled: false,
     troops: {
         peasants: 10,
+        spearmen: 10,
     }
 });
 
@@ -136,7 +137,10 @@ function runEnemyTurn() {
             name: "Enemy Army " + milisecondTimestamp,
             playerControlled: false,
             troops: {
-                peasants: 20,
+                peasants: (Math.floor(Math.random()*20) + 10),
+                    // random number of peasants between 10 and 30
+                spearmen: (Math.random() > 0.5 ? Math.floor(Math.random()*10) : 0),
+                    // coin flip to have spearmen at all; if so, random number between 1 and 10 of them
             }
         });
         enemyArmies.push(newArmy);
