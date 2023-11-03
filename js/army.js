@@ -216,20 +216,28 @@ function armyClass(configObj) {
             }
 
             // create a listener to begin a battle when the animation ends
-            this.eventTarget.addEventListener('animationEnded', function(newCol, newRow) {
+            this.eventTarget.addEventListener('animationEnded', function() {
                 console.log("animation ended event was fired with these paramaters: newCol="+newCol+" newRow="+newRow);
-                if (armyMarchingSound && !armyMarchingSound.paused()) { 
-                    // stop marching sound
-                    armyMarchingSound.pause();
-                }
-                if (beginBattleAfterAnimation) {
-                    setupBattleMode(newCol, newRow);
-                }
+
+                // clean up before we leave:
 
                 // clear selection & sidebar info after movement is complete
                 this.selectedWorldEntity = null;
                 currentSidebarLabels = [];
                 currentSidebarButtons = WORLD_SIDEBAR_BUTTONS;
+
+                // stop marching sound
+                if (armyMarchingSound && !armyMarchingSound.paused()) { 
+                    armyMarchingSound.pause();
+                }
+
+                // maybe start battle mode!
+                if (beginBattleAfterAnimation) {
+                    console.log("setting up battle mode because beginBattleAfterAnimation="+beginBattleAfterAnimation);
+                    setupBattleMode(newCol, newRow);
+                } else {
+                    console.log("doing nothing because beginBattleAfterAnimation="+beginBattleAfterAnimation);
+                }
 
             }, { once: true });
 
