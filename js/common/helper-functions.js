@@ -17,3 +17,20 @@ function getRandomBattlefield() {
   let chosenBattlefield = "battlefield" + randomIndex;
   return chosenBattlefield;
 }
+
+// Get query params from the URL (browser's address bar), 
+// assign them as key-value pairs to an object of query params
+// each param key-value pair is separated by & in the URL
+//
+// Usage e.g.: http://localhost:8080/?debug=true&param2=value2&param3=value3&....
+//      paramsObject: 
+//           { debug: true, param2: value2, param3: value3, ... }
+function getQueryParamsFromUrl(url) {
+    const paramsObject = {};
+    url.slice(url.indexOf("?") + 1).split("&").map(param => {
+        const [key, value] = param.split("=");
+        paramsObject[key] = decodeURIComponent(value);
+    })
+    return paramsObject;
+}
+

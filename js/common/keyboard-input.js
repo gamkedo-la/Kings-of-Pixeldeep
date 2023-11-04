@@ -1,4 +1,5 @@
 var debugKeys = false;
+
 function setupKeyboardInput() {
 
 	document.addEventListener('keydown', keyPressed);
