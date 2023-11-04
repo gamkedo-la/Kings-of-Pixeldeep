@@ -12,7 +12,16 @@ var sliderTest = new sliderClass({
     y: 300,
 });
 
+var queryParams = [];
+
 window.onload = function() {
+    // Get all query params from URL, put them in an object
+    queryParams = getQueryParamsFromUrl(window.location.toString());
+
+    // If "debug" param is present or is true,
+    // debugKeys is also true, hence debug keys are enabled
+    debugKeys = Boolean(queryParams.debug);
+    
     colorRect(0,0, canvas.width,canvas.height, "black");
     colorText("Loading...", canvas.width/2,canvas.height/2, "white");
 
