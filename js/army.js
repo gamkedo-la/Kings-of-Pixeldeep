@@ -363,6 +363,9 @@ function armyClass(configObj) {
         // keeps animating until this goes over 1
         if (this.pathAnimPercent < 1) {
             this.pathAnimPercent += this.pathAnimSpeed;
+
+            camPanX = this.x() - canvas.width / 2;
+            camPanY = this.y() - canvas.height / 2;
             //console.log("this.pathAnimPercent="+this.pathAnimPercent.toFixed(2));
         } 
 
