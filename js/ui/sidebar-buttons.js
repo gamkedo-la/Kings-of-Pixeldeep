@@ -87,6 +87,8 @@ const WORLD_SIDEBAR_BUTTONS = [
     }),
 ];
 
+const endTurnButton = WORLD_SIDEBAR_BUTTONS[WORLD_SIDEBAR_BUTTONS.length - 1];
+
 const WORLD_EDITOR_SIDEBAR_BUTTONS = [
 // Terrain Type Buttons
     new buttonClass({

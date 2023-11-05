@@ -118,6 +118,7 @@ function isPlayerArmyAtPosition(col, row) {
 
 let e = 0; // index of enemyArmy currently moving
 function runEnemyTurn() {
+    endTurnButton.hidden = true;
     if (enemyArmies.length > 0) {
         const onAnimationEnded = function() {
             enemyArmies[e].eventTarget.removeEventListener('animationEnded', onAnimationEnded);
@@ -130,6 +131,7 @@ function runEnemyTurn() {
             else { // If not, reset e to prepare for next turn
                 e = 0;
                 selectNextAvailableArmy();
+                endTurnButton.hidden = false;
             }
         }
         enemyArmies[e].eventTarget.addEventListener('animationEnded', onAnimationEnded);
