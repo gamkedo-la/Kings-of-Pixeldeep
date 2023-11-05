@@ -123,25 +123,24 @@ var createArmyScreenControls = [
         x: CITY_PANEL_X + CITY_PANEL_W - 350,
         y: CITY_PANEL_Y + CITY_PANEL_H - 80,
         label: function() {
-            var armyCost = newArmyCost();
+            const armyCost = newArmyCost();
             return "Create (" + armyCost + "g)";
         },
         color: function() {
-            var armyCost = newArmyCost();
-            var newColor = BUTTON_CLASS_COLOR_FAINT_WHITE;
+            let newColor = BUTTON_CLASS_COLOR_FAINT_WHITE;
             return newColor;
         },
         highlightIf: function() {
-            var armyCost = newArmyCost();
-            var hoverHighlight = false;
+            const armyCost = newArmyCost();
+            let hoverHighlight = false;
             if (playerGold >= armyCost && armyCost > 0) {
-                var hoverHighlight = isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+                hoverHighlight = isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
             }
             return hoverHighlight;
         },
         onClick: function() {
-            let armyCost = newArmyCost();
-            let armyTroopCount = newTroopCount();
+            const armyCost = newArmyCost();
+            const armyTroopCount = newTroopCount();
             if(selectedWorldEntity instanceof cityClass && playerGold >= armyCost && armyCost > 0) {
                 viewingCity = selectedWorldEntity;
                 // copy newArmyTroops structure and reset to army troop count
@@ -157,8 +156,8 @@ var createArmyScreenControls = [
             }
         },
         textColor: function() {
-            var armyCost = newArmyCost();
-            var newTextColor = "black";
+            const armyCost = newArmyCost();
+            let newTextColor = "black";
             if (playerGold < armyCost || armyCost === 0) {
                 newTextColor = "grey";
             }

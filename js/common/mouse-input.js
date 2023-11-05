@@ -440,7 +440,7 @@ function handleMainWindowClick(mousePos, evt) {
         replaceTerrain(clickedIdx);
     }
 
-    if(!battleMode && !editorMode) { // ie - if worldMode
+    if(!battleMode && !editorMode && !showCreateArmyScreen) { // ie - if worldMode
         if(selectedWorldEntity instanceof cityClass && selectedWorldEntity.worldIdx() !== clickedIdx) {
             // deselect city
             selectedWorldEntity = null;
