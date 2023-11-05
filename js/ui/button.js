@@ -2,6 +2,7 @@ const BUTTON_CLASS_COLOR_FAINT_WHITE = 'rgba(255,255,255,0.3)';
 
 function buttonClass(configObj) {
     this.tag = ""; // attribute to filter array of buttons
+    this.hidden = false;
     this.x = null;
     this.y = null;
     this.label = null;

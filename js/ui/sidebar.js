@@ -20,7 +20,9 @@ function drawSidebar() {
 
     // draw all buttons
     for(const button of currentSidebarButtons) {
-    	button.draw();
+        if (!button.hidden) { // don't draw hidden buttons
+            button.draw();
+        }
     }
 }
 
@@ -30,10 +32,11 @@ function handleSidebarButtonClick(mousePos) {
     for(let i=0;i<currentSidebarButtons.length; i++) {
 	let currentButton = currentSidebarButtons[i];
         if(isClickOnButton(mousePos, currentButton)) {
-            // FIXME: this seems to check ALL buttons but
-            // we should only check visible buttons?
-            console.log("handleSidebarButtonClick is clicking "+currentButton.label);
-            currentButton.onClick(); 
+            // Only if button is not hidden
+            if (!currentButton.hidden) {
+                console.log("handleSidebarButtonClick is clicking "+currentButton.label);
+                currentButton.onClick(); 
+            }
             break; // stop looking for more buttons, only click the first match
         }
     }
