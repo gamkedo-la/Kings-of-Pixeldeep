@@ -129,6 +129,7 @@ function runEnemyTurn() {
             }
             else { // If not, reset e to prepare for next turn
                 e = 0;
+                selectNextAvailableArmy();
             }
         }
         enemyArmies[e].eventTarget.addEventListener('animationEnded', onAnimationEnded);
