@@ -116,9 +116,23 @@ function isPlayerArmyAtPosition(col, row) {
     return false;
 }
 
+let e = 0; // index of enemyArmy currently moving
 function runEnemyTurn() {
-    for(const army of enemyArmies) {
-        army.AIMove();
+    if (enemyArmies.length > 0) {
+        const onAnimationEnded = function() {
+            enemyArmies[e].eventTarget.removeEventListener('animationEnded', onAnimationEnded);
+
+            e++;
+            if (enemyArmies[e]) { // If there is an enemy army at e
+                enemyArmies[e].eventTarget.addEventListener('animationEnded', onAnimationEnded);
+                enemyArmies[e].AIMove();
+            }
+            else { // If not, reset e to prepare for next turn
+                e = 0;
+            }
+        }
+        enemyArmies[e].eventTarget.addEventListener('animationEnded', onAnimationEnded);
+        enemyArmies[e].AIMove();
     }
 
     // randomly spawn enemy-controlled armies every
