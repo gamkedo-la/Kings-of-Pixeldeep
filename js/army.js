@@ -22,6 +22,12 @@ function armyClass(configObj) {
         spearmen: 0,
         horsemen: 0,
     }
+    this.capturedTroops = {
+        peasants: 0,
+        archers: 0,
+        spearmen: 0,
+        horsemen: 0,
+    }
 
     if(configObj) {
         for( const [key, val] of Object.entries(configObj) ) {
@@ -467,5 +473,34 @@ function armyClass(configObj) {
          });
 
          return unitsCounted;
+    }
+
+    this.unitTroopRoster = function(units) {
+        let troops = {
+            peasants: 0,
+            archers: 0,
+            spearmen: 0,
+            horsemen: 0,
+        };
+
+        // the below counts the number of each unit type in units collection
+        // can simplify to filter and length is desired
+        troops.peasants = units.reduce(
+            (n, unit) => (unit).unitType === 'peasant' ? n + 1 : n, 0);
+        troops.archers = units.reduce(
+            (n, unit) => (unit).unitType === 'archer' ? n + 1 : n, 0);
+        troops.spearmen = units.reduce(
+            (n, unit) => (unit).unitType === 'spearman' ? n + 1 : n, 0);
+        troops.horsemen = units.reduce(
+            (n, unit) => (unit).unitType === 'horseman' ? n + 1 : n, 0);
+
+         return troops;
+    }
+
+    this.clearTroops = function() {
+        this.troops.peasants = 0;
+        this.troops.archers = 0;
+        this.troops.spearmen = 0;
+        this.troops.horsemen = 0;
     }
 } // end army class

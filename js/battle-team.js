@@ -6,18 +6,50 @@ var enemyUnits = [];
 var allUnits = [];
 
 var anyNewUnitsToClear = false;
+var playerSurrenders = false;
+
+function clearBattleUnits() {
+    playerUnits   = [];
+    enemyUnits    = [];
+    allUnits      = [];
+    selectedUnits = [];
+}
 
 function soonCheckUnitsToClear() {
     anyNewUnitsToClear = true;
 }
 
 function checkAndHandleVictory() {
+    let battleIsOver = false;
+
     if(playerUnits.length == 0 && enemyUnits.length == 0) {
+        battleIsOver = true;
+
         if(gameOptions.showDebug) {
             document.getElementById("debugText").innerHTML = "IT'S... A... DRAW?";
         }
-        setupWorldMode();
-    } else if(playerUnits.length == 0) {
+
+        if(playerBattleArmy || enemyBattleArmy) {
+            playerArmies = playerArmies.filter(
+                army => army.name !== playerBattleArmy.name
+            );
+            allArmies = allArmies.filter(
+                army => army.name !== playerBattleArmy.name
+            );
+
+            enemyArmies = enemyArmies.filter(
+                army => army.name !== enemyBattleArmy.name
+            );
+            allArmies = allArmies.filter(
+                army => army.name !== enemyBattleArmy.name
+            );
+
+            playerBattleArmy.clearTroops();
+            enemyBattleArmy.clearTroops();
+        }
+    } else if(playerUnits.length == 0 || playerSurrenders) {
+        battleIsOver = true;
+
         if(gameOptions.showDebug) {
             document.getElementById("debugText").innerHTML = "ENEMY TEAM WON";
         }
@@ -31,17 +63,28 @@ function checkAndHandleVictory() {
             allArmies = allArmies.filter(
                 army => army.name !== playerBattleArmy.name
             );
-            enemyBattleArmy.troops.peasants = enemyUnits.length;
+
+            let enemyTroops = enemyBattleArmy.unitTroopRoster(enemyUnits);
+            enemyBattleArmy.troops.peasants = enemyTroops.peasants;
+            enemyBattleArmy.troops.archers = enemyTroops.archers;
+            enemyBattleArmy.troops.spearmen = enemyTroops.spearmen;
+            enemyBattleArmy.troops.horsemen = enemyTroops.horsemen;
+
+            let playerTroops = playerBattleArmy.unitTroopRoster(playerUnits);
+            enemyBattleArmy.capturedTroops.peasants += playerTroops.peasants;
+            enemyBattleArmy.capturedTroops.archers += playerTroops.archers;
+            enemyBattleArmy.capturedTroops.spearmen += playerTroops.spearmen;
+            enemyBattleArmy.capturedTroops.horsemen += playerTroops.horsemen;
+
+            playerBattleArmy.clearTroops();
         }
-
-        playerUnits = [];
-        enemyUnits  = [];
-        setupWorldMode();
-
     } else if(enemyUnits.length == 0) {
+        battleIsOver = true;
+
         if(gameOptions.showDebug) {
             document.getElementById("debugText").innerHTML = "PLAYER TEAM WON";
         }
+
         console.log('battle over, player won');
 
         if(playerBattleArmy || enemyBattleArmy) {
@@ -52,13 +95,35 @@ function checkAndHandleVictory() {
                 army => army.name !== enemyBattleArmy.name
             );
 
-            playerBattleArmy.troops.peasants = playerUnits.length;
-        }
+            let playerTroops = playerBattleArmy.unitTroopRoster(playerUnits);
+            playerBattleArmy.troops.peasants = playerTroops.peasants;
+            playerBattleArmy.troops.archers = playerTroops.archers;
+            playerBattleArmy.troops.spearmen = playerTroops.spearmen;
+            playerBattleArmy.troops.horsemen = playerTroops.horsemen;
 
-        playerUnits = [];
-        enemyUnits  = [];
+            let enemyTroops = playerBattleArmy.unitTroopRoster(enemyUnits);
+            playerBattleArmy.capturedTroops.peasants += enemyTroops.peasants;
+            playerBattleArmy.capturedTroops.archers += enemyTroops.archers;
+            playerBattleArmy.capturedTroops.spearmen += enemyTroops.spearmen;
+            playerBattleArmy.capturedTroops.horsemen += enemyTroops.horsemen;
+
+            enemyBattleArmy.clearTroops();
+        }
+    }
+
+    if (battleIsOver) {
+        playerSurrenders = false;
+        clearBattleUnits();
         setupWorldMode();
-  }
+    }
+}
+
+function handlePlayerBattleSurrender() {
+    playerSurrenders = true;
+    checkAndHandleVictory();
+    clearBattleUnits();
+    //setupBattleMode(); // get a new map for next battle mode
+    requestWorldMode('battle');
 }
 
 function addNewUnitToTeam(spawnedUnit, fightsForTeam) {

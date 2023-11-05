@@ -345,8 +345,7 @@ const BATTLE_SIDEBAR_BUTTONS = [
         padding: 1,
         onClick: function() {
             console.log("button clicked: "+this.label);
-            //setupBattleMode(); // get a new map for next battle mode
-            requestWorldMode('battle');
+            handlePlayerBattleSurrender();
         },
         highlightIf: function() {
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
@@ -724,8 +723,7 @@ const BATTLE_PAUSE_SIDEBAR_BUTTONS = [
         padding: 1,
         onClick: function() {
             console.log("button clicked: "+this.label);
-            setupBattleMode(); // get a new map for next battle mode
-            requestWorldMode('battle');
+            handlePlayerBattleSurrender();
         },
         highlightIf: function() {
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
