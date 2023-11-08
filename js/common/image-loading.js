@@ -19,6 +19,7 @@ var guiSideBarBackdrop = document.createElement("img");
 var destinationMarker = document.createElement("img");
 var armySelection = document.createElement("img");
 var titlescreenPic = document.createElement("img");
+var gui400x400background = document.createElement("img");
 
 var worldPics = [];
 var unitPics = [];
@@ -75,6 +76,7 @@ function loadImages() {
         {varName: armySelection, theFile: "armySelection.png"},
 
         {varName: titlescreenPic, theFile: "titlescreen.png"},
+        {varName: gui400x400background, theFile: "gui400x400.png"},
         
 
 		/*

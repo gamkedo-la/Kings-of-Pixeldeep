@@ -41,8 +41,8 @@ var createArmyScreenControls = [
     new buttonClass({
         x: CREATE_ARMY_SCREEN_X + 125,
         y: CREATE_ARMY_SCREEN_Y + 0,
-        color: 'lightgrey',
-        label: "Create An Army",
+        color: 'lightgrey', //FIXME: not sure how to turn off background, I tried rgba(0,0,0,0,) but it went full white
+        label: "Create Army",
     }),
 
     new sliderClass({
@@ -179,9 +179,13 @@ var createArmyScreenControls = [
 ];
 
 function drawCreateArmyScreen() {
+    
+    canvasContext.drawImage(gui400x400background,CREATE_ARMY_SCREEN_X,CREATE_ARMY_SCREEN_Y);
+    /*
     colorRect(CREATE_ARMY_SCREEN_X,CREATE_ARMY_SCREEN_Y, 
         CREATE_ARMY_SCREEN_W,CREATE_ARMY_SCREEN_H, 
         'lightgrey'); 
+    */
 
     for(var i=0;i<createArmyScreenControls.length;i++) {
         createArmyScreenControls[i].draw();
