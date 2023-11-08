@@ -283,7 +283,8 @@ function clickHandler(evt) {
     // find out where the click was
     var mousePos = calculateMousePos(evt);
 
-    if(mainMenuMode) {
+    // these extras are to ensure we don't react twice to a single click
+    if(mainMenuMode && userHasInteractedWithGame && userInteractStage != USER_INTERACT_STAGE_NONE) {
         handleMainMenuClick(mousePos);
         return;
     }

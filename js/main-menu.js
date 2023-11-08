@@ -58,8 +58,23 @@ function drawMainMenu() {
     }
 }
 
+var ignoreNextMouseUp = true; // ensure first click cannot click a main menu button accidentally
+
 function handleMainMenuClick(mousePos) {
 
+    console.log("handleMainMenuClick");
+    
+    // bugfix: this avoids duplicate clicks:
+    // once on "click anywhere to begin",
+    // AND this button in the same click
+    if (ignoreNextMouseUp) {
+        ignoreNextMouseUp = false;
+        return;
+    }
+    // hmm no effect:
+    if (!userHasInteractedWithGame) return; 
+    if (userInteractStage === USER_INTERACT_STAGE_NONE) return;
+    
     for(let i=0;i<MainMenuButtons.length; i++) {
 	let currentButton = MainMenuButtons[i];
         if(isClickOnButton(mousePos, currentButton)) {
