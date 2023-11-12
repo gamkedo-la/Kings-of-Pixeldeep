@@ -11,7 +11,7 @@ const SIZE_BUTTON_X = 740;
 
 const WORLD_SIDEBAR_BUTTONS = [
     new buttonClass({
-        label: "Help",
+        label: "Help (H)",
         padding: 1,
         onClick: function() {
             console.log("help button clicked!");
@@ -329,7 +329,7 @@ const WORLD_EDITOR_SIDEBAR_BUTTONS = [
 
 const BATTLE_SIDEBAR_BUTTONS = [
     new buttonClass({
-        label: "Help",
+        label: "Help (H)",
         padding: 1,
         onClick: function() {
             console.log("help button clicked!");

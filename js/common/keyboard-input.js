@@ -58,6 +58,22 @@ function keyReleased(evt) {
 		gameOptions.showGrid = !gameOptions.showGrid;
 	}
 
+    if (evt.key == "h") {
+        const div = document.getElementById("helpwindow");
+
+        if (div) {
+            if (div.style.display == "block") {
+                div.style.display = "none";
+            }
+            else if (div.style.display == "none") {
+                div.style.display = "block";
+            }
+            else {
+                div.style.display = "block";
+            }
+        }
+    }
+
     if (evt.key == "Escape") {
         if(battleMode && !editorMode) { 
             selectedUnits = [];
