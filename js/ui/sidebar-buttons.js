@@ -22,7 +22,7 @@ const WORLD_SIDEBAR_BUTTONS = [
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
         },
         x:BUTTON_X,
-        y:375, 
+        y:300, 
     }),
     /*
     new buttonClass({
@@ -64,6 +64,19 @@ const WORLD_SIDEBAR_BUTTONS = [
         onClick: function() { 
             console.log("button clicked: "+this.label);
             return togglePauseMode();
+        },
+        highlightIf: function() {
+            return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
+        },
+        x:BUTTON_X,
+        y:375, 
+    }),
+
+    new buttonClass({
+        label: "Next (Tab)",
+        onClick: function() { 
+            console.log("button clicked: "+this.label);
+            selectNextAvailableArmy();
         },
         highlightIf: function() {
             return isClickInBox(currentMousePos,this.x,this.y,this.x+this.width,this.y+this.height);
