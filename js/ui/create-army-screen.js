@@ -4,6 +4,7 @@ const CREATE_ARMY_SCREEN_W = 400;
 const CREATE_ARMY_SCREEN_H = 400;
 const CREATE_ARMY_MIN_RECRUIT_PCT = 0;
 const CREATE_ARMY_MAX_RECRUIT_PCT = 90;
+const NUMBER_OF_TROOPS = "Number of units: ";
 
 var showCreateArmyScreen = false;
 
@@ -29,6 +30,11 @@ var newTroopCount = function() {
         newTroopCount = Math.floor(Math.max(newTroopCount, 0));
     }
     return newTroopCount;
+}
+
+var updateNewTroopCount = function () {
+    const newTroopCountLabel = createArmyScreenControls.filter(control => control.tag == "newTroopCount");
+    newTroopCountLabel.pop().text = NUMBER_OF_TROOPS + String(newTroopCount());
 }
 
 var newArmyCost = function() {
@@ -66,6 +72,7 @@ var createArmyScreenControls = [
         },
         onClick: function() {
             createArmyScreenControls[1].currentValue = CREATE_ARMY_MIN_RECRUIT_PCT;
+            updateNewTroopCount();
         },
     }),
 
@@ -83,6 +90,7 @@ var createArmyScreenControls = [
             createArmyScreenControls[1].currentValue -= 1;
             createArmyScreenControls[1].currentValue = 
                 Math.max(createArmyScreenControls[1].currentValue, CREATE_ARMY_MIN_RECRUIT_PCT);
+            updateNewTroopCount();
         },
     }),
 
@@ -100,6 +108,7 @@ var createArmyScreenControls = [
             createArmyScreenControls[1].currentValue += 1;
             createArmyScreenControls[1].currentValue = 
                 Math.min(createArmyScreenControls[1].currentValue, CREATE_ARMY_MAX_RECRUIT_PCT);
+            updateNewTroopCount();
         },
     }),
 
@@ -115,7 +124,17 @@ var createArmyScreenControls = [
         },
         onClick: function() {
             createArmyScreenControls[1].currentValue = CREATE_ARMY_MAX_RECRUIT_PCT;
+            updateNewTroopCount();
         },
+    }),
+
+    new labelClass({
+        tag: "newTroopCount",
+        text: NUMBER_OF_TROOPS + "0",
+        width: 100, 
+        textAlign: 'left',
+        x: CREATE_ARMY_SCREEN_X - 22,
+        y: CREATE_ARMY_SCREEN_Y + 170,
     }),
 
     /* Create Army button */
@@ -266,6 +285,8 @@ function handleCreateArmyScreenMouseup(mousePos) {
             break;
         }
     }
+
+    updateNewTroopCount();
 }
 
 function handleCreateArmyScreenMousedown(mousePos) {
