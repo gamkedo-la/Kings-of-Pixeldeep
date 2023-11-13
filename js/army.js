@@ -336,8 +336,32 @@ function armyClass(configObj) {
                 console.log('moving on to random location', randomTargetX, randomTargetY);
                 let randomPath = levelGridPathfind(this.worldCol,this.worldRow,
                     randomTargetX,randomTargetY);
-                if(randomPath.length <= this.currentMovementPoints && randomPath.length >= 1) {
-                    chosenPathThisLoop = randomPath;
+
+                if(randomPath.length <= this.currentMovementPoints && 
+                    randomPath.length >= 1) {
+
+                    // check for red army at target location
+                    let redArmyAtTarget = false;
+                    let randomPathEnd = randomPath[randomPath.length - 1];
+
+                    console.log('checking random path end', randomPath, randomPathEnd);
+
+                    for(const army of enemyArmies) {
+                        if(army.worldRow == randomPathEnd[0] && 
+                            army.worldCol == randomPathEnd[1]) {
+
+                            console.log('found enemy army at target');
+                            redArmyAtTarget = true;
+                            break;
+                        }
+                    }
+
+
+                    if(!redArmyAtTarget) {
+                        chosenPathThisLoop = randomPath;
+                    } else {
+                        console.log('random path collides with enemy army', randomPath);
+                    }
                 } else {
                     console.log('random path too long or short', randomPath);
                 }
