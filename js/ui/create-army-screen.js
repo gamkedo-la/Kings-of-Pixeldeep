@@ -46,8 +46,8 @@ var newArmyCost = function() {
 var createArmyScreenControls = [
     new buttonClass({
         x: CREATE_ARMY_SCREEN_X + 125,
-        y: CREATE_ARMY_SCREEN_Y + 0,
-        color: 'lightgrey', //FIXME: not sure how to turn off background, I tried rgba(0,0,0,0,) but it went full white
+        y: CREATE_ARMY_SCREEN_Y + 10,
+        color: 'transparent', 
         label: "Create Army",
     }),
 
@@ -130,7 +130,7 @@ var createArmyScreenControls = [
 
     new labelClass({
         tag: "newTroopCount",
-        text: NUMBER_OF_TROOPS + "0",
+        text: () => NUMBER_OF_TROOPS + newTroopCount(),
         width: 100, 
         textAlign: 'left',
         x: CREATE_ARMY_SCREEN_X - 22,
